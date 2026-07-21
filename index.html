@@ -57,8 +57,9 @@
     border:1px solid var(--linie);position:relative;display:flex;flex-direction:column;
     box-shadow:0 8px 22px rgba(80,60,40,.09);transition:transform .18s,box-shadow .18s}
   .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(80,60,40,.16);border-color:var(--artar)}
-  .thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:52px;
-         background-size:cover;background-position:center}
+  .thumb{aspect-ratio:3/2;height:auto;display:flex;align-items:center;justify-content:center;font-size:52px;
+         background-size:cover;background-position:center;filter:saturate(.92) contrast(1.03);
+         box-shadow:inset 0 -70px 60px -40px rgba(60,35,20,.42), inset 0 0 0 1px rgba(60,35,20,.08)}
   .card .body{padding:14px 16px 18px}
   .card h3{margin:0 0 4px;font-family:Georgia,serif;font-weight:400;font-size:19px;line-height:1.25}
   .desc{font-size:13.5px;line-height:1.5;margin:0 0 8px}
@@ -71,7 +72,7 @@
   @media (prefers-reduced-motion:reduce){.stamp.show{animation:none;transform:rotate(-14deg) scale(1);opacity:1}
     .card:hover{transform:none}.st:hover{transform:none}}
   .vs{text-align:center;font-family:Georgia,serif;letter-spacing:.26em;color:var(--gri);margin:14px 0 12px;font-size:11.5px}
-  @media(max-width:640px){.duel{grid-template-columns:1fr}.thumb{height:120px;font-size:40px}}
+  @media(max-width:640px){.duel{grid-template-columns:1fr}.thumb{font-size:40px}}
 
   .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
   .opt{background:var(--hartie);border:1px solid var(--linie);border-radius:3px;padding:14px;text-align:left;display:block}
@@ -103,7 +104,7 @@
    Dacă îl lași gol, aplicația merge în continuare, dar răspunsurile rămân
    doar pe telefonul fiecăruia.
    ========================================================================== */
-const URL_SCRIPT = "https://docs.google.com/spreadsheets/d/1BrkwPCnAtWxa1lSlKGsyQmyDQbMAxdsG/edit?gid=2046141200#gid=2046141200";
+const URL_SCRIPT = "";
 
 /* ============================================================================
    ② ZONA DE EDITAT — CONȚINUTUL TĂU
@@ -113,25 +114,20 @@ const ORASE = ["Tokyo","Kyoto","Osaka & Nara","Excursii de o zi"];
 
 /* PREFERINȚE GENERALE (notă 1–10) */
 let PREFERINTE = [
-  {id:"p1",  text:"Cât de mult vrei să vedem temple și sanctuare?"},
-  {id:"p2",  text:"Cât de mult vrei să ieșim în natură — munte, pădure, poteci?"},
-  {id:"p3",  text:"Cât de mult vrei să mâncăm pește proaspăt dimineața, direct în piață?"},
-  {id:"p4",  text:"Cât de mult vrei să încercăm cât mai multe feluri de mâncare autentică?"},
-  {id:"p5",  text:"Cât de mult te atrag deserturile și patiseria japoneză?"},
-  {id:"p6",  text:"Cât de mult preferi taxiul între destinații, chiar dacă e mai scump?"},
-  {id:"p7",  text:"Cât de dispusă/dispus ești să ne trezim foarte devreme (6 dimineața)?"},
-  {id:"p8",  text:"Cât de important e să avem onsen la fiecare hotel?"},
-  {id:"p9",  text:"Cât de mult vrei orașul noaptea — neoane, baruri mici, străzi aglomerate?"},
-  {id:"p10", text:"Cât de mult te atrag muzeele și arta contemporană?"},
-  {id:"p11", text:"Cât de mult vrei timp de cumpărături (vintage, papetărie, electronice)?"},
-  {id:"p12", text:"Cât de mult vrei zile lejere, cu pauze și timp liber?"},
-  {id:"p13", text:"Cât de mult te atrag experiențele tradiționale (ceai, kimono, caligrafie)?"},
-  {id:"p14", text:"Cât de des vrei să ne oprim pentru fotografii?"},
-  {id:"p15", text:"Cât de mult preferi locurile mai puțin cunoscute, chiar dacă implică drum lung?"},
-  {id:"p16", text:"Cât de dispusă/dispus ești să plătim mai mult pentru o masă memorabilă?"},
-  {id:"p17", text:"Cât de mult vrei seri gălăgioase — karaoke, arcade, izakaya până târziu?"},
-  {id:"p18", text:"Cât de mult te atrag parcurile tematice (Universal Studios, DisneySea)?"},
-  {id:"p19", text:"Cât de mult vrei să vedem frunzele de toamnă (momiji), chiar dacă e aglomerat?"}
+  {id:"p1", text:"Cât de mult vrei să vedem temple și sanctuare?"},
+  {id:"p2", text:"Cât de mult vrei să ieșim în natură — munte, pădure, parcuri?"},
+  {id:"p3", text:"Cât de mult vrei să mergem într-o dimineață la piață, pentru a gusta ton proaspăt, stridii, și alte produse maritime?"},
+  {id:"p4", text:"Cât de mult vrei să încercăm diverse produse din bucătăria tradițională japoneză (în afară de sushi)?"},
+  {id:"p5", text:"Cât de mult te atrag deserturile și patiseria japoneză?"},
+  {id:"p6", text:"Cât de mult preferi taxiul între destinații, față de transportul public, chiar dacă e mai scump?"},
+  {id:"p7", text:"Cât de dispusă/dispus ești să ne trezim foarte devreme, pentru a evita aglomerația de turiști (adică la 6 dimineața)?"},
+  {id:"p8", text:"Cât de important e să avem onsen și saună la fiecare hotel? (Onsen este o baie termală tradițională japoneză alimentată de izvoare geotermale naturale bogate în minerale)"},
+  {id:"p9", text:"Cât de mult dorești să explorezi viața urbană din Tokio pe timp de noapte — lumini neon, baruri (izakaya), străzi aglomerate?"},
+  {id:"p10", text:"Cât de mult te atrag muzeele de istorie și artă japoneză?"},
+  {id:"p11", text:"Cât de mult îți dorești să avem timp de shopping (pentru haine, cadouri, suveniruri) și să explorăm faimosul cartier de shopping - Ginza?"},
+  {id:"p12", text:"Cât de mult vrei să avem zile lejere, cu pauze și timp liber de a savura momentul?"},
+  {id:"p13", text:"Cât de mult te atrag experiențele tradiționale japoneze (ritualul ceaiului, probarea kimonoului, ore de caligrafie)?"},
+  {id:"p15", text:"Cât de mult preferi să vizitezi locuri frumoase, dar mai puțin cunoscute, în schimbul atracțiilor faimoase și aglomerate?"}
 ];
 
 /* CARDURI — „img" acceptă un link către o fotografie reală */
@@ -384,7 +380,7 @@ function urmatoareaPereche(oras){
 }
 const card=id=>CARDURI.find(c=>c.id===id);
 const esc=s=>(s||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-const fundal=c=>c.img?`style="background-image:url('${esc(c.img)}')"`:`style="background:linear-gradient(150deg,#EFE4D2,#E4D3BC)"`;
+const fundal=c=>c.img?`style="background-image:url('${esc(c.img)}');background-position:${esc(c.poz||"center")}"`:`style="background:linear-gradient(150deg,#EFE4D2,#E4D3BC)"`;
 
 /* ---------- randare ---------- */
 function antet(){
