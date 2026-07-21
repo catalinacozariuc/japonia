@@ -5,15 +5,18 @@
 <style>
   :root{
     --hartie:#F5EFE4; --hartie2:#FFFCF6; --tus:#33302B; --gri:#8A8377;
-    --artar:#C4452D; --kaki:#B07C2A; --ceai:#6E7A52; --linie:#E2D8C6;
+    --artar:#C4452D; --kaki:#B07C2A; --ceai:#6E7A52; --indigo:#4A6274;
+    --linie:#E2D8C6; --linie2:#EFE7D9;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--hartie)}
   #app{color:var(--tus);font-family:"Helvetica Neue",Inter,system-ui,sans-serif;min-height:100vh;
-       padding:26px 18px 80px;
+       padding:26px 18px 90px;
        background-image:radial-gradient(circle at 90% 0%,rgba(196,69,45,.07),transparent 45%),
-                        radial-gradient(circle at 5% 12%,rgba(110,122,82,.07),transparent 40%)}
-  .wrap{max-width:1060px;margin:0 auto}
+                        radial-gradient(circle at 5% 12%,rgba(110,122,82,.07),transparent 40%),
+                        radial-gradient(circle at 40% 100%,rgba(176,124,42,.05),transparent 50%)}
+  .wrap{max-width:1100px;margin:0 auto}
+
   .kanji{font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;font-size:clamp(30px,6vw,46px);
          color:var(--artar);letter-spacing:.08em;margin:0;line-height:1.1}
   .kanji small{font-size:.42em;letter-spacing:.04em}
@@ -22,9 +25,10 @@
   h2{font-family:Georgia,serif;font-weight:400;font-size:21px;margin:0 0 10px}
   .sub{color:var(--gri);font-size:12.5px;letter-spacing:.05em;margin:0 0 22px}
   .row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+
   button{font:inherit;font-size:13px;letter-spacing:.04em;cursor:pointer;background:var(--hartie2);
     color:var(--tus);border:1px solid var(--linie);border-radius:2px;padding:9px 14px;
-    transition:background .15s,border-color .15s,transform .15s}
+    transition:background .15s,border-color .15s,transform .15s,color .15s}
   button:hover{border-color:var(--artar)}
   button:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
   button.primary{background:var(--artar);border-color:var(--artar);color:#fff}
@@ -35,53 +39,83 @@
     border:1px solid var(--linie);border-radius:2px;padding:9px 11px;width:100%}
   textarea{min-height:64px;line-height:1.45;resize:vertical}
   label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gri);margin:12px 0 5px}
-  .tabs{display:flex;gap:24px;border-bottom:1px solid var(--linie);margin-bottom:20px;flex-wrap:wrap}
+
+  .tabs{display:flex;gap:22px;border-bottom:1px solid var(--linie);margin-bottom:20px;flex-wrap:wrap}
   .tab{padding:0 0 10px;border:0;border-bottom:2px solid transparent;border-radius:0;letter-spacing:.13em;
        text-transform:uppercase;font-size:10.5px;color:var(--gri);background:none}
   .tab:hover{background:none;color:var(--tus)}
   .tab.active{color:var(--artar);border-bottom-color:var(--artar)}
-  .panel{background:var(--hartie2);border:1px solid var(--linie);border-radius:3px;padding:18px;margin-bottom:14px}
-  .note{font-size:12px;color:var(--gri);line-height:1.6}
-  .meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gri);margin-bottom:8px}
 
+  .panel{background:var(--hartie2);border:1px solid var(--linie);border-radius:3px;padding:18px;margin-bottom:14px}
+  .note{font-size:12.5px;color:var(--gri);line-height:1.65}
+  .meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gri);margin-bottom:8px}
+  .hr{height:1px;background:var(--linie);margin:16px 0}
+
+  /* ---------- interese (1-10) ---------- */
   .pref{border-bottom:1px solid var(--linie);padding:14px 2px}
-  .pref .q{font-size:15px;line-height:1.4;margin-bottom:9px}
+  .pref:last-child{border-bottom:0}
+  .pref .q{font-size:15px;line-height:1.45;margin-bottom:9px}
   .stars{display:flex;gap:2px;flex-wrap:wrap;align-items:center}
   .st{width:28px;height:30px;border:0;background:none;padding:0;font-size:19px;line-height:1;color:#DCD2C0}
   .st:hover{background:none;border:0;transform:translateY(-2px)}
   .st.fill{color:var(--artar)}
   .scoretag{font-size:12px;color:var(--gri);margin-left:8px}
 
-  .duel{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  /* ---------- carduri ---------- */
+  .duel{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grila{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
   .card{background:var(--hartie2);color:var(--tus);border-radius:3px;overflow:hidden;text-align:left;padding:0;
-    border:1px solid var(--linie);position:relative;display:flex;flex-direction:column;
-    box-shadow:0 8px 22px rgba(80,60,40,.09);transition:transform .18s,box-shadow .18s}
-  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(80,60,40,.16);border-color:var(--artar)}
-  .thumb{aspect-ratio:3/2;height:auto;display:flex;align-items:center;justify-content:center;font-size:52px;
-         background-size:cover;background-position:center;filter:saturate(.92) contrast(1.03);
-         box-shadow:inset 0 -70px 60px -40px rgba(60,35,20,.42), inset 0 0 0 1px rgba(60,35,20,.08)}
-  .card .body{padding:14px 16px 18px}
-  .card h3{margin:0 0 4px;font-family:Georgia,serif;font-weight:400;font-size:19px;line-height:1.25}
-  .desc{font-size:13.5px;line-height:1.5;margin:0 0 8px}
-  .why{font-size:12.5px;line-height:1.5;color:#6B6558;border-left:2px solid var(--artar);padding-left:9px}
+    border:1px solid var(--linie);position:relative;display:flex;flex-direction:column;width:100%;
+    box-shadow:0 8px 22px rgba(80,60,40,.09);transition:transform .18s,box-shadow .18s,border-color .18s}
+  .card.pick{cursor:pointer}
+  .card.pick:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(80,60,40,.16);border-color:var(--artar)}
+  .card.static{box-shadow:0 4px 14px rgba(80,60,40,.07)}
+
+  .thumb{position:relative;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;
+         background-size:cover;background-position:center;overflow:hidden}
+  .thumb.foto{filter:saturate(.82) contrast(1.05) sepia(.14)}
+  .thumb.foto::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(58,38,22,.42),rgba(58,38,22,.04) 55%);}
+  .thumb.gol{background:
+      radial-gradient(circle at 50% 118%,var(--acs),transparent 62%),
+      repeating-linear-gradient(45deg,rgba(51,48,43,.045) 0 1px,transparent 1px 11px),
+      repeating-linear-gradient(-45deg,rgba(51,48,43,.045) 0 1px,transparent 1px 11px),
+      linear-gradient(160deg,#F4EBDB,#E7DAC4)}
+  .thumb.gol::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(60,35,20,.06)}
+  .thumb .ic{font-size:44px;line-height:1;opacity:.92;filter:saturate(.92)}
+  .thumb .jp{position:absolute;right:10px;bottom:6px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+    font-size:30px;color:var(--ac);opacity:.14;letter-spacing:.05em}
+
+  .card .body{padding:15px 17px 18px;display:flex;flex-direction:column;gap:7px;flex:1}
+  .card h3{margin:0;font-family:Georgia,serif;font-weight:400;font-size:19px;line-height:1.28}
+  .kicker{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:9.5px;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--gri)}
+  .kicker .dot{width:5px;height:5px;border-radius:50%;background:var(--ac);opacity:.8}
+  .desc{font-size:13.5px;line-height:1.58;margin:0;color:#4A453C}
+  .why{font-size:12.5px;line-height:1.55;color:#6B6558;border-left:2px solid var(--ac);padding-left:10px;margin:2px 0 0}
+  .why b{display:block;font:400 9.5px/1.6 inherit;letter-spacing:.15em;text-transform:uppercase;color:var(--gri)}
+
   .stamp{position:absolute;top:10px;right:10px;width:56px;height:56px;border:2.5px solid var(--artar);
     border-radius:50%;color:var(--artar);font-family:Georgia,serif;font-size:13px;display:flex;align-items:center;
-    justify-content:center;transform:rotate(-14deg) scale(0);opacity:0;background:rgba(255,255,255,.75)}
+    justify-content:center;transform:rotate(-14deg) scale(0);opacity:0;background:rgba(255,255,255,.78)}
   .stamp.show{animation:stamp .45s ease-out forwards}
   @keyframes stamp{0%{transform:rotate(-40deg) scale(2);opacity:0}60%{opacity:1}100%{transform:rotate(-14deg) scale(1);opacity:1}}
   @media (prefers-reduced-motion:reduce){.stamp.show{animation:none;transform:rotate(-14deg) scale(1);opacity:1}
-    .card:hover{transform:none}.st:hover{transform:none}}
+    .card.pick:hover{transform:none}.st:hover{transform:none}}
   .vs{text-align:center;font-family:Georgia,serif;letter-spacing:.26em;color:var(--gri);margin:14px 0 12px;font-size:11.5px}
-  @media(max-width:640px){.duel{grid-template-columns:1fr}.thumb{font-size:40px}}
+  @media(max-width:680px){.duel{grid-template-columns:1fr}.thumb .ic{font-size:38px}}
 
-  .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+  /* ---------- optiuni organizare ---------- */
+  .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
   .opt{background:var(--hartie);border:1px solid var(--linie);border-radius:3px;padding:14px;text-align:left;display:block}
   .opt.sel{border-color:var(--artar);background:rgba(196,69,45,.08)}
   .opt b{display:block;font-family:Georgia,serif;font-weight:400;font-size:16px;margin-bottom:5px}
-  .opt span{display:block;font-size:12.5px;line-height:1.45;color:#5F594D}
-  .opt em{display:block;font-style:normal;font-size:11.5px;margin-top:6px;color:var(--kaki)}
+  .opt span{display:block;font-size:12.5px;line-height:1.5;color:#5F594D}
+  .opt em{display:block;font-style:normal;font-size:11.5px;margin-top:6px;color:var(--kaki);line-height:1.45}
 
+  /* ---------- rezultate ---------- */
   .rank{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--linie)}
+  .rank:last-child{border-bottom:0}
   .num{font-family:Georgia,serif;font-size:20px;color:var(--kaki);min-width:34px}
   .bar{height:5px;background:#EAE1D2;border-radius:3px;overflow:hidden;margin-top:5px}
   .bar i{display:block;height:100%;background:var(--artar)}
@@ -112,7 +146,15 @@ const URL_SCRIPT = "";
 
 const ORASE = ["Tokyo","Kyoto","Osaka & Nara","Excursii de o zi"];
 
-/* PREFERINȚE GENERALE (notă 1–10) */
+/* culoare + kanji decorativ pentru fiecare oraș */
+const ORAS_STIL = {
+  "Tokyo":            {ac:"#C4452D", acs:"rgba(196,69,45,.14)",  jp:"東京"},
+  "Kyoto":            {ac:"#6E7A52", acs:"rgba(110,122,82,.15)", jp:"京都"},
+  "Osaka & Nara":     {ac:"#B07C2A", acs:"rgba(176,124,42,.15)", jp:"大阪"},
+  "Excursii de o zi": {ac:"#4A6274", acs:"rgba(74,98,116,.15)",  jp:"遠足"}
+};
+
+/* INTERESE GENERALE (notă 1–10) */
 let PREFERINTE = [
   {id:"p1", text:"Cât de mult vrei să vedem temple și sanctuare?"},
   {id:"p2", text:"Cât de mult vrei să ieșim în natură — munte, pădure, parcuri?"},
@@ -130,178 +172,156 @@ let PREFERINTE = [
   {id:"p15", text:"Cât de mult preferi să vizitezi locuri frumoase, dar mai puțin cunoscute, în schimbul atracțiilor faimoase și aglomerate?"}
 ];
 
-/* CARDURI — „img" acceptă un link către o fotografie reală */
+/* CARDURI
+   img  — numele fișierului din același folder de GitHub (ex. "shibuya_sky.jpg")
+   tag  — două-trei cuvinte: tipul experienței
+   timp — cât durează, orientativ                                            */
 let CARDURI = [
  /* --- TOKYO --- */
- {id:"t1",oras:"Tokyo",titlu:"Shibuya Sky la apus",emoji:"🌆",img:"shibuya_sky.jpg",
-  desc:"Terasă descoperită la 230 de metri, exact deasupra celei mai aglomerate intersecții din lume. Sus e iarbă, șezlonguri și vânt.",
-  dece:"Singurul loc din Tokyo unde vezi orașul mișcându-se sub tine. La apus, pe vreme bună, apare și Fuji la orizont. Biletul se ia din timp."},
- {id:"t2",oras:"Tokyo",titlu:"Tokyo Skytree",emoji:"🗼",img:"",
-  desc:"634 de metri, cel mai înalt turn din Japonia, cu podea de sticlă și două niveluri de observație închise.",
-  dece:"Cea mai înaltă panoramă pe care o poți cumpăra, și partea de est a orașului arată complet altfel. Merge și pe ploaie."},
- {id:"t3",oras:"Tokyo",titlu:"teamLab — artă digitală imersivă",emoji:"💠",img:"",
-  desc:"Săli întregi de lumină prin care treci; lucrările curg dintr-o cameră în alta și reacționează când te apropii.",
-  dece:"Ora cea mai fotografiată a vacanței, garantat. Se rezervă cu săptămâni înainte, altfel nu mai prinzi loc."},
- {id:"t4",oras:"Tokyo",titlu:"Piața Tsukiji dimineața",emoji:"🐟",img:"",
-  desc:"Mic dejun în picioare printre tarabe: tamagoyaki cald, scoici pe grătar, uni proaspăt, magazine de cuțite.",
-  dece:"Ieftin, haotic și fiecare mănâncă exact ce vrea. Cel mai bun argument pentru trezitul devreme."},
- {id:"t5",oras:"Tokyo",titlu:"Golden Gai — baruri minuscule",emoji:"🏮",img:"",
-  desc:"Șase alei cu baruri cât o cameră de cămin, fiecare cu obsesia lui: punk, jazz, filme vechi.",
-  dece:"De aici pleacă povestea pe care o spui un an. Atenție: unele baruri au taxă de masă și câteva primesc doar localnici."},
- {id:"t6",oras:"Tokyo",titlu:"Antrenament de sumo dimineața",emoji:"🤼",img:"",
-  desc:"Intri într-un grajd de sumo la răsărit și te uiți la antrenament, în tăcere, la câțiva metri de ring.",
-  dece:"Sport adevărat, fără ambalaj turistic. Dar e foarte devreme și stai nemișcat pe podea."},
- {id:"t7",oras:"Tokyo",titlu:"Meiji Jingu & Harajuku",emoji:"⛩️",img:"",
-  desc:"O alee prin pădure până la sanctuar, apoi direct în explozia de zahăr și culoare de pe Takeshita.",
-  dece:"Cel mai rapid contrast dintre Japonia veche și cea nouă. Gratis, și perfect pentru prima dimineață cu jet lag."},
- {id:"t8",oras:"Tokyo",titlu:"Shimokitazawa după-amiaza",emoji:"🎸",img:"",
-  desc:"Cartier cu case joase, magazine vintage, viniluri și cafenele de câteva mese.",
-  dece:"Locul unde mergem când ne-am săturat de mulțime. Nu e nimic de bifat — exact ăsta e farmecul."},
- {id:"t9",oras:"Tokyo",titlu:"Seară în arcade la Akihabara",emoji:"🕹️",img:"",
-  desc:"Etaje întregi de jocuri, mașini cu gheare, magazine cu console retro.",
-  dece:"Ieftin, competitiv și ține un grup cu gusturi complet diferite ocupat ore în șir."},
- {id:"t10",oras:"Tokyo",titlu:"Croazieră pe Sumida spre Asakusa",emoji:"⛵",img:"",
-  desc:"Vaporaș pe râu, pe sub 12 poduri, până la templul Senso-ji.",
-  dece:"Transport care e de fapt turul. Picioare odihnite și cel mai bun unghi spre Skytree."},
- {id:"t11",oras:"Tokyo",titlu:"Grădina Rikugien la lumina felinarelor",emoji:"🍁",img:"",
-  desc:"Grădină de plimbare din secolul XVII, iluminată seara în sezonul frunzelor roșii.",
-  dece:"La începutul lui noiembrie e exact momentul. Arțarii luminați deasupra iazului sunt imaginea toamnei japoneze."},
+ {id:"t1",oras:"Tokyo",titlu:"Shibuya Sky la apus",emoji:"🌆",img:"shibuya_sky.jpg",tag:"Panoramă",timp:"1–2 ore",
+  desc:"Ultimul nivel al zgârie-norului Shibuya Scramble Square, la 230 de metri: nu o cameră cu geamuri, ci o terasă complet descoperită, cu iarbă, șezlonguri, vânt și un colț de sticlă de unde privești drept în jos, în celebra intersecție Shibuya.",
+  dece:"E singurul loc din Tokyo unde vezi orașul mișcându-se sub tine, iar pe vreme senină apare și silueta muntelui Fuji peste acoperișuri. Intervalul de apus se epuizează cu câteva săptămâni înainte, deci biletul se ia din timp."},
+ {id:"t2",oras:"Tokyo",titlu:"Tokyo Skytree",emoji:"🗼",img:"tokyo_skytree.jpg",tag:"Panoramă",timp:"1–2 ore",
+  desc:"Cel mai înalt turn din Japonia — 634 de metri — ridicat peste râu, în cartierul Sumida. Are două niveluri de observație închise, la 350 și la 450 de metri, legate între ele de o rampă în spirală cu porțiuni de podea din sticlă.",
+  dece:"Cea mai înaltă priveliște pe care o poți cumpăra în Japonia și singura care funcționează la fel de bine pe ploaie. Fiind închis cu geamuri, se vede enorm, dar se simte mai puțin decât la Shibuya Sky."},
+ {id:"t3",oras:"Tokyo",titlu:"teamLab — artă digitală imersivă",emoji:"💠",img:"",tag:"Artă",timp:"2 ore",
+  desc:"Muzeul colectivului japonez teamLab: săli întregi în care lumina e proiectată pe pereți, pe podea și pe tine, iar lucrările reacționează când te apropii. La teamLab Planets se merge desculț, o parte din trasee trec prin apă până la genunchi.",
+  dece:"E ora cea mai fotografiată a vacanței și funcționează la fel de bine pentru copii și pentru adulți. Se rezervă cu săptămâni înainte, pe interval orar fix, altfel nu mai prinzi loc."},
+ {id:"t4",oras:"Tokyo",titlu:"Piața Tsukiji dimineața",emoji:"🐟",img:"tsukiji.jpg",tag:"Mâncare",timp:"2 ore, dimineața",
+  desc:"Piața interioară s-a mutat la Toyosu în 2018, dar străzile exterioare din Tsukiji au rămas exact ce erau: vreo patru sute de tarabe și bucătării mici, unde se mănâncă în picioare — tamagoyaki cald, scoici pe grătar, uni proaspăt, brochete de wagyu — printre magazine de cuțite și de ceai.",
+  dece:"Ieftin, haotic și democratic: fiecare mănâncă exact ce vrea, fără meniu comun și fără rezervare. E cel mai bun argument pentru o trezire devreme — după ora 10 devine greu de circulat."},
+ {id:"t5",oras:"Tokyo",titlu:"Golden Gai — baruri minuscule",emoji:"🏮",img:"golden_gai.jpg",tag:"Seara",timp:"2–3 ore",
+  desc:"Șase alei înghesuite în Shinjuku, rămase din Tokyo-ul de după război, cu peste două sute de baruri de mărimea unei camere de cămin. Fiecare are obsesia lui — punk, jazz, filme vechi, motociclete — și cam șase locuri la tejghea.",
+  dece:"De aici pleacă povestea pe care o repeți un an, pentru că stai umăr la umăr cu barmanul și cu necunoscuții de lângă tine. De știut: multe baruri au o taxă de masă de câteva sute de yeni, unele primesc doar clienți fideli, și un grup de șase nu încape aproape nicăieri — ne împărțim."},
+ {id:"t6",oras:"Tokyo",titlu:"Antrenament de sumo dimineața",emoji:"🤼",img:"",tag:"Cultură",timp:"2 ore, foarte devreme",
+  desc:"Luptătorii de sumo trăiesc și se antrenează în „grajduri” (heya), iar antrenamentul de dimineață începe în zori. Se intră cu ghid, se stă jos pe podea, în tăcere, la câțiva metri de ring, cât timp ei repetă aceleași ciocniri, ore în șir.",
+  dece:"E sport adevărat, fără ambalaj turistic — sunetul din sală rămâne cu tine. În schimb, e foarte devreme, se stă nemișcat și nu se vorbește, deci nu e pentru toată lumea."},
+ {id:"t7",oras:"Tokyo",titlu:"Meiji Jingu & Harajuku",emoji:"⛩️",img:"",tag:"Sanctuar",timp:"jumătate de zi",
+  desc:"Sanctuar shinto ridicat în 1920 pentru împăratul Meiji, ascuns într-o pădure de o sută de mii de copaci donați din toată Japonia. La ieșire, la două minute de mers, începe strada Takeshita din Harajuku, cu vitrine, crêpes și adolescenți îmbrăcați ca într-un desen animat.",
+  dece:"E cel mai rapid contrast dintre Japonia veche și cea nouă, și e gratis. Fiind aproape numai mers pe jos, e perfectă ca primă dimineață, când suntem oricum treji la 5 din cauza decalajului."},
+ {id:"t8",oras:"Tokyo",titlu:"Shimokitazawa după-amiaza",emoji:"🎸",img:"",tag:"Cartier",timp:"2–3 ore",
+  desc:"Cartier de case joase și străzi fără trotuar, la un sfert de oră cu trenul de Shibuya: magazine vintage, discuri cu viniluri, librării mici, cafenele cu patru mese și baruri de curry.",
+  dece:"E locul unde mergem când ne-am săturat de mulțime și de obiective. Nu e nimic de bifat aici — exact ăsta e farmecul, dar înseamnă că cine vrea listă de atracții s-ar putea plictisi."},
+ {id:"t9",oras:"Tokyo",titlu:"Seară în arcade la Akihabara",emoji:"🕹️",img:"",tag:"Seara",timp:"2 ore",
+  desc:"Cartierul electronicelor, cu clădiri de câte șapte etaje pline de jocuri: simulatoare de curse, tobe de ritm, mașini cu gheare, etaje întregi de console retro și de figurine.",
+  dece:"E ieftin (o sută de yeni jocul), competitiv și ține ocupat un grup cu gusturi complet diferite. E și foarte zgomotos și plin de fum de la fumători — o oră ajunge pentru unii."},
+ {id:"t10",oras:"Tokyo",titlu:"Croazieră pe Sumida spre Asakusa",emoji:"⛵",img:"",tag:"Pe apă",timp:"40 de minute",
+  desc:"Vaporaș care urcă râul Sumida de la grădinile Hamarikyu până la Asakusa, pe sub douăsprezece poduri, fiecare vopsit altfel. La capăt te lasă lângă Senso-ji, cel mai vechi templu din Tokyo, ridicat în anul 645.",
+  dece:"E transportul care e de fapt atracția: costă cât un bilet de metrou, odihnește picioarele și oferă cel mai bun unghi spre Skytree. Dacă plouă tare, priveliștea se pierde."},
+ {id:"t11",oras:"Tokyo",titlu:"Grădina Rikugien",emoji:"🍁",img:"rikugien.jpg",tag:"Grădină",timp:"1–2 ore",
+  desc:"Grădină de plimbare terminată în 1702 pentru un consilier al shogunului, construită ca o poezie tridimensională: un iaz central, dealuri mici, poduri de piatră și optzeci și opt de scene inspirate din versuri clasice.",
+  dece:"E cea mai liniștită oră de verde din Tokyo și se combină ușor cu o zi în oraș. Iluminatul de seară din sezonul frunzelor roșii începe de obicei spre finalul lui noiembrie, deci în intervalul nostru s-ar putea să prindem grădina doar ziua — tot merită."},
 
  /* --- KYOTO --- */
- {id:"k1",oras:"Kyoto",titlu:"Fushimi Inari în zori",emoji:"🦊",img:"",
-  desc:"Mii de porți vermilion urcă pe un munte împădurit; bucla completă are 2–3 ore.",
-  dece:"La 7 dimineața e aproape gol și chiar dă fiori. La 10 e coadă. Diferența e uriașă."},
- {id:"k2",oras:"Kyoto",titlu:"Arashiyama — bambus și maimuțe",emoji:"🎋",img:"",
-  desc:"Pădurea de bambus, malul râului, și un parc pe deal cu macaci sălbatici și panoramă peste oraș.",
-  dece:"Urcarea la maimuțe e partea pe care o ții minte; pădurea în sine se traversează în 10 minute."},
- {id:"k3",oras:"Kyoto",titlu:"Kinkaku-ji, pavilionul de aur",emoji:"🪙",img:"",
-  desc:"Pavilion acoperit cu foiță de aur, oglindit perfect în lac.",
-  dece:"Japonia de pe carte poștală, în 40 de minute. Te uiți și pleci — și e mereu aglomerat."},
- {id:"k4",oras:"Kyoto",titlu:"Ceremonia ceaiului",emoji:"🍵",img:"",
-  desc:"60–90 de minute într-o casă tradițională de lemn, cu explicații, și îți bați singur bolul de matcha.",
-  dece:"Cea mai liniștită oră din vacanță și singura care chiar explică ceva despre cultura de aici."},
- {id:"k5",oras:"Kyoto",titlu:"Piața Nishiki, de gustat pe drum",emoji:"🥢",img:"",
-  desc:"400 de metri de piață acoperită: murături, gogoși cu lapte de soia, orice pe băț.",
-  dece:"Prânz care e și plimbare. Și vegetarienii se descurcă foarte bine aici."},
- {id:"k6",oras:"Kyoto",titlu:"Gion la lăsarea serii",emoji:"🏮",img:"",
-  desc:"Străzi de lemn cu ceainării, felinare aprinse, uneori o geiko grăbindu-se spre o programare.",
-  dece:"Gratis, superb, și merge după o zi plină. Pe aleile private fotografiatul e interzis — se respectă."},
- {id:"k7",oras:"Kyoto",titlu:"Drumeție Kurama – Kibune",emoji:"🥾",img:"",
-  desc:"Două ore peste munte, de la un templu la altul, cu ieșire la un sanctuar pe râu.",
-  dece:"Ne scoate complet din cozile de la temple. Are nevoie de încălțăminte ca lumea."},
- {id:"k8",oras:"Kyoto",titlu:"Zazen — meditație la templu",emoji:"🧘",img:"",
-  desc:"45 de minute de meditație ghidată, cu instructaj, într-un templu funcțional.",
-  dece:"Ieftin, memorabil pentru unii, incomod pentru alții. Grupul se împarte sincer în două."},
- {id:"k9",oras:"Kyoto",titlu:"Nanzen-ji și Drumul Filosofului",emoji:"🍁",img:"",
-  desc:"Un apeduct de cărămidă în mijlocul unui templu, apoi o alee pe canal, la umbră.",
-  dece:"Partea din Kyoto pe care majoritatea o ratează. În noiembrie, aleea e un tunel roșu."},
- {id:"k10",oras:"Kyoto",titlu:"Tofuku-ji în sezonul frunzelor",emoji:"🍂",img:"",
-  desc:"Un pod de lemn suspendat peste o vale plină de arțari, plus grădini zen moderne.",
-  dece:"Cea mai spectaculoasă priveliște de toamnă din Kyoto. Și cea mai aglomerată — se merge la deschidere."},
+ {id:"k1",oras:"Kyoto",titlu:"Fushimi Inari în zori",emoji:"🦊",img:"",tag:"Sanctuar",timp:"2–3 ore, dimineața",
+  desc:"Sanctuarul zeului orezului și al prosperității, cu peste zece mii de porți vermilion donate de companii japoneze, fiecare cu numele donatorului scris pe spate. Porțile urcă în serpentine pe muntele Inari, până la 233 de metri; bucla completă cere două-trei ore.",
+  dece:"E deschis non-stop și e gratis, iar la șapte dimineața tunelul de porți e aproape gol și chiar dă fiori. La zece e coadă la fiecare fotografie — diferența dintre cele două vizite e enormă."},
+ {id:"k2",oras:"Kyoto",titlu:"Arashiyama — bambus și maimuțe",emoji:"🎋",img:"",tag:"Natură",timp:"jumătate de zi",
+  desc:"Marginea de vest a orașului: aleea prin pădurea de bambus, podul Togetsukyo peste râu și, pe dealul din față, un parc unde trăiesc liber vreo sută treizeci de macaci japonezi — se urcă douăzeci de minute pe jos până sus.",
+  dece:"Urcarea la maimuțe și panorama de acolo sunt partea pe care o ții minte. Pădurea de bambus, în schimb, se traversează în zece minute și e plină de lume — venim devreme sau o luăm ca bonus."},
+ {id:"k3",oras:"Kyoto",titlu:"Kinkaku-ji, pavilionul de aur",emoji:"🪙",img:"",tag:"Templu",timp:"1 oră",
+  desc:"Pavilion cu două etaje acoperite integral cu foiță de aur, ridicat în 1397 ca vilă de retragere a unui shogun și transformat apoi în templu zen. Clădirea de azi e o reconstrucție din 1955, după ce originalul a fost incendiat de un călugăr — poveste care a devenit roman celebru.",
+  dece:"E Japonia de pe carte poștală, se vede în patruzeci de minute și e reflectat perfect în lac. Traseul e cu sens unic și mereu aglomerat: te uiți, fotografiezi, pleci."},
+ {id:"k4",oras:"Kyoto",titlu:"Ceremonia ceaiului",emoji:"🍵",img:"",tag:"Experiență",timp:"1–1,5 ore",
+  desc:"O oră într-o casă tradițională de lemn, cu o gazdă care explică pas cu pas gesturile ritualului: cum se intră, cum se ține bolul, de ce contează ordinea. La final îți bați singur matcha, cu un mic dulce alături.",
+  dece:"E cea mai liniștită oră a vacanței și singura care chiar explică ceva despre cultura de aici, nu doar o arată. Se stă însă în genunchi sau pe pernă și se vorbește puțin — nu e o activitate de relaxat picioarele."},
+ {id:"k5",oras:"Kyoto",titlu:"Piața Nishiki, de gustat pe drum",emoji:"🥢",img:"",tag:"Mâncare",timp:"1–2 ore",
+  desc:"„Bucătăria orașului Kyoto”: patru sute de metri de stradă acoperită, cu vreo sută treizeci de tarabe vechi de generații — murături colorate, tofu, gogoși cu lapte de soia, sardele, orice pe băț.",
+  dece:"E prânzul care e și plimbare, iar vegetarienii se descurcă aici mai bine decât oriunde altundeva în Japonia. Se mănâncă lângă tarabă, nu mergând, iar la ora prânzului e greu de trecut."},
+ {id:"k6",oras:"Kyoto",titlu:"Gion la lăsarea serii",emoji:"🏮",img:"",tag:"Cartier",timp:"2 ore",
+  desc:"Cartierul istoric al ceainăriilor: străzi de lemn cu fațade închise, felinare care se aprind la asfințit și, dacă ai noroc, o geiko sau o maiko grăbindu-se spre o programare. Strada principală, Hanamikoji, se plimbă în douăzeci de minute; frumusețea e în aleile laterale.",
+  dece:"E gratis, e superb și merge perfect după o zi plină, fiindcă nu cere energie. Pe aleile private fotografiatul e interzis prin lege și există amendă — se respectă, iar femeile în kimono de pe stradă sunt aproape mereu turiste, nu geiko."},
+ {id:"k7",oras:"Kyoto",titlu:"Drumeție Kurama – Kibune",emoji:"🥾",img:"",tag:"Natură",timp:"jumătate de zi",
+  desc:"Se ia un trenuleț o jumătate de oră spre nord, se urcă prin pădure pe lângă templul Kurama-dera și se coboară de partea cealaltă a muntelui, la sanctuarul Kibune, așezat pe malul unui pârâu. Cam două ore de mers, cu trepte multe.",
+  dece:"Ne scoate complet din cozile de la temple și arată un Kyoto pe care aproape nimeni nu-l vede. Are nevoie de încălțăminte serioasă, iar la Kurama există un onsen public pentru la final."},
+ {id:"k8",oras:"Kyoto",titlu:"Zazen — meditație la templu",emoji:"🧘",img:"",tag:"Experiență",timp:"1 oră",
+  desc:"Patruzeci și cinci de minute de meditație în tăcere, într-un templu zen funcțional, cu instructaj scurt înainte: cum stai, cum respiri, ce faci când te doare spatele. Uneori un călugăr trece cu bățul, dar numai la cerere.",
+  dece:"E ieftin și, pentru unii, rămâne cea mai puternică amintire. Pentru alții e o oră lungă de disconfort pe pernă — grupul se împarte sincer în două, deci merge făcut opțional."},
+ {id:"k9",oras:"Kyoto",titlu:"Nanzen-ji și Drumul Filosofului",emoji:"🍁",img:"",tag:"Plimbare",timp:"2–3 ore",
+  desc:"Nanzen-ji e un mare templu zen cu o poartă de lemn uriașă și, surprinzător, un apeduct de cărămidă din 1890 chiar în mijlocul incintei. De acolo pornește Drumul Filosofului: doi kilometri de alee pe malul unui canal, mărginită de cireși, numită după profesorul care se plimba pe ea zilnic.",
+  dece:"E partea de Kyoto pe care majoritatea grupurilor o ratează și se face în ritmul propriu, cu opriri de cafea. Cireșii sunt spectaculoși primăvara; toamna, culoarea vine mai mult din arțarii din temple."},
+ {id:"k10",oras:"Kyoto",titlu:"Tofuku-ji în sezonul frunzelor",emoji:"🍂",img:"",tag:"Templu",timp:"2 ore",
+  desc:"Complex zen din secolul al XIII-lea, cu un pod de lemn acoperit suspendat peste o vale în care cresc două mii de arțari, plus o grădină de piatră modernistă, din 1939, cu un damier de mușchi.",
+  dece:"Când culorile sunt la vârf e cea mai spectaculoasă priveliște de toamnă din Kyoto — și, exact de asta, cea mai aglomerată; se merge la deschidere, la 8:30. Atenție la calendar: în Kyoto vârful e de obicei în a doua jumătate a lui noiembrie, așa că la 14 noiembrie s-ar putea să prindem doar începutul."},
 
  /* --- OSAKA & NARA --- */
- {id:"o1",oras:"Osaka & Nara",titlu:"Seară de street food în Dotonbori",emoji:"🐙",img:"",
-  desc:"Canal cu neoane, takoyaki, kushikatsu și celebrul semn cu alergătorul.",
-  dece:"Toată personalitatea Osakăi în 500 de metri. Gălăgios, uleios, excelent."},
- {id:"o2",oras:"Osaka & Nara",titlu:"Căprioarele din Nara & Todai-ji",emoji:"🦌",img:"",
-  desc:"Căprioare care se înclină pentru un biscuit și o hală de lemn cu un Buddha de bronz de 15 metri.",
-  dece:"Cea mai multă bucurie pe oră din toată Japonia. Și e o jumătate de zi, nu o zi întreagă."},
- {id:"o3",oras:"Osaka & Nara",titlu:"Piața Kuromon",emoji:"🦀",img:"",
-  desc:"Piață acoperită cu picioare de crab, frigărui de wagyu, fructe perfecte.",
-  dece:"Prânz în picioare, fiecare comandă altceva, nimeni nu face compromisuri."},
- {id:"o4",oras:"Osaka & Nara",titlu:"Omakase la tejghea",emoji:"🍣",img:"",
-  desc:"Meniu condus de bucătar, 8–15 feluri, servit direct peste tejghea.",
-  dece:"Masa-eveniment a vacanței. Necesită rezervare și număr fix de persoane."},
- {id:"o5",oras:"Osaka & Nara",titlu:"Universal Studios Japan",emoji:"🎢",img:"",
-  desc:"O zi întreagă în parc; zona Nintendo are nevoie de intrare cu oră fixă.",
-  dece:"Ori încântă tot grupul, ori consumă o zi. Nu există variantă de mijloc."},
- {id:"o6",oras:"Osaka & Nara",titlu:"Castelul Osaka și parcul din jur",emoji:"🏯",img:"",
-  desc:"Donjon reconstruit, cu muzeu înăuntru, în mijlocul unui parc uriaș cu șanț de apă.",
-  dece:"Mai bun ca picnic în parc decât ca muzeu — grădina e adevărata atracție."},
- {id:"o7",oras:"Osaka & Nara",titlu:"Umeda Sky Building",emoji:"🌉",img:"",
-  desc:"Două turnuri legate sus de o grădină plutitoare, cu scară rulantă suspendată între ele.",
-  dece:"Arhitectura anilor optzeci la superlativ, și panoramă la jumătate din prețul turnurilor din Tokyo."},
- {id:"o8",oras:"Osaka & Nara",titlu:"Okonomiyaki gătit la masă",emoji:"🥞",img:"",
-  desc:"Clătite sărate pe plita din mijlocul mesei, în stil Osaka sau Hiroshima.",
-  dece:"Activitate de grup deghizată în cină. Nu dă greș niciodată."},
- {id:"o9",oras:"Osaka & Nara",titlu:"Parcul Nara și templul Kasuga",emoji:"🏮",img:"",
-  desc:"Alee cu 3.000 de felinare de piatră printre cedri, dincolo de zona cu căprioare.",
-  dece:"Cinci minute de mers și scapi complet de aglomerație. Cea mai frumoasă lumină de după-amiază."},
+ {id:"o1",oras:"Osaka & Nara",titlu:"Seară de street food în Dotonbori",emoji:"🐙",img:"",tag:"Seara",timp:"2–3 ore",
+  desc:"Canalul din inima orașului, cu reclame de neon reflectate în apă, firma cu alergătorul Glico aprinsă acolo din 1935 și o stradă întreagă de tarabe: takoyaki, kushikatsu, crab uriaș mecanic deasupra intrării.",
+  dece:"E toată personalitatea Osakăi pe cinci sute de metri — gălăgioasă, uleioasă, prietenoasă. Nu e o masă elegantă și se mănâncă în picioare, dar e cea mai bună seară de grup din vacanță."},
+ {id:"o2",oras:"Osaka & Nara",titlu:"Căprioarele din Nara & Todai-ji",emoji:"🦌",img:"",tag:"Zi ușoară",timp:"jumătate de zi",
+  desc:"Prima capitală a Japoniei, la patruzeci de minute de Osaka. Peste o mie de căprioare umblă libere prin parc și au învățat să se încline pentru un biscuit, iar în Todai-ji, una dintre cele mai mari construcții de lemn din lume, stă un Buddha de bronz înalt de cincisprezece metri, turnat în anul 752.",
+  dece:"E cea mai multă bucurie pe oră din toată Japonia și se rezolvă într-o jumătate de zi. Căprioarele sunt animale sălbatice, nu de grădină zoologică: împing și trag de haine când văd biscuiți."},
+ {id:"o3",oras:"Osaka & Nara",titlu:"Piața Kuromon",emoji:"🦀",img:"",tag:"Mâncare",timp:"1–2 ore",
+  desc:"Șase sute de metri de piață acoperită, veche de două secole, unde se cumpără și se mănâncă pe loc: picioare de crab la grătar, frigărui de wagyu, stridii, fructe perfecte vândute bucata.",
+  dece:"E prânzul în care fiecare comandă altceva și nimeni nu face compromisuri. E și vizibil orientată spre turiști, deci mai scumpă decât ar fi normal — merităm-o ca experiență, nu ca chilipir."},
+ {id:"o4",oras:"Osaka & Nara",titlu:"Omakase la tejghea",emoji:"🍣",img:"",tag:"Masă-eveniment",timp:"2 ore",
+  desc:"„Omakase” înseamnă „las în seama ta”: nu există meniu, bucătarul decide, iar cele opt-cincisprezece feluri îți sunt puse direct în față, unul câte unul, peste tejgheaua de lemn, în ritmul în care mănânci.",
+  dece:"E masa care rămâne masa vacanței și merită o seară dedicată. Cere rezervare din timp, număr fix de persoane și, la localurile bune, un buget serios de persoană."},
+ {id:"o5",oras:"Osaka & Nara",titlu:"Universal Studios Japan",emoji:"🎢",img:"",tag:"Parc",timp:"o zi întreagă",
+  desc:"Parc de distracții cu zone Harry Potter, Jurassic Park și Super Nintendo World — ultima cu brățară interactivă și intrare pe interval orar, rezervată separat.",
+  dece:"Ori încântă tot grupul, ori consumă o zi întreagă din paisprezece. Nu există variantă de mijloc, deci merită doar dacă toată lumea o vrea."},
+ {id:"o6",oras:"Osaka & Nara",titlu:"Castelul Osaka și parcul din jur",emoji:"🏯",img:"",tag:"Istorie",timp:"2–3 ore",
+  desc:"Ridicat în 1583 de Toyotomi Hideyoshi, cel care a unificat Japonia, ars și reconstruit de mai multe ori; turnul de azi e o reconstrucție din 1931, cu lift și muzeu înăuntru. În jur, un parc uriaș cu ziduri ciclopice și șanț de apă.",
+  dece:"Parcul e adevărata atracție — mai bun ca plimbare lungă și ca picnic decât ca muzeu. Interiorul e modern și, în weekend, coada la lift e serioasă."},
+ {id:"o7",oras:"Osaka & Nara",titlu:"Umeda Sky Building",emoji:"🌉",img:"",tag:"Panoramă",timp:"1–2 ore",
+  desc:"Două turnuri din 1993 unite la ultimul etaj de o „grădină plutitoare”: o terasă circulară deschisă la 173 de metri, la care se ajunge cu o scară rulantă suspendată în gol între cele două clădiri.",
+  dece:"E arhitectura anilor optzeci-nouăzeci la superlativ, cu panoramă la jumătate din prețul turnurilor din Tokyo, iar traversarea cu scara rulantă e memorabilă în sine. Cine are rău de înălțime va sări peste ea."},
+ {id:"o8",oras:"Osaka & Nara",titlu:"Okonomiyaki gătit la masă",emoji:"🥞",img:"",tag:"Mâncare",timp:"1,5 ore",
+  desc:"Un fel de clătită sărată cu varză, ou și ce mai vrei tu, gătită pe plita încinsă din mijlocul mesei — în stil Osaka totul amestecat, în stil Hiroshima în straturi, cu tăiței dedesubt.",
+  dece:"E activitate de grup deghizată în cină: e ieftină, durează, și nu dă greș niciodată. Ieși mirosind a plită, asta e."},
+ {id:"o9",oras:"Osaka & Nara",titlu:"Parcul Nara și templul Kasuga",emoji:"🏮",img:"",tag:"Sanctuar",timp:"2 ore",
+  desc:"Sanctuarul familiei Fujiwara, fondat în 768, la capătul unei alei prin pădurea de cedri mărginită de aproape trei mii de felinare — de piatră pe alee, de bronz atârnate sub streșinile clădirilor vermilion.",
+  dece:"E la cinci minute de zona cu căprioare și scapi complet de aglomerație; lumina de după-amiază printre cedri e cea mai frumoasă din Nara. Felinarele se aprind doar de câteva ori pe an, la festival — în rest, se privesc stinse."},
 
  /* --- EXCURSII DE O ZI --- */
- {id:"e1",oras:"Excursii de o zi",titlu:"Bucla Hakone",emoji:"♨️",img:"",
-  desc:"Vapor-pirat pe lac, telecabină peste izvoare de sulf, ouă negre, onsen și Fuji dacă are chef.",
-  dece:"O zi în care transportul e chiar atracția. Vremea e o loterie reală."},
- {id:"e2",oras:"Excursii de o zi",titlu:"Miyajima — poarta plutitoare",emoji:"⛩️",img:"",
-  desc:"Sanctuar pe o insulă, care pare că plutește la maree înaltă. Plus căprioare și telecabină.",
-  dece:"Magic la apus, dacă rămânem peste noapte. Ca excursie de o zi e strâns, dar se poate."},
- {id:"e3",oras:"Excursii de o zi",titlu:"Memorialul Păcii, Hiroshima",emoji:"🕊️",img:"",
-  desc:"Muzeul, cupola și parcul care documentează ziua de 6 august 1945.",
-  dece:"Greu, esențial, și schimbă tonul zilei. Programăm ceva blând după."},
- {id:"e4",oras:"Excursii de o zi",titlu:"Kanazawa",emoji:"🌿",img:"",
-  desc:"Grădina Kenroku-en, un cartier de samurai păstrat intact și un muzeu de artă contemporană rotund.",
-  dece:"Orașul care pare descoperit de tine. La 2,5 ore cu shinkansen de Tokyo."},
- {id:"e5",oras:"Excursii de o zi",titlu:"Koyasan, cu înnoptare la templu",emoji:"🏔️",img:"",
-  desc:"Dormi într-un templu, participi la ritualul focului în zori și treci printr-un cimitir cu 200.000 de morminte.",
-  dece:"Nu e excursie de o zi, e o noapte — și e amintirea cea mai puternică pe care o aduci acasă."},
- {id:"e6",oras:"Excursii de o zi",titlu:"Nikko",emoji:"🏞️",img:"",
-  desc:"Sanctuare aurite în pădure de cedri, cascade și lacuri de munte, la 2 ore de Tokyo.",
-  dece:"Cel mai ornamentat sanctuar din Japonia, plus natură serioasă în aceeași zi."},
- {id:"e7",oras:"Excursii de o zi",titlu:"Kamakura și Enoshima",emoji:"🌊",img:"",
-  desc:"Un Buddha uriaș în aer liber, temple pe deal, apoi tramvai de coastă până la mare.",
-  dece:"O oră de Tokyo, cu ocean la final. Ideal ca zi mai lentă între orașe."}
+ {id:"e1",oras:"Excursii de o zi",titlu:"Bucla Hakone",emoji:"♨️",img:"",tag:"Natură & onsen",timp:"o zi întreagă",
+  desc:"O buclă făcută din mijloace de transport diferite, cu un singur bilet: trenuleț în serpentine, funicular, telecabină peste valea vulcanică Owakudani (unde se vând ouă fierte în apă sulfuroasă, cu coaja înnegrită) și vapor în formă de corabie de pirați pe lacul Ashi.",
+  dece:"E ziua în care transportul e chiar atracția, iar la capăt e un onsen. Fuji apare doar dacă e cer senin — în noiembrie șansele sunt bune dimineața, dar rămâne loterie."},
+ {id:"e2",oras:"Excursii de o zi",titlu:"Miyajima — poarta plutitoare",emoji:"⛩️",img:"",tag:"Sanctuar",timp:"o zi întreagă",
+  desc:"Insulă sacră din golful Hiroshima, unde sanctuarul Itsukushima e construit pe piloni deasupra apei, iar marea poartă vermilion pare că plutește la maree înaltă. Pe insulă mai sunt căprioare, o telecabină spre vârful muntelui Misen și cea mai bună brioșă cu fasole dulce din Japonia.",
+  dece:"E magic la apus, dacă rămânem peste noapte după plecarea excursiilor de o zi. Ca excursie dus-întors dintr-o zi e strânsă și depinde de orarul mareelor — la maree joasă se merge pe jos până la poartă, ceea ce e altă poveste, nu neapărat mai proastă."},
+ {id:"e3",oras:"Excursii de o zi",titlu:"Memorialul Păcii, Hiroshima",emoji:"🕊️",img:"",tag:"Istorie",timp:"jumătate de zi",
+  desc:"Parcul, cupola rămasă în picioare aproape sub epicentru și muzeul care documentează dimineața de 6 august 1945 prin obiecte și mărturii personale, nu prin statistici.",
+  dece:"E greu și e esențial; schimbă complet tonul zilei și se discută mult după. Merită programat ceva blând imediat după, iar cine nu vrea să intre în muzeu poate rămâne în parc."},
+ {id:"e4",oras:"Excursii de o zi",titlu:"Kanazawa",emoji:"🌿",img:"",tag:"Oraș mic",timp:"o zi întreagă",
+  desc:"Oraș de pe coasta de vest, scăpat nebombardat: are Kenroku-en, una dintre cele trei mari grădini clasice ale Japoniei, un cartier de case de samurai păstrat cu tot cu ziduri de pământ, o piață de pește excelentă și un muzeu rotund de artă contemporană.",
+  dece:"E orașul care pare descoperit de tine, cu jumătate din aglomerația din Kyoto. E și cea mai lungă deplasare pentru o zi — merită mai degrabă cu o noapte pe loc."},
+ {id:"e5",oras:"Excursii de o zi",titlu:"Koyasan, cu înnoptare la templu",emoji:"🏔️",img:"",tag:"Experiență",timp:"2 zile",
+  desc:"Așezare monastică la 800 de metri altitudine, întemeiată acum douăsprezece secole. Dormi într-un templu, pe futon, cu cină vegetariană de călugări, participi dimineața la ritualul focului și treci prin Okunoin, cimitirul cu peste două sute de mii de morminte sub cedri uriași.",
+  dece:"Nu e excursie de o zi, e o noapte — și e, de departe, amintirea cea mai puternică pe care o aduci acasă. Cere însă un drum lung, cină devreme și camere fără lux."},
+ {id:"e6",oras:"Excursii de o zi",titlu:"Nikko",emoji:"🏞️",img:"",tag:"Natură & temple",timp:"o zi întreagă",
+  desc:"La două ore de Tokyo, în munți: Tosho-gu, mausoleul aurit și supraîncărcat de sculpturi al shogunului Ieyasu, ridicat în 1617 într-o pădure de cedri, plus cascada Kegon și lacul Chuzenji, mai sus, pe serpentine.",
+  dece:"E cel mai ornamentat sanctuar din Japonia și, în aceeași zi, natură serioasă. La altitudinea asta frunzele se colorează mai devreme, deci la începutul lui noiembrie am prinde probabil chiar vârful sezonului."},
+ {id:"e7",oras:"Excursii de o zi",titlu:"Kamakura și Enoshima",emoji:"🌊",img:"",tag:"Zi ușoară",timp:"o zi",
+  desc:"Capitala militară a Japoniei în secolul al XIII-lea, la o oră de Tokyo: un Buddha de bronz de treisprezece metri care stă sub cerul liber din 1252, temple pe dealuri împădurite și un tramvai de coastă care merge lipit de case până la mare.",
+  dece:"E cea mai bună zi lentă dintre orașe, cu ocean la final și fără nimic obligatoriu. Weekendul aglomerează tramvaiul serios — mai bine într-o zi lucrătoare."}
 ];
 
 /* ALEGERI ORGANIZATORICE (variante multiple) */
 let ALEGERI = [
- {id:"a1",intrebare:"Cum ne mutăm între orașele mari?",context:"Tokyo → Kyoto → Osaka",
-  optiuni:[
-   {titlu:"Shinkansen",desc:"Din centru în centru, loc rezervat, 2h15 Tokyo–Kyoto.",nota:"Fără aeroport, fără cozi, și Fuji pe geamul din dreapta."},
-   {titlu:"Avion low-cost",desc:"Zboruri interne ieftine între orașele mari.",nota:"Câștigă la preț și la distanțe lungi. Pierde 2 ore la fiecare capăt."},
-   {titlu:"Autocar de noapte",desc:"Scaune rabatabile, dormi în timp ce te muți.",nota:"Cel mai ieftin și economisește o noapte de cazare. Plătim în calitatea somnului."}]},
- {id:"a2",intrebare:"Pe distanțe scurte, ce alegem?",context:"de exemplu Kyoto → Osaka, Osaka → Nara",
-  optiuni:[
-   {titlu:"Shinkansen",desc:"15 minute, dar mai scump și gara e mai departe.",nota:"Merită doar când ne grăbim."},
-   {titlu:"Trenuri locale / expres",desc:"30–45 de minute, foarte dese, mult mai ieftine.",nota:"Varianta pe care o folosesc localnicii. Aproape mereu suficient."},
-   {titlu:"Taxi",desc:"Din ușă în ușă, fără scări și fără schimbări.",nota:"Scump, dar salvator cu bagaje sau la final de zi."}]},
  {id:"a3",intrebare:"Transferul de la aeroport?",context:"sosire în Tokyo",
   optiuni:[
    {titlu:"Tren expres (Narita Express / Skyliner)",desc:"Loc rezervat, spațiu de bagaje, 40–60 de minute.",nota:"Previzibil ca preț și ca durată."},
-   {titlu:"Autocar direct la hotel",desc:"Bagajele se încarcă în cală, nicio scară de urcat.",nota:"Cea mai comodă variantă după un zbor lung. Depinde de trafic."},
    {titlu:"Taxi / van privat",desc:"Ne ia tot grupul odată, direct la hotel.",nota:"Cel mai scump, dar per persoană se apropie de tren dacă suntem mulți."}]},
  {id:"a4",intrebare:"Ce facem cu bagajele când schimbăm orașul?",context:"",
   optiuni:[
-   {titlu:"Takkyubin — le trimitem înainte",desc:"Valiza pleacă de la hotel la hotel peste noapte, ~2.000 ¥ de bagaj.",nota:"Ziua de drum devine o zi cu rucsac mic. Ne trebuie o geantă de o noapte."},
-   {titlu:"Le cărăm noi",desc:"Fiecare cu bagajul lui, în tren și pe scări.",nota:"Zero cost, zero planificare, flexibilitate totală. Dur în gara Tokyo la oră de vârf."},
-   {titlu:"Lockere la gară",desc:"Lăsăm bagajele o zi și le luăm înainte de tren.",nota:"Perfect pentru zilele în care ne mutăm seara."}]},
+   {titlu:"Takkyubin — le trimitem înainte",desc:"Valiza pleacă de la hotel la hotel peste noapte, ~2.000 ¥ de bagaj.",nota:"Ziua de drum (și seara de dinainte) devine o zi cu rucsac mic. Ne trebuie o geantă de o noapte."},
+   {titlu:"Le cărăm noi",desc:"Fiecare cu bagajul lui, în tren și pe scări.",nota:"Zero cost, zero planificare, flexibilitate totală. Însă poate fi dur în gara Tokyo la oră de vârf."},
+   {titlu:"Lockere la gară",desc:"În caz de necesitate, putem depozita valizele și la gară, contra cost.",nota:""}]},
  {id:"a5",intrebare:"Ce fel de cazare preferi?",context:"putem combina — de ex. hotel plus o noapte de ryokan",
   optiuni:[
-   {titlu:"Hotel business",desc:"Cameră mică, impecabilă, lângă gară. Baie proprie.",nota:"Cel mai previzibil și mereu bine plasat. Camerele sunt chiar mici."},
-   {titlu:"Ryokan cu cină kaiseki",desc:"Cameră cu tatami, futon, cină și mic dejun incluse, de obicei cu onsen.",nota:"Noaptea care e un eveniment, nu doar un pat. Cina are oră fixă și devreme."},
-   {titlu:"Casă întreagă pentru grup",desc:"O machiya sau apartament doar al nostru, cu bucătărie și living.",nota:"Cel mai bun pentru serile împreună și pentru rufe. De obicei mai departe de centru."},
-   {titlu:"Capsule hotel, o noapte",desc:"Pat-capsulă, baie comună, dulapuri pentru bagaje.",nota:"Ieftin și amuzant o singură noapte. A doua e o corvoadă."}]},
+   {titlu:"Hotel business",desc:"Cameră mică, impecabilă, lângă gară. Convenabil pentru transferuri.",nota:"Cel mai previzibil și mereu bine plasat. Camerele sunt chiar mici."},
+   {titlu:"Ryokan cu cină kaiseki",desc:"Cameră tradițională japoneză, cu tatami, futon, cină și mic dejun incluse, de obicei cu onsen.",nota:"Noaptea care e un eveniment, nu doar un pat. Cina are oră fixă și devreme."}]},
  {id:"a6",intrebare:"Ce ritm vrei pentru o zi obișnuită?",context:"",
   optiuni:[
    {titlu:"Două obiective mari plus timp liber",desc:"Program lejer, cu pauze lungi de cafea.",nota:"Toată lumea ajunge acasă cu energie."},
    {titlu:"Cât mai multe, plecăm devreme",desc:"Program dens, patru-cinci opriri pe zi.",nota:"Vedem mult mai mult. Ne costă la picioare."},
    {titlu:"O singură experiență pe zi, dar mare",desc:"Un lucru făcut pe îndelete, restul improvizat.",nota:"Vacanța pe care ți-o amintești, nu cea pe care o bifezi."}]},
- {id:"a7",intrebare:"Mesele: rezervăm sau improvizăm?",context:"",
-  optiuni:[
-   {titlu:"Rezervăm din timp cele importante",desc:"Trei-patru mese fixe pe toată vacanța, restul liber.",nota:"Singura cale să prindem locurile bune. Ne leagă de un orar."},
-   {titlu:"Total spontan",desc:"Intrăm unde miroase bine.",nota:"Libertate maximă, dar în grup mare înseamnă adesea așteptare."}]},
  {id:"a8",intrebare:"Stăm tot timpul împreună?",context:"grup de 6 persoane",
   optiuni:[
    {titlu:"Mereu împreună",desc:"Un singur plan, toată lumea în el.",nota:"Simplu de organizat, dar ritmul se dictează după cel mai obosit."},
    {titlu:"Dimineața împreună, după-amiaza liber",desc:"Ne despărțim și ne regăsim la cină.",nota:"Fiecare își vede lucrurile lui și nimeni nu se plânge la cină."},
-   {titlu:"Grupuri mici, pe interese",desc:"Cine vrea temple merge la temple, cine vrea shopping merge la shopping.",nota:"Cea mai fericită variantă pentru gusturi diferite."}]},
- {id:"a9",intrebare:"Internet pe telefon?",context:"",
-  optiuni:[
-   {titlu:"eSIM",desc:"Se activează înainte de plecare, fiecare cu al lui.",nota:"Cel mai simplu și cel mai ieftin acum."},
-   {titlu:"Pocket wi-fi pentru grup",desc:"Un router închiriat, împărțit de toți.",nota:"Bun dacă mergem mereu împreună. Se descarcă și trebuie cărat."}]},
- {id:"a10",intrebare:"JR Pass sau bilete separate?",context:"",
-  optiuni:[
-   {titlu:"JR Pass",desc:"Preț fix pe 7 sau 14 zile, tren nelimitat pe rețeaua JR.",nota:"Se amortizează doar dacă facem multe drumuri lungi. A crescut mult ca preț."},
-   {titlu:"Bilete individuale",desc:"Plătim fiecare drum separat, cu card IC pentru local.",nota:"Aproape mereu mai ieftin pentru un traseu clasic Tokyo–Kyoto–Osaka."}]}
+   {titlu:"Grupuri mici, pe interese",desc:"Cine vrea temple merge la temple, cine vrea shopping merge la shopping.",nota:"Cea mai fericită variantă pentru gusturi diferite."}]}
 ];
 
 /* ==================== SFÂRȘITUL ZONEI DE EDITAT ==================== */
@@ -309,7 +329,7 @@ let ALEGERI = [
 const $=s=>document.querySelector(s);
 const K=32,BASE=1500;
 const ARTIFACT = typeof window.storage!=="undefined";
-let S={me:"",oras:"Tokyo",tab:"pref",pair:null,loading:true,
+let S={me:"",oras:"Tokyo",tab:"ghid",pair:null,loading:true,
        date:{prefs:{},dueluri:[],alegeri:{}},toti:{},organizator:false};
 
 function status(t,ms=2200){const el=$("#status");el.textContent=t;el.classList.add("on");
@@ -380,7 +400,23 @@ function urmatoareaPereche(oras){
 }
 const card=id=>CARDURI.find(c=>c.id===id);
 const esc=s=>(s||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-const fundal=c=>c.img?`style="background-image:url('${esc(c.img)}');background-position:${esc(c.poz||"center")}"`:`style="background:linear-gradient(150deg,#EFE4D2,#E4D3BC)"`;
+const stil=o=>ORAS_STIL[o]||ORAS_STIL["Tokyo"];
+
+/* imaginea sau, dacă nu există, fundalul de hârtie cu emoji */
+function thumb(c){
+  const s=stil(c.oras);
+  if(c.img) return `<div class="thumb foto" style="background-image:url('${esc(c.img)}')"></div>`;
+  return `<div class="thumb gol" style="--ac:${s.ac};--acs:${s.acs}">
+            <span class="ic">${esc(c.emoji)}</span><span class="jp">${s.jp}</span></div>`;
+}
+function corpCard(c){
+  const s=stil(c.oras);
+  return `<div class="body" style="--ac:${s.ac}">
+    <div class="kicker"><span class="dot"></span>${esc(c.oras)}${c.tag?" · "+esc(c.tag):""}${c.timp?" · "+esc(c.timp):""}</div>
+    <h3>${esc(c.titlu)}</h3>
+    <p class="desc">${esc(c.desc)}</p>
+    <p class="why"><b>De ce merită</b>${esc(c.dece)}</p></div>`;
+}
 
 /* ---------- randare ---------- */
 function antet(){
@@ -393,9 +429,9 @@ function render(){
   if(!S.me){
     root.innerHTML=antet()+
     `<p class="sub">31 octombrie – 14 noiembrie 2026 · 6 persoane</p>
-    <div class="panel" style="max-width:460px">
+    <div class="panel" style="max-width:520px">
       <h2>Bine ai venit 🍁</h2>
-      <p class="note" style="margin-bottom:6px">Trei etape, cam 10 minute: notezi ce îți place, alegi între perechi de activități, apoi răspunzi la câteva întrebări de organizare.</p>
+      <p class="note" style="margin-bottom:6px">Site-ul are două roluri. Întâi e o broșură: în <b>Ghid</b> găsești toate locurile pe care le putem vizita, ce sunt și de ce ar merita. Apoi e un chestionar: notezi ce te atrage, alegi între variante și răspunzi la câteva întrebări de organizare. Cam 10–15 minute în total.</p>
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
       <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button>
       <button id="org">Sunt organizatoarea</button></div>
@@ -407,17 +443,31 @@ function render(){
       S.date=S.toti["Organizator"]||{prefs:{},dueluri:[],alegeri:{}};render()};
     return;
   }
-  const taburi=[["pref","1 · Preferințe"],["duel","2 · Dueluri"],["aleg","3 · Alegeri"],["rez","Rezultate"],["ed","Carduri"]];
+  const taburi=[["ghid","Ghid"],["pref","1 · Ce te atrage"],["duel","2 · Tu ce alegi"],
+                ["aleg","3 · Organizare"],["rez","Rezultate"],["ed","Editare"]];
   root.innerHTML=antet()+
-   `<p class="sub">${esc(S.me)} · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} preferințe · ${S.date.dueluri.length} dueluri · ${Object.keys(S.date.alegeri).length}/${ALEGERI.length} alegeri</p>
+   `<p class="sub">${esc(S.me)} · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} notate · ${S.date.dueluri.length} alegeri între locuri · ${Object.keys(S.date.alegeri).length}/${ALEGERI.length} întrebări de organizare</p>
    <div class="tabs">${taburi.map(t=>`<button class="tab ${S.tab===t[0]?"active":""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
    <div id="view"></div>`;
   root.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;S.pair=null;render()});
-  ({pref:vPref,duel:vDuel,aleg:vAleg,rez:vRez,ed:vEd})[S.tab]();
+  ({ghid:vGhid,pref:vPref,duel:vDuel,aleg:vAleg,rez:vRez,ed:vEd})[S.tab]();
 }
 const baraOrase=()=>`<div class="row" style="margin-bottom:14px">${ORASE.map(o=>`<button class="${S.oras===o?"on":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
 const legOrase=()=>document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.oras=b.dataset.o;S.pair=null;render()});
 
+/* ---------- 0. GHID (broșura) ---------- */
+function vGhid(){
+  const v=$("#view");
+  const lista=CARDURI.filter(c=>c.oras===S.oras);
+  v.innerHTML=`<div class="panel"><h2>Ce putem face în Japonia 🍁</h2>
+    <p class="note">Aici nu trebuie să alegi nimic — doar citește. Fiecare loc are o descriere scurtă a ce este și un rând sincer despre de ce ar merita (și ce nu e grozav la el). Când ești lămurit, treci la pasul 1 din meniul de sus.</p></div>`
+    + baraOrase()
+    + `<p class="meta">${esc(S.oras)} · ${lista.length} locuri</p>
+       <div class="grila">${lista.map(c=>`<article class="card static">${thumb(c)}${corpCard(c)}</article>`).join("")}</div>`;
+  legOrase();
+}
+
+/* ---------- 1. CE TE ATRAGE ---------- */
 function vPref(){
   const v=$("#view");
   v.innerHTML=`<div class="panel"><h2>Cum arată vacanța ta ideală? 🍂</h2>
@@ -432,6 +482,7 @@ function vPref(){
   }));
 }
 
+/* ---------- 2. TU CE ALEGI (fostele „dueluri") ---------- */
 function vDuel(){
   if(!S.pair)S.pair=urmatoareaPereche(S.oras);
   const v=$("#view");
@@ -441,12 +492,11 @@ function vDuel(){
     legOrase();return;
   }
   const[a,b]=S.pair.map(card);
-  const unul=(c,alt)=>`<button class="card" data-w="${c.id}" data-l="${alt.id}">
-    <div class="thumb" ${fundal(c)}>${c.img?"":c.emoji}</div>
-    <div class="body"><div class="meta">${esc(c.oras)}</div><h3>${esc(c.titlu)}</h3>
-      <p class="desc">${esc(c.desc)}</p><p class="why">${esc(c.dece)}</p></div>
-    <div class="stamp">選</div></button>`;
-  v.innerHTML=baraOrase()+`<p class="vs">CE AI PREFERA SĂ FACEM?</p>
+  const unul=(c,alt)=>`<button class="card pick" data-w="${c.id}" data-l="${alt.id}">
+    ${thumb(c)}${corpCard(c)}<div class="stamp">選</div></button>`;
+  v.innerHTML=baraOrase()+`<div class="panel" style="padding:14px 18px">
+      <p class="note" style="margin:0">Îți arătăm două locuri o dată. Apasă pe cel pe care l-ai prefera dacă ar trebui să alegi doar unul — răspunsurile se adună într-un clasament al grupului. Dacă îți plac la fel, sari peste.</p></div>
+    <p class="vs">CE AI PREFERA SĂ FACEM?</p>
     <div class="duel">${unul(a,b)}${unul(b,a)}</div>
     <div class="row" style="margin-top:16px;justify-content:center">
       <button id="skip">N-am preferință — sari</button>
@@ -462,6 +512,7 @@ function vDuel(){
   $("#undo").onclick=async()=>{S.date.dueluri.pop();await salveaza();S.pair=urmatoareaPereche(S.oras);render()};
 }
 
+/* ---------- 3. ORGANIZARE ---------- */
 function vAleg(){
   const v=$("#view");
   v.innerHTML=`<div class="panel"><h2>Cum vrei să fie organizată vacanța?</h2>
@@ -470,12 +521,13 @@ function vAleg(){
     <h2 style="font-size:18px">${esc(q.intrebare)}</h2>
     <div class="opts" data-q="${q.id}">${q.optiuni.map((o,i)=>
       `<button class="opt ${S.date.alegeri[q.id]===i?"sel":""}" data-i="${i}">
-        <b>${esc(o.titlu)}</b><span>${esc(o.desc)}</span><em>${esc(o.nota)}</em></button>`).join("")}</div></div>`).join("");
+        <b>${esc(o.titlu)}</b><span>${esc(o.desc)}</span>${o.nota?`<em>${esc(o.nota)}</em>`:""}</button>`).join("")}</div></div>`).join("");
   v.querySelectorAll(".opts").forEach(g=>g.querySelectorAll(".opt").forEach(b=>b.onclick=async()=>{
     S.date.alegeri[g.dataset.q]=+b.dataset.i;vAleg();await salveaza();
   }));
 }
 
+/* ---------- REZULTATE ---------- */
 function vRez(){
   const oameni=Object.keys(S.toti).length?Object.keys(S.toti):[S.me];
   const v=$("#view");
@@ -492,7 +544,7 @@ function vRez(){
   const dev=i=>{const m=sum[i]/oameni.length;return Math.sqrt(sp[i].reduce((s,x)=>s+(x-m)**2,0)/sp[i].length)};
   const maxd=Math.max(1,...ids.map(dev));
   v.innerHTML=`<div class="row" style="margin-bottom:12px"><button id="reload">🔄 Reîncarcă răspunsurile</button></div>
-    <div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
+    <div class="panel"><div class="meta">Interese generale — media grupului (${oameni.length} persoane)</div>
     ${medii.map(x=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div style="font-size:14px">${esc(x.p.text)}</div>
       <div class="bar"><i style="width:${x.m*10}%"></i></div></div>
@@ -501,7 +553,7 @@ function vRez(){
   `<div class="panel"><div class="meta">Clasamentul grupului — ${esc(S.oras)}</div>
     ${ord.map((id,i)=>{const c=card(id);const d=dev(id);
       return `<div class="rank"><span class="num">${String(i+1).padStart(2,"0")}</span>
-      <div style="flex:1"><div>${c.img?"":c.emoji} ${esc(c.titlu)}</div>
+      <div style="flex:1"><div>${esc(c.titlu)}</div>
       <div class="small">${d>maxd*.6?"⚡ păreri împărțite":d<maxd*.25?"✓ consens":"~ mixt"}</div></div></div>`}).join("")}</div>
   <div class="panel"><div class="meta">Alegeri organizatorice</div>
     ${ALEGERI.map(q=>{const nr=q.optiuni.map((_,i)=>oameni.filter(o=>S.toti[o]?.alegeri?.[q.id]===i).length);
@@ -518,10 +570,11 @@ function vRez(){
   $("#reload").onclick=async()=>{status("Se încarcă…");const d=await citesteDeLaSheet();if(d)S.toti=d;render();};
 }
 
+/* ---------- EDITARE ---------- */
 function vEd(){
   const v=$("#view");
-  v.innerHTML=`<div class="panel"><h2>Cardurile 🍁</h2>
-    <p class="note">Aici editezi textele și pui fotografii. Modificările sunt doar în acest browser — la final apasă <b>Exportă JSON</b> și lipește-l în fișierul index.html, sau trimite-mi-l.</p>
+  v.innerHTML=`<div class="panel"><h2>Editare carduri 🍁</h2>
+    <p class="note">Aici editezi textele și pui fotografii. Pentru poze, scrie exact numele fișierului urcat pe GitHub, în același folder cu index.html (ex. <b>shibuya_sky.jpg</b>). Modificările sunt doar în acest browser — la final apasă <b>Exportă JSON</b> și trimite-mi fișierul, sau lipește-l în index.html.</p>
     <div class="row" style="margin-top:12px">
       <button id="exp">Exportă JSON</button><button id="imp">Importă JSON</button>
       <button id="nou" class="primary">Card nou în ${esc(S.oras)}</button></div></div>`
@@ -533,9 +586,13 @@ function vEd(){
       </div>
       <div class="two">
         <div><label>Emoji (dacă nu ai poză)</label><input data-f="emoji" value="${esc(c.emoji)}"></div>
-        <div><label>Link fotografie</label><input data-f="img" value="${esc(c.img)}" placeholder="https://…"></div>
+        <div><label>Fișier fotografie</label><input data-f="img" value="${esc(c.img)}" placeholder="ex. shibuya_sky.jpg"></div>
       </div>
-      <label>Ce este — o frază clară</label><textarea data-f="desc">${esc(c.desc)}</textarea>
+      <div class="two">
+        <div><label>Etichetă (tip de experiență)</label><input data-f="tag" value="${esc(c.tag||"")}" placeholder="ex. Panoramă"></div>
+        <div><label>Cât durează</label><input data-f="timp" value="${esc(c.timp||"")}" placeholder="ex. 1–2 ore"></div>
+      </div>
+      <label>Ce este — mini-biografia locului</label><textarea data-f="desc">${esc(c.desc)}</textarea>
       <label>De ce merită — argumentul sincer, cu tot cu capcană</label><textarea data-f="dece">${esc(c.dece)}</textarea>
       <div class="row" style="margin-top:10px"><button class="primary" data-act="save">Salvează</button>
       <button data-act="del">Șterge</button>
@@ -553,7 +610,7 @@ function vEd(){
       CARDURI=CARDURI.filter(x=>x.id!==c.id);render();
     };
   });
-  $("#nou").onclick=()=>{CARDURI.push({id:"n"+Date.now(),oras:S.oras,titlu:"Titlu nou",emoji:"📍",img:"",desc:"",dece:""});render()};
+  $("#nou").onclick=()=>{CARDURI.push({id:"n"+Date.now(),oras:S.oras,titlu:"Titlu nou",emoji:"📍",img:"",tag:"",timp:"",desc:"",dece:""});render()};
   $("#exp").onclick=()=>{
     const b=new Blob([JSON.stringify({PREFERINTE,CARDURI,ALEGERI},null,2)],{type:"application/json"});
     const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="japonia-continut.json";a.click();
