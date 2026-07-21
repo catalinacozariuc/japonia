@@ -347,9 +347,9 @@ const fundal=c=>c.img?`style="background-image:url('${esc(c.img)}')"`:`style="ba
 /* ---------- randare ---------- */
 function render(){
   const root=$("#root");
-  if(S.loading){root.innerHTML=`<h1>Japonia · Planificator de grup</h1><p class="sub">Se încarcă…</p>`;return;}
+  if(S.loading){root.innerHTML=`<h1>Japonia · Planificarea călătoriei</h1><p class="sub">Se încarcă…</p>`;return;}
   if(!S.me){
-    root.innerHTML=`<h1>Japonia · Planificator de grup</h1>
+    root.innerHTML=`<h1>Japonia · Planificarea călătoriei</h1>
     <p class="sub">Trei etape: preferințe generale, dueluri pe orașe, alegeri organizatorice.</p>
     <div class="panel" style="max-width:440px">
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
