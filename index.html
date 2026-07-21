@@ -1,108 +1,117 @@
+<!DOCTYPE html>
 <meta charset="utf-8">
+<title>日本の秋 · Planificator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root{
-    --indigo:#141C3A; --paper:#F3EEE3; --ink:#20242E;
-    --vermilion:#CE3F2E; --matcha:#7C8A56; --gold:#C39A2B; --muted:#8C93A8;
+    --hartie:#F5EFE4; --hartie2:#FFFCF6; --tus:#33302B; --gri:#8A8377;
+    --artar:#C4452D; --kaki:#B07C2A; --ceai:#6E7A52; --linie:#E2D8C6;
   }
   *{box-sizing:border-box}
-  body{margin:0}
-  #app{background:var(--indigo);color:var(--paper);font-family:"Helvetica Neue",Inter,system-ui,sans-serif;
-    min-height:100vh;padding:22px 18px 70px;
-    background-image:radial-gradient(circle at 12% -10%,rgba(206,63,46,.18),transparent 55%),
-                     radial-gradient(circle at 95% 5%,rgba(124,138,86,.14),transparent 45%);}
+  body{margin:0;background:var(--hartie)}
+  #app{color:var(--tus);font-family:"Helvetica Neue",Inter,system-ui,sans-serif;min-height:100vh;
+       padding:26px 18px 80px;
+       background-image:radial-gradient(circle at 90% 0%,rgba(196,69,45,.07),transparent 45%),
+                        radial-gradient(circle at 5% 12%,rgba(110,122,82,.07),transparent 40%)}
   .wrap{max-width:1060px;margin:0 auto}
-  h1{font-family:Georgia,serif;font-weight:400;letter-spacing:.2em;text-transform:uppercase;
-     font-size:clamp(19px,3.2vw,28px);margin:0 0 4px}
+  .kanji{font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;font-size:clamp(30px,6vw,46px);
+         color:var(--artar);letter-spacing:.08em;margin:0;line-height:1.1}
+  .kanji small{font-size:.42em;letter-spacing:.04em}
+  h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(15px,2.4vw,19px);letter-spacing:.2em;
+     text-transform:uppercase;margin:8px 0 2px;color:var(--tus)}
   h2{font-family:Georgia,serif;font-weight:400;font-size:21px;margin:0 0 10px}
-  .sub{color:var(--muted);font-size:12.5px;letter-spacing:.06em;margin-bottom:20px}
+  .sub{color:var(--gri);font-size:12.5px;letter-spacing:.05em;margin:0 0 22px}
   .row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-  button{font:inherit;font-size:13px;letter-spacing:.05em;cursor:pointer;background:transparent;
-    color:var(--paper);border:1px solid rgba(243,238,227,.28);border-radius:2px;padding:9px 14px;
-    transition:background .15s,border-color .15s}
-  button:hover{background:rgba(243,238,227,.09);border-color:rgba(243,238,227,.6)}
-  button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-  button.primary{background:var(--vermilion);border-color:var(--vermilion);color:#fff}
-  button.primary:hover{background:#b93727}
-  button.on{background:var(--paper);color:var(--indigo);border-color:var(--paper)}
+  button{font:inherit;font-size:13px;letter-spacing:.04em;cursor:pointer;background:var(--hartie2);
+    color:var(--tus);border:1px solid var(--linie);border-radius:2px;padding:9px 14px;
+    transition:background .15s,border-color .15s,transform .15s}
+  button:hover{border-color:var(--artar)}
+  button:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
+  button.primary{background:var(--artar);border-color:var(--artar);color:#fff}
+  button.primary:hover{background:#a83722}
+  button.on{background:var(--tus);color:var(--hartie);border-color:var(--tus)}
   button[disabled]{opacity:.4;cursor:default}
-  input,textarea,select{font:inherit;font-size:14px;background:rgba(0,0,0,.22);color:var(--paper);
-    border:1px solid rgba(243,238,227,.22);border-radius:2px;padding:9px 11px;width:100%}
+  input,textarea,select{font:inherit;font-size:14px;background:var(--hartie2);color:var(--tus);
+    border:1px solid var(--linie);border-radius:2px;padding:9px 11px;width:100%}
   textarea{min-height:64px;line-height:1.45;resize:vertical}
-  label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:12px 0 5px}
-  .tabs{display:flex;gap:24px;border-bottom:1px solid rgba(243,238,227,.16);margin-bottom:20px;flex-wrap:wrap}
-  .tab{padding:0 0 10px;border:0;border-bottom:2px solid transparent;border-radius:0;letter-spacing:.14em;
-       text-transform:uppercase;font-size:10.5px;color:var(--muted);background:none}
-  .tab:hover{background:none;color:var(--paper)}
-  .tab.active{color:var(--paper);border-bottom-color:var(--vermilion)}
-  .panel{background:rgba(0,0,0,.2);border:1px solid rgba(243,238,227,.12);border-radius:3px;padding:18px;margin-bottom:14px}
-  .note{font-size:12px;color:var(--muted);line-height:1.6}
-  .meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gri);margin:12px 0 5px}
+  .tabs{display:flex;gap:24px;border-bottom:1px solid var(--linie);margin-bottom:20px;flex-wrap:wrap}
+  .tab{padding:0 0 10px;border:0;border-bottom:2px solid transparent;border-radius:0;letter-spacing:.13em;
+       text-transform:uppercase;font-size:10.5px;color:var(--gri);background:none}
+  .tab:hover{background:none;color:var(--tus)}
+  .tab.active{color:var(--artar);border-bottom-color:var(--artar)}
+  .panel{background:var(--hartie2);border:1px solid var(--linie);border-radius:3px;padding:18px;margin-bottom:14px}
+  .note{font-size:12px;color:var(--gri);line-height:1.6}
+  .meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gri);margin-bottom:8px}
 
-  /* stele */
-  .pref{border-bottom:1px solid rgba(243,238,227,.1);padding:14px 0}
+  .pref{border-bottom:1px solid var(--linie);padding:14px 2px}
   .pref .q{font-size:15px;line-height:1.4;margin-bottom:9px}
-  .stars{display:flex;gap:3px;flex-wrap:wrap}
-  .st{width:27px;height:30px;border:0;background:none;padding:0;font-size:19px;line-height:1;color:rgba(243,238,227,.22)}
-  .st:hover{background:none}
-  .st.fill{color:var(--gold)}
-  .scoretag{font-size:12px;color:var(--muted);margin-left:8px}
+  .stars{display:flex;gap:2px;flex-wrap:wrap;align-items:center}
+  .st{width:28px;height:30px;border:0;background:none;padding:0;font-size:19px;line-height:1;color:#DCD2C0}
+  .st:hover{background:none;border:0;transform:translateY(-2px)}
+  .st.fill{color:var(--artar)}
+  .scoretag{font-size:12px;color:var(--gri);margin-left:8px}
 
-  /* dueluri */
   .duel{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .card{background:var(--paper);color:var(--ink);border-radius:3px;overflow:hidden;text-align:left;padding:0;
-    border:0;position:relative;display:flex;flex-direction:column;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:transform .18s}
-  .card:hover{background:var(--paper);transform:translateY(-3px)}
-  .thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:52px;background-size:cover;background-position:center}
+  .card{background:var(--hartie2);color:var(--tus);border-radius:3px;overflow:hidden;text-align:left;padding:0;
+    border:1px solid var(--linie);position:relative;display:flex;flex-direction:column;
+    box-shadow:0 8px 22px rgba(80,60,40,.09);transition:transform .18s,box-shadow .18s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(80,60,40,.16);border-color:var(--artar)}
+  .thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:52px;
+         background-size:cover;background-position:center}
   .card .body{padding:14px 16px 18px}
   .card h3{margin:0 0 4px;font-family:Georgia,serif;font-weight:400;font-size:19px;line-height:1.25}
   .desc{font-size:13.5px;line-height:1.5;margin:0 0 8px}
-  .why{font-size:12.5px;line-height:1.5;color:#4c5262;border-left:2px solid var(--vermilion);padding-left:9px}
-  .stamp{position:absolute;top:10px;right:10px;width:56px;height:56px;border:2.5px solid var(--vermilion);
-    border-radius:50%;color:var(--vermilion);font-family:Georgia,serif;font-size:12px;display:flex;align-items:center;
-    justify-content:center;transform:rotate(-14deg) scale(0);opacity:0;background:rgba(255,255,255,.6)}
+  .why{font-size:12.5px;line-height:1.5;color:#6B6558;border-left:2px solid var(--artar);padding-left:9px}
+  .stamp{position:absolute;top:10px;right:10px;width:56px;height:56px;border:2.5px solid var(--artar);
+    border-radius:50%;color:var(--artar);font-family:Georgia,serif;font-size:13px;display:flex;align-items:center;
+    justify-content:center;transform:rotate(-14deg) scale(0);opacity:0;background:rgba(255,255,255,.75)}
   .stamp.show{animation:stamp .45s ease-out forwards}
   @keyframes stamp{0%{transform:rotate(-40deg) scale(2);opacity:0}60%{opacity:1}100%{transform:rotate(-14deg) scale(1);opacity:1}}
-  @media (prefers-reduced-motion:reduce){.stamp.show{animation:none;transform:rotate(-14deg) scale(1);opacity:1}.card:hover{transform:none}}
-  .vs{text-align:center;font-family:Georgia,serif;letter-spacing:.28em;color:var(--muted);margin:14px 0 12px;font-size:11.5px}
+  @media (prefers-reduced-motion:reduce){.stamp.show{animation:none;transform:rotate(-14deg) scale(1);opacity:1}
+    .card:hover{transform:none}.st:hover{transform:none}}
+  .vs{text-align:center;font-family:Georgia,serif;letter-spacing:.26em;color:var(--gri);margin:14px 0 12px;font-size:11.5px}
   @media(max-width:640px){.duel{grid-template-columns:1fr}.thumb{height:120px;font-size:40px}}
 
-  /* alegeri */
   .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-  .opt{background:rgba(243,238,227,.06);border:1px solid rgba(243,238,227,.16);border-radius:3px;
-       padding:14px;text-align:left;display:block}
-  .opt.sel{border-color:var(--vermilion);background:rgba(206,63,46,.16)}
+  .opt{background:var(--hartie);border:1px solid var(--linie);border-radius:3px;padding:14px;text-align:left;display:block}
+  .opt.sel{border-color:var(--artar);background:rgba(196,69,45,.08)}
   .opt b{display:block;font-family:Georgia,serif;font-weight:400;font-size:16px;margin-bottom:5px}
-  .opt span{display:block;font-size:12.5px;line-height:1.45;color:#cfd4e0}
-  .opt em{display:block;font-style:normal;font-size:11.5px;margin-top:6px;color:var(--gold)}
+  .opt span{display:block;font-size:12.5px;line-height:1.45;color:#5F594D}
+  .opt em{display:block;font-style:normal;font-size:11.5px;margin-top:6px;color:var(--kaki)}
 
-  /* liste */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-  .mini{background:rgba(243,238,227,.06);border:1px solid rgba(243,238,227,.14);border-radius:3px;padding:12px 13px}
-  .mini h4{margin:0 0 4px;font-family:Georgia,serif;font-weight:400;font-size:16px}
-  .mini p{margin:0;font-size:12.5px;line-height:1.45;color:#c8ccd8}
-  .rank{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(243,238,227,.1)}
-  .num{font-family:Georgia,serif;font-size:20px;color:var(--gold);min-width:32px}
-  .bar{height:5px;background:rgba(243,238,227,.12);border-radius:3px;overflow:hidden;margin-top:5px}
-  .bar i{display:block;height:100%;background:var(--vermilion)}
-  .small{font-size:11.5px;color:var(--muted)}
-  .pill{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(243,238,227,.25);
-        border-radius:99px;padding:3px 9px;margin:0 6px 6px 0;color:#cfd4e0}
-  .ed{border:1px dashed rgba(243,238,227,.25);border-radius:3px;padding:14px;margin-bottom:10px}
+  .rank{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--linie)}
+  .num{font-family:Georgia,serif;font-size:20px;color:var(--kaki);min-width:34px}
+  .bar{height:5px;background:#EAE1D2;border-radius:3px;overflow:hidden;margin-top:5px}
+  .bar i{display:block;height:100%;background:var(--artar)}
+  .small{font-size:11.5px;color:var(--gri)}
+  .pill{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--linie);
+        border-radius:99px;padding:3px 9px;margin:0 6px 6px 0;color:#5F594D}
+  .ed{border:1px dashed var(--linie);border-radius:3px;padding:14px;margin-bottom:10px;background:var(--hartie2)}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   @media(max-width:640px){.two{grid-template-columns:1fr}}
+  .status{position:fixed;left:0;right:0;bottom:0;background:var(--tus);color:var(--hartie);
+    font-size:12px;padding:8px 16px;text-align:center;transform:translateY(100%);transition:transform .25s}
+  .status.on{transform:none}
 </style>
 <div id="app"><div class="wrap" id="root"></div></div>
+<div class="status" id="status"></div>
 <script>
 /* ============================================================================
-   ZONA DE EDITAT — DATELE TALE
-   Aici modifici tot conținutul. Poți edita direct în fișier, sau din aplicație
-   (butonul „Mod organizator"), de unde exporți un JSON pe care îl lipești înapoi.
+   ① LEGĂTURA CU GOOGLE SHEETS
+   Lipește aici linkul aplicației web din Apps Script (vezi GHID.md).
+   Dacă îl lași gol, aplicația merge în continuare, dar răspunsurile rămân
+   doar pe telefonul fiecăruia.
+   ========================================================================== */
+const URL_SCRIPT = "https://docs.google.com/spreadsheets/d/1BrkwPCnAtWxa1lSlKGsyQmyDQbMAxdsG/edit?gid=2046141200#gid=2046141200";
+
+/* ============================================================================
+   ② ZONA DE EDITAT — CONȚINUTUL TĂU
    ========================================================================== */
 
 const ORASE = ["Tokyo","Kyoto","Osaka & Nara","Excursii de o zi"];
 
-/* 1 — PREFERINȚE GENERALE (notă de la 1 la 10) */
+/* PREFERINȚE GENERALE (notă 1–10) */
 let PREFERINTE = [
   {id:"p1",  text:"Cât de mult vrei să vedem temple și sanctuare?"},
   {id:"p2",  text:"Cât de mult vrei să ieșim în natură — munte, pădure, poteci?"},
@@ -121,11 +130,11 @@ let PREFERINTE = [
   {id:"p15", text:"Cât de mult preferi locurile mai puțin cunoscute, chiar dacă implică drum lung?"},
   {id:"p16", text:"Cât de dispusă/dispus ești să plătim mai mult pentru o masă memorabilă?"},
   {id:"p17", text:"Cât de mult vrei seri gălăgioase — karaoke, arcade, izakaya până târziu?"},
-  {id:"p18", text:"Cât de mult te atrag parcurile tematice (Universal Studios, DisneySea)?"}
+  {id:"p18", text:"Cât de mult te atrag parcurile tematice (Universal Studios, DisneySea)?"},
+  {id:"p19", text:"Cât de mult vrei să vedem frunzele de toamnă (momiji), chiar dacă e aglomerat?"}
 ];
 
-/* 2 — CARDURI (dueluri pe orașe)
-   camp „img": pune un link către o fotografie reală. Dacă e gol, se afișează emoji-ul. */
+/* CARDURI — „img" acceptă un link către o fotografie reală */
 let CARDURI = [
  /* --- TOKYO --- */
  {id:"t1",oras:"Tokyo",titlu:"Shibuya Sky la apus",emoji:"🌆",img:"",
@@ -158,6 +167,9 @@ let CARDURI = [
  {id:"t10",oras:"Tokyo",titlu:"Croazieră pe Sumida spre Asakusa",emoji:"⛵",img:"",
   desc:"Vaporaș pe râu, pe sub 12 poduri, până la templul Senso-ji.",
   dece:"Transport care e de fapt turul. Picioare odihnite și cel mai bun unghi spre Skytree."},
+ {id:"t11",oras:"Tokyo",titlu:"Grădina Rikugien la lumina felinarelor",emoji:"🍁",img:"",
+  desc:"Grădină de plimbare din secolul XVII, iluminată seara în sezonul frunzelor roșii.",
+  dece:"La începutul lui noiembrie e exact momentul. Arțarii luminați deasupra iazului sunt imaginea toamnei japoneze."},
 
  /* --- KYOTO --- */
  {id:"k1",oras:"Kyoto",titlu:"Fushimi Inari în zori",emoji:"🦊",img:"",
@@ -186,7 +198,10 @@ let CARDURI = [
   dece:"Ieftin, memorabil pentru unii, incomod pentru alții. Grupul se împarte sincer în două."},
  {id:"k9",oras:"Kyoto",titlu:"Nanzen-ji și Drumul Filosofului",emoji:"🍁",img:"",
   desc:"Un apeduct de cărămidă în mijlocul unui templu, apoi o alee pe canal, la umbră.",
-  dece:"Partea din Kyoto pe care majoritatea o ratează. Se face pe îndelete, fără plan."},
+  dece:"Partea din Kyoto pe care majoritatea o ratează. În noiembrie, aleea e un tunel roșu."},
+ {id:"k10",oras:"Kyoto",titlu:"Tofuku-ji în sezonul frunzelor",emoji:"🍂",img:"",
+  desc:"Un pod de lemn suspendat peste o vale plină de arțari, plus grădini zen moderne.",
+  dece:"Cea mai spectaculoasă priveliște de toamnă din Kyoto. Și cea mai aglomerată — se merge la deschidere."},
 
  /* --- OSAKA & NARA --- */
  {id:"o1",oras:"Osaka & Nara",titlu:"Seară de street food în Dotonbori",emoji:"🐙",img:"",
@@ -208,8 +223,8 @@ let CARDURI = [
   desc:"Donjon reconstruit, cu muzeu înăuntru, în mijlocul unui parc uriaș cu șanț de apă.",
   dece:"Mai bun ca picnic în parc decât ca muzeu — grădina e adevărata atracție."},
  {id:"o7",oras:"Osaka & Nara",titlu:"Umeda Sky Building",emoji:"🌉",img:"",
-  desc:"Două turnuri legate sus de o grădină plutitoare, cu scară rulantă suspendată.",
-  dece:"Arhitectură anilor '80 la superlativ, și panoramă la jumătate din prețul turnurilor din Tokyo."},
+  desc:"Două turnuri legate sus de o grădină plutitoare, cu scară rulantă suspendată între ele.",
+  dece:"Arhitectura anilor optzeci la superlativ, și panoramă la jumătate din prețul turnurilor din Tokyo."},
  {id:"o8",oras:"Osaka & Nara",titlu:"Okonomiyaki gătit la masă",emoji:"🥞",img:"",
   desc:"Clătite sărate pe plita din mijlocul mesei, în stil Osaka sau Hiroshima.",
   dece:"Activitate de grup deghizată în cină. Nu dă greș niciodată."},
@@ -241,7 +256,7 @@ let CARDURI = [
   dece:"O oră de Tokyo, cu ocean la final. Ideal ca zi mai lentă între orașe."}
 ];
 
-/* 3 — ALEGERI ORGANIZATORICE (multiple choice, fără ranking) */
+/* ALEGERI ORGANIZATORICE (variante multiple) */
 let ALEGERI = [
  {id:"a1",intrebare:"Cum ne mutăm între orașele mari?",context:"Tokyo → Kyoto → Osaka",
   optiuni:[
@@ -263,7 +278,7 @@ let ALEGERI = [
    {titlu:"Takkyubin — le trimitem înainte",desc:"Valiza pleacă de la hotel la hotel peste noapte, ~2.000 ¥ de bagaj.",nota:"Ziua de drum devine o zi cu rucsac mic. Ne trebuie o geantă de o noapte."},
    {titlu:"Le cărăm noi",desc:"Fiecare cu bagajul lui, în tren și pe scări.",nota:"Zero cost, zero planificare, flexibilitate totală. Dur în gara Tokyo la oră de vârf."},
    {titlu:"Lockere la gară",desc:"Lăsăm bagajele o zi și le luăm înainte de tren.",nota:"Perfect pentru zilele în care ne mutăm seara."}]},
- {id:"a5",intrebare:"Ce fel de cazare preferi?",context:"putem combina — de ex. hotel + o noapte de ryokan",
+ {id:"a5",intrebare:"Ce fel de cazare preferi?",context:"putem combina — de ex. hotel plus o noapte de ryokan",
   optiuni:[
    {titlu:"Hotel business",desc:"Cameră mică, impecabilă, lângă gară. Baie proprie.",nota:"Cel mai previzibil și mereu bine plasat. Camerele sunt chiar mici."},
    {titlu:"Ryokan cu cină kaiseki",desc:"Cameră cu tatami, futon, cină și mic dejun incluse, de obicei cu onsen.",nota:"Noaptea care e un eveniment, nu doar un pat. Cina are oră fixă și devreme."},
@@ -271,49 +286,76 @@ let ALEGERI = [
    {titlu:"Capsule hotel, o noapte",desc:"Pat-capsulă, baie comună, dulapuri pentru bagaje.",nota:"Ieftin și amuzant o singură noapte. A doua e o corvoadă."}]},
  {id:"a6",intrebare:"Ce ritm vrei pentru o zi obișnuită?",context:"",
   optiuni:[
-   {titlu:"Două obiective mari + timp liber",desc:"Program lejer, cu pauze lungi de cafea.",nota:"Toată lumea ajunge acasă cu energie."},
+   {titlu:"Două obiective mari plus timp liber",desc:"Program lejer, cu pauze lungi de cafea.",nota:"Toată lumea ajunge acasă cu energie."},
    {titlu:"Cât mai multe, plecăm devreme",desc:"Program dens, patru-cinci opriri pe zi.",nota:"Vedem mult mai mult. Ne costă la picioare."},
    {titlu:"O singură experiență pe zi, dar mare",desc:"Un lucru făcut pe îndelete, restul improvizat.",nota:"Vacanța pe care ți-o amintești, nu cea pe care o bifezi."}]},
  {id:"a7",intrebare:"Mesele: rezervăm sau improvizăm?",context:"",
   optiuni:[
-   {titlu:"Rezervăm din timp cele importante",desc:"3–4 mese fixe pe toată vacanța, restul liber.",nota:"Singura cale să prindem locurile bune. Ne leagă de un orar."},
-   {titlu:"Total spontan",desc:"Intrăm unde miroase bine.",nota:"Libertate maximă, dar la 8 persoane înseamnă adesea așteptare."}]},
- {id:"a8",intrebare:"Stăm tot timpul împreună?",context:"grup mare",
+   {titlu:"Rezervăm din timp cele importante",desc:"Trei-patru mese fixe pe toată vacanța, restul liber.",nota:"Singura cale să prindem locurile bune. Ne leagă de un orar."},
+   {titlu:"Total spontan",desc:"Intrăm unde miroase bine.",nota:"Libertate maximă, dar în grup mare înseamnă adesea așteptare."}]},
+ {id:"a8",intrebare:"Stăm tot timpul împreună?",context:"grup de 6 persoane",
   optiuni:[
    {titlu:"Mereu împreună",desc:"Un singur plan, toată lumea în el.",nota:"Simplu de organizat, dar ritmul se dictează după cel mai obosit."},
    {titlu:"Dimineața împreună, după-amiaza liber",desc:"Ne despărțim și ne regăsim la cină.",nota:"Fiecare își vede lucrurile lui și nimeni nu se plânge la cină."},
-   {titlu:"Grupuri mici, pe interese",desc:"Cine vrea temple merge la temple, cine vrea shopping merge la shopping.",nota:"Cea mai fericită variantă pentru grupuri mari și gusturi diferite."}]},
+   {titlu:"Grupuri mici, pe interese",desc:"Cine vrea temple merge la temple, cine vrea shopping merge la shopping.",nota:"Cea mai fericită variantă pentru gusturi diferite."}]},
  {id:"a9",intrebare:"Internet pe telefon?",context:"",
   optiuni:[
    {titlu:"eSIM",desc:"Se activează înainte de plecare, fiecare cu al lui.",nota:"Cel mai simplu și cel mai ieftin acum."},
    {titlu:"Pocket wi-fi pentru grup",desc:"Un router închiriat, împărțit de toți.",nota:"Bun dacă mergem mereu împreună. Se descarcă și trebuie cărat."}]},
  {id:"a10",intrebare:"JR Pass sau bilete separate?",context:"",
   optiuni:[
-   {titlu:"JR Pass",desc:"Preț fix pe 7/14 zile, tren nelimitat pe rețeaua JR.",nota:"Se amortizează doar dacă facem multe drumuri lungi. A crescut mult ca preț."},
-   {titlu:"Bilete individuale",desc:"Plătim fiecare drum separat, cu card IC pentru local.",nota:"Aproape mereu mai ieftin pentru un traseu Tokyo–Kyoto–Osaka clasic."}]}
+   {titlu:"JR Pass",desc:"Preț fix pe 7 sau 14 zile, tren nelimitat pe rețeaua JR.",nota:"Se amortizează doar dacă facem multe drumuri lungi. A crescut mult ca preț."},
+   {titlu:"Bilete individuale",desc:"Plătim fiecare drum separat, cu card IC pentru local.",nota:"Aproape mereu mai ieftin pentru un traseu clasic Tokyo–Kyoto–Osaka."}]}
 ];
 
 /* ==================== SFÂRȘITUL ZONEI DE EDITAT ==================== */
 
 const $=s=>document.querySelector(s);
 const K=32,BASE=1500;
-let S={me:"",etapa:"pref",oras:"Tokyo",tab:"pref",pair:null,err:"",loading:true,
-       date:{prefs:{},dueluri:[],alegeri:{}},toti:{},organizator:false,edit:null};
+const ARTIFACT = typeof window.storage!=="undefined";
+let S={me:"",oras:"Tokyo",tab:"pref",pair:null,loading:true,
+       date:{prefs:{},dueluri:[],alegeri:{}},toti:{},organizator:false};
 
-/* ---------- stocare ---------- */
-async function get(k){try{const r=await window.storage.get(k,true);return r?JSON.parse(r.value):null}catch(e){return null}}
-async function set(k,v){try{await window.storage.set(k,JSON.stringify(v),true);return true}catch(e){S.err="Nu am putut salva.";return false}}
+function status(t,ms=2200){const el=$("#status");el.textContent=t;el.classList.add("on");
+  clearTimeout(status._t);status._t=setTimeout(()=>el.classList.remove("on"),ms);}
+
+/* ---------- salvare / citire ---------- */
+function citesteDeLaSheet(){
+  return new Promise(res=>{
+    if(!URL_SCRIPT) return res(null);
+    const cb="cb"+Date.now();
+    window[cb]=d=>{res(d);delete window[cb];sc.remove()};
+    const sc=document.createElement("script");
+    sc.src=URL_SCRIPT+"?callback="+cb;
+    sc.onerror=()=>{res(null);sc.remove()};
+    document.head.appendChild(sc);
+    setTimeout(()=>{if(window[cb]){res(null);delete window[cb]}},8000);
+  });
+}
+async function salveaza(){
+  S.toti[S.me]=S.date;
+  if(URL_SCRIPT){
+    try{
+      await fetch(URL_SCRIPT,{method:"POST",mode:"no-cors",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify({nume:S.me,date:S.date})});
+      status("Salvat ✓");
+    }catch(e){status("Nu am reușit să salvez — verifică internetul")}
+  }else if(ARTIFACT){
+    try{await window.storage.set("jp:r:"+S.me,JSON.stringify(S.date),true)}catch(e){}
+  }
+  try{localStorage.setItem("jp:"+S.me,JSON.stringify(S.date))}catch(e){}
+}
 async function load(){
-  const c=await get("jp:continut");
-  if(c){ if(c.PREFERINTE)PREFERINTE=c.PREFERINTE; if(c.CARDURI)CARDURI=c.CARDURI; if(c.ALEGERI)ALEGERI=c.ALEGERI; }
-  try{
-    const l=await window.storage.list("jp:r:",true);
-    for(const k of (l?.keys||[])){const v=await get(k); if(v) S.toti[k.replace("jp:r:","")]=v;}
-  }catch(e){}
+  const d=await citesteDeLaSheet();
+  if(d) S.toti=d;
+  else if(ARTIFACT){
+    try{const l=await window.storage.list("jp:r:",true);
+      for(const k of (l?.keys||[])){const v=await window.storage.get(k,true);
+        S.toti[k.replace("jp:r:","")]=JSON.parse(v.value);}}catch(e){}
+  }
   S.loading=false;render();
 }
-const salveazaContinut=()=>set("jp:continut",{PREFERINTE,CARDURI,ALEGERI});
-async function salveaza(){S.toti[S.me]=S.date;await set("jp:r:"+S.me,S.date);}
 
 /* ---------- elo ---------- */
 function elo(dueluri,oras){
@@ -342,50 +384,55 @@ function urmatoareaPereche(oras){
 }
 const card=id=>CARDURI.find(c=>c.id===id);
 const esc=s=>(s||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-const fundal=c=>c.img?`style="background-image:url('${esc(c.img)}')"`:`style="background:linear-gradient(150deg,#2A3766,#48345C)"`;
+const fundal=c=>c.img?`style="background-image:url('${esc(c.img)}')"`:`style="background:linear-gradient(150deg,#EFE4D2,#E4D3BC)"`;
 
 /* ---------- randare ---------- */
+function antet(){
+  return `<p class="kanji">日本の秋 <small>🍁 🍂 🍁</small></p>
+          <h1>Planificatorul grupului</h1>`;
+}
 function render(){
   const root=$("#root");
-  if(S.loading){root.innerHTML=`<h1>Japonia · Planificarea călătoriei</h1><p class="sub">Se încarcă…</p>`;return;}
+  if(S.loading){root.innerHTML=antet()+`<p class="sub">Se încarcă…</p>`;return;}
   if(!S.me){
-    root.innerHTML=`<h1>Japonia · Planificarea călătoriei</h1>
-    <p class="sub">Trei etape: preferințe generale, dueluri pe orașe, alegeri organizatorice.</p>
-    <div class="panel" style="max-width:440px">
+    root.innerHTML=antet()+
+    `<p class="sub">31 octombrie – 14 noiembrie 2026 · 6 persoane</p>
+    <div class="panel" style="max-width:460px">
+      <h2>Bine ai venit 🍁</h2>
+      <p class="note" style="margin-bottom:6px">Trei etape, cam 10 minute: notezi ce îți place, alegi între perechi de activități, apoi răspunzi la câteva întrebări de organizare.</p>
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
       <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button>
-      <button id="org">Sunt organizatorul</button></div>
-      <p class="note" style="margin-top:14px">Fiecare participant deschide același link și își scrie numele. Răspunsurile se adună automat.</p>
+      <button id="org">Sunt organizatoarea</button></div>
     </div>`;
-    $("#go").onclick=()=>{const v=$("#nm").value.trim();if(!v)return;S.me=v;S.date=S.toti[v]||{prefs:{},dueluri:[],alegeri:{}};render()};
+    $("#go").onclick=()=>{const v=$("#nm").value.trim();if(!v)return;S.me=v;
+      S.date=S.toti[v]||JSON.parse(localStorage.getItem("jp:"+v)||"null")||{prefs:{},dueluri:[],alegeri:{}};render()};
     $("#nm").onkeydown=e=>{if(e.key==="Enter")$("#go").click()};
-    $("#org").onclick=()=>{S.me="Organizator";S.organizator=true;S.tab="ed";S.date=S.toti["Organizator"]||{prefs:{},dueluri:[],alegeri:{}};render()};
+    $("#org").onclick=()=>{S.me="Organizator";S.organizator=true;S.tab="rez";
+      S.date=S.toti["Organizator"]||{prefs:{},dueluri:[],alegeri:{}};render()};
     return;
   }
-  const taburi=[["pref","1 · Preferințe"],["duel","2 · Dueluri"],["aleg","3 · Alegeri"],["rez","Rezultate"],["ed","Mod organizator"]];
-  root.innerHTML=`<h1>Japonia · Planificator de grup</h1>
-   <p class="sub">${esc(S.me)} · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} preferințe · ${S.date.dueluri.length} dueluri · ${Object.keys(S.date.alegeri).length}/${ALEGERI.length} alegeri${S.err?` · <span style="color:var(--vermilion)">${esc(S.err)}</span>`:""}</p>
+  const taburi=[["pref","1 · Preferințe"],["duel","2 · Dueluri"],["aleg","3 · Alegeri"],["rez","Rezultate"],["ed","Carduri"]];
+  root.innerHTML=antet()+
+   `<p class="sub">${esc(S.me)} · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} preferințe · ${S.date.dueluri.length} dueluri · ${Object.keys(S.date.alegeri).length}/${ALEGERI.length} alegeri</p>
    <div class="tabs">${taburi.map(t=>`<button class="tab ${S.tab===t[0]?"active":""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
    <div id="view"></div>`;
   root.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;S.pair=null;render()});
   ({pref:vPref,duel:vDuel,aleg:vAleg,rez:vRez,ed:vEd})[S.tab]();
 }
-function baraOrase(){
-  return `<div class="row" style="margin-bottom:14px">${ORASE.map(o=>`<button class="${S.oras===o?"on":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
-}
-function legOrase(){document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.oras=b.dataset.o;S.pair=null;render()})}
+const baraOrase=()=>`<div class="row" style="margin-bottom:14px">${ORASE.map(o=>`<button class="${S.oras===o?"on":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
+const legOrase=()=>document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.oras=b.dataset.o;S.pair=null;render()});
 
 function vPref(){
   const v=$("#view");
-  v.innerHTML=`<div class="panel"><h2>Cum arată vacanța ta ideală?</h2>
-  <p class="note" style="margin-bottom:6px">Notează fiecare afirmație de la 1 (deloc) la 10 (neapărat). Nu există răspuns greșit — scopul e să vedem unde grupul e de acord și unde nu.</p></div>
-  ${PREFERINTE.map(p=>{const val=S.date.prefs[p.id]||0;
+  v.innerHTML=`<div class="panel"><h2>Cum arată vacanța ta ideală? 🍂</h2>
+  <p class="note">Notează fiecare afirmație de la 1 (deloc) la 10 (neapărat). Nu există răspuns greșit — scopul e să vedem unde grupul e de acord și unde nu.</p></div>
+  <div class="panel">${PREFERINTE.map(p=>{const val=S.date.prefs[p.id]||0;
     return `<div class="pref"><div class="q">${esc(p.text)}</div>
     <div class="stars" data-p="${p.id}">${Array.from({length:10},(_,i)=>
       `<button class="st ${i<val?"fill":""}" data-v="${i+1}" aria-label="${i+1} din 10">★</button>`).join("")}
-      <span class="scoretag">${val?val+" / 10":"nenotat"}</span></div></div>`}).join("")}`;
+      <span class="scoretag">${val?val+" / 10":"nenotat"}</span></div></div>`}).join("")}</div>`;
   v.querySelectorAll(".stars").forEach(g=>g.querySelectorAll(".st").forEach(b=>b.onclick=async()=>{
-    S.date.prefs[g.dataset.p]=+b.dataset.v;await salveaza();vPref();
+    S.date.prefs[g.dataset.p]=+b.dataset.v;vPref();await salveaza();
   }));
 }
 
@@ -393,7 +440,7 @@ function vDuel(){
   if(!S.pair)S.pair=urmatoareaPereche(S.oras);
   const v=$("#view");
   if(!S.pair){
-    v.innerHTML=baraOrase()+`<div class="panel"><h2>${esc(S.oras)} — gata.</h2>
+    v.innerHTML=baraOrase()+`<div class="panel"><h2>${esc(S.oras)} — gata 🍁</h2>
       <p class="note">Ai comparat destule perechi pentru un clasament stabil. Treci la alt oraș, sau vezi <b>Rezultate</b>.</p></div>`;
     legOrase();return;
   }
@@ -412,7 +459,7 @@ function vDuel(){
   v.querySelectorAll(".card").forEach(el=>el.onclick=async()=>{
     el.querySelector(".stamp").classList.add("show");
     S.date.dueluri.push({w:el.dataset.w,l:el.dataset.l,o:S.oras,t:Date.now()});
-    await salveaza();
+    salveaza();
     setTimeout(()=>{S.pair=urmatoareaPereche(S.oras);render()},380);
   });
   $("#skip").onclick=()=>{S.pair=urmatoareaPereche(S.oras);render()};
@@ -429,29 +476,27 @@ function vAleg(){
       `<button class="opt ${S.date.alegeri[q.id]===i?"sel":""}" data-i="${i}">
         <b>${esc(o.titlu)}</b><span>${esc(o.desc)}</span><em>${esc(o.nota)}</em></button>`).join("")}</div></div>`).join("");
   v.querySelectorAll(".opts").forEach(g=>g.querySelectorAll(".opt").forEach(b=>b.onclick=async()=>{
-    S.date.alegeri[g.dataset.q]=+b.dataset.i;await salveaza();vAleg();
+    S.date.alegeri[g.dataset.q]=+b.dataset.i;vAleg();await salveaza();
   }));
 }
 
 function vRez(){
   const oameni=Object.keys(S.toti).length?Object.keys(S.toti):[S.me];
   const v=$("#view");
-  /* preferinte medii */
   const medii=PREFERINTE.map(p=>{
     const note=oameni.map(o=>S.toti[o]?.prefs?.[p.id]).filter(x=>x>0);
     const m=note.length?note.reduce((a,b)=>a+b,0)/note.length:0;
     const sd=note.length>1?Math.sqrt(note.reduce((s,x)=>s+(x-m)**2,0)/note.length):0;
-    return{p,m,sd,n:note.length};
+    return{p,m,sd};
   }).sort((a,b)=>b.m-a.m);
-  /* clasament oras */
   const ids=CARDURI.filter(c=>c.oras===S.oras).map(c=>c.id);
   const sum={},sp={};ids.forEach(i=>{sum[i]=0;sp[i]=[]});
   oameni.forEach(o=>{const{r}=elo(S.toti[o]?.dueluri||[],S.oras);ids.forEach(i=>{sum[i]+=r[i];sp[i].push(r[i])})});
   const ord=ids.slice().sort((a,b)=>sum[b]-sum[a]);
   const dev=i=>{const m=sum[i]/oameni.length;return Math.sqrt(sp[i].reduce((s,x)=>s+(x-m)**2,0)/sp[i].length)};
   const maxd=Math.max(1,...ids.map(dev));
-
-  v.innerHTML=`<div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
+  v.innerHTML=`<div class="row" style="margin-bottom:12px"><button id="reload">🔄 Reîncarcă răspunsurile</button></div>
+    <div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
     ${medii.map(x=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div style="font-size:14px">${esc(x.p.text)}</div>
       <div class="bar"><i style="width:${x.m*10}%"></i></div></div>
@@ -465,23 +510,22 @@ function vRez(){
   <div class="panel"><div class="meta">Alegeri organizatorice</div>
     ${ALEGERI.map(q=>{const nr=q.optiuni.map((_,i)=>oameni.filter(o=>S.toti[o]?.alegeri?.[q.id]===i).length);
       const tot=nr.reduce((a,b)=>a+b,0)||1;
-      return `<div style="padding:10px 0;border-bottom:1px solid rgba(243,238,227,.1)">
+      return `<div style="padding:10px 0;border-bottom:1px solid var(--linie)">
         <div style="font-size:14px;margin-bottom:6px">${esc(q.intrebare)}</div>
         ${q.optiuni.map((o,i)=>`<div class="row" style="gap:8px;margin-bottom:4px">
           <span class="small" style="min-width:190px">${esc(o.titlu)}</span>
           <div class="bar" style="flex:1;margin:0"><i style="width:${nr[i]/tot*100}%"></i></div>
           <span class="small">${nr[i]}</span></div>`).join("")}</div>`}).join("")}</div>
   <div class="panel"><div class="meta">Cine a răspuns</div>
-    ${oameni.map(o=>`<span class="pill">${esc(o)}</span>`).join("")}
-    <p class="note" style="margin-top:8px">Reîncarcă pagina ca să vezi răspunsurile trimise între timp.</p></div>`;
+    ${oameni.map(o=>`<span class="pill">${esc(o)}</span>`).join("")}</div>`;
   legOrase();
+  $("#reload").onclick=async()=>{status("Se încarcă…");const d=await citesteDeLaSheet();if(d)S.toti=d;render();};
 }
 
-/* ---------- mod organizator ---------- */
 function vEd(){
   const v=$("#view");
-  v.innerHTML=`<div class="panel"><h2>Mod organizator</h2>
-    <p class="note">Aici construiești conținutul. Modificările se salvează pentru toată lumea. Exportă JSON-ul ca backup sau ca să-l lipești direct în fișier.</p>
+  v.innerHTML=`<div class="panel"><h2>Cardurile 🍁</h2>
+    <p class="note">Aici editezi textele și pui fotografii. Modificările sunt doar în acest browser — la final apasă <b>Exportă JSON</b> și lipește-l în fișierul index.html, sau trimite-mi-l.</p>
     <div class="row" style="margin-top:12px">
       <button id="exp">Exportă JSON</button><button id="imp">Importă JSON</button>
       <button id="nou" class="primary">Card nou în ${esc(S.oras)}</button></div></div>`
@@ -499,33 +543,30 @@ function vEd(){
       <label>De ce merită — argumentul sincer, cu tot cu capcană</label><textarea data-f="dece">${esc(c.dece)}</textarea>
       <div class="row" style="margin-top:10px"><button class="primary" data-act="save">Salvează</button>
       <button data-act="del">Șterge</button>
-      ${c.img?`<img src="${esc(c.img)}" style="height:46px;border-radius:2px">`:""}</div>
+      ${c.img?`<img src="${esc(c.img)}" alt="" style="height:46px;border-radius:2px">`:""}</div>
     </div>`).join("");
   legOrase();
   v.querySelectorAll(".ed").forEach(box=>{
     const c=card(box.dataset.id);
-    box.querySelector('[data-act="save"]').onclick=async()=>{
+    box.querySelector('[data-act="save"]').onclick=()=>{
       box.querySelectorAll("[data-f]").forEach(f=>c[f.dataset.f]=f.value.trim());
-      await salveazaContinut();render();
+      status("Card actualizat — nu uita să exporți");render();
     };
-    box.querySelector('[data-act="del"]').onclick=async()=>{
-      if(!confirm("Ștergi cardul „"+c.titlu+"”?"))return;
-      CARDURI=CARDURI.filter(x=>x.id!==c.id);await salveazaContinut();render();
+    box.querySelector('[data-act="del"]').onclick=()=>{
+      if(!confirm("Ștergi cardul?"))return;
+      CARDURI=CARDURI.filter(x=>x.id!==c.id);render();
     };
   });
-  $("#nou").onclick=async()=>{
-    CARDURI.push({id:"n"+Date.now(),oras:S.oras,titlu:"Titlu nou",emoji:"📍",img:"",desc:"",dece:""});
-    await salveazaContinut();render();
-  };
+  $("#nou").onclick=()=>{CARDURI.push({id:"n"+Date.now(),oras:S.oras,titlu:"Titlu nou",emoji:"📍",img:"",desc:"",dece:""});render()};
   $("#exp").onclick=()=>{
     const b=new Blob([JSON.stringify({PREFERINTE,CARDURI,ALEGERI},null,2)],{type:"application/json"});
     const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="japonia-continut.json";a.click();
   };
   $("#imp").onclick=()=>{
     const i=document.createElement("input");i.type="file";i.accept=".json";
-    i.onchange=async()=>{const t=await i.files[0].text();
-      try{const d=JSON.parse(t);if(d.PREFERINTE)PREFERINTE=d.PREFERINTE;if(d.CARDURI)CARDURI=d.CARDURI;if(d.ALEGERI)ALEGERI=d.ALEGERI;
-        await salveazaContinut();render();}catch(e){alert("Fișier invalid.")}};
+    i.onchange=async()=>{try{const d=JSON.parse(await i.files[0].text());
+      if(d.PREFERINTE)PREFERINTE=d.PREFERINTE;if(d.CARDURI)CARDURI=d.CARDURI;if(d.ALEGERI)ALEGERI=d.ALEGERI;render();
+      }catch(e){alert("Fișier invalid.")}};
     i.click();
   };
 }
