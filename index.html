@@ -61,18 +61,23 @@
   .st.fill{color:var(--artar)}
   .scoretag{font-size:12px;color:var(--gri);margin-left:8px}
 
-  /* ---------- „musai” — entuziasm maxim ---------- */
-  .musai{display:inline-flex;align-items:center;gap:7px;margin-top:9px;font-size:12px;letter-spacing:.03em;
-    padding:7px 13px;border:1px solid var(--linie);border-radius:99px;background:var(--hartie2);color:#6B6558}
-  .musai .mk{font-size:15px;line-height:1;filter:grayscale(1);opacity:.5;transition:filter .2s,opacity .2s,transform .2s}
-  .musai:hover{border-color:var(--artar);color:var(--artar)}
-  .musai.on{background:var(--artar);border-color:var(--artar);color:#fff}
-  .musai.on .mk{filter:none;opacity:1;transform:scale(1.15)}
-  .musai.on:hover{color:#fff;background:#a83722}
+  /* ---------- „favorit” — Îmi place în mod deosebit ---------- */
+  /* butonul care marchează un card ca favorit (stă suprapus peste marginea de sus) */
+  .favbtn{position:absolute;top:-13px;left:50%;transform:translateX(-50%);z-index:5;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.02em;
+    padding:6px 13px;border:1px solid var(--linie);border-radius:99px;background:var(--hartie);color:#6B6558;
+    box-shadow:0 3px 9px rgba(80,60,40,.14);cursor:pointer;transition:all .18s}
+  .favbtn .mk{font-size:14px;line-height:1;filter:grayscale(1);opacity:.55;transition:all .2s}
+  .favbtn:hover{border-color:#C9A227;color:#8a6d0f}
+  .favbtn.on{background:linear-gradient(180deg,#F6D65B,#E7B923);border-color:#C9A227;color:#5a4708;font-weight:600}
+  .favbtn.on .mk{filter:none;opacity:1;transform:scale(1.15)}
+  /* cardul favorit — chenar auriu proeminent + spațiu deasupra pentru pastilă */
+  .card.favorit{overflow:visible;border:2px solid #E7B923;box-shadow:0 10px 26px rgba(201,162,39,.28);margin-top:14px}
+  .card.favorit .media{border-radius:2px 2px 0 0}
 
   /* ---------- carduri ---------- */
   .duel{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .grila{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .grila{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px 16px;padding-top:6px}
   .card{background:var(--hartie2);color:var(--tus);border-radius:3px;overflow:hidden;text-align:left;padding:0;
     border:1px solid var(--linie);position:relative;display:flex;flex-direction:column;width:100%;
     box-shadow:0 8px 22px rgba(80,60,40,.09);transition:transform .18s,box-shadow .18s,border-color .18s}
@@ -202,36 +207,37 @@ const CATEGORII = [
   {id:"atractie",   nume:"Atracții turistice",
    desc:"Marile obiective — situri din patrimoniul UNESCO și locurile cu cele mai multe recenzii pe Google Maps. Frumoase și memorabile, dar acolo se adună cei mai mulți oameni."},
   {id:"activitate", nume:"Activități",
-   desc:"Experiențe de scurtă durată, de regulă cu bilet sau programare făcută din timp."},
+   desc:"Experiențe de scurtă durată — ateliere, tururi, dar și concerte, teatru și seri cu program fix. De regulă cu bilet sau programare făcută din timp."},
   {id:"culinar",    nume:"Experiențe gastronomice",
    desc:"Piețe, street food și mese-eveniment — acolo unde mâncarea în sine e scopul."},
-  {id:"spectacol",  nume:"Spectacole & venue-uri",
-   desc:"Concerte, teatru și seri cu program fix — de verificat datele și de rezervat din timp."},
   {id:"zona",       nume:"Zone & plimbări",
    desc:"Cartiere, grădini și plimbări — locuri unde doar hoinărim, savurăm momentul și ne odihnim lejer. Nu sunt destinații în sine, ci mai degrabă atmosferă."}
 ];
 
-/* PREFERINȚE GENERALE (notă 1–5) */
+/* PREFERINȚE GENERALE (notă 1–10) — ordonate logic: ce vizităm · ce mâncăm · ritm & logistică */
 let PREFERINTE = [
-  {id:"p1", text:"Cât de mult vrei să vedem temple și sanctuare?"},
-  {id:"p2", text:"Cât de mult vrei să ieșim în natură — munte, pădure, parcuri?"},
-  {id:"p3", text:"Cât de mult vrei să mergem într-o dimineață la piață, pentru a gusta ton proaspăt, stridii, și alte produse maritime?"},
-  {id:"p4", text:"Cât de mult vrei să încercăm diverse produse din bucătăria tradițională japoneză (în afară de sushi)?"},
-  {id:"p5", text:"Cât de mult te atrag deserturile și patiseria japoneză?"},
-  {id:"p6", text:"Cât de mult preferi taxiul între destinații, față de transportul public, chiar dacă e mai scump?"},
-  {id:"p7", text:"Cât de dispusă/dispus ești să ne trezim foarte devreme, pentru a evita aglomerația de turiști (adică la 6 dimineața)?"},
-  {id:"p8", text:"Cât de important e să avem onsen și saună la fiecare hotel? (Onsen este o baie termală tradițională japoneză alimentată de izvoare geotermale naturale bogate în minerale)"},
-  {id:"p9", text:"Cât de mult dorești să explorezi viața urbană din Tokio pe timp de noapte — lumini neon, baruri (izakaya), străzi aglomerate?"},
-  {id:"p10", text:"Cât de mult te atrag muzeele de istorie și artă japoneză?"},
-  {id:"p11", text:"Cât de mult îți dorești să avem timp de shopping (pentru haine, cadouri, suveniruri) și să explorăm faimosul cartier de shopping - Ginza?"},
-  {id:"p12", text:"Cât de mult vrei să avem zile lejere, cu pauze și timp liber de a savura momentul?"},
+  /* — ce vizităm & ce facem — */
+  {id:"p1",  text:"Cât de mult vrei să vedem temple și sanctuare?"},
   {id:"p13", text:"Cât de mult te atrag experiențele tradiționale japoneze (ritualul ceaiului, probarea kimonoului, ore de caligrafie)?"},
-  {id:"p15", text:"Cât de mult preferi să vizitezi locuri frumoase, dar mai puțin cunoscute, în schimbul atracțiilor faimoase și aglomerate?"}
+  {id:"p10", text:"Cât de mult te atrag muzeele de istorie și artă japoneză?"},
+  {id:"p2",  text:"Cât de mult vrei să ieșim în natură — munte, pădure, parcuri?"},
+  {id:"p9",  text:"Cât de mult dorești să explorezi viața urbană din Tokio pe timp de noapte — lumini neon, baruri (izakaya), străzi aglomerate?"},
+  {id:"p11", text:"Cât de mult îți dorești să avem timp de shopping (pentru haine, cadouri, suveniruri) și să explorăm faimosul cartier de shopping - Ginza?"},
+  {id:"p15", text:"Cât de mult preferi să vizitezi locuri frumoase, dar mai puțin cunoscute, în schimbul atracțiilor faimoase și aglomerate?"},
+  /* — ce mâncăm — */
+  {id:"p3",  text:"Cât de mult vrei să mergem într-o dimineață la piață, pentru a gusta ton proaspăt, stridii, și alte produse maritime?"},
+  {id:"p4",  text:"Cât de mult vrei să încercăm diverse produse din bucătăria tradițională japoneză (în afară de sushi)?"},
+  {id:"p5",  text:"Cât de mult te atrag deserturile și patiseria japoneză?"},
+  /* — ritm & logistică — */
+  {id:"p12", text:"Cât de mult vrei să avem zile lejere, cu pauze și timp liber de a savura momentul?"},
+  {id:"p7",  text:"Cât de dispusă/dispus ești să ne trezim foarte devreme, pentru a evita aglomerația de turiști (adică la 6 dimineața)?"},
+  {id:"p8",  text:"Cât de important e să avem onsen și saună la fiecare hotel? (Onsen este o baie termală tradițională japoneză alimentată de izvoare geotermale naturale bogate în minerale)"},
+  {id:"p6",  text:"Cât de mult preferi taxiul între destinații, față de transportul public, chiar dacă e mai scump?"}
 ];
 
 /* CARDURI — generate din baza de date de activități (alegerile DA / POATE)
    oras     — orașul (fișierul) în care apare cardul
-   cat      — categoria: "zona" | "atractie" | "activitate" | "culinar" | "spectacol"
+   cat      — categoria: "atractie" | "activitate" | "culinar" | "zona"
    alegere  — "da"  (ai bifat DA în tabel)  |  "poate" (ai bifat Poate)
    img      — numele fișierului din folderul de GitHub (ex. "shibuya_sky.jpg"); gol = fundal decorativ
    tag      — două-trei cuvinte: tipul experienței
@@ -329,16 +335,16 @@ let CARDURI = [
   dece:"E ieftin, animat și plin de personalitate. Spațiile sunt mici și pline de fum, greu de ocupat cu șase deodată — de aici semnul de întrebare."},
 
  /* -- Spectacole & venue-uri -- */
- {id:"t_gala",oras:"Tokyo",cat:"spectacol",alegere:"da",titlu:"Suntory Hall — Concertul GALA la 40 de ani",emoji:"🎼",img:"",tag:"Concert · 1 nov",timp:"o seară",
+ {id:"t_gala",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Suntory Hall — Concertul GALA la 40 de ani",emoji:"🎼",img:"",tag:"Concert · 1 nov",timp:"o seară",
   desc:"Cea mai apreciată sală de concerte clasice din Tokyo își sărbătorește cei 40 de ani printr-un concert-gală aniversar, chiar la începutul șederii noastre.",
   dece:"E o seară de clasică într-o acustică legendară, potrivită pentru aniversare. De verificat: data (1 noiembrie) și disponibilitatea biletelor, care se epuizează."},
- {id:"t_cotton",oras:"Tokyo",cat:"spectacol",alegere:"da",titlu:"Cotton Club — concert de jazz la masă",emoji:"🎷",img:"",tag:"Jazz · seara",timp:"o seară",
+ {id:"t_cotton",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Cotton Club — concert de jazz la masă",emoji:"🎷",img:"",tag:"Jazz · seara",timp:"o seară",
   desc:"Club de jazz intim în stil newyorkez, unde asculți muzică live stând la masă, cu cină și băuturi. În noiembrie e programat, printre alții, odol, care revine după o pauză de trei ani.",
   dece:"E o seară elegantă și relaxată, perfectă pentru un moment special în grup. Se rezervă din timp, iar seara are de obicei două reprezentații."},
- {id:"t_chaplin",oras:"Tokyo",cat:"spectacol",alegere:"da",titlu:"City Lights — balet după Chaplin",emoji:"🎭",img:"",tag:"Balet",timp:"o seară",
+ {id:"t_chaplin",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"City Lights — balet după Chaplin",emoji:"🎭",img:"",tag:"Balet",timp:"o seară",
   desc:"Un spectacol de balet inspirat din „City Lights” („Luminile orașului”) al lui Charlie Chaplin — poveste fără cuvinte, deci ușor de urmărit indiferent de limbă.",
   dece:"E o seară de cultură accesibilă tuturor, tocmai fiindcă nu depinde de limbă. De verificat programul și biletele pentru intervalul nostru."},
- {id:"t_kabukiza",oras:"Tokyo",cat:"spectacol",alegere:"poate",titlu:"Kabukiza — teatru kabuki",emoji:"🎎",img:"",tag:"Teatru",timp:"1–4 ore",
+ {id:"t_kabukiza",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"Kabukiza — teatru kabuki",emoji:"🎎",img:"",tag:"Teatru",timp:"1–4 ore",
   desc:"Teatrul emblematic de kabuki din Ginza, cu costume somptuoase și gesturi stilizate. Se poate cumpăra bilet și doar pentru un singur act, ca să guști forma fără să stai ore întregi.",
   dece:"E cultură vie, iar varianta „un singur act” o face accesibilă. Nu are subtitrări (se închiriază căști cu traducere, contra cost)."},
 
@@ -488,13 +494,13 @@ let CARDURI = [
   dece:"E varianta relaxată și variată a bucătăriei din Kyoto, ușor de împărțit între șase. Cere rezervare pentru un grup."},
 
  /* -- Spectacole -- */
- {id:"k_minamiza",oras:"Kyoto",cat:"spectacol",alegere:"da",titlu:"Minamiza — teatru kabuki",emoji:"🎭",img:"",tag:"Teatru",timp:"1–4 ore",
+ {id:"k_minamiza",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Minamiza — teatru kabuki",emoji:"🎭",img:"",tag:"Teatru",timp:"1–4 ore",
   desc:"Cel mai vechi teatru de kabuki din Japonia, chiar în inima cartierului Gion, cu spectacole de mare fast.",
   dece:"E kabuki autentic într-un cadru istoric, central și ușor de ajuns. De verificat programul pentru intervalul nostru (marele festival kaomise e de obicei în decembrie)."},
- {id:"k_gionodori",oras:"Kyoto",cat:"spectacol",alegere:"da",titlu:"Gion Odori (1–10 noiembrie)",emoji:"💃",img:"",tag:"Dans · toamna",timp:"1 oră",
+ {id:"k_gionodori",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Gion Odori (1–10 noiembrie)",emoji:"💃",img:"",tag:"Dans · toamna",timp:"1 oră",
   desc:"Spectacolul de dans de toamnă al cartierului Gion Higashi, susținut de geiko și maiko, care se ține doar câteva zile pe an — chiar la începutul șederii noastre.",
   dece:"E o ocazie rară de a vedea dansul tradițional pe scenă, exact în fereastra noastră de date. Biletele se pun în vânzare din septembrie — de rezervat din timp."},
- {id:"k_gioncorner",oras:"Kyoto",cat:"spectacol",alegere:"da",titlu:"Gion Corner",emoji:"🎏",img:"",tag:"Spectacol",timp:"1 oră",
+ {id:"k_gioncorner",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Gion Corner",emoji:"🎏",img:"",tag:"Spectacol",timp:"1 oră",
   desc:"Un spectacol scurt care adună într-o singură seară șapte arte tradiționale japoneze — ceai, dans, muzică, teatru de păpuși — ca o introducere accesibilă.",
   dece:"E cel mai ușor mod de a gusta mai multe arte deodată, într-o oră. E gândit pentru turiști și rămâne la suprafață — bun ca introducere, nu ca aprofundare."},
 
@@ -561,10 +567,10 @@ let CARDURI = [
   dece:"E cina de sărbătoare prin excelență, potrivită pentru aniversare. E scumpă — o alegem ca punct culminant, nu ca masă de zi cu zi."},
 
  /* -- Spectacole -- */
- {id:"o_billboard",oras:"Osaka",cat:"spectacol",alegere:"da",titlu:"Billboard Live Osaka",emoji:"🎵",img:"",tag:"Concert",timp:"o seară",
+ {id:"o_billboard",oras:"Osaka",cat:"activitate",alegere:"da",titlu:"Billboard Live Osaka",emoji:"🎵",img:"",tag:"Concert",timp:"o seară",
   desc:"O sală intimă de concerte cu cină la masă, în Umeda, unde vezi artiști de aproape, confortabil.",
   dece:"E o seară muzicală relaxată, cu mâncare bună și fără aglomerație. Se rezervă din timp, iar programul depinde de cine cântă în noiembrie."},
- {id:"o_shochikuza",oras:"Osaka",cat:"spectacol",alegere:"poate",titlu:"Osaka Shochikuza",emoji:"🎭",img:"",tag:"Teatru",timp:"1–4 ore",
+ {id:"o_shochikuza",oras:"Osaka",cat:"activitate",alegere:"poate",titlu:"Osaka Shochikuza",emoji:"🎭",img:"",tag:"Teatru",timp:"1–4 ore",
   desc:"Teatru de kabuki chiar în inima Dotonbori, unde se pot vedea spectacole clasice în plin centrul animat al orașului.",
   dece:"E kabuki central și ușor de combinat cu o seară în Dotonbori. De verificat programul pentru zilele noastre."},
 
@@ -678,9 +684,9 @@ let ALEGERI = [];
 
 const $=s=>document.querySelector(s);
 const ARTIFACT = typeof window.storage!=="undefined";
-/* note = notă 1–5 pe fiecare card · musai = set de id-uri marcate „Extraordinar!” (entuziasm maxim) */
+/* note = notă 1–5 pe fiecare card · musai = set de id-uri marcate „favorit” (Îmi place în mod deosebit) */
 const norm=d=>({prefs:(d&&d.prefs)||{}, note:(d&&d.note)||{}, musai:(d&&d.musai)||{}});
-let S={me:"",oras:"Tokyo",tab:"pref",loading:true,
+let S={me:"",oras:"Tokyo",tab:"plan",loading:true,
        date:{prefs:{},note:{},musai:{}},toti:{},organizator:false};
 
 function status(t,ms=2200){const el=$("#status");el.textContent=t;el.classList.add("on");
@@ -757,7 +763,7 @@ function render(){
     `<p class="sub">31 octombrie – 14 noiembrie 2026 · 6 persoane</p>
     <div class="panel" style="max-width:560px">
       <h2>Bine ai venit 🍁</h2>
-      <p class="note" style="margin-bottom:6px">Site-ul are patru file. În <b>Preferințe generale</b> spui în linii mari ce fel de vacanță îți dorești. În <b>Propunere itinerariu</b> vezi cum ar arăta traseul. Apoi, în <b>Experiențe</b>, treci prin fiecare oraș și dai fiecărei experiențe o notă de la 1 la 5 stele — <b>ăsta e pasul cel mai important</b> — iar dacă una te entuziasmează la culme, o poți marca <b>„Extraordinar!”</b>. La final, în <b>Rezultate</b>, vezi media grupului. Cam 15 minute.</p>
+      <p class="note" style="margin-bottom:6px">Site-ul are patru file. În <b>Propunere itinerariu</b> vezi cum ar arăta traseul. În <b>Experiențe</b> treci prin fiecare oraș și dai fiecărei experiențe o notă de la 1 la 5 stele — <b>ăsta e pasul cel mai important</b> — iar cele care îți plac în mod deosebit le poți marca cu 👑, ca să urce în capul listei. În <b>Preferințe generale</b> spui în linii mari ce fel de vacanță îți dorești. La final, în <b>Rezultate</b>, vezi media grupului. Cam 15 minute.</p>
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
       <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button>
       <button id="org">Mod organizator</button></div>
@@ -771,7 +777,7 @@ function render(){
   }
   const totalCarduri=CARDURI.length;
   const notate=CARDURI.filter(c=>S.date.note[c.id]>0).length;
-  const taburi=[["pref","Preferințe generale"],["plan","Propunere itinerariu"],["exp","Experiențe"],["rez","Rezultate"]];
+  const taburi=[["plan","Propunere itinerariu"],["exp","Experiențe"],["pref","Preferințe generale"],["rez","Rezultate"]];
   root.innerHTML=antet()+
    `<p class="sub">${esc(S.me)} · ${notate}/${totalCarduri} experiențe notate · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} preferințe generale</p>
    <div class="tabs">${taburi.map(t=>`<button class="tab ${S.tab===t[0]?"active":""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
@@ -782,47 +788,56 @@ function render(){
 const baraOrase=()=>`<div class="row" style="margin-bottom:14px">${ORASE.map(o=>`<button class="${S.oras===o?"on":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
 const legOrase=()=>document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.oras=b.dataset.o;render()});
 
-/* rând de 5 stele, reutilizabil (pref sau card) */
-function steleRand(attr,id,val){
-  return `<div class="stars" ${attr}="${id}">${Array.from({length:5},(_,i)=>
-    `<button class="st ${i<val?"fill":""}" data-v="${i+1}" aria-label="${i+1} din 5">★</button>`).join("")}
-    <span class="scoretag">${val?val+" / 5":"nenotat"}</span></div>`;
+/* rând de stele, reutilizabil — max implicit 5 (carduri), 10 la preferințe */
+function steleRand(attr,id,val,max){
+  max=max||5;
+  return `<div class="stars" ${attr}="${id}">${Array.from({length:max},(_,i)=>
+    `<button class="st ${i<val?"fill":""}" data-v="${i+1}" aria-label="${i+1} din ${max}">★</button>`).join("")}
+    <span class="scoretag">${val?val+" / "+max:"nenotat"}</span></div>`;
 }
 
-/* ---------- PREFERINȚE GENERALE (1–5 stele) ---------- */
+/* ---------- PREFERINȚE GENERALE (1–10 stele) ---------- */
 function vPref(){
   const v=$("#view");
   v.innerHTML=`<div class="panel"><h2>Cum arată vacanța ta ideală? 🍂</h2>
-  <p class="note">Dă fiecărei afirmații de la 1 stea (deloc) la 5 stele (neapărat). Nu există răspuns greșit — scopul e doar să vedem unde grupul e de acord și unde nu.</p></div>
+  <p class="note">Dă fiecărei afirmații o notă de la 1 stea (deloc) la 10 stele (neapărat). Nu există răspuns greșit — scopul e doar să vedem unde grupul e de acord și unde nu.</p></div>
   <div class="panel">${PREFERINTE.map(p=>{const val=S.date.prefs[p.id]||0;
-    return `<div class="pref"><div class="q">${esc(p.text)}</div>${steleRand("data-p",p.id,val)}</div>`}).join("")}</div>`;
+    return `<div class="pref"><div class="q">${esc(p.text)}</div>${steleRand("data-p",p.id,val,10)}</div>`}).join("")}</div>`;
   v.querySelectorAll(".stars").forEach(g=>g.querySelectorAll(".st").forEach(b=>b.onclick=async()=>{
     S.date.prefs[g.dataset.p]=+b.dataset.v;vPref();await salveaza();
   }));
 }
 
-/* ---------- EXPERIENȚE (notează fiecare card 1–5, pe categorii, apoi DA / Poate) ---------- */
+/* ---------- EXPERIENȚE (notează fiecare card 1–5; favorit + reordonare live) ---------- */
 function cardCuNota(c){
   const val=S.date.note[c.id]||0;
-  const musai=!!S.date.musai[c.id];
-  return `<article class="card static">${thumb(c)}${corpCard(c)}
+  const fav=!!S.date.musai[c.id];
+  return `<article class="card static ${fav?"favorit":""}">
+    <button class="favbtn ${fav?"on":""}" data-musai="${c.id}" aria-pressed="${fav}">
+      <span class="mk">👑</span> Îmi place în mod deosebit!</button>
+    ${thumb(c)}${corpCard(c)}
     <div class="cardnote"><div class="ql">Cât de mult vrei să facem asta?</div>
       ${steleRand("data-note",c.id,val)}
-      <button class="musai ${musai?"on":""}" data-musai="${c.id}" aria-pressed="${musai}">
-        <span class="mk">🔥</span> Extraordinar! — mor de nerăbdare</button>
     </div></article>`;
+}
+/* ordine în cadrul unei categorii: întâi favoritele, apoi după nota ta (mare→mic), restul își păstrează ordinea */
+function ordoneazaCat(cards){
+  return cards
+    .map((c,i)=>({c,i,fav:S.date.musai[c.id]?1:0,nota:S.date.note[c.id]||0}))
+    .sort((a,b)=> b.fav-a.fav || b.nota-a.nota || a.i-b.i)
+    .map(x=>x.c);
 }
 function vExp(){
   const v=$("#view");
   const lista=CARDURI.filter(c=>c.oras===S.oras);
   const notate=lista.filter(c=>S.date.note[c.id]>0).length;
   let html=`<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
-    <p class="note">Mai jos sunt toate experiențele adunate pentru fiecare oraș. Dă fiecăreia de la 1 la 5 stele, după cât de mult ți-ai dori s-o facem. Iar dacă una te entuziasmează la culme, apasă <b>„Extraordinar!”</b> 🔥 — semnalezi că neapărat vrei s-o facem.</p>
-    <div class="callout"><b>Cum sunt aranjate:</b> în fiecare oraș, experiențele sunt grupate pe categorii (atracții, activități, mâncare, zone). Nimic nu e încă decis — notează <b>fiecare</b> cartonaș, nu doar preferatele, și pune o notă mică la ce nu te atrage. Așa vedem clar favoritele fiecăruia.</div></div>`
+    <p class="note">Mai jos sunt toate experiențele adunate pentru fiecare oraș. Dă fiecăreia de la 1 la 5 stele, după cât de mult ți-ai dori s-o facem. Iar dacă una îți place în mod deosebit, apasă <b>👑 „Îmi place în mod deosebit!”</b> — cardul primește un chenar auriu și urcă în capul categoriei.</p>
+    <div class="callout"><b>Cum sunt aranjate:</b> în fiecare oraș, experiențele sunt grupate pe categorii (atracții, activități, mâncare, zone). Pe măsură ce le notezi, cartonașele <b>se rearanjează singure</b> — favoritele tale sus, apoi cele cu note mari. Nimic nu e încă decis — te rugăm să notezi <b>fiecare</b> cartonaș, nu doar preferatele.</div></div>`
     + baraOrase()
     + `<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`;
   CATEGORII.forEach(cat=>{
-    const cards=lista.filter(c=>c.cat===cat.id);
+    const cards=ordoneazaCat(lista.filter(c=>c.cat===cat.id));
     if(!cards.length)return;
     html+=`<div class="catsec"><h3 class="cathead">${esc(cat.nume)} <span class="n">${cards.length}</span></h3></div>
       <p class="catdesc">${esc(cat.desc)}</p>
@@ -847,7 +862,7 @@ function vPlan(){
   const legs=[
     {ac:"#C4452D",jp:"東京",nights:"3 nopți",titlu:"Tokyo",dates:"31 oct → 3 nov"},
     {ac:"#4A6274",jp:"箱根",nights:"2 nopți",titlu:"Hakone",dates:"3 nov → 5 nov"},
-    {ac:"#6E7A52",jp:"京都",nights:"restul șederii",titlu:"Kyoto (bază pentru Kansai)",dates:"5 nov → 12 nov"},
+    {ac:"#6E7A52",jp:"京都",nights:"7 nopți",titlu:"Kyoto (bază pentru Kansai)",dates:"5 nov → 12 nov"},
     {ac:"#C4452D",jp:"東京",nights:"2 nopți",titlu:"Tokyo (final)",dates:"12 nov → 14 nov"}
   ];
   const hubs=[
@@ -855,8 +870,7 @@ function vPlan(){
     {b:"Uji",s:"~20 min"},{b:"Kobe",s:"~30 min"},{b:"Lacul Biwa",s:"~45 min"},
     {b:"Hiroshima & Miyajima",s:"~2 h"},{b:"Miyama",s:"cu van"}
   ];
-  v.innerHTML=`<div class="panel"><h2>Cum ne-am gândit să împărțim zilele 🍁</h2>
-    <p class="note">Aceasta e o <b>propunere de traseu</b>, nu varianta finală — o punem aici ca să vă faceți o idee despre ritm și despre unde stăm mai mult. Datele și detaliile fiecărei zile le completăm pe parcurs.</p></div>
+  v.innerHTML=`<div class="panel"><h2>Cum ne-am gândit să împărțim zilele 🍁</h2></div>
     <div class="panel"><div class="meta">Traseul pe nopți</div>
       <div class="trip">${legs.map(l=>`
         <div class="leg" style="--ac:${l.ac}">
@@ -865,7 +879,7 @@ function vPlan(){
             <div class="nights">${l.nights}</div>
             <h3>${esc(l.titlu)}</h3>
             <div class="dates">${esc(l.dates)}</div>
-            <div class="placeholder">Aici vom adăuga cum petrecem zilele — de completat.</div>
+            <div class="placeholder">Aici vom adăuga cum petrecem zilele.</div>
           </div>
         </div>`).join("")}</div>
     </div>
@@ -901,15 +915,15 @@ function vRez(){
     <div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
     ${medii.map(x=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div style="font-size:14px">${esc(x.p.text)}</div>
-      <div class="bar"><i style="width:${x.m*20}%"></i></div></div>
-      <span class="small">${x.sd>1.25?"⚡ păreri împărțite":x.sd<0.6&&x.m?"✓ consens":"~ mixt"}</span></div>`).join("")}</div>`
+      <div class="bar"><i style="width:${x.m*10}%"></i></div></div>
+      <span class="small">${x.sd>2.5?"⚡ păreri împărțite":x.sd<1.2&&x.m?"✓ consens":"~ mixt"}</span></div>`).join("")}</div>`
   + baraOrase() +
   `<div class="panel"><div class="meta">Clasamentul experiențelor — ${esc(S.oras)} · după nota medie</div>
     ${rank.length?rank.map((x,i)=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div>${String(i+1).padStart(2,"0")} · ${esc(x.c.titlu)}
         <span class="small">· ${esc((CATEGORII.find(k=>k.id===x.c.cat)||{}).nume||"")}</span></div>
       <div class="bar"><i style="width:${x.m*20}%"></i></div>
-      <div class="small">${x.cnt?x.cnt+" note":"nenotat încă"}${x.musai?` · 🔥 ${x.musai} × Extraordinar!`:""}${x.sd>1.25?" · ⚡ păreri împărțite":x.sd<0.6&&x.m?" · ✓ consens":""}</div></div></div>`).join("")
+      <div class="small">${x.cnt?x.cnt+" note":"nenotat încă"}${x.musai?` · 👑 ${x.musai} × favorit`:""}${x.sd>1.25?" · ⚡ păreri împărțite":x.sd<0.6&&x.m?" · ✓ consens":""}</div></div></div>`).join("")
       :`<p class="note">Nicio notă încă pentru ${esc(S.oras)}.</p>`}</div>
   <div class="panel"><div class="meta">Cine a răspuns</div>
     ${oameni.map(o=>`<span class="pill">${esc(o)}</span>`).join("")}</div>`;
