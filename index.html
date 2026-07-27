@@ -61,26 +61,39 @@
   .st.fill{color:var(--artar)}
   .scoretag{font-size:12px;color:var(--gri);margin-left:8px}
 
-  /* ---------- „favorit” — Îmi place în mod deosebit ---------- */
-  /* butonul care marchează un card ca favorit (stă suprapus peste marginea de sus) */
-  .favbtn{position:absolute;top:-13px;left:50%;transform:translateX(-50%);z-index:5;white-space:nowrap;
+  /* ---------- „fenomenal” — cardul favorit ---------- */
+  /* butonul care marchează un card drept fenomenal (stă suprapus peste marginea de sus) */
+  .favbtn{position:absolute;top:-14px;left:50%;transform:translateX(-50%);z-index:6;white-space:nowrap;
     display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.02em;
-    padding:6px 13px;border:1px solid var(--linie);border-radius:99px;background:var(--hartie);color:#6B6558;
-    box-shadow:0 3px 9px rgba(80,60,40,.14);cursor:pointer;transition:all .18s}
+    padding:6px 14px;border:1px solid var(--linie);border-radius:99px;background:var(--hartie);color:#6B6558;
+    box-shadow:0 3px 9px rgba(80,60,40,.16);cursor:pointer;transition:all .18s}
   .favbtn .mk{font-size:14px;line-height:1;filter:grayscale(1);opacity:.55;transition:all .2s}
   .favbtn:hover{border-color:#C9A227;color:#8a6d0f}
   .favbtn.on{background:linear-gradient(180deg,#F6D65B,#E7B923);border-color:#C9A227;color:#5a4708;font-weight:600}
   .favbtn.on .mk{filter:none;opacity:1;transform:scale(1.15)}
-  /* cardul favorit — chenar auriu proeminent + spațiu deasupra pentru pastilă */
-  .card.favorit{overflow:visible;border:2px solid #E7B923;box-shadow:0 10px 26px rgba(201,162,39,.28);margin-top:14px}
-  .card.favorit .media{border-radius:2px 2px 0 0}
+  /* cardul fenomenal — chenar auriu proeminent */
+  .card.favorit{border:2px solid #E7B923;box-shadow:0 10px 26px rgba(201,162,39,.28)}
+  /* animație: la notare, cardul se estompează și se deplasează vizibil în față */
+  @keyframes cardFadeMove{
+    0%{opacity:1;transform:translateY(0) scale(1)}
+    45%{opacity:.15;transform:translateY(-10px) scale(1.05)}
+    100%{opacity:1;transform:translateY(0) scale(1)}
+  }
+  .card.reasezat{animation:cardFadeMove .55s ease}
+  /* cardul „sosit” la noua poziție — scurtă evidențiere ca să se vadă unde a ajuns */
+  @keyframes cardSosit{
+    0%{opacity:.15;transform:translateY(8px) scale(.97)}
+    100%{opacity:1;transform:translateY(0) scale(1)}
+  }
+  .card.sosit{animation:cardSosit .5s ease}
 
   /* ---------- carduri ---------- */
   .duel{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .grila{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px 16px;padding-top:6px}
-  .card{background:var(--hartie2);color:var(--tus);border-radius:3px;overflow:hidden;text-align:left;padding:0;
+  .grila{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px 16px;padding-top:16px}
+  .card{background:var(--hartie2);color:var(--tus);border-radius:3px;text-align:left;padding:0;margin-top:9px;
     border:1px solid var(--linie);position:relative;display:flex;flex-direction:column;width:100%;
     box-shadow:0 8px 22px rgba(80,60,40,.09);transition:transform .18s,box-shadow .18s,border-color .18s}
+  .card>.thumb{border-radius:2px 2px 0 0;overflow:hidden}
   .card.pick{cursor:pointer}
   .card.pick:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(80,60,40,.16);border-color:var(--artar)}
   .card.static{box-shadow:0 4px 14px rgba(80,60,40,.07)}
@@ -684,7 +697,7 @@ let ALEGERI = [];
 
 const $=s=>document.querySelector(s);
 const ARTIFACT = typeof window.storage!=="undefined";
-/* note = notă 1–5 pe fiecare card · musai = set de id-uri marcate „favorit” (Îmi place în mod deosebit) */
+/* note = notă 1–5 pe fiecare card · musai = set de id-uri marcate „fenomenal” (card favorit) */
 const norm=d=>({prefs:(d&&d.prefs)||{}, note:(d&&d.note)||{}, musai:(d&&d.musai)||{}});
 let S={me:"",oras:"Tokyo",tab:"plan",loading:true,
        date:{prefs:{},note:{},musai:{}},toti:{},organizator:false};
@@ -763,7 +776,7 @@ function render(){
     `<p class="sub">31 octombrie – 14 noiembrie 2026 · 6 persoane</p>
     <div class="panel" style="max-width:560px">
       <h2>Bine ai venit 🍁</h2>
-      <p class="note" style="margin-bottom:6px">Site-ul are patru file. În <b>Propunere itinerariu</b> vezi cum ar arăta traseul. În <b>Experiențe</b> treci prin fiecare oraș și dai fiecărei experiențe o notă de la 1 la 5 stele — <b>ăsta e pasul cel mai important</b> — iar cele care îți plac în mod deosebit le poți marca cu 👑, ca să urce în capul listei. În <b>Preferințe generale</b> spui în linii mari ce fel de vacanță îți dorești. La final, în <b>Rezultate</b>, vezi media grupului. Cam 15 minute.</p>
+      <p class="note" style="margin-bottom:6px">Site-ul are patru file. În <b>Propunere itinerariu</b> vezi cum ar arăta traseul. În <b>Experiențe</b> treci prin fiecare oraș și dai fiecărei experiențe o notă de la 1 la 5 stele — <b>ăsta e pasul cel mai important</b> — iar cele de neratat le poți marca cu 👑 <b>„Fenomenal!”</b>, ca să urce în capul listei. În <b>Preferințe generale</b> spui în linii mari ce fel de vacanță îți dorești. La final, în <b>Rezultate</b>, vezi media grupului. Cam 15 minute.</p>
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
       <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button>
       <button id="org">Mod organizator</button></div>
@@ -812,9 +825,9 @@ function vPref(){
 function cardCuNota(c){
   const val=S.date.note[c.id]||0;
   const fav=!!S.date.musai[c.id];
-  return `<article class="card static ${fav?"favorit":""}">
+  return `<article class="card static ${fav?"favorit":""}" data-cid="${c.id}">
     <button class="favbtn ${fav?"on":""}" data-musai="${c.id}" aria-pressed="${fav}">
-      <span class="mk">👑</span> Îmi place în mod deosebit!</button>
+      <span class="mk">👑</span> Fenomenal!</button>
     ${thumb(c)}${corpCard(c)}
     <div class="cardnote"><div class="ql">Cât de mult vrei să facem asta?</div>
       ${steleRand("data-note",c.id,val)}
@@ -832,7 +845,7 @@ function vExp(){
   const lista=CARDURI.filter(c=>c.oras===S.oras);
   const notate=lista.filter(c=>S.date.note[c.id]>0).length;
   let html=`<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
-    <p class="note">Mai jos sunt toate experiențele adunate pentru fiecare oraș. Dă fiecăreia de la 1 la 5 stele, după cât de mult ți-ai dori s-o facem. Iar dacă una îți place în mod deosebit, apasă <b>👑 „Îmi place în mod deosebit!”</b> — cardul primește un chenar auriu și urcă în capul categoriei.</p>
+    <p class="note">Mai jos sunt toate experiențele adunate pentru fiecare oraș. Dă fiecăreia de la 1 la 5 stele, după cât de mult ți-ai dori s-o facem. Iar dacă una ți se pare de neratat, apasă <b>👑 „Fenomenal!”</b> — cardul primește un chenar auriu și urcă în capul categoriei.</p>
     <div class="callout"><b>Cum sunt aranjate:</b> în fiecare oraș, experiențele sunt grupate pe categorii (atracții, activități, mâncare, zone). Pe măsură ce le notezi, cartonașele <b>se rearanjează singure</b> — favoritele tale sus, apoi cele cu note mari. Nimic nu e încă decis — te rugăm să notezi <b>fiecare</b> cartonaș, nu doar preferatele.</div></div>`
     + baraOrase()
     + `<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`;
@@ -847,13 +860,31 @@ function vExp(){
   v.innerHTML=html;
   legOrase();
   v.querySelectorAll(".stars").forEach(g=>g.querySelectorAll(".st").forEach(b=>b.onclick=async()=>{
-    S.date.note[g.dataset.note]=+b.dataset.v;vExp();await salveaza();
+    const id=g.dataset.note;
+    S.date.note[id]=+b.dataset.v;
+    salveaza();
+    animaReasezare(id);
   }));
   v.querySelectorAll("[data-musai]").forEach(b=>b.onclick=async()=>{
     const id=b.dataset.musai;
     if(S.date.musai[id]) delete S.date.musai[id]; else S.date.musai[id]=1;
-    vExp();await salveaza();
+    salveaza();
+    animaReasezare(id);
   });
+}
+/* rulează animația de estompare + deplasare pe cardul atins, apoi rerandează (reordonând) în timp ce e estompat */
+function animaReasezare(id){
+  const card=document.querySelector(`.card[data-cid="${id}"]`);
+  if(!card){vExp();return;}
+  card.classList.add("reasezat");
+  // la jumătatea animației (când cardul e cel mai estompat) reconstruim lista în noua ordine…
+  setTimeout(()=>{
+    vExp();
+    // …apoi evidențiem cardul mutat la noua lui poziție, ca să se vadă unde a ajuns
+    const nou=document.querySelector(`.card[data-cid="${id}"]`);
+    if(nou){ nou.classList.add("sosit"); nou.scrollIntoView({behavior:"smooth",block:"center"});
+      setTimeout(()=>nou.classList.remove("sosit"),700); }
+  },250);
 }
 
 /* ---------- PROPUNERE ITINERARIU (doar structura, textul se completează ulterior) ---------- */
