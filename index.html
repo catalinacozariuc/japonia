@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>日本の秋 · Planificator</title>
+<title>日本の秋 · Jurnal de călătorie</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root{
@@ -186,6 +186,18 @@
   .hub{border:1px solid var(--linie);border-radius:3px;padding:10px 12px;background:var(--hartie2)}
   .hub b{display:block;font-family:Georgia,serif;font-weight:400;font-size:14px;margin-bottom:2px}
   .hub span{font-size:11px;color:var(--gri)}
+
+  /* ---------- japoneza pe scurt ---------- */
+  .frazcat{margin:22px 0 12px}
+  .frazcat h3{margin:0 0 3px;font-family:Georgia,serif;font-weight:400;font-size:20px}
+  .frazcat h3 .jpsmall{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;color:var(--artar);margin-left:8px;font-size:16px}
+  .frazcat p.intro{margin:0;font-size:13px;color:var(--gri);line-height:1.5}
+  .frazgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px}
+  .fraz{border:1px solid var(--linie);border-left:3px solid var(--ac,var(--artar));border-radius:3px;
+    padding:11px 14px;background:var(--hartie2)}
+  .fraz .jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:19px;line-height:1.25;color:var(--tus)}
+  .fraz .ro{font-size:13.5px;color:var(--tus);margin-top:3px;line-height:1.4}
+  .fraz .romaji{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--kaki);margin-top:5px;font-weight:600}
 </style>
 <div id="app"><div class="wrap" id="root"></div></div>
 <div class="status" id="status"></div>
@@ -274,9 +286,9 @@ let CARDURI = [
  {id:"t_ginza",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Ginza",emoji:"🛍️",img:"ginza.jpg",tag:"Cartier",timp:"2–3 ore",
   desc:"Cartierul elegant al Tokyo-ului: bulevarde largi și plate, arhitectură de firmă, magazine mari și restaurante fine. În weekend, artera principală se închide traficului și devine promenadă.",
   dece:"E locul potrivit pentru shopping fără îmbulzeală și pentru o masă rafinată de aniversare, totul pe teren plat. E scump — dar plimbarea și vitrinele sunt gratis."},
- {id:"t_gyoen",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Shinjuku Gyoen",emoji:"🍁",img:"",tag:"Grădină",timp:"1–2 ore",
-  desc:"Unul dintre cele mai frumoase parcuri din oraș, cu trei grădini într-una — japoneză, engleză și franceză — și copaci care se aprind în roșu și auriu spre finalul lui noiembrie.",
-  dece:"E cea mai liniștită oră de verde din centrul Tokyo-ului, cu bănci și alei plate, perfectă pentru un grup care a cerut și relaxare. Are o taxă mică de intrare și închide devreme."},
+ {id:"t_gyoen",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Rikugien",emoji:"🍁",img:"rikugien.jpg",tag:"Grădină",timp:"1–2 ore",
+  desc:"Grădină clasică japoneză din 1702, gândită ca o plimbare în jurul unui iaz, cu dealuri, poduri și ceainării. Toamna, arțarii se aprind în roșu intens, iar în sezonul de vârf grădina e iluminată și seara.",
+  dece:"E una dintre cele mai frumoase grădini de toamnă din Tokyo, cu alei plate și bănci — liniște pură în oraș. Are o taxă mică de intrare; în weekendurile din sezonul frunzelor se aglomerează."},
  {id:"t_harajuku",oras:"Tokyo",cat:"zona",alegere:"poate",titlu:"Harajuku & Omotesando",emoji:"🎀",img:"harajuku.jpg",tag:"Cartier",timp:"jumătate de zi",
   desc:"Două fețe lipite una de alta: strada Takeshita, îngustă și colorată, cu modă de adolescenți și crêpes, și, la câțiva pași, bulevardul Omotesando, larg și elegant, mărginit de arhitectură de autor.",
   dece:"E cel mai rapid contrast dintre Japonia excentrică și cea rafinată. Takeshita e foarte aglomerată — de luat mai mult ca priveliște decât ca loc de stat."},
@@ -288,35 +300,47 @@ let CARDURI = [
  {id:"t_senso",oras:"Tokyo",cat:"atractie",alegere:"da",titlu:"Senso-ji & Nakamise",emoji:"⛩️",img:"senso_ji.avif",tag:"Templu",timp:"2 ore",
   desc:"Cel mai vechi templu din Tokyo, ridicat în anul 645, cu poarta Kaminarimon și felinarul ei roșu uriaș. De la poartă până la templu se întinde Nakamise, o alee de tarabe vechi de generații, cu prăjituri calde, evantaie și suveniruri.",
   dece:"E imaginea clasică a Tokyo-ului vechi și e gratis, iar seara, când se golește și se aprind felinarele, e chiar frumos. Ziua e un fluviu de oameni — merită venit devreme dimineața sau după lăsarea serii."},
- {id:"t_shibuyasky",oras:"Tokyo",cat:"atractie",alegere:"da",titlu:"Shibuya Sky la apus",emoji:"🌆",img:"shibuya_sky.jpg",tag:"Panoramă",timp:"1–2 ore",
-  desc:"Ultimul nivel al zgârie-norului Shibuya Scramble Square, la 230 de metri: nu o cameră cu geamuri, ci o terasă complet descoperită, cu iarbă, șezlonguri, vânt și un colț de sticlă de unde privești drept în jos, în celebra intersecție.",
-  dece:"E singurul loc din Tokyo unde vezi orașul mișcându-se sub tine, iar pe vreme senină apare și Fuji peste acoperișuri. Intervalul de apus se epuizează cu săptămâni înainte — biletul se ia din timp."},
- {id:"t_toyosu",oras:"Tokyo",cat:"atractie",alegere:"da",titlu:"Piața Toyosu & licitația de ton",emoji:"🐟",img:"toyosu.jpg",tag:"Piață",timp:"2 ore, dis-de-dimineață",
-  desc:"Piața en-gros de pește a Tokyo-ului, mutată aici din vechiul Tsukiji: hale imense unde se cântărește tonul în zori și se poate privi de sus faimoasa licitație, plus restaurante mici cu sushi la micul dejun.",
-  dece:"E cea mai autentică față a orașului, unde se lucrează, nu se pozează. De luat în calcul: se merge foarte devreme, iar la licitația propriu-zisă se intră doar cu rezervare sau prin loterie."},
- {id:"t_skytree",oras:"Tokyo",cat:"atractie",alegere:"poate",titlu:"Tokyo Skytree",emoji:"🗼",img:"tokyo_skytree.jpg",tag:"Panoramă",timp:"1–2 ore",
-  desc:"Cel mai înalt turn din Japonia — 634 de metri — ridicat peste râu, în cartierul Sumida, cu două niveluri de observație închise, la 350 și la 450 de metri, legate de o rampă în spirală cu porțiuni de podea din sticlă.",
-  dece:"E cea mai înaltă priveliște pe care o poți cumpăra în Japonia și singura care merge la fel de bine pe ploaie. Fiind închis cu geamuri, se vede enorm, dar se simte mai puțin viu decât la Shibuya Sky."},
- {id:"t_meiji",oras:"Tokyo",cat:"atractie",alegere:"poate",titlu:"Meiji Jingu",emoji:"⛩️",img:"meiji_jingu.jpg",tag:"Sanctuar",timp:"jumătate de zi",
-  desc:"Sanctuar shinto ridicat în 1920 pentru împăratul Meiji, ascuns într-o pădure de o sută de mii de copaci donați din toată Japonia. La ieșire începe, la câțiva pași, agitația din Harajuku.",
-  dece:"E cel mai rapid contrast dintre Japonia veche și cea nouă, e gratis și aproape numai mers pe jos. Aleile sunt cu pietriș — de purtat încălțăminte comodă."},
  {id:"t_palat",oras:"Tokyo",cat:"atractie",alegere:"poate",titlu:"Palatul Imperial & Grădinile de Est",emoji:"🏯",img:"imperial_palace.jpg",tag:"Grădină",timp:"2 ore",
   desc:"Grădinile fostului castel Edo, în centrul geografic al orașului: ziduri de piatră ciclopice, peluze întinse și urmele fostei fortărețe a shogunilor.",
   dece:"E o oră de verde plat și liniștit în plin centru, gratis. De știut: palatul propriu-zis nu se vizitează, doar grădinile din jur."},
+ {id:"t_shibuyasky",oras:"Tokyo",cat:"atractie",alegere:"da",titlu:"Shibuya Sky la apus",emoji:"🌆",img:"shibuya_sky.jpg",tag:"Panoramă",timp:"1–2 ore",
+  desc:"Ultimul nivel al zgârie-norului Shibuya Scramble Square, la 230 de metri: nu o cameră cu geamuri, ci o terasă complet descoperită, cu iarbă, șezlonguri, vânt și un colț de sticlă de unde privești drept în jos, în celebra intersecție.",
+  dece:"E singurul loc din Tokyo unde vezi orașul mișcându-se sub tine, iar pe vreme senină apare și Fuji peste acoperișuri. Intervalul de apus se epuizează cu săptămâni înainte — biletul se ia din timp."},
+ {id:"t_meiji",oras:"Tokyo",cat:"atractie",alegere:"poate",titlu:"Meiji Jingu",emoji:"⛩️",img:"meiji_jingu.jpg",tag:"Sanctuar",timp:"jumătate de zi",
+  desc:"Sanctuar shinto ridicat în 1920 pentru împăratul Meiji, ascuns într-o pădure de o sută de mii de copaci donați din toată Japonia. La ieșire începe, la câțiva pași, agitația din Harajuku.",
+  dece:"E cel mai rapid contrast dintre Japonia veche și cea nouă, e gratis și aproape numai mers pe jos. Aleile sunt cu pietriș — de purtat încălțăminte comodă."},
+ {id:"t_skytree",oras:"Tokyo",cat:"atractie",alegere:"poate",titlu:"Tokyo Skytree",emoji:"🗼",img:"tokyo_skytree.jpg",tag:"Panoramă",timp:"1–2 ore",
+  desc:"Cel mai înalt turn din Japonia — 634 de metri — ridicat peste râu, în cartierul Sumida, cu două niveluri de observație închise, la 350 și la 450 de metri, legate de o rampă în spirală cu porțiuni de podea din sticlă.",
+  dece:"E cea mai înaltă priveliște pe care o poți cumpăra în Japonia și singura care merge la fel de bine pe ploaie. Fiind închis cu geamuri, se vede enorm, dar se simte mai puțin viu decât la Shibuya Sky."},
+ {id:"t_toyosu",oras:"Tokyo",cat:"atractie",alegere:"da",titlu:"Piața Toyosu & licitația de ton",emoji:"🐟",img:"toyosu.jpg",tag:"Piață",timp:"2 ore, dis-de-dimineață",
+  desc:"Piața en-gros de pește a Tokyo-ului, mutată aici din vechiul Tsukiji: hale imense unde se cântărește tonul în zori și se poate privi de sus faimoasa licitație, plus restaurante mici cu sushi la micul dejun.",
+  dece:"E cea mai autentică față a orașului, unde se lucrează, nu se pozează. De luat în calcul: se merge foarte devreme, iar la licitația propriu-zisă se intră doar cu rezervare sau prin loterie."},
 
  /* -- Activități -- */
- {id:"t_sumo",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Antrenament de sumo în zori",emoji:"🤼",img:"sumo2.jpg",tag:"Cultură",timp:"2 ore, foarte devreme",
-  desc:"Luptătorii de sumo trăiesc și se antrenează în „grajduri” (heya), iar antrenamentul de dimineață începe în zori. Se intră cu ghid, se stă jos pe podea, în tăcere, la câțiva metri de ring, cât timp ei repetă aceleași ciocniri, ore în șir.",
-  dece:"E sport adevărat, fără ambalaj turistic — sunetul din sală rămâne cu tine. De luat în calcul: e foarte devreme, se stă nemișcat și nu se vorbește, deci nu e pentru toată lumea."},
+ {id:"t_ghid",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"Tur privat cu ghid pe cartiere",emoji:"🧭",img:"private_tour.jpg",tag:"Cu ghid",timp:"jumătate de zi",
+  desc:"Un ghid licențiat ne conduce pe cartierele alese, în ritmul grupului, explicând ce vedem și rezolvând mersul cu transportul.",
+  dece:"Scoate tot stresul logistic dintr-o zi și e ideal pentru un grup de șase cu ritmuri diferite. Costă și cere rezervare din timp — de decis dacă vrem o zi cu totul „ghidată”."},
  {id:"t_sumida",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Croazieră pe râul Sumida",emoji:"⛵",img:"sumida.webp",tag:"Pe apă",timp:"40 de minute",
   desc:"Vaporaș care coboară pe râul Sumida între Asakusa și grădina Hamarikyu, pe sub poduri vopsite fiecare altfel, cu Skytree crescând în spate.",
   dece:"E transportul care e de fapt o atracție: costă cât un bilet de metrou, odihnește picioarele și oferă cel mai bun unghi spre turn. Dacă plouă tare, priveliștea se pierde."},
  {id:"t_karaoke",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Karaoke în cameră privată",emoji:"🎤",img:"karaoke.webp",tag:"Seara",timp:"1–2 ore",
   desc:"Karaoke japonez adevărat înseamnă o cameră doar a grupului, nu o scenă în fața străinilor: comanzi băuturi la telefon, alegi din zeci de mii de melodii (multe și în engleză) și cânți cât plătești, de obicei la oră.",
   dece:"E cea mai bună supapă pentru un grup obosit și puțin timid — după prima melodie cade orice reținere. Se plătește pe oră și de persoană; în weekend seara, camerele mari se ocupă repede, deci merită rezervat."},
- {id:"t_ghid",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"Tur privat cu ghid pe cartiere",emoji:"🧭",img:"private_tour.jpg",tag:"Cu ghid",timp:"jumătate de zi",
-  desc:"Un ghid licențiat ne conduce pe cartierele alese, în ritmul grupului, explicând ce vedem și rezolvând mersul cu transportul.",
-  dece:"Scoate tot stresul logistic dintr-o zi și e ideal pentru un grup de șase cu ritmuri diferite. Costă și cere rezervare din timp — de decis dacă vrem o zi cu totul „ghidată”."},
+ {id:"t_sumo",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Antrenament de sumo în zori",emoji:"🤼",img:"sumo2.jpg",tag:"Cultură",timp:"2 ore, foarte devreme",
+  desc:"Luptătorii de sumo trăiesc și se antrenează în „grajduri” (heya), iar antrenamentul de dimineață începe în zori. Se intră cu ghid, se stă jos pe podea, în tăcere, la câțiva metri de ring, cât timp ei repetă aceleași ciocniri, ore în șir.",
+  dece:"E sport adevărat, fără ambalaj turistic — sunetul din sală rămâne cu tine. De luat în calcul: e foarte devreme, se stă nemișcat și nu se vorbește, deci nu e pentru toată lumea."},
+ {id:"t_kabukiza",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"Kabukiza — teatru kabuki",emoji:"🎎",img:"kabukiza.webp",tag:"Teatru · zilnic",timp:"1 act (1–2 ore) sau spectacol întreg",
+  desc:"Teatrul emblematic de kabuki din Ginza, cu costume somptuoase și gesturi stilizate. Are spectacole în fiecare zi, cu un program nou în fiecare lună (de obicei matineu și seara). Pentru turiști există biletul „hitomaku-mi” — un singur act, 500–2.000 ¥, cumpărat doar în ziua respectivă, la fața locului.",
+  dece:"E cel mai accesibil mod de a gusta kabuki: fiind zilnic, îl prindem ușor în orice zi, iar biletul de un act nu cere rezervare. Nu are subtitrări (se închiriază căști cu traducere, contra cost); la actele populare, coada la biletul de-o zi se formează devreme."},
+ {id:"t_gala",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Suntory Hall — Concertul GALA la 40 de ani",emoji:"🎼",img:"suntory_hall.jpg",tag:"Concert · 31 oct & 1 nov",timp:"o seară (de la 16:00)",
+  desc:"Cea mai prestigioasă sală de concerte clasice din Tokyo împlinește 40 de ani și marchează asta cu un concert-gală unic: Riccardo Muti dirijează Filarmonica din Viena, cu Mitsuko Uchida la pian. Are loc în doar două seri — 31 octombrie și 1 noiembrie 2026, ambele de la ora 16:00 — exact la începutul șederii noastre.",
+  dece:"E un eveniment irepetabil, o singură dată, într-o acustică legendară — perfect pentru aniversare. Tocmai fiindcă e unic, biletele se epuizează foarte repede: trebuie luate din timp, imediat ce se pun în vânzare."},
+ {id:"t_chaplin",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"City Lights — balet după Chaplin",emoji:"🎭",img:"city_lights.jpg",tag:"Balet · 23 oct – 1 nov",timp:"o seară",
+  desc:"Premiera mondială a unui balet nou, creat de Baletul Național al Japoniei după filmul „City Lights” („Luminile orașului”) al lui Charlie Chaplin — chiar pe muzica scrisă de Chaplin, adaptată pentru orchestră live. Poveste fără cuvinte, ușor de urmărit indiferent de limbă. Se joacă la New National Theatre, seria de reprezentații ține între 23 octombrie și 1 noiembrie 2026 (ultima, pe 1 nov, de la 14:00).",
+  dece:"E prima oară în lume când se montează acest balet — o premieră absolută, prinsă fix în fereastra noastră de date. Fiind un eveniment special și cu puține reprezentații, biletele se iau din timp."},
+ {id:"t_cotton",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Cotton Club — concert de jazz la masă",emoji:"🎷",img:"cotton_club.jpg",tag:"Jazz · în fiecare seară",timp:"o seară",
+  desc:"Club de jazz intim în stil newyorkez, în Marunouchi (lângă Gara Tokyo), unde asculți muzică live stând la masă, cu cină și băuturi. Are program în fiecare seară, cu artiști diferiți — de obicei două reprezentații pe seară (în jur de 17:00 și 19:00), iar un artist cântă adesea câteva seri la rând.",
+  dece:"E o seară elegantă și relaxată, perfectă pentru un moment special în grup. Programul din noiembrie 2026 se anunță mai aproape de dată — merită verificat cine cântă și rezervată masa din timp, sala fiind mică."},
 
  /* -- Experiențe culinare -- */
  {id:"t_tsukiji",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Micul dejun la Tsukiji Outer Market",emoji:"🍣",img:"tsukiji.jpg",tag:"Mâncare",timp:"2 ore, dimineața",
@@ -327,39 +351,25 @@ let CARDURI = [
   dece:"E masa care rămâne masa vacanței și merită o seară dedicată. Cere rezervare din timp, număr fix de persoane și, la localurile bune, un buget serios de persoană."},
  {id:"t_ramen",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Ramen la tejghea",emoji:"🍜",img:"ichiran.jpg",tag:"Mâncare",timp:"1 oră",
   desc:"Un bol de ramen sau tsukemen la tejghea, în locuri legendare precum Ichiran, Fuunji sau Ippudo — supă lungă, tăiței fermi, totul comandat de multe ori pe automat.",
-  dece:"E masa ieftină, rapidă și delicioasă prin excelență. De luat în calcul: adesea sunt cozi și locuri individuale (la Ichiran stai singur în cabină), deci nu e o masă „de grup”."},
+  dece:""},
  {id:"t_sukiyaki",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Sukiyaki / shabu-shabu cu wagyu",emoji:"🥩",img:"shabu_shabu.jpg",tag:"Masă în grup",timp:"2 ore",
   desc:"Vită premium fiartă chiar la masă, în stil sukiyaki (dulce-sărat) sau shabu-shabu (bulion clar): fiecare își gătește feliile în oală, împreună, în ritmul mesei.",
-  dece:"E masa cea mai convivială pentru șase — gătitul comun ține conversația vie. E scumpă, deci mai degrabă o seară-eveniment decât o cină obișnuită."},
+  dece:""},
  {id:"t_unagi",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Unagi — anghilă la grătar",emoji:"🍱",img:"unagi.jpg",tag:"Mâncare",timp:"1–1,5 ore",
   desc:"Anghilă de apă dulce, glazurată și friptă la cărbune până devine crocantă la exterior și untoasă înăuntru, servită pe orez în stil kabayaki, la localuri vechi precum Nodaiwa.",
-  dece:"E unul dintre acele gusturi japoneze pe care nu le găsești la fel nicăieri altundeva. Are preț ridicat și un gust aparte — nu place tuturor din prima."},
+  dece:""},
  {id:"t_kissaten",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Kissaten — cafenea retro",emoji:"☕",img:"kissaten.webp",tag:"Pauză",timp:"1 oră",
   desc:"Cafenea de modă veche, cu lambriuri, muzică discretă și cafea pour-over făcută pe îndelete, alături de clasicul sandviș cu fructe și frișcă.",
-  dece:"E pauza tihnită dintre obiective, unde stai jos și te odihnești. Localurile sunt mici, cu doar câteva mese — un grup de șase poate aștepta puțin."},
+  dece:""},
  {id:"t_tempura",oras:"Tokyo",cat:"culinar",alegere:"poate",titlu:"Tempura kaiseki",emoji:"🍤",img:"tempura.jpg",tag:"Masă-eveniment",timp:"1,5 ore",
   desc:"Tempura fină, servită bucată cu bucată direct din tigaie peste tejghea, ca parte a unui meniu de sezon — cu totul altceva decât tempura de la stradă.",
-  dece:"E o masă rafinată și ușoară, bună pentru o seară specială. E scumpă și cere rezervare — de aici semnul de întrebare."},
+  dece:""},
  {id:"t_tonkatsu",oras:"Tokyo",cat:"culinar",alegere:"poate",titlu:"Tonkatsu la Maisen",emoji:"🍖",img:"tonkatsu.jpg",tag:"Mâncare",timp:"1 oră",
   desc:"Cotlet de porc pane, crocant pe dinafară și fraged înăuntru, servit clasic cu varză tăiată subțire și orez, la Maisen, un local amenajat într-o fostă baie publică.",
-  dece:"E o masă sățioasă, accesibilă și pe placul aproape tuturor. La prânz se formează cozi — de aici incertitudinea."},
- {id:"t_yakitori",oras:"Tokyo",cat:"culinar",alegere:"poate",titlu:"Yakitori sub șinele din Yurakucho",emoji:"🍢",img:"yakitori.jpg",tag:"Seara",timp:"1,5 ore",
-  desc:"Frigărui de pui la cărbune, în localuri minuscule înghesuite chiar sub calea ferată, cu fum, bere rece și o atmosferă retro de Tokyo muncitoresc.",
-  dece:"E ieftin, animat și plin de personalitate. Spațiile sunt mici și pline de fum, greu de ocupat cu șase deodată — de aici semnul de întrebare."},
-
- /* -- Spectacole & venue-uri -- */
- {id:"t_gala",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Suntory Hall — Concertul GALA la 40 de ani",emoji:"🎼",img:"suntory_hall.jpg",tag:"Concert · 1 nov",timp:"o seară",
-  desc:"Cea mai apreciată sală de concerte clasice din Tokyo își sărbătorește cei 40 de ani printr-un concert-gală aniversar, chiar la începutul șederii noastre.",
-  dece:"E o seară de clasică într-o acustică legendară, potrivită pentru aniversare. De verificat: data (1 noiembrie) și disponibilitatea biletelor, care se epuizează."},
- {id:"t_cotton",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Cotton Club — concert de jazz la masă",emoji:"🎷",img:"cotton_club.jpg",tag:"Jazz · seara",timp:"o seară",
-  desc:"Club de jazz intim în stil newyorkez, unde asculți muzică live stând la masă, cu cină și băuturi. În noiembrie e programat, printre alții, odol, care revine după o pauză de trei ani.",
-  dece:"E o seară elegantă și relaxată, perfectă pentru un moment special în grup. Se rezervă din timp, iar seara are de obicei două reprezentații."},
- {id:"t_chaplin",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"City Lights — balet după Chaplin",emoji:"🎭",img:"city_lights.jpg",tag:"Balet",timp:"o seară",
-  desc:"Un spectacol de balet inspirat din „City Lights” („Luminile orașului”) al lui Charlie Chaplin — poveste fără cuvinte, deci ușor de urmărit indiferent de limbă.",
-  dece:"E o seară de cultură accesibilă tuturor, tocmai fiindcă nu depinde de limbă. De verificat programul și biletele pentru intervalul nostru."},
- {id:"t_kabukiza",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"Kabukiza — teatru kabuki",emoji:"🎎",img:"kabukiza.webp",tag:"Teatru",timp:"1–4 ore",
-  desc:"Teatrul emblematic de kabuki din Ginza, cu costume somptuoase și gesturi stilizate. Se poate cumpăra bilet și doar pentru un singur act, ca să guști forma fără să stai ore întregi.",
-  dece:"E cultură vie, iar varianta „un singur act” o face accesibilă. Nu are subtitrări (se închiriază căști cu traducere, contra cost)."},
+  dece:""},
+ {id:"t_yakitori",oras:"Tokyo",cat:"culinar",alegere:"poate",titlu:"Yakitori",emoji:"🍢",img:"yakitori.jpg",tag:"Frigărui",timp:"1,5 ore",
+  desc:"Frigărui de pui la cărbune — fiecare parte a puiului pe bățul ei — sărate sau glazurate cu sos dulce-sărat, clasic însoțite de bere rece. Se găsesc peste tot, de la tejghele minuscule până la localurile retro de sub calea ferată din Yurakucho.",
+  dece:""},
 
  /* =====================================================================
     HAKONE
@@ -409,13 +419,13 @@ let CARDURI = [
  /* -- Experiențe culinare -- */
  {id:"h_kurotamago",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"Ouă negre (kuro-tamago)",emoji:"🥚",img:"",tag:"Gustare",timp:"15 min",
   desc:"Ouă fierte în apa sulfuroasă din Owakudani, până când coaja se înnegrește complet. Legenda spune că fiecare ou mâncat aici adaugă șapte ani de viață.",
-  dece:"E o gustare amuzantă, ieftină și legată de locul unde o mănânci. E doar o gustare, nu o masă — dar face parte din poveste."},
+  dece:""},
  {id:"h_icecream",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"Înghețată neagră de Owakudani",emoji:"🍦",img:"",tag:"Desert",timp:"15 min",
   desc:"Varianta dulce a faimoaselor ouă negre: o înghețată de culoare neagră, vândută tot în valea vulcanică, în asortiment cu tema locului.",
-  dece:"E gustarea-suvenir perfectă pentru o poză și un moment relaxat pe traseu. Ca și ouăle, e o mică plăcere de drum, nu o oprire în sine."},
+  dece:""},
  {id:"h_soba",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"Soba de munte",emoji:"🍜",img:"",tag:"Mâncare",timp:"1 oră",
   desc:"Tăiței de hrișcă făcuți local, serviți simplu, calzi sau reci, în micile localuri din jurul lacului.",
-  dece:"E un prânz ușor și curat, potrivit între mijloacele de transport. E o mâncare simplă — exact asta e și farmecul ei."},
+  dece:""},
 
  /* =====================================================================
     KYOTO
@@ -495,16 +505,16 @@ let CARDURI = [
   dece:"E prânzul care e și plimbare, iar vegetarienii se descurcă aici mai bine decât oriunde în Japonia. E îngustă și se aglomerează la prânz; se mănâncă lângă tarabă, nu din mers."},
  {id:"k_kyowagyu",oras:"Kyoto",cat:"culinar",alegere:"da",titlu:"Kyo-wagyu / teppanyaki",emoji:"🥩",img:"",tag:"Masă-eveniment",timp:"2 ore",
   desc:"Vită de Kyoto gătită pe plita încinsă chiar în fața ta, de un bucătar care taie și rumenește feliile bucată cu bucată, la tejghea.",
-  dece:"E o cină convivială și spectaculoasă, potrivită pentru o seară specială în grup. E scumpă — o alegem ca eveniment, nu ca masă obișnuită."},
+  dece:""},
  {id:"k_kaiseki_culinar",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Kaiseki de sezon",emoji:"🍱",img:"",tag:"Masă-eveniment",timp:"2–3 ore",
   desc:"Bucătăria multi-fel care definește Kyoto: mâncare de sezon, gândită vizual, servită într-o succesiune calmă de farfurii mici. (E aceeași categorie ca cina kaiseki de la Activități — aici privită ca experiență gastronomică.)",
-  dece:"E vârful mesei tradiționale japoneze și esența Kyoto-ului în farfurie. Scumpă și cu rezervare pentru șase — de aici incertitudinea."},
+  dece:""},
  {id:"k_yudofu",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Yudofu — tofu fiert",emoji:"🍲",img:"",tag:"Mâncare",timp:"1–1,5 ore",
   desc:"Specialitate vegetariană a templelor: bucăți de tofu fierte blând într-un bulion ușor, servite lângă Nanzen-ji, într-un cadru tihnit.",
-  dece:"E o masă calmă, curată și autentic legată de bucătăria budistă. E delicată și ușoară — s-ar putea să pară prea simplă pentru unii."},
+  dece:""},
  {id:"k_obanzai",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Obanzai — bucătărie casnică",emoji:"🍢",img:"",tag:"Mâncare",timp:"1,5 ore",
   desc:"Farfurii de sezon în stil de casă, servite într-un izakaya rafinat: multe feluri mici de legume, pește și tofu, de împărțit la masă.",
-  dece:"E varianta relaxată și variată a bucătăriei din Kyoto, ușor de împărțit între șase. Cere rezervare pentru un grup."},
+  dece:""},
 
  /* -- Spectacole -- */
  {id:"k_minamiza",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Minamiza — teatru kabuki",emoji:"🎭",img:"",tag:"Teatru",timp:"1–4 ore",
@@ -562,13 +572,13 @@ let CARDURI = [
  /* -- Experiențe culinare -- */
  {id:"o_takoyaki",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Takoyaki",emoji:"🐙",img:"",tag:"Street food",timp:"30 min",
   desc:"Bile de aluat cu bucăți de caracatiță, rumenite în forme speciale și servite fierbinți, cu sos, maioneză și fulgi de bonito — felul-simbol al Osakăi.",
-  dece:"E gustarea emblematică a orașului, ieftină și pe fiecare colț. Se mănâncă fierbinte și în picioare — atenție la prima îmbucătură."},
+  dece:""},
  {id:"o_okonomiyaki",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Okonomiyaki",emoji:"🥞",img:"",tag:"Mâncare",timp:"1,5 ore",
   desc:"O „clătită” sărată cu varză, ou și ce mai vrei, gătită pe plita încinsă din mijlocul mesei — în stil Osaka totul amestecat.",
-  dece:"E activitate de grup deghizată în cină: ieftină, convivială, nu dă greș. Ieși mirosind a plită — asta e."},
+  dece:""},
  {id:"o_kushikatsu",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Kushikatsu",emoji:"🍢",img:"",tag:"Street food",timp:"1,5 ore",
   desc:"Frigărui de carne, legume și de tot felul, trecute prin pesmet și prăjite, cu o singură regulă de fier: nu înmui frigăruia de două ori în sosul comun.",
-  dece:"E distractiv, ieftin și foarte „Shinsekai”. E prăjit, iar localurile sunt mici — greu de ocupat cu șase în vârf de seară."},
+  dece:""},
  {id:"o_kuromon",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Piața Kuromon",emoji:"🦀",img:"",tag:"Mâncare",timp:"1–2 ore",
   desc:"„Bucătăria Osakăi”: o piață acoperită unde se cumpără și se mănâncă pe loc — picioare de crab la grătar, frigărui de wagyu, stridii, fructe perfecte.",
   dece:"E prânzul în care fiecare comandă altceva și nimeni nu face compromisuri. E vizibil orientată spre turiști, deci mai scumpă — o luăm ca experiență, nu ca chilipir."},
@@ -577,7 +587,7 @@ let CARDURI = [
   dece:"E o masă de mare calitate și foarte personală. Localurile au puține locuri, deci pentru șase e nevoie de rezervare din timp."},
  {id:"o_kobe",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Wagyu de Kobe la teppanyaki",emoji:"🥩",img:"",tag:"Masă-eveniment",timp:"2 ore",
   desc:"Vită premium gătită pe plită chiar în fața mesei, feliată și rumenită de bucătar bucată cu bucată, în cartierul elegant Kitashinchi.",
-  dece:"E cina de sărbătoare prin excelență, potrivită pentru aniversare. E scumpă — o alegem ca punct culminant, nu ca masă de zi cu zi."},
+  dece:""},
 
  /* -- Spectacole -- */
  {id:"o_billboard",oras:"Osaka",cat:"activitate",alegere:"da",titlu:"Billboard Live Osaka",emoji:"🎵",img:"",tag:"Concert",timp:"o seară",
@@ -638,13 +648,13 @@ let CARDURI = [
   dece:"E și show, și gustare caldă delicioasă — două lucruri deodată, ieftin. E foarte scurt și adesea cu coadă, dar merită oprirea."},
  {id:"n_kakinoha",oras:"Nara",cat:"culinar",alegere:"poate",titlu:"Kakinoha-zushi",emoji:"🍣",img:"",tag:"Mâncare",timp:"30 min",
   desc:"Sushi presat, învelit în frunză de curmal japonez, care îl păstrează proaspăt — o specialitate locală de altădată, portabilă.",
-  dece:"E unic și ușor de luat la pachet pentru un picnic în parc. Are un gust specific, dat de frunză — nu place din prima tuturor."},
+  dece:""},
  {id:"n_somen",oras:"Nara",cat:"culinar",alegere:"poate",titlu:"Miwa somen",emoji:"🍜",img:"",tag:"Mâncare",timp:"1 oră",
   desc:"Tăiței foarte subțiri de grâu, cu origini chiar în regiunea Nara, serviți simplu, calzi sau reci.",
-  dece:"E un prânz ușor și rapid, potrivit între obiective. E o mâncare simplă — modestă, dar autentică."},
+  dece:""},
  {id:"n_narazuke",oras:"Nara",cat:"culinar",alegere:"poate",titlu:"Narazuke",emoji:"🥒",img:"",tag:"De degustat",timp:"15 min",
   desc:"Legume conservate îndelung în drojdie de sake, o specialitate veche din Nara, cu gust intens și dulce-alcoolizat.",
-  dece:"E o degustare curioasă și un suvenir bun de dus acasă. Gustul e puternic și neobișnuit — mai mult de încercat decât de mâncat pe săturate."},
+  dece:""},
 
  /* =====================================================================
     EXCURSII DE O ZI
@@ -687,7 +697,23 @@ let CARDURI = [
   dece:"E cel mai ornamentat sanctuar din Japonia și, în aceeași zi, natură serioasă. La altitudinea asta frunzele se colorează mai devreme — la începutul lui noiembrie am prinde probabil vârful. E o zi lungă."},
  {id:"x_kawagoe",oras:"Excursii de o zi",cat:"zona",alegere:"poate",titlu:"Kawagoe",emoji:"🍠",img:"",tag:"Din Tokyo · 1h",timp:"jumătate de zi",
   desc:"„Micul Edo”, la o oră de Tokyo: o stradă de depozite vechi din lut (kura), o clopotniță de lemn și prăvălii de dulciuri tradiționale.",
-  dece:"E nostalgic și foarte aproape, bun pentru o jumătate de zi. E mic — se vede repede, fără să umple o zi întreagă."}
+  dece:"E nostalgic și foarte aproape, bun pentru o jumătate de zi. E mic — se vede repede, fără să umple o zi întreagă."},
+
+ /* -- De gustat pe drum (gări & konbini) -- */
+ {id:"x_ekiben",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Ekiben — bento de gară",emoji:"🍱",img:"",tag:"Pe drum",timp:"—",
+  desc:"Cutie bento de călătorie, vândută în gări și în tren, adesea cu specific local (orez, pește, legume, carne). Se mănâncă la locul din shinkansen — parte din farmecul drumului.",dece:""},
+ {id:"x_taiyaki",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Taiyaki",emoji:"🐟",img:"",tag:"Pe drum",timp:"—",
+  desc:"Prăjiturică în formă de peștișor, coaptă pe loc și umplută clasic cu pastă dulce de fasole roșie sau cu cremă de vanilie (custard).",dece:""},
+ {id:"x_matcha_latte",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Ceai matcha rece (la doză)",emoji:"🍵",img:"",tag:"Konbini",timp:"—",
+  desc:"Ceai verde matcha sau ceai verde rece la sticlă/doză, găsit în orice konbini și automat — răcoritor și puțin amărui, clasic japonez.",dece:""},
+ {id:"x_onigiri",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Onigiri de konbini",emoji:"🍙",img:"",tag:"Konbini",timp:"—",
+  desc:"Triunghi de orez cu umplutură (ton cu maioneză, somon, prună murată), învelit în alga nori printr-un ambalaj isteț care o ține crocantă. Gustarea perfectă de drum.",dece:""},
+ {id:"x_sando",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Sando de fructe / tamago",emoji:"🥪",img:"",tag:"Konbini",timp:"—",
+  desc:"Sandviș pe pâine albă pufoasă: fie cu ou cremos (tamago), fie cu fructe și frișcă. Un clasic surprinzător de bun din orice magazin de proximitate.",dece:""},
+ {id:"x_mochi_konbini",oras:"Excursii de o zi",cat:"culinar",alegere:"poate",titlu:"Daifuku & dango",emoji:"🍡",img:"",tag:"Pe drum",timp:"—",
+  desc:"Dulciuri din orez glutinos: daifuku (bilă moale de mochi cu pastă dulce înăuntru) și dango (bilute pe băț, adesea glazurate). Bune de ronțăit pe drum.",dece:""},
+ {id:"x_kitkat",oras:"Excursii de o zi",cat:"culinar",alegere:"poate",titlu:"KitKat cu arome japoneze",emoji:"🍫",img:"",tag:"Konbini · suvenir",timp:"—",
+  desc:"Japonia are zeci de arome unice de KitKat (matcha, cartof dulce, sake, wasabi), multe ediții regionale — gustare de drum și cadou popular de dus acasă.",dece:""}
 ];
 
 /* Fără chestionar de organizare — logistica se decide direct de organizator, pe GitHub. */
@@ -760,13 +786,13 @@ function corpCard(c){
     <div class="kicker"><span class="dot"></span>${esc(c.oras)}${c.tag?" · "+esc(c.tag):""}${c.timp?" · "+esc(c.timp):""}</div>
     <h3>${esc(c.titlu)}</h3>
     <p class="desc">${esc(c.desc)}</p>
-    <p class="why"><b>De ce merită</b>${esc(c.dece)}</p></div>`;
+    ${c.dece?`<p class="why"><b>De ce merită</b>${esc(c.dece)}</p>`:""}</div>`;
 }
 
 /* ---------- randare ---------- */
 function antet(){
   return `<p class="kanji">日本の秋 <small>🍁 🍂 🍁</small></p>
-          <h1>Planificatorul grupului</h1>`;
+          <h1>Jurnal de călătorie</h1>`;
 }
 function render(){
   const root=$("#root");
@@ -776,7 +802,7 @@ function render(){
     `<p class="sub">31 octombrie – 14 noiembrie 2026 · 6 persoane</p>
     <div class="panel" style="max-width:560px">
       <h2>Bine ai venit 🍁</h2>
-      <p class="note" style="margin-bottom:6px">Site-ul are patru file. În <b>Propunere itinerariu</b> vezi cum ar arăta traseul. În <b>Experiențe</b> treci prin fiecare oraș și dai fiecărei experiențe o notă de la 1 la 5 stele — <b>ăsta e pasul cel mai important</b> — iar cele de neratat le poți marca cu 👑 <b>„Fenomenal!”</b>, ca să urce în capul listei. În <b>Preferințe generale</b> spui în linii mari ce fel de vacanță îți dorești. La final, în <b>Rezultate</b>, vezi media grupului. Cam 15 minute.</p>
+      <p class="note" style="margin-bottom:6px">Site-ul are patru file. În <b>Propunere itinerar</b> vezi cum ar arăta traseul. În <b>Experiențe</b> treci prin fiecare oraș și dai fiecărei experiențe o notă de la 1 la 5 stele — <b>ăsta e pasul cel mai important</b> — iar cele de neratat le poți marca cu 👑 <b>„Fenomenal!”</b>, ca să urce în capul listei. În <b>Preferințe generale</b> spui în linii mari ce fel de vacanță îți dorești. La final, în <b>Rezultate</b>, vezi media grupului. Cam 15 minute.</p>
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
       <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button>
       <button id="org">Mod organizator</button></div>
@@ -790,13 +816,13 @@ function render(){
   }
   const totalCarduri=CARDURI.length;
   const notate=CARDURI.filter(c=>S.date.note[c.id]>0).length;
-  const taburi=[["plan","Propunere itinerariu"],["exp","Experiențe"],["pref","Preferințe generale"],["rez","Rezultate"]];
+  const taburi=[["plan","Propunere itinerar"],["exp","Experiențe"],["pref","Preferințe generale"],["rez","Rezultate"],["limba","Japoneza pe scurt"]];
   root.innerHTML=antet()+
    `<p class="sub">${esc(S.me)} · ${notate}/${totalCarduri} experiențe notate · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} preferințe generale</p>
    <div class="tabs">${taburi.map(t=>`<button class="tab ${S.tab===t[0]?"active":""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
    <div id="view"></div>`;
   root.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;render()});
-  ({pref:vPref,plan:vPlan,exp:vExp,rez:vRez})[S.tab]();
+  ({pref:vPref,plan:vPlan,exp:vExp,rez:vRez,limba:vLimba})[S.tab]();
 }
 const baraOrase=()=>`<div class="row" style="margin-bottom:14px">${ORASE.map(o=>`<button class="${S.oras===o?"on":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
 const legOrase=()=>document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.oras=b.dataset.o;render()});
@@ -893,7 +919,7 @@ function vPlan(){
   const legs=[
     {ac:"#C4452D",jp:"東京",nights:"3 nopți",titlu:"Tokyo",dates:"31 oct → 3 nov"},
     {ac:"#4A6274",jp:"箱根",nights:"2 nopți",titlu:"Hakone",dates:"3 nov → 5 nov"},
-    {ac:"#6E7A52",jp:"京都",nights:"7 nopți",titlu:"Kyoto (bază pentru Kansai)",dates:"5 nov → 12 nov"},
+    {ac:"#6E7A52",jp:"京都",nights:"7 nopți",titlu:"Kyoto (bază pentru regiunea Kansai)",dates:"5 nov → 12 nov"},
     {ac:"#C4452D",jp:"東京",nights:"2 nopți",titlu:"Tokyo (final)",dates:"12 nov → 14 nov"}
   ];
   const hubs=[
@@ -921,6 +947,61 @@ function vPlan(){
     </div>`;
 }
 
+/* ---------- JAPONEZA PE SCURT ---------- */
+function vLimba(){
+  const v=$("#view");
+  const sectiuni=[
+    {ac:"#C4452D", nume:"Expresii practice", jp:"実用", intro:"De supraviețuire: politețe, comenzi, mulțumiri. Efortul de a le folosi e mereu apreciat.",
+     lista:[
+      {jp:"こんにちは", romaji:"Konnichiwa", ro:"Bună ziua"},
+      {jp:"ありがとうございます", romaji:"Arigatō gozaimasu", ro:"Mulțumesc (formal)"},
+      {jp:"すみません", romaji:"Sumimasen", ro:"Scuze / mă scuzați (și „mulțumesc” pentru un deranj)"},
+      {jp:"お願いします", romaji:"Onegaishimasu", ro:"Vă rog / dacă sunteți amabil"},
+      {jp:"これをください", romaji:"Kore o kudasai", ro:"Asta, vă rog (arătând)"},
+      {jp:"いくらですか？", romaji:"Ikura desu ka?", ro:"Cât costă?"},
+      {jp:"英語を話せますか？", romaji:"Eigo o hanasemasu ka?", ro:"Vorbiți engleză?"},
+      {jp:"おいしい！", romaji:"Oishii!", ro:"E delicios!"},
+      {jp:"乾杯！", romaji:"Kanpai!", ro:"Noroc! (la ciocnit)"},
+      {jp:"いただきます", romaji:"Itadakimasu", ro:"„Primesc cu recunoștință” — se spune înainte de masă"},
+      {jp:"ごちそうさまでした", romaji:"Gochisōsama deshita", ro:"„A fost un ospăț” — se spune după masă"}
+     ]},
+    {ac:"#B07C2A", nume:"Cuvintele toamnei", jp:"秋", intro:"Exact ce facem noi: momijigari — călătoria de a admira frunzele.",
+     lista:[
+      {jp:"秋", romaji:"Aki", ro:"Toamnă"},
+      {jp:"紅葉", romaji:"Kōyō", ro:"Colorarea frunzelor de toamnă"},
+      {jp:"もみじ", romaji:"Momiji", ro:"Arțarul roșu"},
+      {jp:"銀杏", romaji:"Ichō", ro:"Ginkgo — arborele cu frunze galben-auriu"},
+      {jp:"紅葉狩り", romaji:"Momijigari", ro:"„Vânătoarea de frunze roșii” — a călători ca să le admiri"}
+     ]},
+    {ac:"#6E7A52", nume:"Cuvinte care topesc inima", jp:"心", intro:"Concepte japoneze aproape intraductibile — un cuvânt întreg pentru un sentiment.",
+     lista:[
+      {jp:"木漏れ日", romaji:"Komorebi", ro:"Lumina soarelui filtrată printre frunze"},
+      {jp:"侘寂", romaji:"Wabi-sabi", ro:"Frumusețea imperfectului și a trecătorului"},
+      {jp:"物の哀れ", romaji:"Mono no aware", ro:"Melancolia dulce că frumusețea trece"},
+      {jp:"幽玄", romaji:"Yūgen", ro:"Frumusețea profundă, misterioasă, a lumii"},
+      {jp:"森林浴", romaji:"Shinrin-yoku", ro:"„Baie de pădure” — relaxarea printre copaci"},
+      {jp:"生き甲斐", romaji:"Ikigai", ro:"Motivul pentru care te trezești dimineața"},
+      {jp:"懐かしい", romaji:"Natsukashii", ro:"Nostalgia caldă, plăcută, a amintirilor frumoase"},
+      {jp:"積読", romaji:"Tsundoku", ro:"Obiceiul de a cumpăra cărți și a le lăsa necitite"},
+      {jp:"お疲れ様", romaji:"Otsukaresama", ro:"„Ești obosit — și îți mulțumesc pentru efort”"}
+     ]}
+  ];
+  v.innerHTML=`<div class="panel"><h2>Japoneza pe scurt 🍁</h2>
+    <p class="note">Câteva cuvinte și expresii pentru drum — unele practice, altele doar frumoase. Nu trebuie învățate; sunt aici de plăcere (și pentru un zâmbet când le folosești acolo).</p></div>
+    <div class="panel">
+    ${sectiuni.map(s=>`
+      <div class="frazcat"><h3>${esc(s.nume)}<span class="jpsmall">${s.jp}</span></h3>
+        <p class="intro">${esc(s.intro)}</p></div>
+      <div class="frazgrid">${s.lista.map(f=>`
+        <div class="fraz" style="--ac:${s.ac}">
+          <div class="jp">${esc(f.jp)}</div>
+          <div class="ro">${esc(f.ro)}</div>
+          <div class="romaji">${esc(f.romaji)}</div>
+        </div>`).join("")}</div>
+    `).join("")}
+    </div>`;
+}
+
 /* ---------- REZULTATE ---------- */
 function vRez(){
   const oameni=Object.keys(S.toti).length?Object.keys(S.toti):[S.me];
@@ -942,12 +1023,7 @@ function vRez(){
     const m=medie(note);return{c,m,sd:abatere(note,m),cnt:note.length,musai};
   }).sort((a,b)=>b.m-a.m);
 
-  v.innerHTML=`<div class="row" style="margin-bottom:12px"><button id="reload">🔄 Reîncarcă răspunsurile</button></div>
-    <div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
-    ${medii.map(x=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
-      <div style="flex:1"><div style="font-size:14px">${esc(x.p.text)}</div>
-      <div class="bar"><i style="width:${x.m*10}%"></i></div></div>
-      <span class="small">${x.sd>2.5?"⚡ păreri împărțite":x.sd<1.2&&x.m?"✓ consens":"~ mixt"}</span></div>`).join("")}</div>`
+  v.innerHTML=`<div class="row" style="margin-bottom:12px"><button id="reload">🔄 Reîncarcă răspunsurile</button></div>`
   + baraOrase() +
   `<div class="panel"><div class="meta">Clasamentul experiențelor — ${esc(S.oras)} · după nota medie</div>
     ${rank.length?rank.map((x,i)=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
@@ -956,6 +1032,11 @@ function vRez(){
       <div class="bar"><i style="width:${x.m*20}%"></i></div>
       <div class="small">${x.cnt?x.cnt+" note":"nenotat încă"}${x.musai?` · 👑 ${x.musai} × favorit`:""}${x.sd>1.25?" · ⚡ păreri împărțite":x.sd<0.6&&x.m?" · ✓ consens":""}</div></div></div>`).join("")
       :`<p class="note">Nicio notă încă pentru ${esc(S.oras)}.</p>`}</div>
+    <div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
+    ${medii.map(x=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
+      <div style="flex:1"><div style="font-size:14px">${esc(x.p.text)}</div>
+      <div class="bar"><i style="width:${x.m*10}%"></i></div></div>
+      <span class="small">${x.sd>2.5?"⚡ păreri împărțite":x.sd<1.2&&x.m?"✓ consens":"~ mixt"}</span></div>`).join("")}</div>
   <div class="panel"><div class="meta">Cine a răspuns</div>
     ${oameni.map(o=>`<span class="pill">${esc(o)}</span>`).join("")}</div>`;
   legOrase();
