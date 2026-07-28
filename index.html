@@ -61,18 +61,6 @@
   .st.fill{color:var(--artar)}
   .scoretag{font-size:12px;color:var(--gri);margin-left:8px}
 
-  /* ---------- „fenomenal” — cardul favorit ---------- */
-  /* butonul care marchează un card drept fenomenal (stă suprapus peste marginea de sus) */
-  .favbtn{position:absolute;top:-14px;left:50%;transform:translateX(-50%);z-index:6;white-space:nowrap;
-    display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.02em;
-    padding:6px 14px;border:1px solid var(--linie);border-radius:99px;background:var(--hartie);color:#6B6558;
-    box-shadow:0 3px 9px rgba(80,60,40,.16);cursor:pointer;transition:all .18s}
-  .favbtn .mk{font-size:14px;line-height:1;filter:grayscale(1);opacity:.55;transition:all .2s}
-  .favbtn:hover{border-color:#C9A227;color:#8a6d0f}
-  .favbtn.on{background:linear-gradient(180deg,#F6D65B,#E7B923);border-color:#C9A227;color:#5a4708;font-weight:600}
-  .favbtn.on .mk{filter:none;opacity:1;transform:scale(1.15)}
-  /* cardul fenomenal — chenar auriu proeminent */
-  .card.favorit{border:2px solid #E7B923;box-shadow:0 10px 26px rgba(201,162,39,.28)}
   /* animație: la notare, cardul se estompează și se deplasează vizibil în față */
   @keyframes cardFadeMove{
     0%{opacity:1;transform:translateY(0) scale(1)}
@@ -89,8 +77,8 @@
 
   /* ---------- carduri ---------- */
   .duel{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .grila{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px 16px;padding-top:16px}
-  .card{background:var(--hartie2);color:var(--tus);border-radius:3px;text-align:left;padding:0;margin-top:9px;
+  .grila{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .card{background:var(--hartie2);color:var(--tus);border-radius:3px;text-align:left;padding:0;
     border:1px solid var(--linie);position:relative;display:flex;flex-direction:column;width:100%;
     box-shadow:0 8px 22px rgba(80,60,40,.09);transition:transform .18s,box-shadow .18s,border-color .18s}
   .card>.thumb{border-radius:2px 2px 0 0;overflow:hidden}
@@ -198,6 +186,24 @@
   .fraz .jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:19px;line-height:1.25;color:var(--tus)}
   .fraz .ro{font-size:13.5px;color:var(--tus);margin-top:3px;line-height:1.4}
   .fraz .romaji{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--kaki);margin-top:5px;font-weight:600}
+
+  /* ---------- comentarii per oraș ---------- */
+  .comente{margin-top:22px}
+  .cmt-fir{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+  .cmt{border:1px solid var(--linie);border-left:3px solid var(--linie);border-radius:3px;padding:10px 13px;background:var(--hartie2)}
+  .cmt.al-meu{border-left-color:var(--artar);background:rgba(196,69,45,.03)}
+  .cmt-cap{display:flex;align-items:baseline;gap:9px;margin-bottom:3px}
+  .cmt-nume{font-family:Georgia,serif;font-size:14px;color:var(--tus)}
+  .cmt-data{font-size:11px;color:var(--gri)}
+  .cmt-text{font-size:14px;line-height:1.5;color:var(--tus);white-space:pre-wrap}
+  .cmt-act{margin-top:6px;display:flex;gap:12px}
+  .linkbtn{background:none;border:0;padding:0;font-size:12px;color:var(--kaki);cursor:pointer;text-decoration:underline}
+  .linkbtn.del{color:var(--artar)}
+  .linkbtn:hover{opacity:.75}
+  .cmt-nou textarea,.cmt-edit{width:100%;border:1px solid var(--linie);border-radius:3px;padding:9px 11px;
+    font-family:inherit;font-size:14px;color:var(--tus);background:var(--hartie);resize:vertical;line-height:1.5}
+  .cmt-nou textarea:focus,.cmt-edit:focus{outline:none;border-color:var(--artar)}
+  button.sm{padding:5px 12px;font-size:12px}
 </style>
 <div id="app"><div class="wrap" id="root"></div></div>
 <div class="status" id="status"></div>
@@ -723,10 +729,10 @@ let ALEGERI = [];
 
 const $=s=>document.querySelector(s);
 const ARTIFACT = typeof window.storage!=="undefined";
-/* note = notă 1–5 pe fiecare card · musai = set de id-uri marcate „fenomenal” (card favorit) */
-const norm=d=>({prefs:(d&&d.prefs)||{}, note:(d&&d.note)||{}, musai:(d&&d.musai)||{}});
+/* note = notă 1–5 pe fiecare card · coment = comentarii per oraș {oras:[{id,text,t}]} */
+const norm=d=>({prefs:(d&&d.prefs)||{}, note:(d&&d.note)||{}, musai:(d&&d.musai)||{}, coment:(d&&d.coment)||{}});
 let S={me:"",oras:"Tokyo",tab:"plan",loading:true,
-       date:{prefs:{},note:{},musai:{}},toti:{},organizator:false};
+       date:{prefs:{},note:{},musai:{},coment:{}},toti:{},organizator:false};
 
 function status(t,ms=2200){const el=$("#status");el.textContent=t;el.classList.add("on");
   clearTimeout(status._t);status._t=setTimeout(()=>el.classList.remove("on"),ms);}
@@ -766,6 +772,10 @@ async function load(){
       for(const k of (l?.keys||[])){const v=await window.storage.get(k,true);
         S.toti[k.replace("jp:r:","")]=JSON.parse(v.value);}}catch(e){}
   }
+  /* completează cu ce e salvat local (utilizatori de pe același dispozitiv) */
+  try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);
+    if(k&&k.startsWith("jp:")&&!k.startsWith("jp:r:")){const nume=k.slice(3);
+      if(!S.toti[nume]){try{S.toti[nume]=JSON.parse(localStorage.getItem(k));}catch(e){}}}}}catch(e){}
   S.loading=false;render();
 }
 
@@ -802,7 +812,7 @@ function render(){
     `<p class="sub">31 octombrie – 14 noiembrie 2026 · 6 persoane</p>
     <div class="panel" style="max-width:560px">
       <h2>Bine ai venit 🍁</h2>
-      <p class="note" style="margin-bottom:6px">Site-ul are patru file. În <b>Propunere itinerar</b> vezi cum ar arăta traseul. În <b>Experiențe</b> treci prin fiecare oraș și dai fiecărei experiențe o notă de la 1 la 5 stele — <b>ăsta e pasul cel mai important</b> — iar cele de neratat le poți marca cu 👑 <b>„Fenomenal!”</b>, ca să urce în capul listei. În <b>Preferințe generale</b> spui în linii mari ce fel de vacanță îți dorești. La final, în <b>Rezultate</b>, vezi media grupului. Cam 15 minute.</p>
+      <p class="note" style="margin-bottom:6px">Site-ul are cinci file. În <b>Propunere itinerar</b> vezi cum ar arăta traseul. În <b>Experiențe</b> treci prin fiecare oraș și dai fiecărei experiențe o notă de la 1 la 5 stele — <b>ăsta e pasul cel mai important</b> — iar la finalul fiecărui oraș poți lăsa un comentariu pentru tot grupul. În <b>Preferințe generale</b> spui în linii mari ce fel de vacanță îți dorești. La final, în <b>Rezultate</b>, vezi media grupului. Cam 15 minute.</p>
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
       <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button>
       <button id="org">Mod organizator</button></div>
@@ -847,23 +857,20 @@ function vPref(){
   }));
 }
 
-/* ---------- EXPERIENȚE (notează fiecare card 1–5; favorit + reordonare live) ---------- */
+/* ---------- EXPERIENȚE (notează fiecare card 1–5; reordonare live după notă) ---------- */
 function cardCuNota(c){
   const val=S.date.note[c.id]||0;
-  const fav=!!S.date.musai[c.id];
-  return `<article class="card static ${fav?"favorit":""}" data-cid="${c.id}">
-    <button class="favbtn ${fav?"on":""}" data-musai="${c.id}" aria-pressed="${fav}">
-      <span class="mk">👑</span> Fenomenal!</button>
+  return `<article class="card static" data-cid="${c.id}">
     ${thumb(c)}${corpCard(c)}
     <div class="cardnote"><div class="ql">Cât de mult vrei să facem asta?</div>
       ${steleRand("data-note",c.id,val)}
     </div></article>`;
 }
-/* ordine în cadrul unei categorii: întâi favoritele, apoi după nota ta (mare→mic), restul își păstrează ordinea */
+/* ordine în cadrul unei categorii: după nota ta (mare→mic), restul își păstrează ordinea */
 function ordoneazaCat(cards){
   return cards
-    .map((c,i)=>({c,i,fav:S.date.musai[c.id]?1:0,nota:S.date.note[c.id]||0}))
-    .sort((a,b)=> b.fav-a.fav || b.nota-a.nota || a.i-b.i)
+    .map((c,i)=>({c,i,nota:S.date.note[c.id]||0}))
+    .sort((a,b)=> b.nota-a.nota || a.i-b.i)
     .map(x=>x.c);
 }
 function vExp(){
@@ -871,8 +878,8 @@ function vExp(){
   const lista=CARDURI.filter(c=>c.oras===S.oras);
   const notate=lista.filter(c=>S.date.note[c.id]>0).length;
   let html=`<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
-    <p class="note">Mai jos sunt toate experiențele adunate pentru fiecare oraș. Dă fiecăreia de la 1 la 5 stele, după cât de mult ți-ai dori s-o facem. Iar dacă una ți se pare de neratat, apasă <b>👑 „Fenomenal!”</b> — cardul primește un chenar auriu și urcă în capul categoriei.</p>
-    <div class="callout"><b>Cum sunt aranjate:</b> în fiecare oraș, experiențele sunt grupate pe categorii (atracții, activități, mâncare, zone). Pe măsură ce le notezi, cartonașele <b>se rearanjează singure</b> — favoritele tale sus, apoi cele cu note mari. Nimic nu e încă decis — te rugăm să notezi <b>fiecare</b> cartonaș, nu doar preferatele.</div></div>`
+    <p class="note">Mai jos sunt toate experiențele adunate pentru fiecare oraș. Dă fiecăreia de la 1 la 5 stele, după cât de mult ți-ai dori s-o facem.</p>
+    <div class="callout"><b>Cum sunt aranjate:</b> în fiecare oraș, experiențele sunt grupate pe categorii (atracții, activități, mâncare, zone). Pe măsură ce le notezi, cartonașele <b>se rearanjează singure</b> — cele cu note mari urcă sus. Nimic nu e încă decis — te rugăm să notezi <b>fiecare</b> cartonaș, nu doar preferatele.</div></div>`
     + baraOrase()
     + `<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`;
   CATEGORII.forEach(cat=>{
@@ -883,20 +890,16 @@ function vExp(){
       <div class="grila">${cards.map(cardCuNota).join("")}</div>`;
   });
   if(!lista.length)html+=`<div class="panel"><p class="note">Încă n-avem cartonașe pentru ${esc(S.oras)}.</p></div>`;
+  html+=boxaComentarii(S.oras);
   v.innerHTML=html;
   legOrase();
+  legComentarii(S.oras);
   v.querySelectorAll(".stars").forEach(g=>g.querySelectorAll(".st").forEach(b=>b.onclick=async()=>{
     const id=g.dataset.note;
     S.date.note[id]=+b.dataset.v;
     salveaza();
     animaReasezare(id);
   }));
-  v.querySelectorAll("[data-musai]").forEach(b=>b.onclick=async()=>{
-    const id=b.dataset.musai;
-    if(S.date.musai[id]) delete S.date.musai[id]; else S.date.musai[id]=1;
-    salveaza();
-    animaReasezare(id);
-  });
 }
 /* rulează animația de estompare + deplasare pe cardul atins, apoi rerandează (reordonând) în timp ce e estompat */
 function animaReasezare(id){
@@ -911,6 +914,69 @@ function animaReasezare(id){
     if(nou){ nou.classList.add("sosit"); nou.scrollIntoView({behavior:"smooth",block:"center"});
       setTimeout(()=>nou.classList.remove("sosit"),700); }
   },250);
+}
+
+/* ---------- COMENTARII per oraș (fir de discuție, partajat între toți) ---------- */
+/* strânge toate comentariile pentru un oraș, de la toți utilizatorii (din S.toti) */
+function toateComentariile(oras){
+  const out=[];
+  const surse={...S.toti,[S.me]:S.date};   // include și ce am eu nesalvat încă
+  for(const nume in surse){
+    const cl=(surse[nume]&&surse[nume].coment&&surse[nume].coment[oras])||[];
+    cl.forEach(c=>out.push({nume,id:c.id,text:c.text,t:c.t||0}));
+  }
+  return out.sort((a,b)=>a.t-b.t);
+}
+function boxaComentarii(oras){
+  const lista=toateComentariile(oras);
+  const fire=lista.map(c=>{
+    const alMeu=c.nume===S.me;
+    const data=c.t?new Date(c.t).toLocaleDateString("ro-RO",{day:"numeric",month:"short"}):"";
+    return `<div class="cmt ${alMeu?"al-meu":""}">
+      <div class="cmt-cap"><span class="cmt-nume">${esc(c.nume)}</span>${data?`<span class="cmt-data">${data}</span>`:""}</div>
+      <div class="cmt-text" data-ct="${c.id}">${esc(c.text)}</div>
+      ${alMeu?`<div class="cmt-act"><button class="linkbtn" data-edit="${c.id}">editează</button>
+        <button class="linkbtn del" data-del="${c.id}">șterge</button></div>`:""}
+    </div>`;
+  }).join("");
+  return `<div class="panel comente">
+    <div class="meta">Comentarii · ${esc(oras)}</div>
+    <p class="note" style="margin-bottom:12px">Spune-le celorlalți ce crezi — care ți-au plăcut cel mai mult, ce ai vrea neapărat, orice idee. Comentariile sunt vizibile pentru tot grupul.</p>
+    <div class="cmt-fir">${fire||`<p class="note" style="opacity:.7">Încă niciun comentariu pentru ${esc(oras)}. Fii primul!</p>`}</div>
+    <div class="cmt-nou">
+      <textarea id="cmt-in" rows="3" placeholder="Scrie un comentariu despre ${esc(oras)}…"></textarea>
+      <div class="row" style="margin-top:8px"><button class="primary" id="cmt-add">Adaugă comentariu</button></div>
+    </div></div>`;
+}
+function legComentarii(oras){
+  const wrap=$(".comente"); if(!wrap)return;
+  const add=$("#cmt-add"), inp=$("#cmt-in");
+  if(add) add.onclick=async()=>{
+    const t=inp.value.trim(); if(!t)return;
+    if(!S.date.coment[oras]) S.date.coment[oras]=[];
+    S.date.coment[oras].push({id:"c"+Date.now()+Math.random().toString(36).slice(2,6),text:t,t:Date.now()});
+    await salveaza(); vExp();
+  };
+  wrap.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{
+    const id=b.dataset.del;
+    S.date.coment[oras]=(S.date.coment[oras]||[]).filter(c=>c.id!==id);
+    await salveaza(); vExp();
+  });
+  wrap.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.edit;
+    const el=wrap.querySelector(`.cmt-text[data-ct="${id}"]`);
+    const vechi=(S.date.coment[oras]||[]).find(c=>c.id===id);
+    if(!el||!vechi)return;
+    el.innerHTML=`<textarea class="cmt-edit" rows="3">${esc(vechi.text)}</textarea>
+      <div class="row" style="margin-top:6px"><button class="primary sm" data-save="${id}">Salvează</button>
+      <button class="sm" data-cancel="1">Renunță</button></div>`;
+    el.querySelector("[data-save]").onclick=async()=>{
+      const nou=el.querySelector(".cmt-edit").value.trim();
+      if(nou){vechi.text=nou;vechi.t=vechi.t||Date.now();await salveaza();}
+      vExp();
+    };
+    el.querySelector("[data-cancel]").onclick=()=>vExp();
+  });
 }
 
 /* ---------- PROPUNERE ITINERARIU (doar structura, textul se completează ulterior) ---------- */
@@ -1019,8 +1085,7 @@ function vRez(){
   const cards=CARDURI.filter(c=>c.oras===S.oras);
   const rank=cards.map(c=>{
     const note=oameni.map(o=>S.toti[o]&&S.toti[o].note&&S.toti[o].note[c.id]).filter(x=>x>0);
-    const musai=oameni.filter(o=>S.toti[o]&&S.toti[o].musai&&S.toti[o].musai[c.id]).length;
-    const m=medie(note);return{c,m,sd:abatere(note,m),cnt:note.length,musai};
+    const m=medie(note);return{c,m,sd:abatere(note,m),cnt:note.length};
   }).sort((a,b)=>b.m-a.m);
 
   v.innerHTML=`<div class="row" style="margin-bottom:12px"><button id="reload">🔄 Reîncarcă răspunsurile</button></div>`
@@ -1030,7 +1095,7 @@ function vRez(){
       <div style="flex:1"><div>${String(i+1).padStart(2,"0")} · ${esc(x.c.titlu)}
         <span class="small">· ${esc((CATEGORII.find(k=>k.id===x.c.cat)||{}).nume||"")}</span></div>
       <div class="bar"><i style="width:${x.m*20}%"></i></div>
-      <div class="small">${x.cnt?x.cnt+" note":"nenotat încă"}${x.musai?` · 👑 ${x.musai} × favorit`:""}${x.sd>1.25?" · ⚡ păreri împărțite":x.sd<0.6&&x.m?" · ✓ consens":""}</div></div></div>`).join("")
+      <div class="small">${x.cnt?x.cnt+" note":"nenotat încă"}${x.sd>1.25?" · ⚡ păreri împărțite":x.sd<0.6&&x.m?" · ✓ consens":""}</div></div></div>`).join("")
       :`<p class="note">Nicio notă încă pentru ${esc(S.oras)}.</p>`}</div>
     <div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
     ${medii.map(x=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
