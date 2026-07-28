@@ -48,6 +48,9 @@
 
   .panel{background:var(--hartie2);border:1px solid var(--linie);border-radius:3px;padding:18px;margin-bottom:14px}
   .note{font-size:12.5px;color:var(--gri);line-height:1.65}
+  .frunze{list-style:none;margin:6px 0 4px;padding:0;display:flex;flex-direction:column;gap:9px}
+  .frunze li{position:relative;padding-left:26px;font-size:14px;line-height:1.5;color:var(--tus)}
+  .frunze li::before{content:"🍁";position:absolute;left:0;top:1px;font-size:13px;opacity:.85}
   .meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gri);margin-bottom:8px}
   .hr{height:1px;background:var(--linie);margin:16px 0}
 
@@ -760,9 +763,9 @@ async function salveaza(){
       status("Salvat ✓");
     }catch(e){status("Nu am reușit să salvez — verifică internetul")}
   }else if(ARTIFACT){
-    try{await window.storage.set("jp:r:"+S.me,JSON.stringify(S.date),true)}catch(e){}
+    try{await window.storage.set("jp:r:"+cheieNume(S.me),JSON.stringify({nume:S.me,date:S.date}),true)}catch(e){}
   }
-  try{localStorage.setItem("jp:"+S.me,JSON.stringify(S.date))}catch(e){}
+  try{localStorage.setItem("jp:"+cheieNume(S.me),JSON.stringify(S.date))}catch(e){}
 }
 async function load(){
   const d=await citesteDeLaSheet();
@@ -770,7 +773,9 @@ async function load(){
   else if(ARTIFACT){
     try{const l=await window.storage.list("jp:r:",true);
       for(const k of (l?.keys||[])){const v=await window.storage.get(k,true);
-        S.toti[k.replace("jp:r:","")]=JSON.parse(v.value);}}catch(e){}
+        const obj=JSON.parse(v.value);
+        const nume=(obj&&obj.nume)||k.replace("jp:r:","");
+        S.toti[nume]=(obj&&obj.date)||obj;}}catch(e){}
   }
   /* completează cu ce e salvat local (utilizatori de pe același dispozitiv) */
   try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);
@@ -782,6 +787,19 @@ async function load(){
 const card=id=>CARDURI.find(c=>c.id===id);
 const esc=s=>(s||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const stil=o=>ORAS_STIL[o]||ORAS_STIL["Tokyo"];
+
+/* nume case-insensitive: „CATALINA” și „catalina” = aceeași persoană.
+   cheieNume = forma canonică (litere mici) pentru chei de stocare;
+   rezolvaNume = dacă există deja un utilizator cu același nume (indiferent de majuscule),
+   îi refolosim numele existent, altfel păstrăm cum a fost scris acum. */
+const cheieNume=n=>(n||"").trim().toLowerCase();
+function rezolvaNume(v){
+  const k=cheieNume(v);
+  for(const nume in S.toti){ if(cheieNume(nume)===k) return nume; }
+  try{for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);
+    if(key&&key.startsWith("jp:")&&!key.startsWith("jp:r:")&&cheieNume(key.slice(3))===k) return key.slice(3);}}catch(e){}
+  return v.trim();
+}
 
 /* imaginea sau, dacă nu există, fundalul de hârtie cu emoji */
 function thumb(c){
@@ -812,13 +830,20 @@ function render(){
     `<p class="sub">31 octombrie – 14 noiembrie 2026 · 6 persoane</p>
     <div class="panel" style="max-width:560px">
       <h2>Bine ai venit 🍁</h2>
-      <p class="note" style="margin-bottom:6px">Site-ul are cinci file. În <b>Propunere itinerar</b> vezi cum ar arăta traseul. În <b>Experiențe</b> treci prin fiecare oraș și dai fiecărei experiențe o notă de la 1 la 5 stele — <b>ăsta e pasul cel mai important</b> — iar la finalul fiecărui oraș poți lăsa un comentariu pentru tot grupul. În <b>Preferințe generale</b> spui în linii mari ce fel de vacanță îți dorești. La final, în <b>Rezultate</b>, vezi media grupului. Cam 15 minute.</p>
+      <ul class="frunze">
+        <li>Propunere itinerar — cum ar arăta traseul</li>
+        <li>Experiențe — dai fiecărei experiențe o notă de la 1 la 5 stele</li>
+        <li>La finalul fiecărui oraș poți lăsa un comentariu pentru grup</li>
+        <li>Preferințe generale — ce fel de vacanță îți dorești</li>
+        <li>Rezultate — media întregului grup</li>
+      </ul>
+      <p class="note" style="margin:2px 0 14px">Durează cam 15 minute.</p>
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
       <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button>
       <button id="org">Mod organizator</button></div>
     </div>`;
-    $("#go").onclick=()=>{const v=$("#nm").value.trim();if(!v)return;S.me=v;
-      S.date=norm(S.toti[v]||JSON.parse(localStorage.getItem("jp:"+v)||"null"));render()};
+    $("#go").onclick=()=>{const v=$("#nm").value.trim();if(!v)return;S.me=rezolvaNume(v);
+      S.date=norm(S.toti[S.me]||JSON.parse(localStorage.getItem("jp:"+cheieNume(S.me))||"null"));render()};
     $("#nm").onkeydown=e=>{if(e.key==="Enter")$("#go").click()};
     $("#org").onclick=()=>{S.me="Organizator";S.organizator=true;S.tab="rez";
       S.date=norm(S.toti["Organizator"]);render()};
