@@ -51,6 +51,47 @@
   .frunze{list-style:none;margin:6px 0 4px;padding:0;display:flex;flex-direction:column;gap:9px}
   .frunze li{position:relative;padding-left:26px;font-size:14px;line-height:1.5;color:var(--tus)}
   .frunze li::before{content:"🍁";position:absolute;left:0;top:1px;font-size:13px;opacity:.85}
+
+  /* ---------- pagina de deschidere (atmosferă „Toamna în Japonia”) ---------- */
+  .hero{position:relative;overflow:hidden;border-radius:4px;border:1px solid var(--linie);
+    background:
+      radial-gradient(120% 90% at 85% -10%,rgba(196,69,45,.14),transparent 55%),
+      radial-gradient(120% 90% at -10% 20%,rgba(176,124,42,.13),transparent 55%),
+      radial-gradient(140% 120% at 50% 120%,rgba(110,122,82,.12),transparent 55%),
+      linear-gradient(180deg,var(--hartie2),#FBF6EC);
+    padding:40px 30px 34px;margin-bottom:16px}
+  .hero .jpbig{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:clamp(15px,3vw,20px);
+    letter-spacing:.3em;color:var(--artar);opacity:.8;margin:0 0 14px}
+  .hero h2{font-family:Georgia,serif;font-weight:400;font-size:clamp(26px,5vw,38px);line-height:1.2;
+    margin:0 0 16px;color:var(--tus);max-width:16ch}
+  .hero .lede{font-size:15px;line-height:1.72;color:#5C5346;max-width:52ch;margin:0 0 8px}
+  .hero .lede .accent{color:var(--artar)}
+  .hero .haiku{font-family:Georgia,serif;font-style:italic;font-size:15px;line-height:1.7;color:var(--kaki);
+    border-left:2px solid rgba(176,124,42,.4);padding-left:16px;margin:20px 0 4px;max-width:44ch}
+  .hero .meta-trip{display:flex;flex-wrap:wrap;gap:8px 10px;margin:22px 0 4px}
+  .hero .chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:#5C5346;
+    background:rgba(255,255,255,.55);border:1px solid var(--linie);border-radius:99px;padding:6px 13px}
+  .hero .chip b{font-weight:600;color:var(--tus)}
+  /* frunze care cad, discret */
+  .leaves{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .leaves span{position:absolute;top:-8%;font-size:18px;opacity:0;animation:cadere linear infinite;
+    will-change:transform,opacity}
+  @keyframes cadere{
+    0%{opacity:0;transform:translateY(-10%) translateX(0) rotate(0deg)}
+    10%{opacity:.75}
+    90%{opacity:.6}
+    100%{opacity:0;transform:translateY(720%) translateX(40px) rotate(320deg)}
+  }
+  .hero>*{position:relative;z-index:1}
+
+  /* „ce urmează” — pași atmosferici */
+  .pasi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:4px 0 2px}
+  .pas{border:1px solid var(--linie);border-radius:3px;padding:12px 14px;background:var(--hartie2)}
+  .pas .p-jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;color:var(--artar);font-size:15px;opacity:.7}
+  .pas b{display:block;font-family:Georgia,serif;font-weight:400;font-size:15px;margin:3px 0 2px;color:var(--tus)}
+  .pas span{font-size:12px;color:var(--gri);line-height:1.5}
+  .intra{max-width:560px}
+  @media(prefers-reduced-motion:reduce){.leaves{display:none}}
   .meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gri);margin-bottom:8px}
   .hr{height:1px;background:var(--linie);margin:16px 0}
 
@@ -826,27 +867,43 @@ function render(){
   const root=$("#root");
   if(S.loading){root.innerHTML=antet()+`<p class="sub">Se încarcă…</p>`;return;}
   if(!S.me){
+    const frunze=["🍁","🍂","🍁","🍂","🍁","🍁","🍂","🍁","🍂","🍁","🍂","🍁"];
+    const leafHtml=frunze.map((f,i)=>{
+      const left=(i*8.3+3)%100, dur=(9+((i*2.7)%7)).toFixed(1), delay=(-(i*1.6)%12).toFixed(1), sz=(15+((i*3)%9));
+      return `<span style="left:${left}%;font-size:${sz}px;animation-duration:${dur}s;animation-delay:${delay}s">${f}</span>`;
+    }).join("");
     root.innerHTML=antet()+
-    `<p class="sub">31 octombrie – 14 noiembrie 2026 · 6 persoane</p>
-    <div class="panel" style="max-width:560px">
-      <h2>Bine ai venit 🍁</h2>
-      <ul class="frunze">
-        <li>Propunere itinerar — cum ar arăta traseul</li>
-        <li>Experiențe — dai fiecărei experiențe o notă de la 1 la 5 stele</li>
-        <li>La finalul fiecărui oraș poți lăsa un comentariu pentru grup</li>
-        <li>Preferințe generale — ce fel de vacanță îți dorești</li>
-        <li>Rezultate — media întregului grup</li>
-      </ul>
-      <p class="note" style="margin:2px 0 14px">Durează cam 15 minute.</p>
+    `<section class="hero">
+      <div class="leaves">${leafHtml}</div>
+      <p class="jpbig">日本の秋 · 一期一会</p>
+      <h2>O toamnă în Japonia, împreună</h2>
+      <p class="lede">Paisprezece zile prin <span class="accent">Tokyo, Hakone și Kyoto</span>, chiar când începe culoarea toamnei — ginkgo auriu și primii arțari ruginii. Temple în zori, onsen la asfințit, piețe de dimineață și seri cu felinare — plus o aniversare de sărbătorit pe drum.</p>
+      <p class="haiku">„Ichigo ichie” — o dată în viață, o singură întâlnire: vechea idee japoneză că fiecare drum împreună e unic și nu se mai repetă.</p>
+      <div class="meta-trip">
+        <span class="chip">🍁 <b>31 oct – 14 nov 2026</b></span>
+      </div>
+    </section>
+
+    <div class="panel">
+      <p class="note" style="margin:0 0 10px">Acest jurnal are două roluri. Întâi, e ca o broșură: aici vezi opțiunile pe care ți le propunem — locuri și experiențe alese de noi, nu tot ce se poate face în Japonia. Apoi, e locul unde adunăm preferințele grupului și vedem media, ca să hotărâm împreună ce facem.</p>
+      <p class="note" style="margin:0 0 12px">Iată ce te așteaptă:</p>
+      <div class="pasi">
+        <div class="pas"><span class="p-jp">計画</span><b>Itinerar</b><span>Cum ar arăta traseul, zi cu zi.</span></div>
+        <div class="pas"><span class="p-jp">体験</span><b>Experiențe</b><span>Notezi de la 1 la 5 stele fiecare loc și lași un gând pentru grup.</span></div>
+        <div class="pas"><span class="p-jp">好み</span><b>Preferințe</b><span>Ce fel de vacanță îți dorești, în linii mari.</span></div>
+        <div class="pas"><span class="p-jp">結果</span><b>Rezultate</b><span>Ce iese la vot — media întregului grup.</span></div>
+      </div>
+    </div>
+
+    <div class="panel intra">
+      <h2 style="margin-bottom:4px">Intră în jurnal</h2>
+      <p class="note" style="margin:0 0 6px">Scrie-ți numele ca răspunsurile tale să fie salvate. Durează cam 15 minute.</p>
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
-      <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button>
-      <button id="org">Mod organizator</button></div>
+      <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button></div>
     </div>`;
     $("#go").onclick=()=>{const v=$("#nm").value.trim();if(!v)return;S.me=rezolvaNume(v);
       S.date=norm(S.toti[S.me]||JSON.parse(localStorage.getItem("jp:"+cheieNume(S.me))||"null"));render()};
     $("#nm").onkeydown=e=>{if(e.key==="Enter")$("#go").click()};
-    $("#org").onclick=()=>{S.me="Organizator";S.organizator=true;S.tab="rez";
-      S.date=norm(S.toti["Organizator"]);render()};
     return;
   }
   const totalCarduri=CARDURI.length;
@@ -903,8 +960,7 @@ function vExp(){
   const lista=CARDURI.filter(c=>c.oras===S.oras);
   const notate=lista.filter(c=>S.date.note[c.id]>0).length;
   let html=`<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
-    <p class="note">Mai jos sunt toate experiențele adunate pentru fiecare oraș. Dă fiecăreia de la 1 la 5 stele, după cât de mult ți-ai dori s-o facem.</p>
-    <div class="callout"><b>Cum sunt aranjate:</b> în fiecare oraș, experiențele sunt grupate pe categorii (atracții, activități, mâncare, zone). Pe măsură ce le notezi, cartonașele <b>se rearanjează singure</b> — cele cu note mari urcă sus. Nimic nu e încă decis — te rugăm să notezi <b>fiecare</b> cartonaș, nu doar preferatele.</div></div>`
+    <p class="note">Dă fiecărei experiențe de la 1 la 5 stele. Notează-le pe toate, nu doar preferatele.</p></div>`
     + baraOrase()
     + `<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`;
   CATEGORII.forEach(cat=>{
@@ -931,12 +987,14 @@ function animaReasezare(id){
   const card=document.querySelector(`.card[data-cid="${id}"]`);
   if(!card){vExp();return;}
   card.classList.add("reasezat");
+  const y=window.scrollY;   // reținem poziția paginii, ca să n-o mișcăm
   // la jumătatea animației (când cardul e cel mai estompat) reconstruim lista în noua ordine…
   setTimeout(()=>{
     vExp();
-    // …apoi evidențiem cardul mutat la noua lui poziție, ca să se vadă unde a ajuns
+    window.scrollTo(0,y);   // pagina rămâne exact unde era — doar cardurile se reașază
+    // …apoi evidențiem scurt cardul mutat, ca să se vadă unde a ajuns (fără a derula pagina)
     const nou=document.querySelector(`.card[data-cid="${id}"]`);
-    if(nou){ nou.classList.add("sosit"); nou.scrollIntoView({behavior:"smooth",block:"center"});
+    if(nou){ nou.classList.add("sosit");
       setTimeout(()=>nou.classList.remove("sosit"),700); }
   },250);
 }
@@ -1056,7 +1114,7 @@ function vLimba(){
       {jp:"いただきます", romaji:"Itadakimasu", ro:"„Primesc cu recunoștință” — se spune înainte de masă"},
       {jp:"ごちそうさまでした", romaji:"Gochisōsama deshita", ro:"„A fost un ospăț” — se spune după masă"}
      ]},
-    {ac:"#B07C2A", nume:"Cuvintele toamnei", jp:"秋", intro:"Exact ce facem noi: momijigari — călătoria de a admira frunzele.",
+    {ac:"#B07C2A", nume:"Cuvintele toamnei", jp:"秋", intro:"Cuvinte pentru culorile toamnei japoneze — de la kōyō la ginkgo.",
      lista:[
       {jp:"秋", romaji:"Aki", ro:"Toamnă"},
       {jp:"紅葉", romaji:"Kōyō", ro:"Colorarea frunzelor de toamnă"},
