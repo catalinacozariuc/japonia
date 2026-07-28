@@ -772,6 +772,8 @@ let ALEGERI = [];
 /* ==================== SFÂRȘITUL ZONEI DE EDITAT ==================== */
 
 const $=s=>document.querySelector(s);
+/* la refresh, browserul readuce pagina unde era derulată; o oprim ca să pornească din vârf */
+if("scrollRestoration" in history) history.scrollRestoration="manual";
 const ARTIFACT = typeof window.storage!=="undefined";
 /* note = notă 1–5 pe fiecare card · coment = comentarii per oraș {oras:[{id,text,t}]} */
 const norm=d=>({prefs:(d&&d.prefs)||{}, note:(d&&d.note)||{}, musai:(d&&d.musai)||{}, coment:(d&&d.coment)||{}});
@@ -794,24 +796,47 @@ function citesteDeLaSheet(){
     setTimeout(()=>{if(window[cb]){res(null);delete window[cb]}},8000);
   });
 }
+let _verifTimer=null;
 async function salveaza(){
   S.toti[S.me]=S.date;
-  if(URL_SCRIPT){
-    try{
-      await fetch(URL_SCRIPT,{method:"POST",mode:"no-cors",
-        headers:{"Content-Type":"text/plain;charset=utf-8"},
-        body:JSON.stringify({nume:S.me,date:S.date})});
-      status("Salvat ✓");
-    }catch(e){status("Nu am reușit să salvez — verifică internetul")}
-  }else if(ARTIFACT){
+  /* întotdeauna păstrăm și o copie locală, ca plasă de siguranță */
+  try{localStorage.setItem("jp:"+cheieNume(S.me),JSON.stringify(S.date))}catch(e){}
+  if(ARTIFACT){
     try{await window.storage.set("jp:r:"+cheieNume(S.me),JSON.stringify({nume:S.me,date:S.date}),true)}catch(e){}
   }
-  try{localStorage.setItem("jp:"+cheieNume(S.me),JSON.stringify(S.date))}catch(e){}
+  if(!URL_SCRIPT){status("Salvat pe acest dispozitiv");return;}
+  status("Se salvează…",6000);
+  try{
+    await fetch(URL_SCRIPT,{method:"POST",mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({nume:S.me,date:S.date})});
+  }catch(e){status("Fără internet — salvat doar pe acest dispozitiv",6000);return;}
+  /* ATENȚIE: fetch cu mode:"no-cors" „reușește” chiar dacă serverul respinge cererea
+     (răspuns opac). De aceea NU putem ști din răspuns dacă s-a scris în Sheet.
+     Verificăm citind înapoi din Sheet, o singură dată după ultima modificare. */
+  clearTimeout(_verifTimer);
+  _verifTimer=setTimeout(verificaSalvare,1200);
+}
+async function verificaSalvare(){
+  const nrLocal=Object.keys(S.date.note||{}).length+Object.keys(S.date.prefs||{}).length;
+  const d=await citesteDeLaSheet();
+  if(d===null){
+    status("⚠ Nu mă pot conecta la Google Sheets. În Apps Script: Deploy → «Oricine» → republică o versiune nouă.",9000);
+    return;
+  }
+  const eu=d[S.me];
+  const nrServer=eu?Object.keys(eu.note||{}).length+Object.keys(eu.prefs||{}).length:0;
+  if(eu && nrServer>=nrLocal){ S.toti=d; status("Salvat în Google Sheets ✓"); }
+  else status("⚠ Cererea ajunge, dar Sheet-ul nu se actualizează — verifică funcția doPost din Apps Script.",9000);
 }
 async function load(){
   const d=await citesteDeLaSheet();
   if(d) S.toti=d;
-  else if(ARTIFACT){
+  else if(URL_SCRIPT){
+    /* scriptul e configurat, dar nu răspunde: aproape sigur publicare/acces greșit */
+    setTimeout(()=>status("⚠ Nu mă pot conecta la Google Sheets — momentan se salvează doar pe acest dispozitiv. Verifică publicarea scriptului (acces „Oricine”).",9000),500);
+  }
+  if(!d && ARTIFACT){
     try{const l=await window.storage.list("jp:r:",true);
       for(const k of (l?.keys||[])){const v=await window.storage.get(k,true);
         const obj=JSON.parse(v.value);
@@ -865,6 +890,7 @@ function antet(){
 }
 function render(){
   const root=$("#root");
+  window.scrollTo(0,0);   // orice randare completă a paginii pornește din vârf
   if(S.loading){root.innerHTML=antet()+`<p class="sub">Se încarcă…</p>`;return;}
   if(!S.me){
     const frunze=["🍁","🍂","🍁","🍂","🍁","🍁","🍂","🍁","🍂","🍁","🍂","🍁"];
@@ -897,8 +923,8 @@ function render(){
 
     <div class="panel intra">
       <h2 style="margin-bottom:4px">Intră în jurnal</h2>
-      <p class="note" style="margin:0 0 6px">Scrie-ți numele ca răspunsurile tale să fie salvate. Durează cam 15 minute.</p>
-      <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana" autofocus>
+      <p class="note" style="margin:0 0 6px">Folosește mereu același nume — așa îți salvăm răspunsurile și le poți relua oricând. Pagina rămâne utilă și în timpul călătoriei, ca sursă de informații.</p>
+      <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana">
       <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button></div>
     </div>`;
     $("#go").onclick=()=>{const v=$("#nm").value.trim();if(!v)return;S.me=rezolvaNume(v);
