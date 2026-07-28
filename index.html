@@ -199,6 +199,11 @@
   .cardnote .ql{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--gri)}
   .callout{border-left:3px solid var(--artar);background:rgba(196,69,45,.05);padding:12px 15px;border-radius:2px;
     font-size:13.5px;line-height:1.55;margin-top:10px}
+  .orasnav{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+    margin:24px 0 4px;padding-top:16px;border-top:1px solid var(--linie)}
+  .orasnav button{padding:10px 16px}
+  .orasnav .primary{margin-left:auto}
+  @media(max-width:520px){.orasnav .primary{width:100%;margin-left:0}}
 
   /* ---------- propunere itinerariu ---------- */
   .trip{display:flex;flex-direction:column;gap:0}
@@ -998,9 +1003,20 @@ function vExp(){
   });
   if(!lista.length)html+=`<div class="panel"><p class="note">Încă n-avem cartonașe pentru ${esc(S.oras)}.</p></div>`;
   html+=boxaComentarii(S.oras);
+
+  /* navigare jos: înapoi sus la lista de orașe + continuă spre orașul următor */
+  const idxOras=ORASE.indexOf(S.oras);
+  const urmOras=ORASE[idxOras+1];
+  html+=`<div class="orasnav">
+    <button id="navSus">↑ Sus la orașe</button>
+    <button class="primary" id="navUrm">${urmOras?`Continuă spre ${esc(urmOras)} →`:"Gata cu orașele → Preferințe"}</button>
+  </div>`;
+
   v.innerHTML=html;
   legOrase();
   legComentarii(S.oras);
+  const bSus=v.querySelector("#navSus"); if(bSus) bSus.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+  const bUrm=v.querySelector("#navUrm"); if(bUrm) bUrm.onclick=()=>{ if(urmOras){S.oras=urmOras;} else {S.tab="pref";} render(); };
   v.querySelectorAll(".stars").forEach(g=>g.querySelectorAll(".st").forEach(b=>b.onclick=async()=>{
     const id=g.dataset.note;
     S.date.note[id]=+b.dataset.v;
