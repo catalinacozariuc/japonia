@@ -189,7 +189,7 @@
   .status.on{transform:none}
 
   /* ---------- sectiuni pe categorii + nota pe card ---------- */
-  .catsec{margin:28px 0 4px}
+  .catsec{margin:28px 0 14px}
   .cathead{font-family:Georgia,serif;font-weight:400;font-size:19px;margin:0 0 3px;color:var(--tus);
     display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--linie);padding-bottom:7px}
   .cathead .n{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gri)}
@@ -219,6 +219,7 @@
   .leg .dates{font-size:12px;color:var(--kaki);letter-spacing:.03em;margin-bottom:6px}
   .leg .placeholder{font-size:12.5px;color:var(--gri);line-height:1.55;border:1px dashed var(--linie);
     border-radius:3px;padding:11px 13px;background:var(--hartie2)}
+  .harta{width:100%;display:block;border-radius:3px;border:1px solid var(--linie)}
   .hubgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;margin-top:10px}
   .hub{border:1px solid var(--linie);border-radius:3px;padding:10px 12px;background:var(--hartie2)}
   .hub b{display:block;font-family:Georgia,serif;font-weight:400;font-size:14px;margin-bottom:2px}
@@ -270,29 +271,36 @@ const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbza_AKsZh8KuIF5DYiwB
    ========================================================================== */
 
 /* câte un „fișier” per oraș, în ordinea firească a călătoriei */
-const ORASE = ["Tokyo","Hakone","Kyoto","Nara","Osaka","Excursii de o zi"];
+const ORASE = ["Tokyo","Hakone","Kyoto","Nara","Osaka","Excursii"];
 
 /* culoare + kanji decorativ pentru fiecare oraș */
 const ORAS_STIL = {
-  "Tokyo":            {ac:"#C4452D", acs:"rgba(196,69,45,.14)",  jp:"東京"},
-  "Hakone":           {ac:"#4A6274", acs:"rgba(74,98,116,.15)",  jp:"箱根"},
-  "Kyoto":            {ac:"#6E7A52", acs:"rgba(110,122,82,.15)", jp:"京都"},
-  "Nara":             {ac:"#8A6D3B", acs:"rgba(138,109,59,.15)", jp:"奈良"},
-  "Osaka":            {ac:"#B07C2A", acs:"rgba(176,124,42,.15)", jp:"大阪"},
-  "Excursii de o zi": {ac:"#9A5A44", acs:"rgba(154,90,68,.15)",  jp:"遠足"}
+  "Tokyo":     {ac:"#C4452D", acs:"rgba(196,69,45,.14)",  jp:"東京"},
+  "Hakone":    {ac:"#4A6274", acs:"rgba(74,98,116,.15)",  jp:"箱根"},
+  "Kyoto":     {ac:"#6E7A52", acs:"rgba(110,122,82,.15)", jp:"京都"},
+  "Nara":      {ac:"#8A6D3B", acs:"rgba(138,109,59,.15)", jp:"奈良"},
+  "Osaka":     {ac:"#B07C2A", acs:"rgba(176,124,42,.15)", jp:"大阪"},
+  "Excursii":  {ac:"#9A5A44", acs:"rgba(154,90,68,.15)",  jp:"遠足"}
 };
 
 /* CATEGORII — se afișează în această ordine în fiecare fișier (fără butoane) */
 const CATEGORII = [
-  {id:"atractie",   nume:"Atracții turistice",
-   desc:"Marile obiective — situri din patrimoniul UNESCO și locurile cu cele mai multe recenzii pe Google Maps. Frumoase și memorabile, dar acolo se adună cei mai mulți oameni."},
-  {id:"activitate", nume:"Activități",
-   desc:"Experiențe de scurtă durată — ateliere, tururi, dar și concerte, teatru și seri cu program fix. De regulă cu bilet sau programare făcută din timp."},
-  {id:"culinar",    nume:"Experiențe gastronomice",
-   desc:"Piețe, street food și mese-eveniment — acolo unde mâncarea în sine e scopul."},
-  {id:"zona",       nume:"Zone & plimbări",
-   desc:"Cartiere, grădini și plimbări — locuri unde doar hoinărim, savurăm momentul și ne odihnim lejer. Nu sunt destinații în sine, ci mai degrabă atmosferă."}
+  {id:"atractie",   nume:"Atracții turistice"},
+  {id:"activitate", nume:"Activități"},
+  {id:"culinar",    nume:"Experiențe gastronomice"},
+  {id:"zona",       nume:"Zone & plimbări"}
 ];
+
+/* Categorii speciale, doar pentru fișierul „Excursii” */
+const CATEGORII_EXCURSII = [
+  {id:"x_kansai",  nume:"Excursii din Kyoto"},
+  {id:"x_tokyo",   nume:"Excursii din Tokyo"},
+  {id:"x_gustari", nume:"Gustări japoneze, la drum"}
+];
+
+/* ce set de categorii folosim pentru un oraș */
+const categoriiPentru = o => o==="Excursii" ? CATEGORII_EXCURSII : CATEGORII;
+const TOATE_CATEGORIILE = CATEGORII.concat(CATEGORII_EXCURSII);
 
 /* PREFERINȚE GENERALE (notă 1–10) — ordonate logic: ce vizităm · ce mâncăm · ritm & logistică */
 let PREFERINTE = [
@@ -318,6 +326,7 @@ let PREFERINTE = [
 /* CARDURI — generate din baza de date de activități (alegerile DA / POATE)
    oras     — orașul (fișierul) în care apare cardul
    cat      — categoria: "atractie" | "activitate" | "culinar" | "zona"
+              (la „Excursii”: "x_kansai" | "x_tokyo" | "x_gustari")
    alegere  — "da"  (ai bifat DA în tabel)  |  "poate" (ai bifat Poate)
    img      — numele fișierului din folderul de GitHub (ex. "shibuya_sky.jpg"); gol = fundal decorativ
    tag      — două-trei cuvinte: tipul experienței
@@ -712,62 +721,62 @@ let CARDURI = [
   dece:""},
 
  /* =====================================================================
-    EXCURSII DE O ZI
+    EXCURSII
     ===================================================================== */
- /* -- Din Kansai (Kyoto / Osaka) -- */
- {id:"x_himeji",oras:"Excursii de o zi",cat:"atractie",alegere:"da",titlu:"Himeji & grădina Koko-en",emoji:"🏯",img:"",tag:"Din Kansai · 1h",timp:"o zi",
+ /* -- Excursii din Kyoto (regiunea Kansai) -- */
+ {id:"x_himeji",oras:"Excursii",cat:"x_kansai",alegere:"da",titlu:"Himeji & grădina Koko-en",emoji:"🏯",img:"",tag:"Din Kyoto · 1h",timp:"o zi",
   desc:"Cel mai frumos castel autentic al Japoniei, alb ca un stârc și niciodată distrus, la o oră cu shinkansen; alături, grădina Koko-en, cu nouă grădini clasice diferite.",
-  dece:"E castelul-etalon al țării, se combină ușor cu Kobe și se ajunge repede. Are multe trepte abrupte în interior — de urcat cu răbdare."},
- {id:"x_miyama",oras:"Excursii de o zi",cat:"zona",alegere:"da",titlu:"Miyama — sat cu acoperișuri de stuf",emoji:"🏡",img:"",tag:"Din Kansai · cu van",timp:"o zi",
+  dece:"E castelul-etalon al țării, se combină ușor cu Hiroshima sau Kobe (e chiar în drum) și se ajunge repede. Are multe trepte abrupte în interior — de urcat cu răbdare."},
+ {id:"x_hiroshima",oras:"Excursii",cat:"x_kansai",alegere:"da",titlu:"Hiroshima & Miyajima",emoji:"⛩️",img:"",tag:"Din Kyoto · 2h",timp:"o zi",
+  desc:"Memorialul Păcii, cu cupola rămasă sub epicentru și muzeul care documentează 6 august 1945, și, în golf, insula Miyajima cu poarta torii care pare că plutește pe apă.",
+  dece:"E una dintre cele mai puternice zile ale călătoriei — și se face lejer într-o singură zi din Kyoto, cu shinkansen. Pornim devreme; în drum ne putem opri la Himeji."},
+ {id:"x_miyama",oras:"Excursii",cat:"x_kansai",alegere:"da",titlu:"Miyama — sat cu acoperișuri de stuf",emoji:"🏡",img:"",tag:"Din Kyoto · cu van",timp:"o zi",
   desc:"Un sat de munte cu case tradiționale kayabuki (acoperișuri groase de stuf), păstrat aproape neschimbat, într-o vale liniștită.",
   dece:"E Japonia rurală autentică, departe de orice mulțime. Se ajunge doar cu van sau ghid și e mai departe — o zi întreagă dedicată."},
- {id:"x_biwa",oras:"Excursii de o zi",cat:"atractie",alegere:"da",titlu:"Lacul Biwa",emoji:"🌊",img:"",tag:"Din Kansai · 45 min",timp:"o zi",
+ {id:"x_biwa",oras:"Excursii",cat:"x_kansai",alegere:"da",titlu:"Lacul Biwa",emoji:"🌊",img:"",tag:"Din Kyoto · 45 min",timp:"o zi",
   desc:"Cel mai mare lac al Japoniei, cu poarta torii Shirahige ridicată în apă, o alee spectaculoasă de metasequoia și castelul autentic Hikone pe mal.",
   dece:"E o combinație rară de peisaj și un castel original, la mică distanță de Kyoto. Punctele sunt răspândite, deci merge cel mai bine cu van."},
- {id:"x_hiroshima",oras:"Excursii de o zi",cat:"atractie",alegere:"da",titlu:"Hiroshima & Miyajima",emoji:"⛩️",img:"",tag:"Din Kansai · 2h",timp:"o zi lungă / cu înnoptare",
-  desc:"Memorialul Păcii, cu cupola rămasă sub epicentru și muzeul care documentează 6 august 1945, și, în golf, insula Miyajima cu poarta torii care pare că plutește pe apă.",
-  dece:"E una dintre cele mai puternice și mai importante zile ale călătoriei. E departe pentru o singură zi — de preferat cu o înnoptare, ca să prindem și Miyajima la apus."},
- {id:"x_uji",oras:"Excursii de o zi",cat:"zona",alegere:"poate",titlu:"Uji",emoji:"🍵",img:"",tag:"Din Kansai · 20 min",timp:"jumătate de zi",
+ {id:"x_uji",oras:"Excursii",cat:"x_kansai",alegere:"poate",titlu:"Uji",emoji:"🍵",img:"",tag:"Din Kyoto · 20 min",timp:"jumătate de zi",
   desc:"La douăzeci de minute de Kyoto: capitala ceaiului matcha și templul Byodo-in, cel de pe moneda de 10 yeni, reflectat într-un iaz.",
   dece:"E aproape, relaxat și parfumat a ceai proaspăt. E mic — se face lejer într-o jumătate de zi, eventual lipit de altceva."},
- {id:"x_kobe",oras:"Excursii de o zi",cat:"zona",alegere:"poate",titlu:"Kobe",emoji:"🥩",img:"",tag:"Din Kansai · 30 min",timp:"jumătate de zi",
+ {id:"x_kobe",oras:"Excursii",cat:"x_kansai",alegere:"poate",titlu:"Kobe",emoji:"🥩",img:"",tag:"Din Kyoto · 30 min",timp:"jumătate de zi",
   desc:"Oraș-port elegant, cu faimosul wagyu de Kobe, cartierul de vile occidentale Kitano și o priveliște frumoasă spre golf.",
   dece:"E gastronomic și plăcut, ușor de combinat cu Himeji. Are mai puține „atracții” clasice — mai mult atmosferă și o masă bună."},
- {id:"x_miho",oras:"Excursii de o zi",cat:"atractie",alegere:"poate",titlu:"Muzeul Miho",emoji:"🏛️",img:"",tag:"Din Kansai · 1h cu van",timp:"jumătate de zi",
+ {id:"x_miho",oras:"Excursii",cat:"x_kansai",alegere:"poate",titlu:"Muzeul Miho",emoji:"🏛️",img:"",tag:"Din Kyoto · 1h cu van",timp:"jumătate de zi",
   desc:"Un muzeu proiectat de I.M. Pei, la care se ajunge printr-un tunel argintiu prin munte și un pod suspendat, cu o colecție de artă antică într-un cadru spectaculos.",
   dece:"E arhitectură remarcabilă și aproape gol, o oază liniștită. E departe și are program sezonier — de verificat că e deschis în noiembrie."},
- {id:"x_koya",oras:"Excursii de o zi",cat:"atractie",alegere:"poate",titlu:"Koyasan — cu înnoptare la templu",emoji:"🏔️",img:"",tag:"Din Kansai · 2h",timp:"2 zile",
+ {id:"x_koya",oras:"Excursii",cat:"x_kansai",alegere:"poate",titlu:"Koyasan — cu înnoptare la templu",emoji:"🏔️",img:"",tag:"Din Kyoto · 2h",timp:"2 zile",
   desc:"Așezare monastică budistă la 800 de metri, unde dormi într-un templu, pe futon, cu cină vegetariană de călugări, participi dimineața la ritualul focului și treci prin Okunoin, cimitirul cu peste două sute de mii de morminte sub cedri uriași.",
   dece:"Nu e o excursie de o zi, ci o noapte — și e, de departe, una dintre cele mai puternice amintiri de dus acasă. Cere un drum lung, cină devreme și camere fără lux."},
 
- /* -- Din Tokyo -- */
- {id:"x_kamakura",oras:"Excursii de o zi",cat:"zona",alegere:"da",titlu:"Kamakura",emoji:"🌊",img:"",tag:"Din Tokyo · 1h",timp:"o zi",
+ /* -- Excursii din Tokyo -- */
+ {id:"x_kamakura",oras:"Excursii",cat:"x_tokyo",alegere:"da",titlu:"Kamakura",emoji:"🌊",img:"",tag:"Din Tokyo · 1h",timp:"o zi",
   desc:"„Kyoto de est”, la o oră de Tokyo: un Buddha de bronz de treisprezece metri care stă sub cerul liber din 1252, temple zen pe dealuri împădurite și un tramvai de coastă care merge lipit de case până la mare.",
   dece:"E cea mai bună zi lentă de lângă Tokyo, cu ocean la final și nimic obligatoriu. Weekendul aglomerează tramvaiul serios — mai bine într-o zi lucrătoare."},
- {id:"x_fuji",oras:"Excursii de o zi",cat:"atractie",alegere:"da",titlu:"Muntele Fuji / Kawaguchiko",emoji:"🗻",img:"",tag:"Din Tokyo · 2h",timp:"o zi",
+ {id:"x_fuji",oras:"Excursii",cat:"x_tokyo",alegere:"da",titlu:"Muntele Fuji / Kawaguchiko",emoji:"🗻",img:"",tag:"Din Tokyo · 2h",timp:"o zi",
   desc:"Lacul Kawaguchiko, cu una dintre cele mai frumoase vederi spre Fuji, și pagoda Chureito de pe deal, imaginea clasică a muntelui cu pagoda în prim-plan.",
   dece:"E șansa de a vedea Fuji în toată splendoarea lui. Muntele se ascunde des în nori — o loterie a vremii, cu șanse mai bune dimineața devreme."},
- {id:"x_nikko",oras:"Excursii de o zi",cat:"atractie",alegere:"poate",titlu:"Nikko",emoji:"🏞️",img:"",tag:"Din Tokyo · 2h",timp:"o zi lungă",
+ {id:"x_nikko",oras:"Excursii",cat:"x_tokyo",alegere:"poate",titlu:"Nikko",emoji:"🏞️",img:"",tag:"Din Tokyo · 2h",timp:"o zi lungă",
   desc:"În munți, la două ore de Tokyo: Tosho-gu, mausoleul aurit și supraîncărcat de sculpturi al shogunului Ieyasu, într-o pădure de cedri, plus cascada Kegon și lacul Chuzenji.",
   dece:"E cel mai ornamentat sanctuar din Japonia și, în aceeași zi, natură serioasă. La altitudinea asta frunzele se colorează mai devreme — la începutul lui noiembrie am prinde probabil vârful. E o zi lungă."},
- {id:"x_kawagoe",oras:"Excursii de o zi",cat:"zona",alegere:"poate",titlu:"Kawagoe",emoji:"🍠",img:"",tag:"Din Tokyo · 1h",timp:"jumătate de zi",
+ {id:"x_kawagoe",oras:"Excursii",cat:"x_tokyo",alegere:"poate",titlu:"Kawagoe",emoji:"🍠",img:"",tag:"Din Tokyo · 1h",timp:"jumătate de zi",
   desc:"„Micul Edo”, la o oră de Tokyo: o stradă de depozite vechi din lut (kura), o clopotniță de lemn și prăvălii de dulciuri tradiționale.",
   dece:"E nostalgic și foarte aproape, bun pentru o jumătate de zi. E mic — se vede repede, fără să umple o zi întreagă."},
 
- /* -- De gustat pe drum (gări & konbini) -- */
- {id:"x_ekiben",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Ekiben — bento de gară",emoji:"🍱",img:"",tag:"Pe drum",timp:"—",
+ /* -- Gustări japoneze, la drum (gări & konbini) -- */
+ {id:"x_ekiben",oras:"Excursii",cat:"x_gustari",alegere:"da",titlu:"Ekiben — bento de gară",emoji:"🍱",img:"",tag:"Pe drum",timp:"—",
   desc:"Cutie bento de călătorie, vândută în gări și în tren, adesea cu specific local (orez, pește, legume, carne). Se mănâncă la locul din shinkansen — parte din farmecul drumului.",dece:""},
- {id:"x_taiyaki",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Taiyaki",emoji:"🐟",img:"",tag:"Pe drum",timp:"—",
+ {id:"x_taiyaki",oras:"Excursii",cat:"x_gustari",alegere:"da",titlu:"Taiyaki",emoji:"🐟",img:"",tag:"Pe drum",timp:"—",
   desc:"Prăjiturică în formă de peștișor, coaptă pe loc și umplută clasic cu pastă dulce de fasole roșie sau cu cremă de vanilie (custard).",dece:""},
- {id:"x_matcha_latte",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Ceai matcha rece (la doză)",emoji:"🍵",img:"",tag:"Konbini",timp:"—",
+ {id:"x_matcha_latte",oras:"Excursii",cat:"x_gustari",alegere:"da",titlu:"Ceai matcha rece (la doză)",emoji:"🍵",img:"",tag:"Konbini",timp:"—",
   desc:"Ceai verde matcha sau ceai verde rece la sticlă/doză, găsit în orice konbini și automat — răcoritor și puțin amărui, clasic japonez.",dece:""},
- {id:"x_onigiri",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Onigiri de konbini",emoji:"🍙",img:"",tag:"Konbini",timp:"—",
+ {id:"x_onigiri",oras:"Excursii",cat:"x_gustari",alegere:"da",titlu:"Onigiri de konbini",emoji:"🍙",img:"",tag:"Konbini",timp:"—",
   desc:"Triunghi de orez cu umplutură (ton cu maioneză, somon, prună murată), învelit în alga nori printr-un ambalaj isteț care o ține crocantă. Gustarea perfectă de drum.",dece:""},
- {id:"x_sando",oras:"Excursii de o zi",cat:"culinar",alegere:"da",titlu:"Sando de fructe / tamago",emoji:"🥪",img:"",tag:"Konbini",timp:"—",
+ {id:"x_sando",oras:"Excursii",cat:"x_gustari",alegere:"da",titlu:"Sando de fructe / tamago",emoji:"🥪",img:"",tag:"Konbini",timp:"—",
   desc:"Sandviș pe pâine albă pufoasă: fie cu ou cremos (tamago), fie cu fructe și frișcă. Un clasic surprinzător de bun din orice magazin de proximitate.",dece:""},
- {id:"x_mochi_konbini",oras:"Excursii de o zi",cat:"culinar",alegere:"poate",titlu:"Daifuku & dango",emoji:"🍡",img:"",tag:"Pe drum",timp:"—",
+ {id:"x_mochi_konbini",oras:"Excursii",cat:"x_gustari",alegere:"poate",titlu:"Daifuku & dango",emoji:"🍡",img:"",tag:"Pe drum",timp:"—",
   desc:"Dulciuri din orez glutinos: daifuku (bilă moale de mochi cu pastă dulce înăuntru) și dango (bilute pe băț, adesea glazurate). Bune de ronțăit pe drum.",dece:""},
- {id:"x_kitkat",oras:"Excursii de o zi",cat:"culinar",alegere:"poate",titlu:"KitKat cu arome japoneze",emoji:"🍫",img:"",tag:"Konbini · suvenir",timp:"—",
+ {id:"x_kitkat",oras:"Excursii",cat:"x_gustari",alegere:"poate",titlu:"KitKat cu arome japoneze",emoji:"🍫",img:"",tag:"Konbini · suvenir",timp:"—",
   desc:"Japonia are zeci de arome unice de KitKat (matcha, cartof dulce, sake, wasabi), multe ediții regionale — gustare de drum și cadou popular de dus acasă.",dece:""}
 ];
 
@@ -939,7 +948,7 @@ function render(){
   }
   const totalCarduri=CARDURI.length;
   const notate=CARDURI.filter(c=>S.date.note[c.id]>0).length;
-  const taburi=[["plan","Propunere itinerar"],["exp","Experiențe"],["pref","Preferințe generale"],["rez","Rezultate"],["limba","Japoneza pe scurt"]];
+  const taburi=[["plan","Itinerar"],["exp","Experiențe"],["pref","Preferințe generale"],["rez","Rezultate"],["limba","Japoneza pe scurt"]];
   root.innerHTML=antet()+
    `<p class="sub">${esc(S.me)} · ${notate}/${totalCarduri} experiențe notate · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} preferințe generale</p>
    <div class="tabs">${taburi.map(t=>`<button class="tab ${S.tab===t[0]?"active":""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
@@ -994,11 +1003,10 @@ function vExp(){
     <p class="note">Dă fiecărei experiențe de la 1 la 5 stele. Notează-le pe toate, nu doar preferatele.</p></div>`
     + baraOrase()
     + `<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`;
-  CATEGORII.forEach(cat=>{
+  categoriiPentru(S.oras).forEach(cat=>{
     const cards=ordoneazaCat(lista.filter(c=>c.cat===cat.id));
     if(!cards.length)return;
     html+=`<div class="catsec"><h3 class="cathead">${esc(cat.nume)} <span class="n">${cards.length}</span></h3></div>
-      <p class="catdesc">${esc(cat.desc)}</p>
       <div class="grila">${cards.map(cardCuNota).join("")}</div>`;
   });
   if(!lista.length)html+=`<div class="panel"><p class="note">Încă n-avem cartonașe pentru ${esc(S.oras)}.</p></div>`;
@@ -1104,7 +1112,7 @@ function legComentarii(oras){
   });
 }
 
-/* ---------- PROPUNERE ITINERARIU (doar structura, textul se completează ulterior) ---------- */
+/* ---------- PROPUNERE ITINERARIU ---------- */
 function vPlan(){
   const v=$("#view");
   const legs=[
@@ -1113,12 +1121,11 @@ function vPlan(){
     {ac:"#6E7A52",jp:"京都",nights:"7 nopți",titlu:"Kyoto (bază pentru regiunea Kansai)",dates:"5 nov → 12 nov"},
     {ac:"#C4452D",jp:"東京",nights:"2 nopți",titlu:"Tokyo (final)",dates:"12 nov → 14 nov"}
   ];
-  const hubs=[
-    {b:"Nara",s:"~45 min"},{b:"Osaka",s:"~15 min"},{b:"Himeji",s:"~1 h"},
-    {b:"Uji",s:"~20 min"},{b:"Kobe",s:"~30 min"},{b:"Lacul Biwa",s:"~45 min"},
-    {b:"Hiroshima & Miyajima",s:"~2 h"},{b:"Miyama",s:"cu van"}
-  ];
-  v.innerHTML=`<div class="panel"><h2>Cum ne-am gândit să împărțim zilele 🍁</h2></div>
+  v.innerHTML=`<div class="panel"><h2>Cum ne-am gândit să împărțim zilele 🍁</h2>
+      <p class="note" style="margin:0 0 8px">Ideea de bază: cât mai puține mutări de bagaje. De aceea avem <b>doar 3 hoteluri</b> — Tokyo, Hakone (pentru onsen și relaxare) și Kyoto — în loc să schimbăm cazarea la fiecare oraș.</p>
+      <p class="note" style="margin:0 0 8px">Din Kyoto (7 nopți) și din Tokyo putem face oricâte excursii de o zi sau de jumătate de zi, plecând dimineața și întorcându-ne seara în același pat: Nara, Osaka, Himeji, Kobe, Uji, Lacul Biwa, Kamakura, Fuji și așa mai departe.</p>
+      <p class="note" style="margin:0">Inclusiv <b>Hiroshima</b>: e la 2 ore de Kyoto cu trenul rapid, iar în drum ne putem opri la castelul Himeji. Nu mai e o destinație separată cu 2 nopți, cum ne gândeam la început — nu sunt atât de multe de făcut acolo încât să merite mutarea bagajelor.</p>
+    </div>
     <div class="panel"><div class="meta">Traseul pe nopți</div>
       <div class="trip">${legs.map(l=>`
         <div class="leg" style="--ac:${l.ac}">
@@ -1131,10 +1138,8 @@ function vPlan(){
           </div>
         </div>`).join("")}</div>
     </div>
-    <div class="panel"><div class="meta">Din Kyoto — multe excursii de o singură zi</div>
-      <p class="note" style="margin-bottom:4px">Cât stăm în Kyoto, îl folosim ca bază: e la mică distanță de multe locuri din regiunea Kansai, așa că putem face excursii de o zi fără să ne mutăm bagajele. Distanțele de mai jos sunt orientative.</p>
-      <div class="hubgrid">${hubs.map(h=>`<div class="hub"><b>${esc(h.b)}</b><span>${esc(h.s)}</span></div>`).join("")}</div>
-      <p class="note" style="margin-top:12px">Toate propunerile de excursii — și din Kyoto/Osaka, și din Tokyo — le găsești ca de obicei la fila <b>Experiențe</b>, în orașul <b>Excursii de o zi</b>.</p>
+    <div class="panel"><div class="meta">Harta traseului</div>
+      <img class="harta" src="gpt_map.png" alt="Harta traseului prin Japonia" loading="lazy">
     </div>`;
 }
 
@@ -1218,7 +1223,7 @@ function vRez(){
   `<div class="panel"><div class="meta">Clasamentul experiențelor — ${esc(S.oras)} · după nota medie</div>
     ${rank.length?rank.map((x,i)=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div>${String(i+1).padStart(2,"0")} · ${esc(x.c.titlu)}
-        <span class="small">· ${esc((CATEGORII.find(k=>k.id===x.c.cat)||{}).nume||"")}</span></div>
+        <span class="small">· ${esc((TOATE_CATEGORIILE.find(k=>k.id===x.c.cat)||{}).nume||"")}</span></div>
       <div class="bar"><i style="width:${x.m*20}%"></i></div>
       <div class="small">${x.cnt?x.cnt+" note":"nenotat încă"}${x.sd>1.25?" · ⚡ păreri împărțite":x.sd<0.6&&x.m?" · ✓ consens":""}</div></div></div>`).join("")
       :`<p class="note">Nicio notă încă pentru ${esc(S.oras)}.</p>`}</div>
