@@ -271,7 +271,7 @@ const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbza_AKsZh8KuIF5DYiwB
    ========================================================================== */
 
 /* câte un „fișier” per oraș, în ordinea firească a călătoriei */
-const ORASE = ["Tokyo","Hakone","Kyoto","Nara","Osaka","Excursii"];
+const ORASE = ["Tokyo","Hakone","Kyoto","Nara","Osaka","Hiroshima","Uji","Excursii"];
 
 /* culoare + kanji decorativ pentru fiecare oraș */
 const ORAS_STIL = {
@@ -280,6 +280,8 @@ const ORAS_STIL = {
   "Kyoto":     {ac:"#6E7A52", acs:"rgba(110,122,82,.15)", jp:"京都"},
   "Nara":      {ac:"#8A6D3B", acs:"rgba(138,109,59,.15)", jp:"奈良"},
   "Osaka":     {ac:"#B07C2A", acs:"rgba(176,124,42,.15)", jp:"大阪"},
+  "Hiroshima": {ac:"#5A7A6E", acs:"rgba(90,122,110,.15)", jp:"広島"},
+  "Uji":       {ac:"#5E7A3E", acs:"rgba(94,122,62,.15)",  jp:"宇治"},
   "Excursii":  {ac:"#9A5A44", acs:"rgba(154,90,68,.15)",  jp:"遠足"}
 };
 
@@ -298,9 +300,18 @@ const CATEGORII_EXCURSII = [
   {id:"x_gustari", nume:"Gustări japoneze, la drum"}
 ];
 
+/* categorie unică, neutră — pentru orașe care nu au nevoie de grupare pe categorii */
+const CATEGORII_SIMPLE = [
+  {id:"loc", nume:"De văzut & de făcut"}
+];
+
 /* ce set de categorii folosim pentru un oraș */
-const categoriiPentru = o => o==="Excursii" ? CATEGORII_EXCURSII : CATEGORII;
-const TOATE_CATEGORIILE = CATEGORII.concat(CATEGORII_EXCURSII);
+const ORASE_SIMPLE = ["Hiroshima","Uji"];
+const categoriiPentru = o =>
+  o==="Excursii" ? CATEGORII_EXCURSII :
+  ORASE_SIMPLE.includes(o) ? CATEGORII_SIMPLE :
+  CATEGORII;
+const TOATE_CATEGORIILE = CATEGORII.concat(CATEGORII_EXCURSII).concat(CATEGORII_SIMPLE);
 
 /* PREFERINȚE GENERALE (notă 1–10) — ordonate logic: ce vizităm · ce mâncăm · ritm & logistică */
 let PREFERINTE = [
@@ -453,28 +464,28 @@ let CARDURI = [
   dece:"E o traversare relaxantă, cu multe momente de stat jos și priveliști frumoase. Fuji se ascunde pe vreme rea — priveliștea-vedetă depinde de noroc."},
 
  /* -- Activități -- */
- {id:"h_onsen",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Onsen la ryokan (baie privată)",emoji:"♨️",img:"onsen.jpg",tag:"Relaxare",timp:"1 oră",
-  desc:"Baie termală tradițională la pensiunea unde stăm, ideal rezervată privat (kashikiri), ca să intre grupul împreună, în tihnă. Onsen-ul e o baie geotermală bogată în minerale, inima oricărei șederi în Hakone.",
-  dece:"E relaxarea pură pe care a cerut-o grupul și punctul forte al întregii escale. De știut: multe onsen interzic tatuajele și unele au doar băi comune, pe sexe — de aceea alegem varianta privată."},
+ {id:"h_onsen",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Onsen la ryokan",emoji:"♨️",img:"onsen.jpg",tag:"Relaxare",timp:"1 oră",
+  desc:"Onsen-ul e o baie termală geotermală, bogată în minerale — inima oricărei șederi în Hakone. Pensiunea unde stăm are onsen-uri împărțite pe gen, în care intri liber, oricând. Putem și rezerva o baie privată (kashikiri) la anumite ore, iar dacă vrem, putem plăti ca fiecare cameră să aibă propriul onsen privat.",
+  dece:"E relaxarea pură pe care a cerut-o grupul și punctul forte al întregii escale. De știut: multe onsen interzic tatuajele, iar la băile comune se intră fără costum, spălat înainte."},
  {id:"h_kaiseki_ryokan",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Cină kaiseki la ryokan",emoji:"🍽️",img:"kaiseki.avif",tag:"Masă-eveniment",timp:"o seară",
   desc:"Masa serii la pensiune: un meniu kaiseki de sezon, cu multe feluri mici și frumos aranjate, servit de obicei la o oră fixă, inclus în cazare.",
   dece:"E un eveniment în sine, nu doar o cină — punctul culminant al zilei la ryokan. Se servește devreme și la oră fixă, deci ne organizăm ziua în jurul ei."},
  {id:"h_loop",oras:"Hakone",cat:"activitate",alegere:"poate",titlu:"Traseul circular „Hakone Loop”",emoji:"🚡",img:"hakone_loop.jpg",tag:"Traseu",timp:"o zi",
   desc:"Un tur al zonei făcut din mijloace de transport diferite, cu un singur bilet: trenuleț în serpentine, funicular, telecabină peste vale și vapor în formă de corabie pe lacul Ashi.",
   dece:"E ziua în care transportul e chiar atracția, cu multe momente de stat jos. Are însă multe schimbări și poate obosi — de dozat."},
- {id:"h_tokaido",oras:"Hakone",cat:"activitate",alegere:"poate",titlu:"Drumeție pe vechiul drum Tokaido",emoji:"🥾",img:"",tag:"Natură",timp:"1–2 ore",
+ {id:"h_tokaido",oras:"Hakone",cat:"activitate",alegere:"poate",titlu:"Drumeție pe vechiul drum Tokaido",emoji:"🥾",img:"tokaido.jpg",tag:"Natură",timp:"1–2 ore",
   desc:"O porțiune din vechiul drum care lega Tokyo de Kyoto, pavată cu piatră și mărginită de cedri seculari, exact cum o străbăteau călătorii de acum câteva secole.",
   dece:"E o drumeție liniștită prin istorie și pădure. Pavajul e neregulat — de purtat încălțăminte bună și de mers cu grijă."},
 
  /* -- Experiențe culinare -- */
- {id:"h_kurotamago",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"黒卵 (kuro-tamago)",emoji:"🥚",img:"kuro_tamago.avif",tag:"Gustare",timp:"15 min",
-  desc:"Ouă negre: ouă fierte în apa sulfuroasă din Owakudani, până când coaja se înnegrește complet. Legenda spune că fiecare ou mâncat aici adaugă șapte ani de viață.",
+ {id:"h_kurotamago",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"Kuro-tamago (ouă negre)",emoji:"🥚",img:"kuro_tamago.avif",tag:"Gustare",timp:"15 min",
+  desc:"Ouă fierte în apa sulfuroasă din Owakudani, până când coaja se înnegrește complet. Legenda spune că fiecare ou mâncat aici adaugă șapte ani de viață.",
   dece:""},
- {id:"h_icecream",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"黒ソフト (kuro-sofuto)",emoji:"🍦",img:"owakudani_icecream.jpg",tag:"Desert",timp:"15 min",
-  desc:"Înghețată neagră: varianta dulce a faimoaselor ouă negre — o înghețată de culoare neagră, vândută tot în valea vulcanică, în asortiment cu tema locului.",
+ {id:"h_icecream",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"Kuro-sofuto (înghețată neagră)",emoji:"🍦",img:"owakudani_icecream.jpg",tag:"Desert",timp:"15 min",
+  desc:"Varianta dulce a faimoaselor ouă negre — o înghețată de culoare neagră, vândută tot în valea vulcanică, în asortiment cu tema locului.",
   dece:""},
- {id:"h_soba",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"自然薯そば (jinenjo soba)",emoji:"🍜",img:"jinenjo_soba.webp",tag:"Mâncare",timp:"1 oră",
-  desc:"Soba de munte: tăiței de hrișcă legați cu jinenjo (igname sălbatic de munte), care le dă o textură densă și mătăsoasă. Se servesc simplu, calzi sau reci, în micile localuri din jurul lacului.",
+ {id:"h_soba",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"Jinenjo soba (soba de munte)",emoji:"🍜",img:"jinenjo_soba.webp",tag:"Mâncare",timp:"1 oră",
+  desc:"Tăiței de hrișcă legați cu jinenjo (igname sălbatic de munte), care le dă o textură densă și mătăsoasă. Se servesc simplu, calzi sau reci, în micile localuri din jurul lacului.",
   dece:""},
 
  /* =====================================================================
@@ -707,33 +718,41 @@ let CARDURI = [
   dece:""},
 
  /* =====================================================================
+    HIROSHIMA  (2 ore cu shinkansen din Kyoto, cu oprire la Himeji în drum)
+    ===================================================================== */
+ {id:"hi_museum",oras:"Hiroshima",cat:"loc",alegere:"da",titlu:"Muzeul Memorial al Păcii",emoji:"🕊️",img:"",tag:"Memorial",timp:"2–3 ore",
+  desc:"Parcul Memorial al Păcii, cu Cupola bombei atomice (singura clădire rămasă în picioare sub epicentru, azi în patrimoniul UNESCO) și muzeul care documentează ziua de 6 august 1945 și urmările ei, prin obiecte, fotografii și mărturii ale supraviețuitorilor.",
+  dece:"E una dintre cele mai puternice și emoționante experiențe ale întregii călătorii. E un loc greu, care cere timp și liniște — de vizitat pe îndelete, nu în grabă."},
+ {id:"hi_miyajima",oras:"Hiroshima",cat:"loc",alegere:"da",titlu:"Miyajima & poarta torii plutitoare",emoji:"⛩️",img:"",tag:"Insulă",timp:"jumătate de zi",
+  desc:"Insula Itsukushima, la un scurt drum cu feribotul din Hiroshima, cu marea poartă torii roșie care la maree înaltă pare că plutește pe apă, un sanctuar construit pe piloni deasupra mării și căprioare libere printre vizitatori.",
+  dece:"E una dintre cele mai frumoase imagini din Japonia și un contrast blând după greutatea memorialului. Poarta „plutește” doar la maree înaltă — de verificat orarul mareelor înainte."},
+
+ /* =====================================================================
+    UJI  (20 de minute cu trenul din Kyoto)
+    ===================================================================== */
+ {id:"uj_byodoin",oras:"Uji",cat:"loc",alegere:"da",titlu:"Templul Byodo-in",emoji:"🏛️",img:"byodo_in.jpg",tag:"Templu",timp:"1–2 ore",
+  desc:"Sala Phoenix a templului Byodo-in, ridicată în anul 1053 și oglindită într-un iaz, atât de emblematică încât apare pe moneda de 10 yeni. Alături, un mic muzeu modern adăpostește statuile și clopotul originale.",
+  dece:"E una dintre cele mai frumoase clădiri istorice din Japonia și un templu cu adevărat vechi, nu o reconstrucție. Reflexia în apă e cea mai frumoasă pe vreme senină, dimineața."},
+ {id:"uj_matcha",oras:"Uji",cat:"loc",alegere:"da",titlu:"Ferma & moara de matcha",emoji:"🍵",img:"uji_matcha.jpg",tag:"Ceai",timp:"1–2 ore",
+  desc:"Uji e capitala istorică a ceaiului matcha din Japonia. Vizităm o plantație și o moară de ceai, vedem cum frunzele de tencha se macină în pudră fină la pietre de granit și degustăm matcha proaspătă, alături de dulciuri și înghețată cu ceai verde.",
+  dece:"E locul cu cel mai bun și mai proaspăt matcha din țară, direct de la sursă. Unele mori cer rezervare pentru vizita ghidată — de aranjat din timp."},
+
+ /* =====================================================================
     EXCURSII
     ===================================================================== */
  /* -- Excursii din Kyoto (regiunea Kansai) -- */
  {id:"x_himeji",oras:"Excursii",cat:"x_kansai",alegere:"da",titlu:"Himeji & grădina Koko-en",emoji:"🏯",img:"",tag:"Din Kyoto · 1h",timp:"o zi",
   desc:"Cel mai frumos castel autentic al Japoniei, alb ca un stârc și niciodată distrus, la o oră cu shinkansen; alături, grădina Koko-en, cu nouă grădini clasice diferite.",
   dece:"E castelul-etalon al țării, se combină ușor cu Hiroshima sau Kobe (e chiar în drum) și se ajunge repede. Are multe trepte abrupte în interior — de urcat cu răbdare."},
- {id:"x_hiroshima",oras:"Excursii",cat:"x_kansai",alegere:"da",titlu:"Hiroshima & Miyajima",emoji:"⛩️",img:"",tag:"Din Kyoto · 2h",timp:"o zi",
-  desc:"Memorialul Păcii, cu cupola rămasă sub epicentru și muzeul care documentează 6 august 1945, și, în golf, insula Miyajima cu poarta torii care pare că plutește pe apă.",
-  dece:"E una dintre cele mai puternice zile ale călătoriei — și se face lejer într-o singură zi din Kyoto, cu shinkansen. Pornim devreme; în drum ne putem opri la Himeji."},
  {id:"x_miyama",oras:"Excursii",cat:"x_kansai",alegere:"da",titlu:"Miyama — sat cu acoperișuri de stuf",emoji:"🏡",img:"",tag:"Din Kyoto · cu van",timp:"o zi",
   desc:"Un sat de munte cu case tradiționale kayabuki (acoperișuri groase de stuf), păstrat aproape neschimbat, într-o vale liniștită.",
   dece:"E Japonia rurală autentică, departe de orice mulțime. Se ajunge doar cu van sau ghid și e mai departe — o zi întreagă dedicată."},
- {id:"x_biwa",oras:"Excursii",cat:"x_kansai",alegere:"da",titlu:"Lacul Biwa",emoji:"🌊",img:"",tag:"Din Kyoto · 45 min",timp:"o zi",
-  desc:"Cel mai mare lac al Japoniei, cu poarta torii Shirahige ridicată în apă, o alee spectaculoasă de metasequoia și castelul autentic Hikone pe mal.",
-  dece:"E o combinație rară de peisaj și un castel original, la mică distanță de Kyoto. Punctele sunt răspândite, deci merge cel mai bine cu van."},
- {id:"x_uji",oras:"Excursii",cat:"x_kansai",alegere:"poate",titlu:"Uji",emoji:"🍵",img:"",tag:"Din Kyoto · 20 min",timp:"jumătate de zi",
-  desc:"La douăzeci de minute de Kyoto: capitala ceaiului matcha și templul Byodo-in, cel de pe moneda de 10 yeni, reflectat într-un iaz.",
-  dece:"E aproape, relaxat și parfumat a ceai proaspăt. E mic — se face lejer într-o jumătate de zi, eventual lipit de altceva."},
  {id:"x_kobe",oras:"Excursii",cat:"x_kansai",alegere:"poate",titlu:"Kobe",emoji:"🥩",img:"",tag:"Din Kyoto · 30 min",timp:"jumătate de zi",
   desc:"Oraș-port elegant, cu faimosul wagyu de Kobe, cartierul de vile occidentale Kitano și o priveliște frumoasă spre golf.",
   dece:"E gastronomic și plăcut, ușor de combinat cu Himeji. Are mai puține „atracții” clasice — mai mult atmosferă și o masă bună."},
  {id:"x_miho",oras:"Excursii",cat:"x_kansai",alegere:"poate",titlu:"Muzeul Miho",emoji:"🏛️",img:"",tag:"Din Kyoto · 1h cu van",timp:"jumătate de zi",
   desc:"Un muzeu proiectat de I.M. Pei, la care se ajunge printr-un tunel argintiu prin munte și un pod suspendat, cu o colecție de artă antică într-un cadru spectaculos.",
   dece:"E arhitectură remarcabilă și aproape gol, o oază liniștită. E departe și are program sezonier — de verificat că e deschis în noiembrie."},
- {id:"x_koya",oras:"Excursii",cat:"x_kansai",alegere:"poate",titlu:"Koyasan — cu înnoptare la templu",emoji:"🏔️",img:"",tag:"Din Kyoto · 2h",timp:"2 zile",
-  desc:"Așezare monastică budistă la 800 de metri, unde dormi într-un templu, pe futon, cu cină vegetariană de călugări, participi dimineața la ritualul focului și treci prin Okunoin, cimitirul cu peste două sute de mii de morminte sub cedri uriași.",
-  dece:"Nu e o excursie de o zi, ci o noapte — și e, de departe, una dintre cele mai puternice amintiri de dus acasă. Cere un drum lung, cină devreme și camere fără lux."},
 
  /* -- Excursii din Tokyo -- */
  {id:"x_kamakura",oras:"Excursii",cat:"x_tokyo",alegere:"da",titlu:"Kamakura",emoji:"🌊",img:"",tag:"Din Tokyo · 1h",timp:"o zi",
@@ -1106,7 +1125,7 @@ function vPlan(){
   ];
   v.innerHTML=`<div class="panel"><h2>Cum ne-am gândit să împărțim zilele 🍁</h2>
       <p class="note" style="margin:0 0 8px">Ideea de bază: cât mai puține mutări de bagaje — <b>doar 3 hoteluri</b> (Tokyo, Hakone, Kyoto).</p>
-      <p class="note" style="margin:0">Din Kyoto și Tokyo facem excursii de o zi, întorcându-ne seara în același pat: Nara, Osaka, Himeji, Kobe, Uji, Lacul Biwa, Kamakura, Fuji — și chiar Hiroshima (2 ore cu trenul rapid, cu oprire la Himeji în drum).</p>
+      <p class="note" style="margin:0">Din Kyoto și Tokyo facem excursii de o zi, întorcându-ne seara în același pat: Nara, Osaka, Uji, Himeji, Kobe, Kamakura, Fuji — și chiar Hiroshima (2 ore cu trenul rapid, cu oprire la Himeji în drum).</p>
     </div>
     <div class="panel"><div class="meta">Traseul pe nopți</div>
       <div class="trip">${legs.map(l=>`
