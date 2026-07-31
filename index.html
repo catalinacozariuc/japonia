@@ -356,9 +356,9 @@ let CARDURI = [
  {id:"t_harajuku",oras:"Tokyo",cat:"zona",alegere:"poate",titlu:"Harajuku & Omotesando",emoji:"🎀",img:"harajuku.jpg",tag:"Cartier",timp:"jumătate de zi",
   desc:"Două fețe lipite una de alta: strada Takeshita, îngustă și colorată, cu modă de adolescenți și crêpes, și, la câțiva pași, bulevardul Omotesando, larg și elegant, mărginit de arhitectură de autor.",
   dece:"E cel mai rapid contrast dintre Japonia excentrică și cea rafinată. Takeshita e foarte aglomerată — de luat mai mult ca priveliște decât ca loc de stat."},
- {id:"t_shimokita",oras:"Tokyo",cat:"zona",alegere:"poate",titlu:"Shimokitazawa",emoji:"🎸",img:"shimokitazawa.jpg",tag:"Cartier",timp:"2–3 ore",
-  desc:"Cartier boem la un sfert de oră cu trenul de Shibuya: case joase, magazine vintage, discuri cu viniluri, cafenele mici și teatre independente.",
-  dece:"E locul unde mergem când ne-am săturat de mulțime și de obiective — nimic de bifat, doar hoinăreală. Tocmai de aceea, cine vrea o listă de atracții s-ar putea plictisi."},
+ {id:"t_akihabara",oras:"Tokyo",cat:"zona",alegere:"poate",titlu:"Akihabara",emoji:"🎮",img:"akihabara.jpg",tag:"Cartier",timp:"2–3 ore",
+  desc:"Cartierul electronicelor și al culturii anime & manga: turnuri de magazine cu jocuri, gadgeturi și figurine, saloane de arcade pe mai multe etaje și firme luminoase de sus până jos.",
+  dece:"E cel mai vibrant colț geek al Tokyo-ului, spectaculos chiar și doar de privit. E aglomerat și zgomotos — mai mult de explorat la pas decât de stat pe îndelete."},
 
  /* -- Atracții principale -- */
  {id:"t_senso",oras:"Tokyo",cat:"atractie",alegere:"da",titlu:"Senso-ji & Nakamise",emoji:"⛩️",img:"senso_ji.avif",tag:"Templu",timp:"2 ore",
@@ -438,57 +438,43 @@ let CARDURI = [
  /* =====================================================================
     HAKONE
     ===================================================================== */
- /* -- Zone & plimbări -- */
- {id:"h_gora",oras:"Hakone",cat:"zona",alegere:"da",titlu:"Gora",emoji:"🏘️",img:"",tag:"Bază",timp:"—",
-  desc:"Nodul central al zonei Hakone, la capătul de sus al trenulețului: aproape de muzee, de onsen și de mijloacele care duc mai departe spre lac și vale.",
-  dece:"E cea mai bună bază pentru câteva zile — de aici pornesc ușor toate celelalte. E în pantă, deci de ținut cont la mersul pe jos."},
- {id:"h_motohakone",oras:"Hakone",cat:"zona",alegere:"da",titlu:"Moto-Hakone, pe malul lacului",emoji:"🌅",img:"",tag:"Sat pe lac",timp:"1–2 ore",
-  desc:"Sătucul de pe malul lacului Ashi, lângă celebra poartă torii din apă, cu debarcader, ceainării și vedere spre Fuji pe vreme senină.",
-  dece:"E cel mai pitoresc colț al zonei și punctul de plecare al croazierei pe lac. Fiind foarte căutat, se aglomerează la mijlocul zilei — mai frumos dimineața."},
-
  /* -- Atracții principale -- */
- {id:"h_owakudani",oras:"Hakone",cat:"atractie",alegere:"da",titlu:"Owakudani — valea vulcanică",emoji:"🌋",img:"",tag:"Natură",timp:"1–2 ore",
+ {id:"h_owakudani",oras:"Hakone",cat:"atractie",alegere:"da",titlu:"Owakudani — valea vulcanică",emoji:"🌋",img:"owakudani.jpg",tag:"Natură",timp:"1–2 ore",
   desc:"O vale încă activă, plină de fumarole și abur de sulf, la care se ajunge cu telecabina. Aici se vând faimoasele ouă negre, fierte în apa termală până li se înnegrește coaja.",
   dece:"E un peisaj cum nu mai vezi, cu Fuji în fundal pe vreme bună. De știut: telecabina se poate închide când crește nivelul de gaze, iar mirosul de sulf e puternic."},
- {id:"h_jinja",oras:"Hakone",cat:"atractie",alegere:"da",titlu:"Hakone Jinja — poarta torii pe lac",emoji:"⛩️",img:"",tag:"Sanctuar",timp:"1 oră",
-  desc:"O poartă roșie ridicată chiar în apa lacului Ashi, cu o pădure de cedri în spate și trepte care urcă spre sanctuarul propriu-zis.",
-  dece:"E una dintre cele mai fotogenice imagini din Japonia și e goală dimineața devreme. Peste zi se face coadă pentru poza din fața porții."},
- {id:"h_amazake",oras:"Hakone",cat:"atractie",alegere:"da",titlu:"Amazake Chaya",emoji:"🍵",img:"",tag:"Ceainărie istorică",timp:"30–45 min",
+ {id:"h_amazake",oras:"Hakone",cat:"atractie",alegere:"da",titlu:"Amazake Chaya",emoji:"🍵",img:"hakone_chaya.jpg",tag:"Ceainărie istorică",timp:"30–45 min",
   desc:"Ceainărie cu acoperiș de stuf, veche de aproape 400 de ani, pe vechiul drum Tokaido, unde se servește amazake — o băutură caldă, dulce, din orez fermentat, fără alcool.",
   dece:"E o oprire caldă și autentică, exact ca pe vremea drumeților de altădată. E doar o pauză scurtă pe traseu, nu o destinație în sine."},
- {id:"h_pola",oras:"Hakone",cat:"atractie",alegere:"poate",titlu:"Muzeul Pola",emoji:"🖼️",img:"",tag:"Muzeu",timp:"2 ore",
-  desc:"Colecție de impresioniști și artă modernă, adăpostită într-o clădire elegantă îngropată aproape complet în pădure, ca să nu strice peisajul.",
-  dece:"E o oră liniștită la interior, bună pe vreme rea și pentru un ritm relaxat. E puțin izolat față de restul obiectivelor."},
- {id:"h_okada",oras:"Hakone",cat:"atractie",alegere:"poate",titlu:"Muzeul Okada",emoji:"🏛️",img:"",tag:"Muzeu",timp:"1–2 ore",
-  desc:"Muzeu de artă est-asiatică, cu o baie termală pentru picioare la care te poți așeza privind grădina.",
-  dece:"E o combinație plăcută de artă și relaxare, mai puțin cunoscută și deci mai liniștită. Tocmai fiindcă e mai discret, poate rămâne opțional."},
- {id:"h_ashi",oras:"Hakone",cat:"atractie",alegere:"poate",titlu:"Lacul Ashi & croaziera „pirat”",emoji:"⛴️",img:"",tag:"Pe apă",timp:"1–2 ore",
+ {id:"h_okada",oras:"Hakone",cat:"atractie",alegere:"poate",titlu:"Muzeul Okada",emoji:"🏛️",img:"okada.png",tag:"Muzeu",timp:"1–2 ore",
+  desc:"Cel mai mare muzeu privat de artă din zonă, dedicat artei est-asiatice adunate de colecționarul Kanzo Okada. Colecțiile tipice sunt: ceramică și porțelan japonez și chinezesc (inclusiv piese vechi de secole), picturi pe paravane și suluri (byōbu și kakemono) din perioadele Edo și Meiji, caligrafie, lucrări din lac și bronz, precum și artă budistă — statui și obiecte de cult. Piesa emblematică e o pictură murală uriașă cu un phoenix, la intrare. În fața muzeului e și o baie termală pentru picioare, la care te așezi privind grădina.",
+  dece:"E o combinație rară de artă rafinată și relaxare, mai puțin aglomerată decât alte obiective. Bun mai ales pe vreme rea, pentru un ritm liniștit la interior."},
+ {id:"h_ashi",oras:"Hakone",cat:"atractie",alegere:"poate",titlu:"Lacul Ashi & croaziera „pirat”",emoji:"⛴️",img:"ashi.png",tag:"Pe apă",timp:"1–2 ore",
   desc:"Lacul vulcanic din inima zonei, străbătut de un vaporaș în formă de corabie de pirați, cu poarta torii roșie și, pe vreme senină, Fuji în fundal.",
   dece:"E o traversare relaxantă, cu multe momente de stat jos și priveliști frumoase. Fuji se ascunde pe vreme rea — priveliștea-vedetă depinde de noroc."},
 
  /* -- Activități -- */
- {id:"h_onsen",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Onsen la ryokan (baie privată)",emoji:"♨️",img:"",tag:"Relaxare",timp:"1 oră",
+ {id:"h_onsen",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Onsen la ryokan (baie privată)",emoji:"♨️",img:"onsen.jpg",tag:"Relaxare",timp:"1 oră",
   desc:"Baie termală tradițională la pensiunea unde stăm, ideal rezervată privat (kashikiri), ca să intre grupul împreună, în tihnă. Onsen-ul e o baie geotermală bogată în minerale, inima oricărei șederi în Hakone.",
   dece:"E relaxarea pură pe care a cerut-o grupul și punctul forte al întregii escale. De știut: multe onsen interzic tatuajele și unele au doar băi comune, pe sexe — de aceea alegem varianta privată."},
- {id:"h_kaiseki_ryokan",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Cină kaiseki la ryokan",emoji:"🍽️",img:"",tag:"Masă-eveniment",timp:"o seară",
+ {id:"h_kaiseki_ryokan",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Cină kaiseki la ryokan",emoji:"🍽️",img:"kaiseki.avif",tag:"Masă-eveniment",timp:"o seară",
   desc:"Masa serii la pensiune: un meniu kaiseki de sezon, cu multe feluri mici și frumos aranjate, servit de obicei la o oră fixă, inclus în cazare.",
   dece:"E un eveniment în sine, nu doar o cină — punctul culminant al zilei la ryokan. Se servește devreme și la oră fixă, deci ne organizăm ziua în jurul ei."},
- {id:"h_loop",oras:"Hakone",cat:"activitate",alegere:"poate",titlu:"Bucla „Hakone Loop”",emoji:"🚡",img:"",tag:"Traseu",timp:"o zi",
+ {id:"h_loop",oras:"Hakone",cat:"activitate",alegere:"poate",titlu:"Traseul circular „Hakone Loop”",emoji:"🚡",img:"hakone_loop.jpg",tag:"Traseu",timp:"o zi",
   desc:"Un tur al zonei făcut din mijloace de transport diferite, cu un singur bilet: trenuleț în serpentine, funicular, telecabină peste vale și vapor în formă de corabie pe lacul Ashi.",
   dece:"E ziua în care transportul e chiar atracția, cu multe momente de stat jos. Are însă multe schimbări și poate obosi — de dozat."},
- {id:"h_tokaido",oras:"Hakone",cat:"activitate",alegere:"poate",titlu:"Plimbare pe vechiul drum Tokaido",emoji:"🥾",img:"",tag:"Natură",timp:"1–2 ore",
+ {id:"h_tokaido",oras:"Hakone",cat:"activitate",alegere:"poate",titlu:"Drumeție pe vechiul drum Tokaido",emoji:"🥾",img:"",tag:"Natură",timp:"1–2 ore",
   desc:"O porțiune din vechiul drum care lega Tokyo de Kyoto, pavată cu piatră și mărginită de cedri seculari, exact cum o străbăteau călătorii de acum câteva secole.",
-  dece:"E o plimbare liniștită prin istorie și pădure. Pavajul e neregulat — de purtat încălțăminte bună și de mers cu grijă."},
+  dece:"E o drumeție liniștită prin istorie și pădure. Pavajul e neregulat — de purtat încălțăminte bună și de mers cu grijă."},
 
  /* -- Experiențe culinare -- */
- {id:"h_kurotamago",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"Ouă negre (kuro-tamago)",emoji:"🥚",img:"",tag:"Gustare",timp:"15 min",
-  desc:"Ouă fierte în apa sulfuroasă din Owakudani, până când coaja se înnegrește complet. Legenda spune că fiecare ou mâncat aici adaugă șapte ani de viață.",
+ {id:"h_kurotamago",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"黒卵 (kuro-tamago)",emoji:"🥚",img:"kuro_tamago.avif",tag:"Gustare",timp:"15 min",
+  desc:"Ouă negre: ouă fierte în apa sulfuroasă din Owakudani, până când coaja se înnegrește complet. Legenda spune că fiecare ou mâncat aici adaugă șapte ani de viață.",
   dece:""},
- {id:"h_icecream",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"Înghețată neagră de Owakudani",emoji:"🍦",img:"",tag:"Desert",timp:"15 min",
-  desc:"Varianta dulce a faimoaselor ouă negre: o înghețată de culoare neagră, vândută tot în valea vulcanică, în asortiment cu tema locului.",
+ {id:"h_icecream",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"黒ソフト (kuro-sofuto)",emoji:"🍦",img:"owakudani_icecream.jpg",tag:"Desert",timp:"15 min",
+  desc:"Înghețată neagră: varianta dulce a faimoaselor ouă negre — o înghețată de culoare neagră, vândută tot în valea vulcanică, în asortiment cu tema locului.",
   dece:""},
- {id:"h_soba",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"Soba de munte",emoji:"🍜",img:"",tag:"Mâncare",timp:"1 oră",
-  desc:"Tăiței de hrișcă făcuți local, serviți simplu, calzi sau reci, în micile localuri din jurul lacului.",
+ {id:"h_soba",oras:"Hakone",cat:"culinar",alegere:"da",titlu:"自然薯そば (jinenjo soba)",emoji:"🍜",img:"jinenjo_soba.webp",tag:"Mâncare",timp:"1 oră",
+  desc:"Soba de munte: tăiței de hrișcă legați cu jinenjo (igname sălbatic de munte), care le dă o textură densă și mătăsoasă. Se servesc simplu, calzi sau reci, în micile localuri din jurul lacului.",
   dece:""},
 
  /* =====================================================================
@@ -915,29 +901,26 @@ function render(){
     root.innerHTML=antet()+
     `<section class="hero">
       <div class="leaves">${leafHtml}</div>
-      <p class="jpbig">日本の秋 · 一期一会</p>
       <h2>O toamnă în Japonia, împreună</h2>
       <p class="lede">Paisprezece zile prin <span class="accent">Tokyo, Hakone și Kyoto</span>, chiar când începe culoarea toamnei — ginkgo auriu și primii arțari ruginii. Temple în zori, onsen la asfințit, piețe de dimineață și seri cu felinare — plus o aniversare de sărbătorit pe drum.</p>
-      <p class="haiku">„Ichigo ichie” — o dată în viață, o singură întâlnire: vechea idee japoneză că fiecare drum împreună e unic și nu se mai repetă.</p>
       <div class="meta-trip">
         <span class="chip">🍁 <b>31 oct – 14 nov 2026</b></span>
       </div>
     </section>
 
     <div class="panel">
-      <p class="note" style="margin:0 0 10px">Acest jurnal are două roluri. Întâi, e ca o broșură: aici vezi opțiunile pe care ți le propunem — locuri și experiențe alese de noi, nu tot ce se poate face în Japonia. Apoi, e locul unde adunăm preferințele grupului și vedem media, ca să hotărâm împreună ce facem.</p>
-      <p class="note" style="margin:0 0 12px">Iată ce te așteaptă:</p>
+      <p class="note" style="margin:0 0 12px">Acest jurnal are două roluri: îți arată opțiunile pe care ți le propunem — locuri și experiențe alese de noi — și adună preferințele grupului, ca să hotărâm împreună.</p>
       <div class="pasi">
-        <div class="pas"><span class="p-jp">計画</span><b>Itinerar</b><span>Cum ar arăta traseul, zi cu zi.</span></div>
-        <div class="pas"><span class="p-jp">体験</span><b>Experiențe</b><span>Notezi de la 1 la 5 stele fiecare loc și lași un gând pentru grup.</span></div>
-        <div class="pas"><span class="p-jp">好み</span><b>Preferințe</b><span>Ce fel de vacanță îți dorești, în linii mari.</span></div>
-        <div class="pas"><span class="p-jp">結果</span><b>Rezultate</b><span>Ce iese la vot — media întregului grup.</span></div>
+        <div class="pas"><span class="p-jp">計画</span><b>Itinerar</b><span>Traseul, zi cu zi.</span></div>
+        <div class="pas"><span class="p-jp">体験</span><b>Experiențe</b><span>Notezi de la 1 la 5 stele și lași un gând.</span></div>
+        <div class="pas"><span class="p-jp">好み</span><b>Preferințe</b><span>Ce fel de vacanță îți dorești.</span></div>
+        <div class="pas"><span class="p-jp">結果</span><b>Rezultate</b><span>Media întregului grup.</span></div>
       </div>
     </div>
 
     <div class="panel intra">
       <h2 style="margin-bottom:4px">Intră în jurnal</h2>
-      <p class="note" style="margin:0 0 6px">Folosește mereu același nume — așa îți salvăm răspunsurile și le poți relua oricând. Pagina rămâne utilă și în timpul călătoriei, ca sursă de informații.</p>
+      <p class="note" style="margin:0 0 6px">Folosește mereu același nume, ca să-ți salvăm răspunsurile. Pagina rămâne utilă și în timpul călătoriei.</p>
       <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana">
       <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button></div>
     </div>`;
@@ -1122,9 +1105,8 @@ function vPlan(){
     {ac:"#C4452D",jp:"東京",nights:"2 nopți",titlu:"Tokyo (final)",dates:"12 nov → 14 nov"}
   ];
   v.innerHTML=`<div class="panel"><h2>Cum ne-am gândit să împărțim zilele 🍁</h2>
-      <p class="note" style="margin:0 0 8px">Ideea de bază: cât mai puține mutări de bagaje. De aceea avem <b>doar 3 hoteluri</b> — Tokyo, Hakone (pentru onsen și relaxare) și Kyoto — în loc să schimbăm cazarea la fiecare oraș.</p>
-      <p class="note" style="margin:0 0 8px">Din Kyoto (7 nopți) și din Tokyo putem face oricâte excursii de o zi sau de jumătate de zi, plecând dimineața și întorcându-ne seara în același pat: Nara, Osaka, Himeji, Kobe, Uji, Lacul Biwa, Kamakura, Fuji și așa mai departe.</p>
-      <p class="note" style="margin:0">Inclusiv <b>Hiroshima</b>: e la 2 ore de Kyoto cu trenul rapid, iar în drum ne putem opri la castelul Himeji. Nu mai e o destinație separată cu 2 nopți, cum ne gândeam la început — nu sunt atât de multe de făcut acolo încât să merite mutarea bagajelor.</p>
+      <p class="note" style="margin:0 0 8px">Ideea de bază: cât mai puține mutări de bagaje — <b>doar 3 hoteluri</b> (Tokyo, Hakone, Kyoto).</p>
+      <p class="note" style="margin:0">Din Kyoto și Tokyo facem excursii de o zi, întorcându-ne seara în același pat: Nara, Osaka, Himeji, Kobe, Uji, Lacul Biwa, Kamakura, Fuji — și chiar Hiroshima (2 ore cu trenul rapid, cu oprire la Himeji în drum).</p>
     </div>
     <div class="panel"><div class="meta">Traseul pe nopți</div>
       <div class="trip">${legs.map(l=>`
