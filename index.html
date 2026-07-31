@@ -45,6 +45,9 @@
        text-transform:uppercase;font-size:10.5px;color:var(--gri);background:none}
   .tab:hover{background:none;color:var(--tus)}
   .tab.active{color:var(--artar);border-bottom-color:var(--artar)}
+  .tab.star{color:var(--artar);font-weight:600}
+  .tab.star .stea{margin-right:5px;font-size:9px;vertical-align:middle;opacity:.9}
+  .tab.star:hover{color:#a83722}
 
   .panel{background:var(--hartie2);border:1px solid var(--linie);border-radius:3px;padding:18px;margin-bottom:14px}
   .note{font-size:12.5px;color:var(--gri);line-height:1.65}
@@ -194,6 +197,8 @@
     display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--linie);padding-bottom:7px}
   .cathead .n{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gri)}
   .catdesc{font-size:12.5px;color:var(--gri);line-height:1.55;margin:9px 0 14px;max-width:660px}
+  .orasbio{font-family:Georgia,serif;font-size:15px;line-height:1.72;color:#4A453C;max-width:70ch;
+    border-left:3px solid var(--ac);padding:2px 0 2px 16px;margin:4px 0 18px}
   .cardnote{border-top:1px solid var(--linie);padding:12px 17px 15px;display:flex;flex-direction:column;gap:4px;
     background:rgba(196,69,45,.02)}
   .cardnote .ql{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--gri)}
@@ -283,6 +288,18 @@ const ORAS_STIL = {
   "Hiroshima": {ac:"#5A7A6E", acs:"rgba(90,122,110,.15)", jp:"広島"},
   "Uji":       {ac:"#5E7A3E", acs:"rgba(94,122,62,.15)",  jp:"宇治"},
   "Excursii":  {ac:"#9A5A44", acs:"rgba(154,90,68,.15)",  jp:"遠足"}
+};
+
+/* BIO scurt pentru fiecare oraș — dă tonul, fără titlu, ca o mică introducere în atmosferă */
+const ORAS_BIO = {
+  "Tokyo":"Cel mai mare oraș al lumii nu obosește niciodată: temple vechi de secole la câțiva pași de intersecții pline de neon, cartiere care se schimbă complet de la o stradă la alta și cele mai bune restaurante de pe planetă, de la tarabe de ramen la mese cu stele. Îl luăm în doi timpi — zilele de la început, în priză, și două seri liniștite la final — și tot n-o să ne ajungă. Aici stă și partea de program cultural: concerte, teatru, un balet-premieră fix în zilele noastre.",
+  "Hakone":"După forfota din Tokyo, Hakone e locul unde încetinim. Un ținut de munte cu izvoare fierbinți, unde ziua se termină cufundat până la gât în apă termală, cu aburul ridicându-se în aerul răcoros de toamnă și, pe vreme bună, Fuji la orizont. Dormim într-un ryokan tradițional, mâncăm o cină lungă în odaie și nu ne grăbim nicăieri.",
+  "Kyoto":"Fostă capitală imperială timp de peste o mie de ani, Kyoto e inima veche a Japoniei — orașul cu mii de temple, grădini de mușchi, cartiere de gheișe și ceremonii ale ceaiului care se fac la fel de secole. E și tabăra noastră de bază pentru toată regiunea: de aici pornim, dimineața, spre orașele din jur și ne întoarcem seara în același pat. Ne așezăm aici o săptămână, ca să-l descoperim pe îndelete.",
+  "Nara":"Prima capitală permanentă a Japoniei, mai veche chiar decât Kyoto, la o azvârlitură de băț cu trenul. Peste tot, temple monumentale și un Buddha de bronz uriaș — dar vedetele orașului sunt cele peste o mie de căprioare care umblă libere prin parc și au învățat să se încline pentru un biscuit. O excursie de o zi, veselă și plină de verde.",
+  "Osaka":"Dacă Kyoto e eleganța, Osaka e pofta de viață. Orașul-bucătărie al Japoniei, gălăgios și prietenos, cu neoane reflectate în canale și un cuvânt propriu pentru felul lui de a mânca: kuidaore, „a mânca până cazi”. Mergem pentru o seară de street food și lumini — takoyaki, okonomiyaki, kushikatsu — și pentru energia lui contagioasă.",
+  "Hiroshima":"Un oraș care poartă cea mai grea poveste a secolului XX și a ales să devină un simbol al păcii. Memorialul e o vizită apăsătoare, dar de neuitat. La câțiva pași, cu feribotul, se ajunge la Miyajima și la faimoasa poartă torii roșie care pare că plutește pe mare — un contrast blând, care echilibrează ziua.",
+  "Uji":"La numai douăzeci de minute cu trenul de Kyoto, orășelul care e, de secole, capitala ceaiului matcha din Japonia. Aici se macină cele mai fine pudre de ceai, la pietre de granit, iar templul Byodo-in — cel de pe moneda de 10 yeni — se oglindește într-un iaz de aproape o mie de ani. O jumătate de zi de liniște și ceai proaspăt.",
+  "Excursii":"Frumusețea itinerariului nostru e că stăm mult și mutăm bagajele puțin. Din Kyoto și Tokyo pornim în excursii de o zi și ne întoarcem seara în același pat — castele, sate de munte, muntele Fuji, orașe de pe coastă. Aici am strâns aceste escapade și gustările de drum care fac călătoria cu trenul jumătate din farmec."
 };
 
 /* CATEGORII — se afișează în această ordine în fiecare fișier (fără butoane) */
@@ -493,102 +510,87 @@ let CARDURI = [
     KYOTO
     ===================================================================== */
  /* -- Zone & plimbări -- */
- {id:"k_sannenzaka",oras:"Kyoto",cat:"zona",alegere:"da",titlu:"Sannenzaka & Ninenzaka",emoji:"🏮",img:"",tag:"Ulițe istorice",timp:"1–2 ore",
-  desc:"Cele mai frumoase ulițe pietruite din Kyoto, care urcă spre templul Kiyomizu, mărginite de case de lemn, ceainării și prăvălii vechi de generații.",
-  dece:"E cartea poștală vie a Kyoto-ului tradițional, de străbătut la pas. Are trepte și se aglomerează repede — mai bine dimineața devreme."},
- {id:"k_pontocho",oras:"Kyoto",cat:"zona",alegere:"da",titlu:"Pontocho & malul râului Kamo",emoji:"🏮",img:"",tag:"Seara",timp:"1–2 ore",
-  desc:"O alee îngustă și atmosferică, plină de restaurante cu felinare, lipită de râul Kamo, unde localnicii se așază pe mal la asfințit.",
-  dece:"E cea mai frumoasă plimbare de seară din Kyoto și nu cere energie după o zi plină. Seara se aglomerează, iar localurile de pe alee sunt mici, cu rezervare."},
- {id:"k_arashiyama_calm",oras:"Kyoto",cat:"zona",alegere:"da",titlu:"Arashiyama liniștit — Okochi Sanso & Gio-ji",emoji:"🍃",img:"",tag:"Grădini calme",timp:"jumătate de zi",
-  desc:"Partea tăcută a Arashiyamei, dincolo de aglomerația din crângul de bambus: vila și grădina Okochi Sanso, cu vedere peste oraș, și micul templu de mușchi Gio-ji.",
-  dece:"E Arashiyama fără mulțime, exact colțul pe care majoritatea îl ratează. Are urcușuri ușoare — dar nimic dificil."},
- {id:"k_gion",oras:"Kyoto",cat:"zona",alegere:"poate",titlu:"Gion & Hanamikoji la lăsarea serii",emoji:"🎎",img:"",tag:"Cartier",timp:"2 ore",
-  desc:"Cartierul istoric al ceainăriilor: străzi de lemn cu fațade închise, felinare care se aprind la asfințit și, cu noroc, o maiko grăbindu-se spre o programare.",
-  dece:"E gratis, e superb și merge perfect după o zi plină. Pe aleile private fotografiatul e interzis prin lege, iar femeile în kimono de pe stradă sunt aproape mereu turiste."},
- {id:"k_philosopher",oras:"Kyoto",cat:"zona",alegere:"poate",titlu:"Drumul Filosofului",emoji:"🍁",img:"",tag:"Plimbare",timp:"1–2 ore",
-  desc:"Doi kilometri de alee pe malul unui canal, între temple, numită după profesorul care se plimba pe ea zilnic. Toamna, culoarea vine din arțarii din curțile templelor.",
-  dece:"E o plimbare plată și liniștită, în ritmul propriu, cu opriri de cafea. E lungă — o facem pe cât vrem, nu neapărat toată."},
- {id:"k_kurama",oras:"Kyoto",cat:"zona",alegere:"poate",titlu:"Kurama & Kibune",emoji:"🥾",img:"",tag:"Natură",timp:"jumătate de zi",
-  desc:"Un trenuleț urcă o jumătate de oră spre nord, apoi se trece muntele pe jos, pe lângă templul Kurama, coborând la sanctuarul Kibune, pe malul unui pârâu. La final, un onsen public.",
-  dece:"Ne scoate complet din cozile de la temple și arată un Kyoto pe care aproape nimeni nu-l vede. Cere însă trepte multe și încălțăminte serioasă."},
+ {id:"k_sannenzaka",oras:"Kyoto",cat:"zona",alegere:"da",titlu:"Sannenzaka & Ninenzaka — ulițele spre Kiyomizu",emoji:"🏮",img:"sannenzaka.jpg",tag:"Ulițe istorice",timp:"1–2 ore",
+  desc:"Cele mai fotografiate ulițe pietruite din Kyoto, urcând în trepte spre templul Kiyomizu printre case de lemn, ceainării și prăvălii vechi de generații — un cartier protejat, unde până și dozatoarele și firmele sunt ascunse ca să nu strice imaginea. Numele înseamnă „panta de trei ani” și „de doi ani”, iar o legendă locală spune că, dacă te împiedici și cazi aici, îți atragi ghinion pe tot atâția ani — așa că lumea coboară cu grijă.",
+  dece:"E cartea poștală vie a Kyoto-ului tradițional, de străbătut pur și simplu la pas. Are trepte și se umple repede — cel mai frumos e dis-de-dimineață, cât e aerul răcoros și ulițele goale."},
+ {id:"k_pontocho",oras:"Kyoto",cat:"zona",alegere:"da",titlu:"Pontocho — aleea felinarelor pe râul Kamo",emoji:"🏮",img:"pontocho.jpg",tag:"Seara",timp:"1–2 ore",
+  desc:"O alee îngustă cât un coridor, pavată cu piatră și tivită de felinare de hârtie, unul dintre cele cinci cartiere de gheișe ale orașului. Într-o parte, restaurantele își scot vara terasele suspendate deasupra râului Kamo (kawadoko). Pe malul de vizavi se petrece un ritual al orașului: perechile se așază pe iarbă la distanțe aproape egale una de alta, un obicei atât de constant încât localnicii îi zic în glumă „echidistanța de pe Kamo”.",
+  dece:"E cea mai frumoasă plimbare de seară din Kyoto și nu cere pic de energie după o zi plină. Se aglomerează la asfințit, iar localurile de pe alee sunt mici și mai toate cu rezervare."},
+ {id:"k_arashiyama_calm",oras:"Kyoto",cat:"zona",alegere:"da",titlu:"Arashiyama tăcut — vila Okochi Sanso & templul Gio-ji",emoji:"🍃",img:"arashiyama_linistit.JPG",tag:"Grădini calme",timp:"jumătate de zi",
+  desc:"Partea liniștită a Arashiyamei, la câțiva pași de aglomerația din crângul de bambus. Okochi Sanso a fost vila și grădina unui celebru actor de filme mute din anii '20, care și-a petrecut peste treizeci de ani modelând-o pe coasta dealului, cu vedere peste tot orașul. Iar Gio-ji e un templu minuscul, tapisat cu mușchi, legat de povestea tristă a lui Gio, o dansatoare părăsită de un mare senior al vremii, care s-a retras aici călugăriță.",
+  dece:"E Arashiyama fără mulțime — exact colțul pe care cei mai mulți îl ratează. Are câteva urcușuri ușoare, dar nimic greu."},
+ {id:"k_gion",oras:"Kyoto",cat:"zona",alegere:"poate",titlu:"Gion & Hanamikoji la lăsarea serii",emoji:"🎎",img:"gion.jpg",tag:"Cartier de gheișe",timp:"2 ore",
+  desc:"Cel mai faimos cartier de gheișe din Japonia: străzi de lemn cu fațade închise, ceainării discrete (ochaya) în care nu intri fără introducere și felinare care se aprind rând pe rând la asfințit. Cu puțin noroc, vezi o maiko grăbindu-se, cu pașii ei mici, spre o programare.",
+  dece:"E gratis, e superb și se potrivește perfect după o zi plină. De știut: pe aleile private fotografiatul e interzis prin lege (cu amendă), iar femeile în kimono de pe stradă sunt aproape mereu turiste, nu gheișe adevărate."},
+ {id:"k_philosopher",oras:"Kyoto",cat:"zona",alegere:"poate",titlu:"Drumul Filosofului",emoji:"🍁",img:"philosopher_path.jpg",tag:"Plimbare",timp:"1–2 ore",
+  desc:"Doi kilometri de alee pe malul unui canal, legând mai multe temple, botezată după un profesor de filosofie care o străbătea zilnic, pierdut în gânduri, în drum spre universitate. Toamna, culoarea vine din arțarii care atârnă peste apă din curțile templelor.",
+  dece:"E o plimbare plată și tihnită, în ritmul propriu, cu opriri de cafea pe traseu. E lungă — o facem pe cât avem chef, nu neapărat toată."},
+ {id:"k_kurama",oras:"Kyoto",cat:"zona",alegere:"poate",titlu:"Kurama & Kibune — muntele legendelor",emoji:"🥾",img:"kurama.jpg",tag:"Natură",timp:"jumătate de zi",
+  desc:"Un trenuleț urcă o jumătate de oră spre nord, apoi treci muntele pe jos, pe lângă templul Kurama, și cobori la sanctuarul Kibune, cocoțat pe malul unui pârâu. Muntele Kurama e, în folclor, casa tengu-ilor — spiriduși cu nas lung, maeștri în arta luptei — și e considerat locul de naștere al terapiei Reiki. La final te așteaptă un onsen public.",
+  dece:"Ne scoate complet din cozile de la temple și arată un Kyoto pe care aproape nimeni nu-l vede. Cere însă multe trepte și încălțăminte serioasă."},
 
  /* -- Atracții principale -- */
- {id:"k_kiyomizu",oras:"Kyoto",cat:"atractie",alegere:"da",titlu:"Kiyomizu-dera în zori",emoji:"⛩️",img:"",tag:"Templu",timp:"1–2 ore, dimineața",
-  desc:"Templu cu o terasă uriașă de lemn suspendată peste dealul împădurit, sprijinită pe stâlpi înalți, fără niciun cui. Se deschide la 6 dimineața.",
-  dece:"La deschidere e aproape gol și priveliștea peste oraș e magică; după ora 9 devine un fluviu de oameni. Are urcuș și trepte — de aceea merită efortul dimineața."},
- {id:"k_fushimi",oras:"Kyoto",cat:"atractie",alegere:"da",titlu:"Fushimi Inari în zori",emoji:"🦊",img:"",tag:"Sanctuar",timp:"2–3 ore, dimineața",
-  desc:"Sanctuarul cu peste zece mii de porți vermilion donate de companii, care urcă în serpentine pe munte. Bucla completă cere două-trei ore.",
-  dece:"E deschis non-stop și gratis, iar la șapte dimineața tunelul de porți e aproape gol și chiar dă fiori. La zece e coadă la fiecare fotografie — diferența e enormă."},
- {id:"k_arashiyama",oras:"Kyoto",cat:"atractie",alegere:"da",titlu:"Arashiyama — bambus & Tenryu-ji",emoji:"🎋",img:"",tag:"Natură",timp:"jumătate de zi",
-  desc:"Crângul de bambus prin care lumina cade filtrată și marea grădină zen Tenryu-ji, cu iazul ei oglindă și munții din spate integrați în peisaj.",
-  dece:"E una dintre imaginile-simbol ale Japoniei. Crângul se traversează în zece minute și e mereu plin — venim devreme, iar grădina o luăm pe îndelete."},
- {id:"k_kinkakuji",oras:"Kyoto",cat:"atractie",alegere:"poate",titlu:"Kinkaku-ji — Pavilionul de Aur",emoji:"🪙",img:"",tag:"Templu",timp:"1 oră",
-  desc:"Pavilion cu două etaje acoperite integral cu foiță de aur, ridicat în 1397 și reflectat perfect în iazul din față.",
-  dece:"E Japonia de pe carte poștală, se vede în patruzeci de minute. Traseul e cu sens unic și mereu aglomerat: te uiți, fotografiezi, pleci."},
- {id:"k_ginkakuji",oras:"Kyoto",cat:"atractie",alegere:"poate",titlu:"Ginkaku-ji — Pavilionul de Argint",emoji:"🌗",img:"",tag:"Templu",timp:"1 oră",
-  desc:"Contrapunctul discret al celui de aur: fără argint, dar cu o grădină zen rafinată, un con de nisip greblat și o potecă prin mușchi și arțari.",
-  dece:"E mai liniștit și mai contemplativ decât „vărul” lui auriu, și se leagă frumos de Drumul Filosofului. Are un urcuș ușor."},
- {id:"k_sanjusangendo",oras:"Kyoto",cat:"atractie",alegere:"poate",titlu:"Sanjusangen-do",emoji:"🙏",img:"",tag:"Templu",timp:"1 oră",
-  desc:"O sală de lemn lungă de peste o sută de metri, cu 1.001 statui aurite ale zeiței Kannon aliniate rând după rând — o priveliște care taie respirația.",
-  dece:"E uimitor și complet la adăpost, bun pe orice vreme. Înăuntru nu e voie cu poze — se privește pur și simplu."},
- {id:"k_tofukuji",oras:"Kyoto",cat:"atractie",alegere:"poate",titlu:"Tofuku-ji în sezonul frunzelor",emoji:"🍂",img:"",tag:"Templu",timp:"2 ore",
-  desc:"Complex zen cu un pod de lemn acoperit, suspendat peste o vale în care cresc două mii de arțari, plus o grădină de piatră modernistă cu un damier de mușchi.",
-  dece:"Când culorile sunt la vârf e cea mai spectaculoasă priveliște de toamnă din Kyoto — și, exact de aceea, cea mai aglomerată. La 14 noiembrie s-ar putea să prindem doar începutul sezonului."},
+ {id:"k_kiyomizu",oras:"Kyoto",cat:"atractie",alegere:"da",titlu:"Kiyomizu-dera în zori",emoji:"⛩️",img:"kiyomizu.jpg",tag:"Templu · UNESCO",timp:"1–2 ore, dimineața",
+  desc:"Templu din patrimoniul UNESCO, cu o terasă uriașă de lemn suspendată la treisprezece metri deasupra dealului împădurit, sprijinită pe stâlpi înalți îmbinați fără niciun cui. Terasa a dat naștere unei expresii japoneze — „a sări de pe scena de la Kiyomizu” înseamnă a te arunca într-o hotărâre curajoasă; în epoca Edo, oamenii chiar săreau, cu credința că, dacă supraviețuiesc, li se împlinește o dorință (obiceiul a fost până la urmă interzis). Jos, la izvorul Otowa, poți bea din trei firicele de apă — pentru sănătate, iubire sau succes.",
+  dece:"La deschidere (6 dimineața) e aproape gol și priveliștea peste oraș e magică; după ora 9 devine un fluviu de oameni. Are urcuș și trepte — tocmai de aceea merită efortul devreme."},
+ {id:"k_fushimi",oras:"Kyoto",cat:"atractie",alegere:"da",titlu:"Fushimi Inari — tunelul celor 10.000 de porți",emoji:"🦊",img:"fushimi.webp",tag:"Sanctuar",timp:"2–3 ore, dimineața",
+  desc:"Sanctuarul zeului Inari — al orezului, al belșugului și al negoțului — a cărui cale urcă muntele printr-un tunel nesfârșit de porți vermilion, peste zece mii la număr, fiecare donată de câte o firmă drept mulțumire pentru noroc. Mesagerii lui Inari sunt vulpile (kitsune), pe care le vezi străjuind în piatră peste tot, cu o cheie de hambar în gură.",
+  dece:"E deschis non-stop și e gratis, iar la șapte dimineața tunelul de porți e aproape pustiu și chiar dă fiori pe șira spinării. La zece e coadă la fiecare fotografie — diferența e uriașă. Bucla completă până în vârf cere două-trei ore."},
+ {id:"k_arashiyama",oras:"Kyoto",cat:"atractie",alegere:"da",titlu:"Arashiyama — crângul de bambus & Tenryu-ji",emoji:"🎋",img:"arashiyama.jpg",tag:"Natură · UNESCO",timp:"jumătate de zi",
+  desc:"Crângul de bambus prin care lumina cade verzuie și filtrată, atât de aparte încât foșnetul vântului prin el e trecut oficial pe lista celor „100 de peisaje sonore ale Japoniei” care merită păstrate. Alături, marea grădină zen Tenryu-ji, veche de vreo șapte sute de ani și rămasă aproape neschimbată, cu un iaz-oglindă și munții din spate „împrumutați” în compoziție (tehnica shakkei).",
+  dece:"E una dintre imaginile-simbol ale Japoniei. Crângul se traversează în zece minute și e mereu plin — venim devreme, iar grădina o savurăm pe îndelete."},
+ {id:"k_kinkakuji",oras:"Kyoto",cat:"atractie",alegere:"poate",titlu:"Kinkaku-ji — Pavilionul de Aur",emoji:"🪙",img:"kinkakuji.jpg",tag:"Templu",timp:"1 oră",
+  desc:"Un pavilion cu etajele superioare acoperite integral cu foiță de aur, ridicat în 1397 ca reședință de retragere a unui shogun și oglindit perfect în iazul din față. Cel de azi e o reconstrucție: în 1950, un tânăr călugăr tulburat i-a dat foc din obsesie pentru frumusețea lui — un episod real, devenit celebru prin romanul lui Mishima.",
+  dece:"E Japonia de pe carte poștală, se vede în patruzeci de minute. Traseul e cu sens unic și mereu aglomerat: privești, fotografiezi, mergi mai departe."},
+ {id:"k_ginkakuji",oras:"Kyoto",cat:"atractie",alegere:"poate",titlu:"Ginkaku-ji — Pavilionul de Argint",emoji:"🌗",img:"ginkakuji.jpg",tag:"Templu",timp:"1 oră",
+  desc:"Răspunsul discret al celui de aur — doar că argint n-a fost pus niciodată: placarea plănuită a rămas o poveste, iar lemnul gol i-a dat, în timp, farmecul. În schimb are o grădină zen rafinată, cu un con perfect de nisip greblat („Muntele Fuji al lunii”), gândit să răsfrângă lumina lunii, și o potecă printre mușchi și arțari.",
+  dece:"E mai liniștit și mai contemplativ decât „vărul” lui auriu și se leagă frumos de Drumul Filosofului. Are un urcuș ușor pe deal, cu vedere peste oraș."},
+ {id:"k_sanjusangendo",oras:"Kyoto",cat:"atractie",alegere:"poate",titlu:"Sanjusangen-do — cei 1.001 de zei",emoji:"🙏",img:"sanjusangendo.jpg",tag:"Templu",timp:"1 oră",
+  desc:"O sală de lemn lungă de peste o sută de metri, cu 1.001 de statui aurite ale zeiței milei, Kannon, aliniate rând după rând, fiecare cu o mie de brațe. Sunt sculptate una câte una, cu chipuri ușor diferite — se spune că, dacă te uiți destul de atent, găsești printre ele fața cuiva drag pe care l-ai pierdut.",
+  dece:"E o priveliște care taie respirația și e complet la adăpost, bună pe orice vreme. Înăuntru nu e voie cu poze — se privește pur și simplu, în tăcere."},
+ {id:"k_moss",oras:"Kyoto",cat:"atractie",alegere:"poate",titlu:"Saiho-ji — Templul de Mușchi",emoji:"🌿",img:"moss_temple.webp",tag:"Grădină · UNESCO",timp:"1–2 ore",
+  desc:"O grădină din patrimoniul UNESCO, veche de peste șase sute de ani, în care solul, pietrele și rădăcinile sunt acoperite de un covor de peste o sută de specii de mușchi — un verde adânc, aproape ireal, mai ales după ploaie. Nu se intră oricum: accesul e doar pe rezervare, cu număr mic de locuri pe zi, iar tocmai această regulă strictă e cea care îi păstrează liniștea rară.",
+  dece:"E una dintre cele mai frumoase și mai exclusiviste grădini din Kyoto, exact pentru că e greu de ajuns la ea. Se rezervă din timp; înainte de a intra în grădină, vizitatorii trec printr-un scurt ritual la templu (vezi caligrafia de sutre, la Activități)."},
+ {id:"k_tofukuji",oras:"Kyoto",cat:"atractie",alegere:"poate",titlu:"Tofuku-ji — podul peste marea de arțari",emoji:"🍂",img:"tofukuji.jpg",tag:"Templu",timp:"2 ore",
+  desc:"Mare complex zen cu un pod de lemn acoperit, suspendat peste o vale în care cresc două mii de arțari — toamna, de pe pod privești o mare de roșu și portocaliu. Alături, o grădină de piatră surprinzător de modernă, cu un damier de mușchi și dale, semnată de un designer din secolul XX.",
+  dece:"Când culorile sunt la vârf, e cea mai spectaculoasă priveliște de toamnă din Kyoto — și, exact de aceea, cea mai aglomerată. La jumătatea lui noiembrie s-ar putea să prindem doar începutul sezonului."},
 
  /* -- Activități -- */
- {id:"k_kaiseki",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Cină kaiseki de top",emoji:"🍽️",img:"",tag:"Masă-eveniment",timp:"2–3 ore",
-  desc:"Cea mai rafinată masă a călătoriei, la case celebre precum Kikunoi, Nakamura sau Hyotei: un meniu lung de sezon, servit într-un salon privat, ideal pentru șase.",
-  dece:"E masa-eveniment perfectă pentru aniversare, vârful bucătăriei japoneze. Cere rezervare cu două-trei luni înainte și un buget pe măsură."},
- {id:"k_geiko",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Ozashiki asobi — seară cu geiko & maiko",emoji:"🎎",img:"",tag:"Experiență rară",timp:"o seară",
-  desc:"O cină privată în compania unei geiko și a unei maiko, cu jocuri tradiționale, dans și conversație — o experiență care se obține doar cu introducere, nu se cumpără liber.",
-  dece:"E genul de seară care nu se poate cumpăra altfel și rămâne amintirea de neuitat a Kyoto-ului. Cere rezervare cu 3–6 luni înainte și e foarte scumpă."},
- {id:"k_ceai",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Ceremonia privată a ceaiului",emoji:"🍵",img:"",tag:"Experiență",timp:"1–1,5 ore",
-  desc:"O oră într-o casă tradițională sau într-un sub-templu, cu o gazdă care explică pas cu pas gesturile ritualului, iar la final îți bați singur matcha, cu un mic dulce alături. (Am mutat această experiență din Tokyo aici, unde e mai la locul ei.)",
-  dece:"E cea mai liniștită oră a vacanței și singura care chiar explică ceva despre cultura de aici. Șase e numărul ideal pentru o sesiune privată; se stă pe pernă și se vorbește puțin."},
- {id:"k_katsura",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Vila Imperială Katsura / Shugakuin",emoji:"🏯",img:"",tag:"Tur ghidat",timp:"1–1,5 ore",
-  desc:"Vârful arhitecturii japoneze de grădină: reședințe imperiale cu pavilioane de ceai și grădini gândite ca o plimbare, vizitabile doar cu tur ghidat și în grupuri mici.",
+ {id:"k_kaiseki",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Cină kaiseki — masa de sărbătoare",emoji:"🍽️",img:"kaiseki_kyoto.jpeg",tag:"Masă-eveniment",timp:"2–3 ore",
+  desc:"Vârful bucătăriei japoneze, născut cu secole în urmă din mesele sobre ale ceremoniei ceaiului: un meniu lung de sezon, servit farfurie cu farfurie, gândit pentru echilibru de gust, culoare și textură. La case celebre precum Kikunoi sau Hyotei (care servește oaspeți de peste patru sute de ani, de pe vremea pelerinilor spre sanctuare), într-un salon privat numai bun pentru șase.",
+  dece:"E masa-eveniment perfectă pentru aniversare — vârful întregii călătorii la capitolul mâncare. Cere rezervare cu două-trei luni înainte și un buget pe măsură."},
+ {id:"k_geiko",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Ozashiki asobi — seară cu geiko și maiko",emoji:"🎎",img:"ozashiki.jpg",tag:"Experiență rară",timp:"o seară",
+  desc:"O cină privată în compania unei geiko (gheișă deplină) și a unei maiko (ucenică), cu dans, muzică la shamisen, conversație și jocuri tradiționale de băut, spumoase și amuzante. E o lume în care, prin tradiție, nu intri de pe stradă: ceainăriile funcționează pe regula „fără necunoscuți la prima vizită”, deci totul se aranjează doar cu o introducere.",
+  dece:"E genul de seară pe care n-o poți cumpăra pur și simplu și care rămâne amintirea de neuitat a Kyoto-ului. Cere rezervare cu 3–6 luni înainte și e scumpă — dar tocmai raritatea o face specială."},
+ {id:"k_ceai",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Ceremonia ceaiului (chanoyu)",emoji:"🍵",img:"tea_ceremony.jpg",tag:"Experiență",timp:"1–1,5 ore",
+  desc:"O oră într-o casă tradițională sau într-un sub-templu, cu o gazdă care explică pas cu pas gesturile ritualului, iar la final îți bați singur matcha, cu un mic dulce alături. „Calea ceaiului” a fost șlefuită în secolul al XVI-lea de maestrul Sen no Rikyu și e străbătută de o idee frumoasă — ichigo ichie, „o singură dată, o singură întâlnire”: fiecare adunare e unică și nu se mai repetă niciodată la fel.",
+  dece:"E cea mai liniștită oră a vacanței și singura care chiar îți explică ceva despre spiritul locului. Șase e numărul ideal pentru o sesiune privată; se stă pe pernă și se vorbește puțin."},
+ {id:"k_sutre",oras:"Kyoto",cat:"activitate",alegere:"poate",titlu:"Caligrafie de sutre (shakyo) la un templu budist",emoji:"✍️",img:"sutra_copy.jpg",tag:"Experiență",timp:"1–2 ore",
+  desc:"Shakyo e practica meditativă, veche de secole printre călugări, de a copia cu pensula și tușul un text budist, în tăcere — o formă de meditație prin scris, în care mâna urmează încet caracterele deja trasate. La Templul de Mușchi (Saiho-ji) e chiar ritualul prin care „îți meriți” intrarea în grădină; dar și alte temple îl oferă separat, ca experiență de sine stătătoare.",
+  dece:"E una dintre cele mai neobișnuite și mai tihnite ore din Kyoto, potrivită pentru toți șase — nu cere să știi japoneză, doar urmărești conturul. Unele temple cer programare din timp."},
+ {id:"k_katsura",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Vila Imperială Katsura",emoji:"🏯",img:"katsura.jpg",tag:"Tur ghidat",timp:"1–1,5 ore",
+  desc:"Considerată vârful arhitecturii japoneze de grădină: o reședință imperială din secolul al XVII-lea, cu pavilioane de ceai și o grădină gândită ca o plimbare cu surprize la fiecare cotitură. E atât de rafinată încât arhitecții moderni ai secolului XX au declarat-o o capodoperă de design cu sute de ani înaintea vremii ei. Se vizitează doar cu tur ghidat, în grupuri mici.",
   dece:"E o lecție rară de eleganță și proporție, departe de aglomerația obișnuită. Se rezervă din timp la Agenția Casei Imperiale — de organizat înainte de plecare."},
- {id:"k_kimono",oras:"Kyoto",cat:"activitate",alegere:"poate",titlu:"Kimono & plimbare prin Higashiyama",emoji:"👘",img:"",tag:"Experiență",timp:"jumătate de zi",
-  desc:"Închiriezi un kimono complet, cu tot ce ține de el, și te plimbi îmbrăcat tradițional prin cartierul vechi, printre case de lemn și temple.",
-  dece:"E memorabil și dă cele mai frumoase fotografii ale călătoriei. Kimonoul e incomod la mers îndelungat — de ținut cont pentru o zi cu multă plimbare."},
- {id:"k_hozugawa",oras:"Kyoto",cat:"activitate",alegere:"poate",titlu:"Barcă pe râul Hozugawa",emoji:"🛶",img:"",tag:"Natură",timp:"2 ore",
-  desc:"O coborâre de vreo două ore pe râu, cu barcagii care mânuiesc prăjina și vâsla, printr-o vale care toamna se colorează în roșu și auriu, până în Arashiyama.",
-  dece:"E o cale relaxantă și spectaculoasă de a ajunge în Arashiyama, cu peisaj de toamnă. E sezonieră și cere rezervare."},
- {id:"k_sake",oras:"Kyoto",cat:"activitate",alegere:"poate",titlu:"Degustare de sake în Fushimi",emoji:"🍶",img:"",tag:"Experiență",timp:"1–1,5 ore",
-  desc:"Fushimi e cel mai vechi cartier de crame de sake din Japonia, cu apă de izvor renumită. Se poate aranja o degustare privată, cu explicații despre cum se face.",
+ {id:"k_kimono",oras:"Kyoto",cat:"activitate",alegere:"poate",titlu:"Kimono & plimbare prin Higashiyama",emoji:"👘",img:"kimono.jpg",tag:"Experiență",timp:"jumătate de zi",
+  desc:"Închiriezi un kimono complet, cu tot ce ține de el — brâu, sandale, coafură — și te plimbi îmbrăcat tradițional prin cartierul vechi Higashiyama, printre case de lemn, ulițe pietruite și temple. E și motivul pentru care vezi atâtea kimonouri pe străzile din Gion.",
+  dece:"E memorabil și dă cele mai frumoase fotografii ale călătoriei. Kimonoul e însă incomod la mers îndelungat și pe trepte — de ținut cont dacă e o zi cu multă plimbare."},
+ {id:"k_hozugawa",oras:"Kyoto",cat:"activitate",alegere:"poate",titlu:"Hozugawa — coborâre cu barca prin defileu",emoji:"🛶",img:"hozugawa.jpg",tag:"Natură",timp:"2 ore",
+  desc:"O coborâre de vreo două ore pe râu, cu barcagii care mânuiesc prăjina și vâsla prin repezișuri și ape line, printr-un defileu care toamna se aprinde în roșu și auriu, până în Arashiyama. Pe același traseu se transporta, cu secole în urmă, lemnul tăiat din munți spre Kyoto.",
+  dece:"E o cale relaxantă și spectaculoasă de a ajunge în Arashiyama, cu peisaj de toamnă tot drumul. E sezonieră și cere rezervare."},
+ {id:"k_sake",oras:"Kyoto",cat:"activitate",alegere:"poate",titlu:"Degustare de sake în Fushimi",emoji:"🍶",img:"sake_tasting.jpg",tag:"Experiență",timp:"1–1,5 ore",
+  desc:"Fushimi e unul dintre cele mai vechi și mai mari cartiere de crame de sake din Japonia, renumit pentru apa lui de izvor moale, numită „apa zeiței”. Aici se face sake de sute de ani (celebra Gekkeikan e din 1637). Se poate aranja o degustare privată, cu explicații despre cum se naște băutura din orez și apă.",
   dece:"E o incursiune plăcută într-o tradiție locală, cu degustare pe îndelete. Presupune alcool și rezervare — de aici semnul de întrebare."},
- {id:"k_sutre",oras:"Kyoto",cat:"activitate",alegere:"poate",titlu:"Copiat sutre la Saiho-ji (Templul de Mușchi)",emoji:"✍️",img:"",tag:"Experiență",timp:"2 ore",
-  desc:"Saiho-ji, cunoscut ca „templul de mușchi”, e o grădină verde de o liniște rară. Înainte de a intra, vizitatorii participă la un scurt ritual: copiază cu pensula un text budist (o sutră), în tăcere — un fel de meditație prin scris.",
-  dece:"E una dintre cele mai liniștite și mai neobișnuite experiențe din Kyoto, tocmai fiindcă intrarea se merită prin acest gest. Se intră doar pe rezervare, cu număr limitat de locuri pe zi — de programat din timp."},
+ {id:"k_gionodori",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Gion Odori — dansul de toamnă al gheișelor",emoji:"💃",img:"gion_odori.jpg",tag:"Dans · 1–10 nov",timp:"1 oră",
+  desc:"Spectacolul anual de dans de toamnă al cartierului de gheișe Gion Higashi, susținut pe scenă de geiko și maiko, cu costume și decoruri splendide. Se ține doar câteva zile pe an, între 1 și 10 noiembrie — chiar la începutul șederii noastre.",
+  dece:"E una dintre puținele ocazii de a vedea această lume ascunsă urcată pe scenă, deschisă publicului, și pică fix în fereastra noastră de date. Biletele se pun în vânzare din septembrie — de rezervat din timp."},
 
  /* -- Experiențe culinare -- */
- {id:"k_nishiki",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Piața Nishiki, de gustat pe drum",emoji:"🥢",img:"",tag:"Mâncare",timp:"1–2 ore",
-  desc:"„Bucătăria orașului Kyoto”: o stradă acoperită, lungă de vreo patru sute de metri, cu peste o sută de tarabe vechi de generații — murături colorate, tofu, gogoși cu lapte de soia, orice pe băț.",
-  dece:"E prânzul care e și plimbare, iar vegetarienii se descurcă aici mai bine decât oriunde în Japonia. E îngustă și se aglomerează la prânz; se mănâncă lângă tarabă, nu din mers."},
- {id:"k_kyowagyu",oras:"Kyoto",cat:"culinar",alegere:"da",titlu:"Kyo-wagyu / teppanyaki",emoji:"🥩",img:"",tag:"Masă-eveniment",timp:"2 ore",
-  desc:"Vită de Kyoto gătită pe plita încinsă chiar în fața ta, de un bucătar care taie și rumenește feliile bucată cu bucată, la tejghea.",
-  dece:""},
- {id:"k_kaiseki_culinar",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Kaiseki de sezon",emoji:"🍱",img:"",tag:"Masă-eveniment",timp:"2–3 ore",
-  desc:"Bucătăria multi-fel care definește Kyoto: mâncare de sezon, gândită vizual, servită într-o succesiune calmă de farfurii mici. (E aceeași categorie ca cina kaiseki de la Activități — aici privită ca experiență gastronomică.)",
-  dece:""},
- {id:"k_yudofu",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Yudofu — tofu fiert",emoji:"🍲",img:"",tag:"Mâncare",timp:"1–1,5 ore",
-  desc:"Specialitate vegetariană a templelor: bucăți de tofu fierte blând într-un bulion ușor, servite lângă Nanzen-ji, într-un cadru tihnit.",
-  dece:""},
- {id:"k_obanzai",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Obanzai — bucătărie casnică",emoji:"🍢",img:"",tag:"Mâncare",timp:"1,5 ore",
-  desc:"Farfurii de sezon în stil de casă, servite într-un izakaya rafinat: multe feluri mici de legume, pește și tofu, de împărțit la masă.",
-  dece:""},
-
- /* -- Spectacole -- */
- {id:"k_minamiza",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Minamiza — teatru kabuki",emoji:"🎭",img:"",tag:"Teatru",timp:"1–4 ore",
-  desc:"Cel mai vechi teatru de kabuki din Japonia, chiar în inima cartierului Gion, cu spectacole de mare fast.",
-  dece:"E kabuki autentic într-un cadru istoric, central și ușor de ajuns. De verificat programul pentru intervalul nostru (marele festival kaomise e de obicei în decembrie)."},
- {id:"k_gionodori",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Gion Odori (1–10 noiembrie)",emoji:"💃",img:"",tag:"Dans · toamna",timp:"1 oră",
-  desc:"Spectacolul de dans de toamnă al cartierului Gion Higashi, susținut de geiko și maiko, care se ține doar câteva zile pe an — chiar la începutul șederii noastre.",
-  dece:"E o ocazie rară de a vedea dansul tradițional pe scenă, exact în fereastra noastră de date. Biletele se pun în vânzare din septembrie — de rezervat din timp."},
- {id:"k_gioncorner",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Gion Corner",emoji:"🎏",img:"",tag:"Spectacol",timp:"1 oră",
-  desc:"Un spectacol scurt care adună într-o singură seară șapte arte tradiționale japoneze — ceai, dans, muzică, teatru de păpuși — ca o introducere accesibilă.",
-  dece:"E cel mai ușor mod de a gusta mai multe arte deodată, într-o oră. E gândit pentru turiști și rămâne la suprafață — bun ca introducere, nu ca aprofundare."},
-
+ {id:"k_kyowagyu",oras:"Kyoto",cat:"culinar",alegere:"da",titlu:"Kyo-wagyu la teppanyaki",emoji:"🥩",img:"teppanyaki.jpg",tag:"Masă-eveniment",timp:"2 ore",
+  desc:"Vită premium de Kyoto, gătită pe plita încinsă (teppan) chiar în fața ta: bucătarul feliază, rumenește și asezonează carnea bucată cu bucată, la tejghea. Stilul teppanyaki s-a născut în Japonia tocmai pentru a pune în valoare, ca un mic spectacol, o astfel de vită.",
+  dece:"E o masă-spectacol și cea mai fragedă carne pe care o vom gusta. De reținut: același gen de experiență (cu wagyu de Kobe) îl putem face la fel de bine la Osaka — deci aici e mai degrabă un „bonus”, nu o obligație."},
+ {id:"k_yudofu",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Yudofu — tofu fiert lângă Nanzen-ji",emoji:"🍲",img:"yudufu.jpg",tag:"Mâncare",timp:"1–1,5 ore",
+  desc:"Specialitatea vegetariană a templelor din Kyoto: bucăți de tofu mătăsos fierte blând într-un bulion ușor de alge kombu, înmuiate apoi în sos de soia și citrice. Se servesc în restaurante tihnite cu grădină din jurul templului Nanzen-ji și vin direct din shojin ryori, bucătăria de post a călugărilor budiști.",
+  dece:"E simplu, cald și profund „de Kyoto” — o masă liniștită, într-un cadru care contează la fel de mult ca farfuria. Vegetarienii se simt aici ca acasă."},
  /* =====================================================================
     OSAKA
     ===================================================================== */
@@ -632,9 +634,6 @@ let CARDURI = [
  {id:"o_kushikatsu",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Kushikatsu",emoji:"🍢",img:"kushikatsu.webp",tag:"Street food",timp:"1,5 ore",
   desc:"Frigărui de carne, legume și de tot felul, trecute prin pesmet și prăjite, specialitatea cartierului Shinsekai.",
   dece:"E mâncarea muncitorească a Osakăi, ieftină și veselă. O singură regulă de fier, scrisă peste tot: sosul comun se atinge o singură dată — nu se înmoaie frigăruia mușcată a doua oară."},
- {id:"o_kobe",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Wagyu de Kobe la teppanyaki",emoji:"🥩",img:"teppanyaki.jpg",tag:"Masă-eveniment",timp:"2 ore",
-  desc:"Vită premium gătită pe plită (teppan) chiar în fața mesei, feliată și rumenită de bucătar bucată cu bucată, în cartierul elegant Kitashinchi.",
-  dece:"E masa-eveniment a escalei la Osaka, cu Kobe la un pas. Stilul teppanyaki s-a născut în Japonia tocmai pentru astfel de carne — spectacol la masă și cea mai fragedă vită pe care o vom gusta."},
 
  /* =====================================================================
     NARA
@@ -757,7 +756,7 @@ if("scrollRestoration" in history) history.scrollRestoration="manual";
 const ARTIFACT = typeof window.storage!=="undefined";
 /* note = notă 1–5 pe fiecare card · coment = comentarii per oraș {oras:[{id,text,t}]} */
 const norm=d=>({prefs:(d&&d.prefs)||{}, note:(d&&d.note)||{}, musai:(d&&d.musai)||{}, coment:(d&&d.coment)||{}});
-let S={me:"",oras:"Tokyo",tab:"plan",loading:true,
+let S={me:"",oras:"Tokyo",tab:"exp",loading:true,
        date:{prefs:{},note:{},musai:{},coment:{}},toti:{},organizator:false};
 
 function status(t,ms=2200){const el=$("#status");el.textContent=t;el.classList.add("on");
@@ -889,10 +888,10 @@ function render(){
     </section>
 
     <div class="panel">
-      <p class="note" style="margin:0 0 12px">Acest jurnal are două roluri: îți arată opțiunile pe care ți le propunem — locuri și experiențe alese de noi — și adună preferințele grupului, ca să hotărâm împreună.</p>
+      <p class="note" style="margin:0 0 12px">Inima acestui jurnal e o listă de experiențe alese de noi — temple, mese, plimbări, seri. Ție îți revine partea cea mai importantă: <b style="color:var(--tus)">notează-le pe toate</b>, de la 1 la 5 stele, ca să vedem ce ne dorim cel mai mult și să construim împreună călătoria. Restul filelor sunt doar context.</p>
       <div class="pasi">
+        <div class="pas" style="border-color:var(--artar);background:rgba(196,69,45,.05)"><span class="p-jp" style="color:var(--artar)">体験</span><b>Experiențe ★</b><span>Aici e esența: notezi fiecare loc de la 1 la 5 stele și lași un gând.</span></div>
         <div class="pas"><span class="p-jp">計画</span><b>Itinerar</b><span>Traseul, zi cu zi.</span></div>
-        <div class="pas"><span class="p-jp">体験</span><b>Experiențe</b><span>Notezi de la 1 la 5 stele și lași un gând.</span></div>
         <div class="pas"><span class="p-jp">好み</span><b>Preferințe</b><span>Ce fel de vacanță îți dorești.</span></div>
         <div class="pas"><span class="p-jp">結果</span><b>Rezultate</b><span>Media întregului grup.</span></div>
       </div>
@@ -911,10 +910,10 @@ function render(){
   }
   const totalCarduri=CARDURI.length;
   const notate=CARDURI.filter(c=>S.date.note[c.id]>0).length;
-  const taburi=[["plan","Itinerar"],["exp","Experiențe"],["pref","Preferințe generale"],["rez","Rezultate"],["limba","Japoneza pe scurt"]];
+  const taburi=[["exp","Experiențe","★"],["plan","Itinerar"],["pref","Preferințe"],["rez","Rezultate"],["limba","Japoneza"]];
   root.innerHTML=antet()+
    `<p class="sub">${esc(S.me)} · ${notate}/${totalCarduri} experiențe notate · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} preferințe generale</p>
-   <div class="tabs">${taburi.map(t=>`<button class="tab ${S.tab===t[0]?"active":""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</div>
+   <div class="tabs">${taburi.map(t=>`<button class="tab ${t[0]==="exp"?"star":""} ${S.tab===t[0]?"active":""}" data-t="${t[0]}">${t[2]?`<span class="stea">${t[2]}</span>`:""}${t[1]}</button>`).join("")}</div>
    <div id="view"></div>`;
   root.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;render()});
   ({pref:vPref,plan:vPlan,exp:vExp,rez:vRez,limba:vLimba})[S.tab]();
@@ -965,6 +964,7 @@ function vExp(){
   let html=`<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
     <p class="note">Dă fiecărei experiențe de la 1 la 5 stele. Notează-le pe toate, nu doar preferatele.</p></div>`
     + baraOrase()
+    + (ORAS_BIO[S.oras]?`<p class="orasbio" style="--ac:${stil(S.oras).ac}">${esc(ORAS_BIO[S.oras])}</p>`:"")
     + `<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`;
   categoriiPentru(S.oras).forEach(cat=>{
     const cards=ordoneazaCat(lista.filter(c=>c.cat===cat.id));
@@ -1109,7 +1109,7 @@ function vPlan(){
 function vLimba(){
   const v=$("#view");
   const sectiuni=[
-    {ac:"#C4452D", nume:"Expresii practice", jp:"実用", intro:"De supraviețuire: politețe, comenzi, mulțumiri. Efortul de a le folosi e mereu apreciat.",
+    {ac:"#C4452D", nume:"Expresii practice", jp:"実用", intro:"",
      lista:[
       {jp:"こんにちは", romaji:"Konnichiwa", ro:"Bună ziua"},
       {jp:"ありがとうございます", romaji:"Arigatō gozaimasu", ro:"Mulțumesc (formal)"},
@@ -1123,7 +1123,7 @@ function vLimba(){
       {jp:"いただきます", romaji:"Itadakimasu", ro:"„Primesc cu recunoștință” — se spune înainte de masă"},
       {jp:"ごちそうさまでした", romaji:"Gochisōsama deshita", ro:"„A fost un ospăț” — se spune după masă"}
      ]},
-    {ac:"#B07C2A", nume:"Cuvintele toamnei", jp:"秋", intro:"Cuvinte pentru culorile toamnei japoneze — de la kōyō la ginkgo.",
+    {ac:"#B07C2A", nume:"Cuvintele toamnei", jp:"秋", intro:"",
      lista:[
       {jp:"秋", romaji:"Aki", ro:"Toamnă"},
       {jp:"紅葉", romaji:"Kōyō", ro:"Colorarea frunzelor de toamnă"},
@@ -1131,7 +1131,7 @@ function vLimba(){
       {jp:"銀杏", romaji:"Ichō", ro:"Ginkgo — arborele cu frunze galben-auriu"},
       {jp:"紅葉狩り", romaji:"Momijigari", ro:"„Vânătoarea de frunze roșii” — a călători ca să le admiri"}
      ]},
-    {ac:"#6E7A52", nume:"Cuvinte care topesc inima", jp:"心", intro:"Concepte japoneze aproape intraductibile — un cuvânt întreg pentru un sentiment.",
+    {ac:"#6E7A52", nume:"Concepte japoneze intraductibile", jp:"心", intro:"",
      lista:[
       {jp:"木漏れ日", romaji:"Komorebi", ro:"Lumina soarelui filtrată printre frunze"},
       {jp:"侘寂", romaji:"Wabi-sabi", ro:"Frumusețea imperfectului și a trecătorului"},
@@ -1144,12 +1144,11 @@ function vLimba(){
       {jp:"お疲れ様", romaji:"Otsukaresama", ro:"„Ești obosit — și îți mulțumesc pentru efort”"}
      ]}
   ];
-  v.innerHTML=`<div class="panel"><h2>Japoneza pe scurt 🍁</h2>
-    <p class="note">Câteva cuvinte și expresii pentru drum — unele practice, altele doar frumoase. Nu trebuie învățate; sunt aici de plăcere (și pentru un zâmbet când le folosești acolo).</p></div>
+  v.innerHTML=`<div class="panel"><h2>Japoneza pe scurt 🍁</h2></div>
     <div class="panel">
     ${sectiuni.map(s=>`
       <div class="frazcat"><h3>${esc(s.nume)}<span class="jpsmall">${s.jp}</span></h3>
-        <p class="intro">${esc(s.intro)}</p></div>
+        ${s.intro?`<p class="intro">${esc(s.intro)}</p>`:""}</div>
       <div class="frazgrid">${s.lista.map(f=>`
         <div class="fraz" style="--ac:${s.ac}">
           <div class="jp">${esc(f.jp)}</div>
