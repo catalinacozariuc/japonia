@@ -300,9 +300,10 @@ const CATEGORII_EXCURSII = [
   {id:"x_gustari", nume:"Gustări japoneze, la drum"}
 ];
 
-/* categorie unică, neutră — pentru orașe care nu au nevoie de grupare pe categorii */
+/* categorie unică, neutră — pentru orașe care nu au nevoie de grupare pe categorii
+   (nume gol = nu se afișează niciun titlu de secțiune) */
 const CATEGORII_SIMPLE = [
-  {id:"loc", nume:"De văzut & de făcut"}
+  {id:"loc", nume:""}
 ];
 
 /* ce set de categorii folosim pentru un oraș */
@@ -609,7 +610,7 @@ let CARDURI = [
  {id:"o_umeda",oras:"Osaka",cat:"atractie",alegere:"poate",titlu:"Umeda Sky Building",emoji:"🌉",img:"umeda_sky.jpg",tag:"Panoramă",timp:"1–2 ore",
   desc:"Două turnuri unite la ultimul etaj de o „grădină plutitoare”: o terasă circulară deschisă la 173 de metri, la care se ajunge cu o scară rulantă suspendată în gol între clădiri.",
   dece:"E o panoramă superbă la apus, la jumătate din prețul turnurilor din Tokyo. Scările rulante expuse pot da vertij — cine are rău de înălțime va sări peste ele."},
- {id:"o_kaiyukan",oras:"Osaka",cat:"atractie",alegere:"poate",titlu:"Acvariul Kaiyukan",emoji:"🐋",img:"kaiyukan.webp",tag:"Liniștit",timp:"2 ore",
+ {id:"o_kaiyukan",oras:"Osaka",cat:"atractie",alegere:"poate",titlu:"Acvariul Kaiyukan",emoji:"🐋",img:"kaiyukan.jpg",tag:"Liniștit",timp:"2 ore",
   desc:"Unul dintre cele mai mari acvarii din lume, gândit ca o coborâre în spirală în jurul unui bazin central de nouă metri adâncime, cu un rechin-balenă în mijloc.",
   dece:"E o vizită plăcută și odihnitoare, complet la adăpost — bună pe vreme rea. În weekend se aglomerează serios."},
 
@@ -631,9 +632,6 @@ let CARDURI = [
  {id:"o_kushikatsu",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Kushikatsu",emoji:"🍢",img:"kushikatsu.webp",tag:"Street food",timp:"1,5 ore",
   desc:"Frigărui de carne, legume și de tot felul, trecute prin pesmet și prăjite, specialitatea cartierului Shinsekai.",
   dece:"E mâncarea muncitorească a Osakăi, ieftină și veselă. O singură regulă de fier, scrisă peste tot: sosul comun se atinge o singură dată — nu se înmoaie frigăruia mușcată a doua oară."},
- {id:"o_kuromon",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Piața Kuromon",emoji:"🦀",img:"",tag:"Mâncare",timp:"1–2 ore",
-  desc:"„Bucătăria Osakăi”: o piață acoperită veche de peste un secol, unde se cumpără și se mănâncă pe loc — picioare de crab la grătar, frigărui de wagyu, stridii, fructe perfecte.",
-  dece:"E prânzul în care fiecare comandă altceva și nimeni nu face compromisuri. E vizibil orientată spre turiști, deci mai scumpă — o luăm ca experiență, nu ca chilipir."},
  {id:"o_kobe",oras:"Osaka",cat:"culinar",alegere:"da",titlu:"Wagyu de Kobe la teppanyaki",emoji:"🥩",img:"teppanyaki.jpg",tag:"Masă-eveniment",timp:"2 ore",
   desc:"Vită premium gătită pe plită (teppan) chiar în fața mesei, feliată și rumenită de bucătar bucată cu bucată, în cartierul elegant Kitashinchi.",
   dece:"E masa-eveniment a escalei la Osaka, cu Kobe la un pas. Stilul teppanyaki s-a născut în Japonia tocmai pentru astfel de carne — spectacol la masă și cea mai fragedă vită pe care o vom gusta."},
@@ -642,68 +640,56 @@ let CARDURI = [
     NARA
     ===================================================================== */
  /* -- Zone & plimbări -- */
- {id:"n_narapark",oras:"Nara",cat:"zona",alegere:"poate",titlu:"Parcul Nara",emoji:"🦌",img:"",tag:"Parc",timp:"jumătate de zi",
+ {id:"n_narapark",oras:"Nara",cat:"zona",alegere:"poate",titlu:"Parcul Nara",emoji:"🦌",img:"nara_park.jpg",tag:"Parc",timp:"jumătate de zi",
   desc:"Parcul central al orașului, plat și ondulat, prin care umblă libere peste o mie de căprioare și în care se înșiră, la pas, cele mai importante temple.",
   dece:"E inima vizitei la Nara, cu totul de făcut pe jos, într-un ritm lejer. Spre Todai-ji se aglomerează — restul parcului rămâne liniștit."},
- {id:"n_naramachi",oras:"Nara",cat:"zona",alegere:"poate",titlu:"Naramachi",emoji:"🏘️",img:"",tag:"Cartier vechi",timp:"1–2 ore",
+ {id:"n_naramachi",oras:"Nara",cat:"zona",alegere:"poate",titlu:"Naramachi",emoji:"🏘️",img:"Naramachi.jpg",tag:"Cartier vechi",timp:"1–2 ore",
   desc:"Fostul cartier negustoresc, la sud de parc: case de lemn (machiya) transformate în cafenele, ateliere și mici muzee, pe străduțe tăcute.",
   dece:"E colțul autentic și liniștit al orașului, departe de căprioare și autocare. Are puține „atracții” mari — e mai mult atmosferă și plimbare."},
- {id:"n_ukimido",oras:"Nara",cat:"zona",alegere:"poate",titlu:"Ukimido — pavilionul de pe iaz",emoji:"⛩️",img:"",tag:"Foișor pe apă",timp:"30 min",
+ {id:"n_ukimido",oras:"Nara",cat:"zona",alegere:"poate",titlu:"Ukimido — pavilionul de pe iaz",emoji:"⛩️",img:"ukimido.jpg",tag:"Foișor pe apă",timp:"30 min",
   desc:"Un foișor de lemn cu șase laturi, ridicat chiar pe apa iazului Sarusawa, care pare că plutește și se oglindește perfect la răsărit și la apus. E una dintre cele mai liniștite și fotogenice opriri din Nara.",
   dece:"E un loc de câteva minute de tihnă și o fotografie frumoasă, mai ales pe lumină blândă. E doar o scurtă oprire, ușor de prins în drumul prin parc."},
 
  /* -- Atracții principale -- */
- {id:"n_todaiji",oras:"Nara",cat:"atractie",alegere:"da",titlu:"Todai-ji & Marele Buddha",emoji:"🙏",img:"",tag:"Templu",timp:"1–2 ore",
+ {id:"n_todaiji",oras:"Nara",cat:"atractie",alegere:"da",titlu:"Todai-ji & Marele Buddha",emoji:"🙏",img:"todaiji.jpg",tag:"Templu",timp:"1–2 ore",
   desc:"Una dintre cele mai mari construcții de lemn din lume, adăpostind un Buddha de bronz înalt de cincisprezece metri, turnat în anul 752.",
   dece:"E monumental și te lasă fără cuvinte — obiectivul-simbol al orașului. E aglomerat; celebrul „stâlp cu gaură” prin care se trece are mereu coadă."},
- {id:"n_kofukuji",oras:"Nara",cat:"atractie",alegere:"da",titlu:"Kofuku-ji & pagoda cu cinci niveluri",emoji:"🏯",img:"",tag:"Templu",timp:"1 oră",
+ {id:"n_kofukuji",oras:"Nara",cat:"atractie",alegere:"da",titlu:"Kofuku-ji & pagoda cu cinci niveluri",emoji:"🏯",img:"kofuku-ji.jpg",tag:"Templu",timp:"1 oră",
   desc:"Ansamblu de temple vechi chiar lângă gară, dominat de o pagodă cu cinci niveluri, printre cele mai înalte din Japonia.",
   dece:"E primul obiectiv când intri în parc, plat și ușor de vizitat. Se leagă firesc de restul plimbării prin Nara."},
- {id:"n_nigatsudo",oras:"Nara",cat:"atractie",alegere:"da",titlu:"Nigatsu-do",emoji:"🌇",img:"",tag:"Panoramă",timp:"1 oră",
-  desc:"O terasă de lemn suspendată pe deal, în spatele lui Todai-ji, de unde se deschide o priveliște gratuită peste tot orașul, superbă la apus.",
-  dece:"E cea mai frumoasă panoramă din Nara și, spre deosebire de multe, e gratis. Are trepte până sus — un urcuș scurt, dar real."},
- {id:"n_nandaimon",oras:"Nara",cat:"atractie",alegere:"poate",titlu:"Poarta Nandaimon & gardienii Nio",emoji:"🗿",img:"",tag:"În drum",timp:"20 min",
+ {id:"n_nandaimon",oras:"Nara",cat:"atractie",alegere:"poate",titlu:"Poarta Nandaimon & gardienii Nio",emoji:"🗿",img:"nandaimon.jpg",tag:"În drum",timp:"20 min",
   desc:"Cea mai mare poartă de templu din Japonia, chiar pe drumul spre Todai-ji, străjuită de doi gardieni Nio sculptați în lemn, uriași și feroce.",
   dece:"E impresionantă și e oricum în drum spre Marele Buddha — o vezi fără efort. E o oprire scurtă, nu o destinație separată."},
- {id:"n_kasuga",oras:"Nara",cat:"atractie",alegere:"poate",titlu:"Kasuga Taisha",emoji:"🏮",img:"",tag:"Sanctuar",timp:"1 oră",
+ {id:"n_kasuga",oras:"Nara",cat:"atractie",alegere:"poate",titlu:"Kasuga Taisha",emoji:"🏮",img:"kasuga_taisha.jpg",tag:"Sanctuar",timp:"1 oră",
   desc:"Sanctuar ascuns într-o pădure de cedri, la capătul unei alei mărginite de mii de felinare — de piatră pe alee, de bronz sub streșinile clădirilor vermilion.",
   dece:"E mistic și scapă de aglomerație, cu lumina de după-amiază printre cedri. Felinarele se aprind doar de câteva ori pe an, la festival — în rest, se privesc stinse."},
- {id:"n_naramuseum",oras:"Nara",cat:"atractie",alegere:"poate",titlu:"Muzeul Național Nara",emoji:"🖼️",img:"",tag:"Muzeu",timp:"1–1,5 ore",
-  desc:"Un muzeu mic și bine ținut, dedicat sculpturii și artei budiste, chiar în parc.",
-  dece:"E o oprire la adăpost, bună pe vreme rea sau pentru o pauză de la mers. Biletele se opresc devreme, pe la 16:30 — de prins din timp."},
 
  /* -- Activități -- */
- {id:"n_deer",oras:"Nara",cat:"activitate",alegere:"da",titlu:"Hrănitul căprioarelor",emoji:"🦌",img:"",tag:"Experiență",timp:"1 oră",
+ {id:"n_deer",oras:"Nara",cat:"activitate",alegere:"da",titlu:"Hrănitul căprioarelor",emoji:"🦌",img:"nara_deer.jpg",tag:"Experiență",timp:"1 oră",
   desc:"Căprioarele din Nara umblă libere prin parc și au învățat să se încline pentru un biscuit special (shika senbei), vândut la tarabe peste tot.",
   dece:"E cea mai multă bucurie pe minut din toată Japonia și place absolut tuturor. Sunt animale sălbatice, nu de grădină zoologică: împing și trag de haine când văd biscuiți."},
- {id:"n_ghid",oras:"Nara",cat:"activitate",alegere:"da",titlu:"Nara cu ghid privat de la 07:30",emoji:"🧭",img:"",tag:"Cu ghid",timp:"jumătate de zi",
-  desc:"Un tur ghidat care începe pe la 7:30, ca să ajungem la Todai-ji înainte de autocare, cât parcul e încă gol.",
-  dece:"E cu totul altă experiență să vezi Marele Buddha în liniște, aproape singuri. Cere ghid rezervat cu 1–2 luni înainte și o trezire foarte matinală."},
- {id:"n_narahotel",oras:"Nara",cat:"activitate",alegere:"da",titlu:"Prânz la Nara Hotel",emoji:"🍽️",img:"",tag:"Masă",timp:"1,5 ore",
-  desc:"Un prânz elegant în salonul unui hotel istoric de lângă parc, cu atmosferă de epocă și confort.",
-  dece:"E o pauză rafinată și odihnitoare în mijlocul unei zile pe picioare. Cere rezervare și are un preț pe măsura cadrului."},
 
  /* -- Experiențe culinare -- */
- {id:"n_mochi",oras:"Nara",cat:"culinar",alegere:"da",titlu:"Mochi pisat la Nakatanidou",emoji:"🍡",img:"",tag:"Show & gustare",timp:"20 min",
+ {id:"n_mochi",oras:"Nara",cat:"culinar",alegere:"da",titlu:"Mochi pisat la Nakatanidou",emoji:"🍡",img:"nakatanidou.jpg",tag:"Show & gustare",timp:"20 min",
   desc:"La Nakatanidou, pe strada Sanjo, doi bărbați pisează mochi-ul cu ciocane de lemn la o viteză amețitoare, într-un mic spectacol de stradă, iar la final îl vinzi cald, cu pastă de fasole dulce.",
   dece:"E și show, și gustare caldă delicioasă — două lucruri deodată, ieftin. E foarte scurt și adesea cu coadă, dar merită oprirea."},
- {id:"n_kakinoha",oras:"Nara",cat:"culinar",alegere:"poate",titlu:"Kakinoha-zushi",emoji:"🍣",img:"",tag:"Mâncare",timp:"30 min",
+ {id:"n_kakinoha",oras:"Nara",cat:"culinar",alegere:"poate",titlu:"Kakinoha-zushi",emoji:"🍣",img:"kakinoha.avif",tag:"Mâncare",timp:"30 min",
   desc:"Sushi presat, învelit în frunză de curmal japonez, care îl păstrează proaspăt — o specialitate locală de altădată, portabilă.",
   dece:""},
- {id:"n_somen",oras:"Nara",cat:"culinar",alegere:"poate",titlu:"Miwa somen",emoji:"🍜",img:"",tag:"Mâncare",timp:"1 oră",
+ {id:"n_somen",oras:"Nara",cat:"culinar",alegere:"poate",titlu:"Miwa somen",emoji:"🍜",img:"miwa_somen.jpg",tag:"Mâncare",timp:"1 oră",
   desc:"Tăiței foarte subțiri de grâu, cu origini chiar în regiunea Nara, serviți simplu, calzi sau reci.",
   dece:""},
- {id:"n_narazuke",oras:"Nara",cat:"culinar",alegere:"poate",titlu:"Narazuke",emoji:"🥒",img:"",tag:"De degustat",timp:"15 min",
+ {id:"n_narazuke",oras:"Nara",cat:"culinar",alegere:"poate",titlu:"Narazuke",emoji:"🥒",img:"narazuke.jpg",tag:"De degustat",timp:"15 min",
   desc:"Legume conservate îndelung în drojdie de sake, o specialitate veche din Nara, cu gust intens și dulce-alcoolizat.",
   dece:""},
 
  /* =====================================================================
     HIROSHIMA  (2 ore cu shinkansen din Kyoto, cu oprire la Himeji în drum)
     ===================================================================== */
- {id:"hi_museum",oras:"Hiroshima",cat:"loc",alegere:"da",titlu:"Muzeul Memorial al Păcii",emoji:"🕊️",img:"",tag:"Memorial",timp:"2–3 ore",
+ {id:"hi_museum",oras:"Hiroshima",cat:"loc",alegere:"da",titlu:"Muzeul Memorial al Păcii",emoji:"🕊️",img:"memorial_peace.jpg",tag:"Memorial",timp:"2–3 ore",
   desc:"Parcul Memorial al Păcii, cu Cupola bombei atomice (singura clădire rămasă în picioare sub epicentru, azi în patrimoniul UNESCO) și muzeul care documentează ziua de 6 august 1945 și urmările ei, prin obiecte, fotografii și mărturii ale supraviețuitorilor.",
   dece:"E una dintre cele mai puternice și emoționante experiențe ale întregii călătorii. E un loc greu, care cere timp și liniște — de vizitat pe îndelete, nu în grabă."},
- {id:"hi_miyajima",oras:"Hiroshima",cat:"loc",alegere:"da",titlu:"Miyajima & poarta torii plutitoare",emoji:"⛩️",img:"",tag:"Insulă",timp:"jumătate de zi",
+ {id:"hi_miyajima",oras:"Hiroshima",cat:"loc",alegere:"da",titlu:"Miyajima & poarta torii plutitoare",emoji:"⛩️",img:"miyajima.jpg",tag:"Insulă",timp:"jumătate de zi",
   desc:"Insula Itsukushima, la un scurt drum cu feribotul din Hiroshima, cu marea poartă torii roșie care la maree înaltă pare că plutește pe apă, un sanctuar construit pe piloni deasupra mării și căprioare libere printre vizitatori.",
   dece:"E una dintre cele mai frumoase imagini din Japonia și un contrast blând după greutatea memorialului. Poarta „plutește” doar la maree înaltă — de verificat orarul mareelor înainte."},
 
@@ -988,8 +974,8 @@ function vExp(){
   categoriiPentru(S.oras).forEach(cat=>{
     const cards=ordoneazaCat(lista.filter(c=>c.cat===cat.id));
     if(!cards.length)return;
-    html+=`<div class="catsec"><h3 class="cathead">${esc(cat.nume)} <span class="n">${cards.length}</span></h3></div>
-      <div class="grila">${cards.map(cardCuNota).join("")}</div>`;
+    html+=(cat.nume?`<div class="catsec"><h3 class="cathead">${esc(cat.nume)} <span class="n">${cards.length}</span></h3></div>`:`<div style="height:14px"></div>`)
+      + `<div class="grila">${cards.map(cardCuNota).join("")}</div>`;
   });
   if(!lista.length)html+=`<div class="panel"><p class="note">Încă n-avem cartonașe pentru ${esc(S.oras)}.</p></div>`;
   html+=boxaComentarii(S.oras);
@@ -1057,7 +1043,7 @@ function boxaComentarii(oras){
   return `<div class="panel comente">
     <div class="meta">Comentarii · ${esc(oras)}</div>
     <p class="note" style="margin-bottom:12px">Spune-le celorlalți ce crezi — care ți-au plăcut cel mai mult, ce ai vrea neapărat, orice idee. Comentariile sunt vizibile pentru tot grupul.</p>
-    <div class="cmt-fir">${fire||`<p class="note" style="opacity:.7">Încă niciun comentariu pentru ${esc(oras)}. Fii primul!</p>`}</div>
+    <div class="cmt-fir">${fire}</div>
     <div class="cmt-nou">
       <textarea id="cmt-in" rows="3" placeholder="Scrie un comentariu despre ${esc(oras)}…"></textarea>
       <div class="row" style="margin-top:8px"><button class="primary" id="cmt-add">Adaugă comentariu</button></div>
