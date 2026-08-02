@@ -34,6 +34,10 @@
   button.primary{background:var(--artar);border-color:var(--artar);color:#fff}
   button.primary:hover{background:#a83722}
   button.on{background:var(--tus);color:var(--hartie);border-color:var(--tus)}
+  /* orașele care se notează (Tokyo, Kyoto) — buton mai închis, ca să se distingă */
+  button.notabil{background:#4A453C;color:var(--hartie);border-color:#4A453C}
+  button.notabil:hover{background:#3A362F;border-color:#3A362F}
+  button.notabil.on{background:var(--tus);border-color:var(--tus)}
   button[disabled]{opacity:.4;cursor:default}
   input,textarea,select{font:inherit;font-size:14px;background:var(--hartie2);color:var(--tus);
     border:1px solid var(--linie);border-radius:2px;padding:9px 11px;width:100%}
@@ -437,12 +441,9 @@ let CARDURI = [
  {id:"t_cotton",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Cotton Club — concert de jazz la masă",emoji:"🎷",img:"cotton_club.jpg",tag:"Jazz · în fiecare seară",timp:"o seară",
   desc:"Club de jazz intim în stil newyorkez, în Marunouchi (lângă Gara Tokyo), unde asculți muzică live stând la masă, cu cină și băuturi. Are program în fiecare seară, cu artiști diferiți — de obicei două reprezentații (în jur de 17:00 și 19:00), iar un artist cântă adesea câteva seri la rând.",
   dece:"E o seară elegantă și relaxată, perfectă pentru un moment special în grup. Programul din noiembrie 2026 se anunță mai aproape de dată — merită verificat cine cântă și rezervată masa din timp, sala fiind mică."},
- {id:"t_teamlab",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"teamLab Planets — muzeu de artă digitală imersivă",emoji:"🌌",img:"",tag:"Tehnologie · imersiv",timp:"1,5–2 ore",
-  desc:"Un muzeu de artă digitală ca nicăieri altundeva, în Toyosu: intri desculț și treci prin sală după sală de proiecții, oglinzi și lumini care reacționează la mișcarea ta — la un moment dat mergi prin apă până la genunchi, printr-un ocean de crini luminoși, apoi te întinzi într-o cameră de sfere uriașe ce își schimbă culoarea. E realizat de colectivul teamLab, care se autointitulează „ultra-tehnologiști”: artiști, programatori și ingineri la un loc. Sălile s-au extins mult în 2025, cu douăzeci de instalații noi.",
-  dece:"E cea mai spectaculoasă întâlnire cu Japonia tehnologică și futuristă — modern, uluitor și complet diferit de orice templu. Biletele au interval orar fix și se epuizează cu săptămâni înainte, mai ales în weekend — de luat din timp. (Muzeul e anunțat să se închidă la finalul lui 2027, deci e chiar momentul.)"},
- {id:"t_miraikan",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"Miraikan — muzeul științei și al viitorului",emoji:"🤖",img:"",tag:"Tehnologie · roboți",timp:"2–3 ore",
-  desc:"Muzeul național al științelor emergente, pe insula artificială Odaiba, unde marile companii japoneze își arată cele mai noi creații: roboți umanoizi și androizi de ultimă generație, un model al Stației Spațiale Internaționale, un dom-cinema 3D și Geo-Cosmos — un glob uriaș din peste zece milioane de pixeli care afișează Pământul viu, din spațiu. În 2025 au deschis expoziții noi despre computere cuantice și univers, iar în 2026 o sală de proiecții imersive.",
-  dece:"E locul unde vezi, pe viu, Japonia care construiește viitorul — roboți, AI și tehnologie de vârf, la câțiva pași de teamLab. Interactiv și potrivit pentru toți; panourile au și engleză. Se ajunge cu trenulețul fără șofer Yurikamome, o mică atracție în sine."},
+ {id:"t_robotcafe",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"DAWN Avatar Robot Cafe",emoji:"🤖",img:"robot_cafe.jpg",tag:"Tehnologie · cafenea",timp:"1–1,5 ore",
+  desc:"O cafenea din Nihonbashi unde ești servit de roboți OriHime — dar cu o răsturnare surprinzătoare: nu sunt AI, ci sunt controlați în timp real, de la distanță, de „piloți” care nu pot ieși din casă (oameni cu ALS, atrofie musculară sau alte afecțiuni). Robotul de 1,2 metri îți aduce băutura pe o linie de pe podea, iar pe un ecran de pe piept vezi chipul și numele persoanei care îl conduce; te salută, îți ia comanda și stă la povești cu tine. Conceptul a câștigat în 2021 Marele Premiu Good Design al Japoniei.",
+  dece:"E cea mai neașteptată față a Japoniei tehnologice — roboți de ultimă generație puși în slujba unei idei calde, care le dă oamenilor imobilizați o muncă și companie. Modern, emoționant și cu totul altfel decât un templu. Pentru masa servită de roboți e nevoie de rezervare din timp (nu se acceptă în aceeași zi); pentru o cafea la bar se poate intra și fără. Închis joia."},
 
  /* -- Experiențe culinare -- */
  {id:"t_tsukiji",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Tsukiji Outer Market — de mâncat printre tarabe",emoji:"🍣",img:"tsukiji.jpg",tag:"Mâncare",timp:"2 ore",
@@ -589,7 +590,7 @@ let CARDURI = [
  {id:"k_gionodori",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Gion Odori — dansul de toamnă al gheișelor",emoji:"💃",img:"gion_odori.jpg",tag:"Dans · 1–10 nov",timp:"1 oră",
   desc:"Spectacolul anual de dans de toamnă al cartierului de gheișe Gion Higashi, susținut pe scenă de geiko și maiko, cu costume și decoruri splendide. Se ține doar câteva zile pe an, între 1 și 10 noiembrie — chiar la începutul șederii noastre.",
   dece:"E una dintre puținele ocazii de a vedea această lume ascunsă urcată pe scenă, deschisă publicului, și pică fix în fereastra noastră de date. Biletele se pun în vânzare din septembrie — de rezervat din timp."},
- {id:"k_teamlab",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"teamLab Biovortex — cel mai mare muzeu digital din Japonia",emoji:"🌌",img:"",tag:"Tehnologie · imersiv",timp:"1,5–2 ore",
+ {id:"k_teamlab",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"teamLab Biovortex — cel mai mare muzeu digital din Japonia",emoji:"🌌",img:"kyoto_teamlab.jpg",tag:"Tehnologie · imersiv",timp:"1,5–2 ore",
   desc:"Cel mai nou și cel mai mare muzeu de artă digitală al colectivului teamLab, deschis în octombrie 2025 chiar lângă Gara Kyoto (la 7 minute pe jos de ieșirea Hachijo): peste 10.000 m² și cincizeci de instalații imersive de lumină, culoare și mișcare, unele niciodată expuse până acum în Japonia — printre care o sculptură uriașă care plutește în aer. Tema lui, „Biovortex”, e gândită să dizolve granița dintre privitor și operă.",
   dece:"E fața tehnologică și futuristă a Kyoto-ului, un contrast uluitor cu templele și grădinile — modern și cu adevărat impresionant, exact lângă gară, ușor de prins înainte sau după un shinkansen. Biletele se epuizează des cu săptămâni înainte — de luat din timp."},
 
@@ -919,7 +920,7 @@ function render(){
   root.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;render()});
   ({pref:vPref,plan:vPlan,exp:vExp,rez:vRez,limba:vLimba})[S.tab]();
 }
-const baraOrase=()=>`<div class="row" style="margin-bottom:14px">${ORASE.map(o=>`<button class="${S.oras===o?"on":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
+const baraOrase=()=>`<div class="row" style="margin-bottom:14px">${ORASE.map(o=>`<button class="${S.oras===o?"on":""} ${areNotare(o)?"notabil":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
 const legOrase=()=>document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.oras=b.dataset.o;render()});
 
 /* rând de stele, reutilizabil — max implicit 5 (carduri), 10 la preferințe */
@@ -974,7 +975,7 @@ function vExp(){
       ? `<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
     <p class="note">Dă fiecărei experiențe de la 1 la 5 stele. Notează-le pe toate, nu doar preferatele.</p></div>`
       : `<div class="panel"><h2>Experiențele din ${esc(S.oras)} 🍁</h2>
-    <p class="note">Aruncă un ochi peste ce am ales aici și lasă-ne un comentariu mai jos cu ce ți-ar plăcea. (Notarea cu stele o folosim doar la Tokyo și Kyoto.)</p></div>`)
+    <p class="note">Aici poți vedea cum ne-am gândit să ne petrecem timpul în aceste orașe. Lasă-ne un comentariu mai jos dacă ai sugestii sau ceva ce ți-ai dori neapărat.</p></div>`)
     + baraOrase()
     + (ORAS_BIO[S.oras]?`<p class="orasbio" style="--ac:${stil(S.oras).ac}">${esc(ORAS_BIO[S.oras])}</p>`:"")
     + (notare?`<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`:`<p class="meta">${esc(S.oras)} · ${lista.length} experiențe</p>`);
@@ -1094,7 +1095,7 @@ function vPlan(){
     {ac:"#C4452D",jp:"東京",nights:"3 nopți",titlu:"Tokyo",dates:"31 oct → 3 nov"},
     {ac:"#4A6274",jp:"箱根",nights:"2 nopți",titlu:"Hakone",dates:"3 nov → 5 nov"},
     {ac:"#6E7A52",jp:"京都",nights:"7 nopți",titlu:"Kyoto (bază pentru regiunea Kansai)",dates:"5 nov → 12 nov"},
-    {ac:"#C4452D",jp:"東京",nights:"2 nopți",titlu:"Tokyo (final)",dates:"12 nov → 14 nov",nota:"Ultimele două zile ne conducem după o singură busolă: SHOPPING 🛍️ · SUSHI 🍣 · SAKE 🍶"}
+    {ac:"#C4452D",jp:"東京",nights:"2 nopți",titlu:"Tokyo (final)",dates:"12 nov → 14 nov",nota:"Pentru ultimele două zile nu ne facem program fix — le păstrăm libere, ca să avem timp de shopping 🛍️ și de savurat orașul în ritmul nostru."}
   ];
   v.innerHTML=`<div class="panel"><h2>Cum ne-am gândit să împărțim zilele 🍁</h2>
       <p class="note" style="margin:0 0 8px">Ideea de bază: cât mai puține mutări de bagaje — <b>doar 3 hoteluri</b> (Tokyo, Hakone, Kyoto).</p>
