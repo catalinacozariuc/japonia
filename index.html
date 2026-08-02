@@ -35,9 +35,9 @@
   button.primary:hover{background:#a83722}
   button.on{background:var(--tus);color:var(--hartie);border-color:var(--tus)}
   /* orașele care se notează (Tokyo, Kyoto) — buton mai închis, ca să se distingă */
-  button.notabil{background:#4A453C;color:var(--hartie);border-color:#4A453C}
-  button.notabil:hover{background:#3A362F;border-color:#3A362F}
-  button.notabil.on{background:var(--tus);border-color:var(--tus)}
+  button.notabil{background:var(--ceai);color:#fff;border-color:var(--ceai)}
+  button.notabil:hover{background:#565f40;border-color:#565f40}
+  button.notabil.on{background:var(--ceai);border-color:var(--ceai);color:#fff}
   button[disabled]{opacity:.4;cursor:default}
   input,textarea,select{font:inherit;font-size:14px;background:var(--hartie2);color:var(--tus);
     border:1px solid var(--linie);border-radius:2px;padding:9px 11px;width:100%}
@@ -385,7 +385,7 @@ let CARDURI = [
   dece:"De aici pleacă povestea pe care o repeți un an, umăr la umăr cu barmanul. De luat în calcul: multe baruri au o mică taxă de masă, iar un grup de șase nu încape aproape nicăieri deodată — ne împărțim."},
  {id:"t_ginza",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Ginza — bulevardul de argint",emoji:"🛍️",img:"ginza.jpg",tag:"Cartier",timp:"2–3 ore",
   desc:"Cartierul elegant al Tokyo-ului și capitala lui de shopping, ridicat chiar pe locul unei monetării de argint din secolul al XVII-lea — de acolo îi vine și numele, „locul argintului”. Bulevarde largi și plate, arhitectură de firmă, magazine mari și restaurante fine; în weekend, artera principală se închide traficului și devine un „paradis al pietonilor”. Aici sunt marile magazine universale (depachika) — Ginza Mitsukoshi, Matsuya, Wako cu ceasul lui emblematic — și complexul modern Ginza Six, plus flagship-uri de lux (Chanel, Dior, Louis Vuitton, Hermès) și magazinul Uniqlo pe douăsprezece etaje. Pentru cadouri și papetărie, Itoya e o instituție. E printre cele mai scumpe terenuri din lume.",
-  dece:"E locul potrivit pentru shopping serios fără îmbulzeală — de la branduri de lux la magazine universale cu subsoluri pline de mâncare — și pentru o masă rafinată de aniversare, totul pe teren plat. E scump — dar plimbarea și vitrinele sunt gratis."},
+  dece:"E locul potrivit pentru shopping serios fără îmbulzeală — de la branduri de lux la magazine universale cu subsoluri pline de mâncare. E scump — dar plimbarea și vitrinele sunt gratis."},
  {id:"t_gyoen",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Rikugien — grădina poeziei",emoji:"🍁",img:"rikugien.jpg",tag:"Grădină",timp:"1–2 ore",
   desc:"O grădină clasică din 1702, al cărei nume trimite la „cele șase principii ale poeziei”: a fost gândită ca să recreeze, în miniatură, optzeci și opt de scene din poeme celebre japoneze și chinezești, ca o plimbare în jurul unui iaz cu dealuri, poduri și ceainării. Toamna, arțarii se aprind în roșu intens, iar în sezonul de vârf grădina e iluminată și seara.",
   dece:"E una dintre cele mai frumoase grădini de toamnă din Tokyo, cu alei plate și bănci — liniște pură în oraș. Are o taxă mică de intrare; în weekendurile din sezonul frunzelor se aglomerează."},
@@ -433,8 +433,8 @@ let CARDURI = [
   desc:"Teatrul emblematic de kabuki din Ginza, cu costume somptuoase, machiaje dramatice și gesturi stilizate. Are spectacole în fiecare zi, cu un program nou în fiecare lună (de obicei matineu și seara). Pentru turiști există biletul „hitomaku-mi” — un singur act, 500–2.000 ¥, cumpărat doar în ziua respectivă, la fața locului.",
   dece:"E cel mai accesibil mod de a gusta kabuki: fiind zilnic, îl prindem ușor în orice zi, iar biletul de un act nu cere rezervare. Nu are subtitrări (se închiriază căști cu traducere, contra cost); la actele populare, coada la biletul de-o zi se formează devreme."},
  {id:"t_gala",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Suntory Hall — Concertul GALA la 40 de ani",emoji:"🎼",img:"suntory_hall.jpg",tag:"Concert · 31 oct & 1 nov",timp:"o seară (de la 16:00)",
-  desc:"Cea mai prestigioasă sală de concerte clasice din Tokyo, deschisă în 1986 (de aici cei 40 de ani) și lăudată de Karajan, care i-a îndrumat acustica, drept „o cutie de bijuterii a sunetului”. Aniversarea e marcată cu un concert-gală: Riccardo Muti dirijează Filarmonica din Viena, cu Mitsuko Uchida la pian, în doar două seri — 31 octombrie și 1 noiembrie 2026, ambele de la ora 16:00 — exact la începutul șederii noastre.",
-  dece:"E un eveniment irepetabil, într-o acustică legendară — perfect pentru aniversare. Tocmai fiindcă e unic, biletele se epuizează foarte repede: de luat din timp, imediat ce se pun în vânzare."},
+  desc:"Cea mai prestigioasă sală de concerte clasice din Tokyo, deschisă în 1986 (de aici cei 40 de ani) și lăudată de Karajan, care i-a îndrumat acustica, drept „o cutie de bijuterii a sunetului”. Cei 40 de ani se marchează cu un concert-gală: Riccardo Muti dirijează Filarmonica din Viena, cu Mitsuko Uchida la pian, în doar două seri — 31 octombrie și 1 noiembrie 2026, ambele de la ora 16:00 — exact la începutul șederii noastre.",
+  dece:"E un eveniment irepetabil, într-o acustică legendară. Tocmai fiindcă e unic, biletele se epuizează foarte repede: de luat din timp, imediat ce se pun în vânzare."},
  {id:"t_chaplin",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"City Lights — balet după Chaplin",emoji:"🎭",img:"city_lights.jpg",tag:"Balet · 23 oct – 1 nov",timp:"o seară",
   desc:"Premiera mondială a unui balet nou, creat de Baletul Național al Japoniei după filmul „City Lights” („Luminile orașului”) al lui Charlie Chaplin — chiar pe muzica scrisă de Chaplin, adaptată pentru orchestră live. Poveste fără cuvinte, ușor de urmărit indiferent de limbă. Se joacă la New National Theatre, între 23 octombrie și 1 noiembrie 2026 (ultima reprezentație, pe 1 nov, de la 14:00).",
   dece:"E prima oară în lume când se montează acest balet — o premieră absolută, prinsă fix în fereastra noastră de date. Fiind un eveniment special și cu puține reprezentații, biletele se iau din timp."},
@@ -920,7 +920,7 @@ function render(){
   root.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;render()});
   ({pref:vPref,plan:vPlan,exp:vExp,rez:vRez,limba:vLimba})[S.tab]();
 }
-const baraOrase=()=>`<div class="row" style="margin-bottom:14px">${ORASE.map(o=>`<button class="${S.oras===o?"on":""} ${areNotare(o)?"notabil":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
+const baraOrase=(orase=ORASE)=>`<div class="row" style="margin-bottom:14px">${orase.map(o=>`<button class="${S.oras===o?"on":""} ${areNotare(o)?"notabil":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
 const legOrase=()=>document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.oras=b.dataset.o;render()});
 
 /* rând de stele, reutilizabil — max implicit 5 (carduri), 10 la preferințe */
@@ -1185,6 +1185,9 @@ function vRez(){
     const m=medie(note);return{p,m,sd:abatere(note,m)};
   }).sort((a,b)=>b.m-a.m);
 
+  /* pe pagina de Rezultate arătăm doar orașele care se notează (Tokyo, Kyoto) */
+  if(!areNotare(S.oras)) S.oras=ORASE_CU_NOTARE[0];
+
   /* clasament carduri pentru orașul selectat */
   const cards=CARDURI.filter(c=>c.oras===S.oras);
   const rank=cards.map(c=>{
@@ -1193,17 +1196,14 @@ function vRez(){
   }).sort((a,b)=>b.m-a.m);
 
   v.innerHTML=`<div class="row" style="margin-bottom:12px"><button id="reload">🔄 Reîncarcă răspunsurile</button></div>`
-  + baraOrase() +
-  (areNotare(S.oras)
-    ? `<div class="panel"><div class="meta">Clasamentul experiențelor — ${esc(S.oras)} · după nota medie</div>
+  + baraOrase(ORASE_CU_NOTARE) +
+  `<div class="panel"><div class="meta">Clasamentul experiențelor — ${esc(S.oras)} · după nota medie</div>
     ${rank.length?rank.map((x,i)=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div>${String(i+1).padStart(2,"0")} · ${esc(x.c.titlu)}
         <span class="small">· ${esc((TOATE_CATEGORIILE.find(k=>k.id===x.c.cat)||{}).nume||"")}</span></div>
       <div class="bar"><i style="width:${x.m*20}%"></i></div>
       <div class="small">${x.cnt?x.cnt+" note":"nenotat încă"}${x.sd>1.25?" · ⚡ păreri împărțite":x.sd<0.6&&x.m?" · ✓ consens":""}</div></div></div>`).join("")
       :`<p class="note">Nicio notă încă pentru ${esc(S.oras)}.</p>`}</div>`
-    : `<div class="panel"><div class="meta">${esc(S.oras)}</div>
-    <p class="note">La ${esc(S.oras)} nu folosim notarea cu stele — părerile le strângem din comentarii, pe pagina Experiențe. Clasamentul pe stele rămâne doar pentru Tokyo și Kyoto.</p></div>`)
   + `<div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
     ${medii.map(x=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div style="font-size:14px">${esc(x.p.text)}</div>
