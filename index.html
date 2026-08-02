@@ -279,13 +279,13 @@ const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbza_AKsZh8KuIF5DYiwB
    ========================================================================== */
 
 /* câte un „fișier” per oraș, în ordinea firească a călătoriei */
-const ORASE = ["Tokyo","Hakone","Kyoto","Nara","Osaka","Hiroshima","Uji","Excursii"];
+const ORASE = ["Tokyo","Kyoto","Hakone","Nara","Osaka","Hiroshima","Uji","Excursii"];
 
 /* culoare + kanji decorativ pentru fiecare oraș */
 const ORAS_STIL = {
-  "Tokyo":     {ac:"#C4452D", acs:"rgba(196,69,45,.14)",  jp:"東京"},
+  "Tokyo":     {ac:"#8F2C1A", acs:"rgba(143,44,26,.16)",  jp:"東京"},
   "Hakone":    {ac:"#4A6274", acs:"rgba(74,98,116,.15)",  jp:"箱根"},
-  "Kyoto":     {ac:"#6E7A52", acs:"rgba(110,122,82,.15)", jp:"京都"},
+  "Kyoto":     {ac:"#485236", acs:"rgba(72,82,54,.16)",   jp:"京都"},
   "Nara":      {ac:"#8A6D3B", acs:"rgba(138,109,59,.15)", jp:"奈良"},
   "Osaka":     {ac:"#B07C2A", acs:"rgba(176,124,42,.15)", jp:"大阪"},
   "Hiroshima": {ac:"#5A7A6E", acs:"rgba(90,122,110,.15)", jp:"広島"},
@@ -380,8 +380,8 @@ let CARDURI = [
   desc:"Neonul clasic al Tokyo-ului de noapte: în Kabukicho ecranele luminează cât fațadele, iar alături, în Golden Gai, șase alei înghesuite au scăpat ca prin minune de buldozerele care au ras tot în jur. Aici, peste două sute de baruri minuscule — fostă zonă de piață neagră postbelică, azi cartier boem — își păstrează fiecare obsesia: jazz, punk, filme vechi, și cam șase locuri la tejghea.",
   dece:"De aici pleacă povestea pe care o repeți un an, umăr la umăr cu barmanul. De luat în calcul: multe baruri au o mică taxă de masă, iar un grup de șase nu încape aproape nicăieri deodată — ne împărțim."},
  {id:"t_ginza",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Ginza — bulevardul de argint",emoji:"🛍️",img:"ginza.jpg",tag:"Cartier",timp:"2–3 ore",
-  desc:"Cartierul elegant al Tokyo-ului, ridicat chiar pe locul unei monetării de argint din secolul al XVII-lea — de acolo îi vine și numele, „locul argintului”. Bulevarde largi și plate, arhitectură de firmă, magazine mari și restaurante fine; în weekend, artera principală se închide traficului și devine un „paradis al pietonilor”. E printre cele mai scumpe terenuri din lume.",
-  dece:"E locul potrivit pentru shopping fără îmbulzeală și pentru o masă rafinată de aniversare, totul pe teren plat. E scump — dar plimbarea și vitrinele sunt gratis."},
+  desc:"Cartierul elegant al Tokyo-ului și capitala lui de shopping, ridicat chiar pe locul unei monetării de argint din secolul al XVII-lea — de acolo îi vine și numele, „locul argintului”. Bulevarde largi și plate, arhitectură de firmă, magazine mari și restaurante fine; în weekend, artera principală se închide traficului și devine un „paradis al pietonilor”. Aici sunt marile magazine universale (depachika) — Ginza Mitsukoshi, Matsuya, Wako cu ceasul lui emblematic — și complexul modern Ginza Six, plus flagship-uri de lux (Chanel, Dior, Louis Vuitton, Hermès) și magazinul Uniqlo pe douăsprezece etaje. Pentru cadouri și papetărie, Itoya e o instituție. E printre cele mai scumpe terenuri din lume.",
+  dece:"E locul potrivit pentru shopping serios fără îmbulzeală — de la branduri de lux la magazine universale cu subsoluri pline de mâncare — și pentru o masă rafinată de aniversare, totul pe teren plat. E scump — dar plimbarea și vitrinele sunt gratis."},
  {id:"t_gyoen",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Rikugien — grădina poeziei",emoji:"🍁",img:"rikugien.jpg",tag:"Grădină",timp:"1–2 ore",
   desc:"O grădină clasică din 1702, al cărei nume trimite la „cele șase principii ale poeziei”: a fost gândită ca să recreeze, în miniatură, optzeci și opt de scene din poeme celebre japoneze și chinezești, ca o plimbare în jurul unui iaz cu dealuri, poduri și ceainării. Toamna, arțarii se aprind în roșu intens, iar în sezonul de vârf grădina e iluminată și seara.",
   dece:"E una dintre cele mai frumoase grădini de toamnă din Tokyo, cu alei plate și bănci — liniște pură în oraș. Are o taxă mică de intrare; în weekendurile din sezonul frunzelor se aglomerează."},
@@ -410,7 +410,7 @@ let CARDURI = [
   dece:"E cea mai înaltă priveliște pe care o poți cumpăra în Japonia și singura care merge la fel de bine pe ploaie. Fiind închis cu geamuri, se vede enorm, dar se simte mai puțin viu decât la Shibuya Sky."},
  {id:"t_toyosu",oras:"Tokyo",cat:"atractie",alegere:"da",titlu:"Piața Toyosu & licitația de ton",emoji:"🐟",img:"toyosu.jpg",tag:"Piață",timp:"2 ore, dis-de-dimineață",
   desc:"Piața en-gros de pește a Tokyo-ului, mutată aici în 2018 din vechiul Tsukiji: hale imense unde se cântărește tonul în zori și de unde se poate privi de sus faimoasa licitație, plus restaurante mici cu sushi la micul dejun. Aici pot fi vândute exemplare uriașe de ton, la prețuri record.",
-  dece:"E cea mai autentică față a orașului, unde se lucrează, nu se pozează. De luat în calcul: se merge foarte devreme, iar la licitația propriu-zisă se intră doar cu rezervare sau prin loterie."},
+  dece:"E cea mai autentică față a orașului, unde se lucrează, nu se pozează. De luat în calcul: se merge foarte devreme — trebuie să fim acolo pe la 5 dimineața — iar la licitația propriu-zisă se intră doar cu bilete obținute din timp, în avans (rezervare sau loterie, cu locuri limitate)."},
 
  /* -- Activități -- */
  {id:"t_ghid",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"Tur privat cu ghid pe cartiere",emoji:"🧭",img:"private_tour.jpg",tag:"Cu ghid",timp:"jumătate de zi",
@@ -423,8 +423,8 @@ let CARDURI = [
   desc:"Karaoke japonez adevărat înseamnă o cameră doar a grupului, nu o scenă în fața străinilor: comanzi băuturi la telefon, alegi din zeci de mii de melodii (multe și în engleză) și cânți cât plătești, de obicei la oră. Cuvântul înseamnă chiar „orchestră goală”, iar aparatul a fost inventat în Japonia prin 1971.",
   dece:"E cea mai bună supapă pentru un grup obosit și puțin timid — după prima melodie cade orice reținere. Se plătește pe oră și de persoană; în weekend seara, camerele mari se ocupă repede, deci merită rezervat."},
  {id:"t_sumo",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Antrenament de sumo în zori",emoji:"🤼",img:"sumo2.jpg",tag:"Cultură",timp:"2 ore, foarte devreme",
-  desc:"Luptătorii de sumo trăiesc laolaltă în „grajduri” (heya), sub o ierarhie strictă, iar antrenamentul de dimineață începe în zori. Se intră cu ghid, se stă jos pe podea, în tăcere, la câțiva metri de ring, cât timp ei repetă aceleași ciocniri, ore în șir.",
-  dece:"E sport adevărat, fără ambalaj turistic — sunetul din sală rămâne cu tine. De luat în calcul: e foarte devreme, se stă nemișcat și nu se vorbește, deci nu e pentru toată lumea."},
+  desc:"Luptătorii de sumo trăiesc laolaltă în „grajduri” (heya), sub o ierarhie strictă, iar antrenamentul de dimineață (keiko) începe în zori și ține de obicei între orele 6:00 și 10:00 — se intră cam pe la 7:00–8:00, cu ghid. Se stă jos pe podea, în tăcere, la câțiva metri de ring, cât timp ei repetă aceleași ciocniri, ore în șir.",
+  dece:"E sport adevărat, fără ambalaj turistic — sunetul din sală rămâne cu tine. De luat în calcul: e foarte devreme (antrenamentul e dimineața, în jur de 6–10), se stă nemișcat și nu se vorbește, deci nu e pentru toată lumea."},
  {id:"t_kabukiza",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"Kabukiza — teatru kabuki",emoji:"🎎",img:"kabukiza.webp",tag:"Teatru · zilnic",timp:"1 act (1–2 ore) sau spectacol întreg",
   desc:"Teatrul emblematic de kabuki din Ginza, cu costume somptuoase, machiaje dramatice și gesturi stilizate. Are spectacole în fiecare zi, cu un program nou în fiecare lună (de obicei matineu și seara). Pentru turiști există biletul „hitomaku-mi” — un singur act, 500–2.000 ¥, cumpărat doar în ziua respectivă, la fața locului.",
   dece:"E cel mai accesibil mod de a gusta kabuki: fiind zilnic, îl prindem ușor în orice zi, iar biletul de un act nu cere rezervare. Nu are subtitrări (se închiriază căști cu traducere, contra cost); la actele populare, coada la biletul de-o zi se formează devreme."},
@@ -437,14 +437,20 @@ let CARDURI = [
  {id:"t_cotton",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"Cotton Club — concert de jazz la masă",emoji:"🎷",img:"cotton_club.jpg",tag:"Jazz · în fiecare seară",timp:"o seară",
   desc:"Club de jazz intim în stil newyorkez, în Marunouchi (lângă Gara Tokyo), unde asculți muzică live stând la masă, cu cină și băuturi. Are program în fiecare seară, cu artiști diferiți — de obicei două reprezentații (în jur de 17:00 și 19:00), iar un artist cântă adesea câteva seri la rând.",
   dece:"E o seară elegantă și relaxată, perfectă pentru un moment special în grup. Programul din noiembrie 2026 se anunță mai aproape de dată — merită verificat cine cântă și rezervată masa din timp, sala fiind mică."},
+ {id:"t_teamlab",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"teamLab Planets — muzeu de artă digitală imersivă",emoji:"🌌",img:"",tag:"Tehnologie · imersiv",timp:"1,5–2 ore",
+  desc:"Un muzeu de artă digitală ca nicăieri altundeva, în Toyosu: intri desculț și treci prin sală după sală de proiecții, oglinzi și lumini care reacționează la mișcarea ta — la un moment dat mergi prin apă până la genunchi, printr-un ocean de crini luminoși, apoi te întinzi într-o cameră de sfere uriașe ce își schimbă culoarea. E realizat de colectivul teamLab, care se autointitulează „ultra-tehnologiști”: artiști, programatori și ingineri la un loc. Sălile s-au extins mult în 2025, cu douăzeci de instalații noi.",
+  dece:"E cea mai spectaculoasă întâlnire cu Japonia tehnologică și futuristă — modern, uluitor și complet diferit de orice templu. Biletele au interval orar fix și se epuizează cu săptămâni înainte, mai ales în weekend — de luat din timp. (Muzeul e anunțat să se închidă la finalul lui 2027, deci e chiar momentul.)"},
+ {id:"t_miraikan",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"Miraikan — muzeul științei și al viitorului",emoji:"🤖",img:"",tag:"Tehnologie · roboți",timp:"2–3 ore",
+  desc:"Muzeul național al științelor emergente, pe insula artificială Odaiba, unde marile companii japoneze își arată cele mai noi creații: roboți umanoizi și androizi de ultimă generație, un model al Stației Spațiale Internaționale, un dom-cinema 3D și Geo-Cosmos — un glob uriaș din peste zece milioane de pixeli care afișează Pământul viu, din spațiu. În 2025 au deschis expoziții noi despre computere cuantice și univers, iar în 2026 o sală de proiecții imersive.",
+  dece:"E locul unde vezi, pe viu, Japonia care construiește viitorul — roboți, AI și tehnologie de vârf, la câțiva pași de teamLab. Interactiv și potrivit pentru toți; panourile au și engleză. Se ajunge cu trenulețul fără șofer Yurikamome, o mică atracție în sine."},
 
  /* -- Experiențe culinare -- */
- {id:"t_tsukiji",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Micul dejun la Tsukiji Outer Market",emoji:"🍣",img:"tsukiji.jpg",tag:"Mâncare",timp:"2 ore, dimineața",
-  desc:"Piața interioară s-a mutat la Toyosu, dar străzile exterioare din Tsukiji au rămas ce erau: sute de tarabe și bucătării mici unde se mănâncă în picioare — tamagoyaki cald înfipt în bețișor, scoici pe grătar, uni proaspăt, brochete de wagyu.",
-  dece:"Ieftin, haotic și democratic: fiecare mănâncă exact ce vrea, fără meniu comun. E cel mai bun argument pentru o trezire devreme — dar merge și la amiază, dacă preferăm un start lejer al zilei."},
+ {id:"t_tsukiji",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Tsukiji Outer Market — de mâncat printre tarabe",emoji:"🍣",img:"tsukiji.jpg",tag:"Mâncare",timp:"2 ore",
+  desc:"Piața interioară s-a mutat la Toyosu, dar străzile exterioare din Tsukiji au rămas ce erau: sute de tarabe și bucătării mici unde se mănâncă în picioare. De gustat: tamagoyaki cald (omletă dulce) înfipt în bețișor, scoici și midii uriașe pe grătar, uni (arici de mare) proaspăt, ton gras la sushi și sashimi, brochete de wagyu, tempura de creveți, stridii, chifle cu carne și matcha proaspătă la final.",
+  dece:"Ieftin, haotic și democratic: fiecare mănâncă exact ce vrea, fără meniu comun. Nu trebuie neapărat mic dejun — piața e deschisă și la prânz, așa că putem merge acolo la amiază, dacă preferăm un start lejer al zilei."},
  {id:"t_omakase",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Sushi omakase la tejghea",emoji:"🍣",img:"omakase.jpg",tag:"Masă-eveniment",timp:"2 ore",
   desc:"„Omakase” înseamnă „las în seama ta”: nu există meniu, bucătarul decide, iar cele opt-cincisprezece feluri îți sunt puse direct în față, unul câte unul, peste tejgheaua de lemn, în ritmul în care mănânci — o mică reprezentație de precizie, la câțiva centimetri de tine.",
-  dece:"E masa care rămâne masa vacanței și merită o seară dedicată. Cere rezervare din timp, număr fix de persoane și, la localurile bune, un buget serios de persoană."},
+  dece:"E masa care rămâne masa vacanței și merită o seară dedicată. Cere rezervare din timp, număr fix de persoane și, la localurile bune, un buget serios de persoană. De luat în calcul: multe localuri de omakase au doar câteva locuri la tejghea, așa că un grup mai numeros e greu de rezervat deodată — s-ar putea să ne împărțim la două tejghele sau să căutăm din vreme un loc care ne poate primi pe toți."},
  {id:"t_ramen",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Ramen la tejghea",emoji:"🍜",img:"ichiran.jpg",tag:"Mâncare",timp:"1 oră",
   desc:"Un bol de ramen sau tsukemen la tejghea, în locuri legendare precum Ichiran, Fuunji sau Ippudo — supă fiartă ore în șir, tăiței fermi, totul comandat de multe ori pe automat. La Ichiran mănânci chiar în cabine individuale, gândite ca să te concentrezi doar pe gust.",
   dece:"E masa cea mai democratică și rapidă din Tokyo — ieftină, serioasă și deschisă până târziu. La localurile faimoase uneori se stă la coadă, dar merge repede."},
@@ -454,9 +460,6 @@ let CARDURI = [
  {id:"t_unagi",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Unagi — anghilă la grătar",emoji:"🍱",img:"unagi.jpg",tag:"Mâncare",timp:"1–1,5 ore",
   desc:"Anghilă de apă dulce, glazurată și friptă la cărbune până devine crocantă la exterior și untoasă înăuntru, servită pe orez în stil kabayaki, la localuri vechi precum Nodaiwa. În Japonia se mănâncă mai ales vara, în „ziua boului”, ca să prinzi putere pe caniculă.",
   dece:"E o delicatesă aparte, pe care mulți o gustă abia aici. Localurile bune sunt mici și adesea cu rezervare."},
- {id:"t_kissaten",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Kissaten — cafenea retro",emoji:"☕",img:"kissaten.webp",tag:"Pauză",timp:"1 oră",
-  desc:"Cafenea de modă veche, cu lambriuri, muzică discretă și cafea pour-over făcută pe îndelete, alături de clasicul sandviș cu fructe și frișcă. Multe sunt neschimbate din anii '60–'70, un colț de Japonie nostalgică.",
-  dece:"E pauza perfectă între cartiere — o felie de Japonie retro, liniștită, exact opusul cafenelelor la minut."},
  {id:"t_tempura",oras:"Tokyo",cat:"culinar",alegere:"poate",titlu:"Tempura kaiseki",emoji:"🍤",img:"tempura.jpg",tag:"Masă-eveniment",timp:"1,5 ore",
   desc:"Tempura fină, servită bucată cu bucată direct din tigaie peste tejghea, ca parte a unui meniu de sezon — cu totul altceva decât tempura de la stradă. Curios: tehnica a fost adusă de misionarii portughezi în secolul al XVI-lea, iar numele s-ar trage chiar din zilele lor de post, când mâncau pește prăjit.",
   dece:"E o experiență fină, bucată cu bucată la tejghea. Cere rezervare."},
@@ -486,8 +489,8 @@ let CARDURI = [
 
  /* -- Activități -- */
  {id:"h_onsen",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Onsen la ryokan",emoji:"♨️",img:"onsen.jpg",tag:"Relaxare",timp:"1 oră",
-  desc:"Onsen-ul — baie termală geotermală, bogată în minerale — e inima oricărei șederi în Hakone, unul dintre cele mai vechi ținuturi de izvoare fierbinți din Japonia. În funcție de ryokan, putem avea băi comune împărțite pe gen, o baie privată de rezervat pe ore (kashikiri) sau chiar camere cu onsen propriu. Încă nu am ales ryokan-ul: trebuie să ne hotărâm din timp asupra unuia pentru cele 2 nopți, care să acopere ce ne dorim.",
-  dece:"E relaxarea pură pe care a cerut-o grupul și punctul forte al escalei. De știut: multe onsen interzic tatuajele, iar la băile comune se intră fără costum, spălat înainte."},
+  desc:"Onsen-ul — baie termală geotermală, bogată în minerale — e inima oricărei șederi în Hakone, unul dintre cele mai vechi ținuturi de izvoare fierbinți din Japonia. În funcție de ryokan, putem avea băi comune împărțite pe gen, o baie privată de rezervat pe ore (kashikiri) sau chiar camere cu onsen propriu. Multe ryokan-uri bune au și spa cu masaj japonez specific — shiatsu (masaj prin presiune pe puncte) adus adesea chiar în cameră, și terapie meridiană (keiraku) cu moxibustie, care se combină perfect cu baia termală. Încă nu am ales ryokan-ul: trebuie să ne hotărâm din timp asupra unuia pentru cele 2 nopți, care să acopere ce ne dorim — inclusiv, dacă vrem, masajul.",
+  dece:"E relaxarea pură pe care a cerut-o grupul și punctul forte al escalei. De verificat la alegerea ryokan-ului dacă are spa cu masaj (shiatsu / terapie meridiană), de rezervat din timp. De știut: multe onsen interzic tatuajele, iar la băile comune se intră fără costum, spălat înainte."},
  {id:"h_kaiseki_ryokan",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Cină kaiseki la ryokan",emoji:"🍽️",img:"kaiseki.avif",tag:"Masă-eveniment",timp:"o seară",
   desc:"Kaiseki e bucătăria japoneză de fină tradiție, născută cu secole în urmă din mesele sobre ale ceremoniei ceaiului: o succesiune calmă de feluri mici de sezon, gândite pentru echilibru de gust, culoare și textură. La ryokan e cina serii, servită de obicei la oră fixă și inclusă în cazare, adesea chiar în halatul yukata.",
   dece:"E un eveniment în sine, nu doar o cină — punctul culminant al zilei. O alegem odată cu ryokan-ul; se servește devreme și la oră fixă, deci ne organizăm ziua în jurul ei."},
@@ -586,6 +589,9 @@ let CARDURI = [
  {id:"k_gionodori",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"Gion Odori — dansul de toamnă al gheișelor",emoji:"💃",img:"gion_odori.jpg",tag:"Dans · 1–10 nov",timp:"1 oră",
   desc:"Spectacolul anual de dans de toamnă al cartierului de gheișe Gion Higashi, susținut pe scenă de geiko și maiko, cu costume și decoruri splendide. Se ține doar câteva zile pe an, între 1 și 10 noiembrie — chiar la începutul șederii noastre.",
   dece:"E una dintre puținele ocazii de a vedea această lume ascunsă urcată pe scenă, deschisă publicului, și pică fix în fereastra noastră de date. Biletele se pun în vânzare din septembrie — de rezervat din timp."},
+ {id:"k_teamlab",oras:"Kyoto",cat:"activitate",alegere:"da",titlu:"teamLab Biovortex — cel mai mare muzeu digital din Japonia",emoji:"🌌",img:"",tag:"Tehnologie · imersiv",timp:"1,5–2 ore",
+  desc:"Cel mai nou și cel mai mare muzeu de artă digitală al colectivului teamLab, deschis în octombrie 2025 chiar lângă Gara Kyoto (la 7 minute pe jos de ieșirea Hachijo): peste 10.000 m² și cincizeci de instalații imersive de lumină, culoare și mișcare, unele niciodată expuse până acum în Japonia — printre care o sculptură uriașă care plutește în aer. Tema lui, „Biovortex”, e gândită să dizolve granița dintre privitor și operă.",
+  dece:"E fața tehnologică și futuristă a Kyoto-ului, un contrast uluitor cu templele și grădinile — modern și cu adevărat impresionant, exact lângă gară, ușor de prins înainte sau după un shinkansen. Biletele se epuizează des cu săptămâni înainte — de luat din timp."},
 
  /* -- Experiențe culinare -- */
  {id:"k_kyowagyu",oras:"Kyoto",cat:"culinar",alegere:"da",titlu:"Kyo-wagyu la teppanyaki",emoji:"🥩",img:"teppanyaki.jpg",tag:"Masă-eveniment",timp:"2 ore",
@@ -885,21 +891,11 @@ function render(){
     `<section class="hero">
       <div class="leaves">${leafHtml}</div>
       <h2>O toamnă în Japonia, împreună</h2>
-      <p class="lede">Paisprezece zile prin <span class="accent">Tokyo, Hakone și Kyoto</span>, chiar când începe culoarea toamnei — ginkgo auriu și primii arțari ruginii. Temple în zori, onsen la asfințit, piețe de dimineață și seri cu felinare — plus o aniversare de sărbătorit pe drum.</p>
+      <p class="lede">Paisprezece zile prin <span class="accent">Tokyo, Kyoto și Hakone</span>, chiar când începe culoarea toamnei — ginkgo auriu și primii arțari ruginii. Temple în zori, onsen la asfințit, piețe de dimineață și seri cu felinare — plus o aniversare de sărbătorit pe drum.</p>
       <div class="meta-trip">
         <span class="chip">🍁 <b>31 oct – 14 nov 2026</b></span>
       </div>
     </section>
-
-    <div class="panel">
-      <p class="note" style="margin:0 0 12px">Inima acestui jurnal e o listă de experiențe alese de noi — temple, mese, plimbări, seri. Ție îți revine partea cea mai importantă: <b style="color:var(--tus)">notează-le pe toate</b>, de la 1 la 5 stele, ca să vedem ce ne dorim cel mai mult și să construim împreună călătoria. Restul filelor sunt doar context.</p>
-      <div class="pasi">
-        <div class="pas" style="border-color:var(--artar);background:rgba(196,69,45,.05)"><span class="p-jp" style="color:var(--artar)">体験</span><b>Experiențe ★</b><span>Aici e esența: notezi fiecare loc de la 1 la 5 stele și lași un gând.</span></div>
-        <div class="pas"><span class="p-jp">計画</span><b>Itinerar</b><span>Traseul, zi cu zi.</span></div>
-        <div class="pas"><span class="p-jp">好み</span><b>Preferințe</b><span>Ce fel de vacanță îți dorești.</span></div>
-        <div class="pas"><span class="p-jp">結果</span><b>Rezultate</b><span>Media întregului grup.</span></div>
-      </div>
-    </div>
 
     <div class="panel intra">
       <h2 style="margin-bottom:4px">Intră în jurnal</h2>
@@ -912,8 +908,9 @@ function render(){
     $("#nm").onkeydown=e=>{if(e.key==="Enter")$("#go").click()};
     return;
   }
-  const totalCarduri=CARDURI.length;
-  const notate=CARDURI.filter(c=>S.date.note[c.id]>0).length;
+  const cardeNotabile=CARDURI.filter(c=>areNotare(c.oras));
+  const totalCarduri=cardeNotabile.length;
+  const notate=cardeNotabile.filter(c=>S.date.note[c.id]>0).length;
   const taburi=[["exp","Experiențe","★"],["plan","Itinerar"],["pref","Preferințe"],["rez","Rezultate"],["limba","Japoneza"]];
   root.innerHTML=antet()+
    `<p class="sub">${esc(S.me)} · ${notate}/${totalCarduri} experiențe notate · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} preferințe generale</p>
@@ -946,16 +943,23 @@ function vPref(){
 }
 
 /* ---------- EXPERIENȚE (notează fiecare card 1–5; reordonare live după notă) ---------- */
+/* sistemul de notare (stele) rămâne DOAR la aceste orașe (și la pagina Preferințe).
+   La celelalte orașe folosim doar comentariile. */
+const ORASE_CU_NOTARE = ["Tokyo","Kyoto"];
+const areNotare = o => ORASE_CU_NOTARE.includes(o);
+
 function cardCuNota(c){
   const val=S.date.note[c.id]||0;
   return `<article class="card static" data-cid="${c.id}">
     ${thumb(c)}${corpCard(c)}
-    <div class="cardnote"><div class="ql">Cât de mult vrei să facem asta?</div>
+    ${areNotare(c.oras)?`<div class="cardnote"><div class="ql">Cât de mult vrei să facem asta?</div>
       ${steleRand("data-note",c.id,val)}
-    </div></article>`;
+    </div>`:""}</article>`;
 }
-/* ordine în cadrul unei categorii: după nota ta (mare→mic), restul își păstrează ordinea */
+/* ordine în cadrul unei categorii: la orașele cu notare, după nota ta (mare→mic);
+   la restul, ordinea din listă */
 function ordoneazaCat(cards){
+  if(!cards.length || !areNotare(cards[0].oras)) return cards;
   return cards
     .map((c,i)=>({c,i,nota:S.date.note[c.id]||0}))
     .sort((a,b)=> b.nota-a.nota || a.i-b.i)
@@ -964,12 +968,16 @@ function ordoneazaCat(cards){
 function vExp(){
   const v=$("#view");
   const lista=CARDURI.filter(c=>c.oras===S.oras);
+  const notare=areNotare(S.oras);
   const notate=lista.filter(c=>S.date.note[c.id]>0).length;
-  let html=`<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
+  let html=(notare
+      ? `<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
     <p class="note">Dă fiecărei experiențe de la 1 la 5 stele. Notează-le pe toate, nu doar preferatele.</p></div>`
+      : `<div class="panel"><h2>Experiențele din ${esc(S.oras)} 🍁</h2>
+    <p class="note">Aruncă un ochi peste ce am ales aici și lasă-ne un comentariu mai jos cu ce ți-ar plăcea. (Notarea cu stele o folosim doar la Tokyo și Kyoto.)</p></div>`)
     + baraOrase()
     + (ORAS_BIO[S.oras]?`<p class="orasbio" style="--ac:${stil(S.oras).ac}">${esc(ORAS_BIO[S.oras])}</p>`:"")
-    + `<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`;
+    + (notare?`<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`:`<p class="meta">${esc(S.oras)} · ${lista.length} experiențe</p>`);
   categoriiPentru(S.oras).forEach(cat=>{
     const cards=ordoneazaCat(lista.filter(c=>c.cat===cat.id));
     if(!cards.length)return;
@@ -1185,14 +1193,17 @@ function vRez(){
 
   v.innerHTML=`<div class="row" style="margin-bottom:12px"><button id="reload">🔄 Reîncarcă răspunsurile</button></div>`
   + baraOrase() +
-  `<div class="panel"><div class="meta">Clasamentul experiențelor — ${esc(S.oras)} · după nota medie</div>
+  (areNotare(S.oras)
+    ? `<div class="panel"><div class="meta">Clasamentul experiențelor — ${esc(S.oras)} · după nota medie</div>
     ${rank.length?rank.map((x,i)=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div>${String(i+1).padStart(2,"0")} · ${esc(x.c.titlu)}
         <span class="small">· ${esc((TOATE_CATEGORIILE.find(k=>k.id===x.c.cat)||{}).nume||"")}</span></div>
       <div class="bar"><i style="width:${x.m*20}%"></i></div>
       <div class="small">${x.cnt?x.cnt+" note":"nenotat încă"}${x.sd>1.25?" · ⚡ păreri împărțite":x.sd<0.6&&x.m?" · ✓ consens":""}</div></div></div>`).join("")
-      :`<p class="note">Nicio notă încă pentru ${esc(S.oras)}.</p>`}</div>
-    <div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
+      :`<p class="note">Nicio notă încă pentru ${esc(S.oras)}.</p>`}</div>`
+    : `<div class="panel"><div class="meta">${esc(S.oras)}</div>
+    <p class="note">La ${esc(S.oras)} nu folosim notarea cu stele — părerile le strângem din comentarii, pe pagina Experiențe. Clasamentul pe stele rămâne doar pentru Tokyo și Kyoto.</p></div>`)
+  + `<div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
     ${medii.map(x=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div style="font-size:14px">${esc(x.p.text)}</div>
       <div class="bar"><i style="width:${x.m*10}%"></i></div></div>
