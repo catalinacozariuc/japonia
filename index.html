@@ -867,7 +867,7 @@ function thumb(c){
 function corpCard(c){
   const s=stil(c.oras);
   return `<div class="body" style="--ac:${s.ac}">
-    <div class="kicker"><span class="dot"></span>${esc(c.oras)}${c.tag?" · "+esc(c.tag):""}${c.timp?" · "+esc(c.timp):""}</div>
+    <div class="kicker"><span class="dot"></span>${esc(numeOras(c.oras))}${c.tag?" · "+esc(c.tag):""}${c.timp?" · "+esc(c.timp):""}</div>
     <h3>${esc(c.titlu)}</h3>
     <p class="desc">${esc(c.desc)}</p>
     ${c.dece?`<p class="why"><b>De ce merită</b>${esc(c.dece)}</p>`:""}</div>`;
@@ -909,7 +909,7 @@ function render(){
     $("#nm").onkeydown=e=>{if(e.key==="Enter")$("#go").click()};
     return;
   }
-  const cardeNotabile=CARDURI.filter(c=>areNotare(c.oras));
+  const cardeNotabile=CARDURI.filter(cardAreNotare);
   const totalCarduri=cardeNotabile.length;
   const notate=cardeNotabile.filter(c=>S.date.note[c.id]>0).length;
   const taburi=[["exp","Experiențe","★"],["plan","Itinerar"],["pref","Preferințe"],["rez","Rezultate"],["limba","Japoneza"]];
@@ -920,7 +920,7 @@ function render(){
   root.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;render()});
   ({pref:vPref,plan:vPlan,exp:vExp,rez:vRez,limba:vLimba})[S.tab]();
 }
-const baraOrase=(orase=ORASE)=>`<div class="row" style="margin-bottom:14px">${orase.map(o=>`<button class="${S.oras===o?"on":""} ${areNotare(o)?"notabil":""}" data-o="${o}">${o}</button>`).join("")}</div>`;
+const baraOrase=(orase=ORASE)=>`<div class="row" style="margin-bottom:14px">${orase.map(o=>`<button class="${S.oras===o?"on":""} ${ORASE_CU_STELUTE.includes(o)?"notabil":""}" data-o="${o}">${esc(numeOras(o))}</button>`).join("")}</div>`;
 const legOrase=()=>document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.oras=b.dataset.o;render()});
 
 /* rând de stele, reutilizabil — max implicit 5 (carduri), 10 la preferințe */
@@ -949,18 +949,29 @@ function vPref(){
 const ORASE_CU_NOTARE = ["Tokyo","Kyoto"];
 const areNotare = o => ORASE_CU_NOTARE.includes(o);
 
+/* la „Excursii” doar excursiile propriu-zise se notează — gustările de drum rămân nenotate */
+const CATEGORII_EXCURSII_NOTABILE = ["x_kansai","x_tokyo"];
+const cardAreNotare = c => areNotare(c.oras) || (c.oras==="Excursii" && CATEGORII_EXCURSII_NOTABILE.includes(c.cat));
+
+/* orașe/fișiere al căror buton devine verde, fiindcă au cel puțin ceva de notat */
+const ORASE_CU_STELUTE = ["Tokyo","Kyoto","Excursii"];
+
+/* nume afișat (diferit de cheia internă, folosită pentru date/filtrare) */
+const NUME_AFISAT = {"Excursii":"Alte excursii posibile"};
+const numeOras = o => NUME_AFISAT[o] || o;
+
 function cardCuNota(c){
   const val=S.date.note[c.id]||0;
   return `<article class="card static" data-cid="${c.id}">
     ${thumb(c)}${corpCard(c)}
-    ${areNotare(c.oras)?`<div class="cardnote"><div class="ql">Cât de mult vrei să facem asta?</div>
+    ${cardAreNotare(c)?`<div class="cardnote"><div class="ql">Cât de mult vrei să facem asta?</div>
       ${steleRand("data-note",c.id,val)}
     </div>`:""}</article>`;
 }
-/* ordine în cadrul unei categorii: la orașele cu notare, după nota ta (mare→mic);
+/* ordine în cadrul unei categorii: la categoriile cu notare, după nota ta (mare→mic);
    la restul, ordinea din listă */
 function ordoneazaCat(cards){
-  if(!cards.length || !areNotare(cards[0].oras)) return cards;
+  if(!cards.length || !cardAreNotare(cards[0])) return cards;
   return cards
     .map((c,i)=>({c,i,nota:S.date.note[c.id]||0}))
     .sort((a,b)=> b.nota-a.nota || a.i-b.i)
@@ -969,23 +980,24 @@ function ordoneazaCat(cards){
 function vExp(){
   const v=$("#view");
   const lista=CARDURI.filter(c=>c.oras===S.oras);
-  const notare=areNotare(S.oras);
-  const notate=lista.filter(c=>S.date.note[c.id]>0).length;
-  let html=(notare
+  const areCevaDeNotat=ORASE_CU_STELUTE.includes(S.oras);
+  const notabile=lista.filter(cardAreNotare);
+  const notate=notabile.filter(c=>S.date.note[c.id]>0).length;
+  let html=(areCevaDeNotat
       ? `<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
     <p class="note">Dă fiecărei experiențe de la 1 la 5 stele. Notează-le pe toate, nu doar preferatele.</p></div>`
-      : `<div class="panel"><h2>Experiențele din ${esc(S.oras)} 🍁</h2>
+      : `<div class="panel"><h2>Experiențele din ${esc(numeOras(S.oras))} 🍁</h2>
     <p class="note">Aici poți vedea cum ne-am gândit să ne petrecem timpul în aceste orașe. Lasă-ne un comentariu mai jos dacă ai sugestii sau ceva ce ți-ai dori neapărat.</p></div>`)
     + baraOrase()
     + (ORAS_BIO[S.oras]?`<p class="orasbio" style="--ac:${stil(S.oras).ac}">${esc(ORAS_BIO[S.oras])}</p>`:"")
-    + (notare?`<p class="meta">${esc(S.oras)} · ${notate}/${lista.length} notate</p>`:`<p class="meta">${esc(S.oras)} · ${lista.length} experiențe</p>`);
+    + (areCevaDeNotat?`<p class="meta">${esc(numeOras(S.oras))} · ${notate}/${notabile.length} notate</p>`:`<p class="meta">${esc(numeOras(S.oras))} · ${lista.length} experiențe</p>`);
   categoriiPentru(S.oras).forEach(cat=>{
     const cards=ordoneazaCat(lista.filter(c=>c.cat===cat.id));
     if(!cards.length)return;
     html+=(cat.nume?`<div class="catsec"><h3 class="cathead">${esc(cat.nume)} <span class="n">${cards.length}</span></h3></div>`:`<div style="height:14px"></div>`)
       + `<div class="grila">${cards.map(cardCuNota).join("")}</div>`;
   });
-  if(!lista.length)html+=`<div class="panel"><p class="note">Încă n-avem cartonașe pentru ${esc(S.oras)}.</p></div>`;
+  if(!lista.length)html+=`<div class="panel"><p class="note">Încă n-avem cartonașe pentru ${esc(numeOras(S.oras))}.</p></div>`;
   html+=boxaComentarii(S.oras);
 
   /* navigare jos: înapoi sus la lista de orașe + continuă spre orașul următor */
@@ -993,7 +1005,7 @@ function vExp(){
   const urmOras=ORASE[idxOras+1];
   html+=`<div class="orasnav">
     <button id="navSus">↑ Sus la orașe</button>
-    <button class="primary" id="navUrm">${urmOras?`Continuă spre ${esc(urmOras)} →`:"Gata cu orașele → Preferințe"}</button>
+    <button class="primary" id="navUrm">${urmOras?`Continuă spre ${esc(numeOras(urmOras))} →`:"Gata cu orașele → Preferințe"}</button>
   </div>`;
 
   v.innerHTML=html;
@@ -1049,11 +1061,11 @@ function boxaComentarii(oras){
     </div>`;
   }).join("");
   return `<div class="panel comente">
-    <div class="meta">Comentarii · ${esc(oras)}</div>
+    <div class="meta">Comentarii · ${esc(numeOras(oras))}</div>
     <p class="note" style="margin-bottom:12px">Spune-le celorlalți ce crezi — care ți-au plăcut cel mai mult, ce ai vrea neapărat, orice idee. Comentariile sunt vizibile pentru tot grupul.</p>
     <div class="cmt-fir">${fire}</div>
     <div class="cmt-nou">
-      <textarea id="cmt-in" rows="3" placeholder="Scrie un comentariu despre ${esc(oras)}…"></textarea>
+      <textarea id="cmt-in" rows="3" placeholder="Scrie un comentariu despre ${esc(numeOras(oras))}…"></textarea>
       <div class="row" style="margin-top:8px"><button class="primary" id="cmt-add">Adaugă comentariu</button></div>
     </div></div>`;
 }
@@ -1094,7 +1106,7 @@ function vPlan(){
   const legs=[
     {ac:"#C4452D",jp:"東京",nights:"3 nopți",titlu:"Tokyo",dates:"31 oct → 3 nov"},
     {ac:"#4A6274",jp:"箱根",nights:"2 nopți",titlu:"Hakone",dates:"3 nov → 5 nov"},
-    {ac:"#6E7A52",jp:"京都",nights:"7 nopți",titlu:"Kyoto (bază pentru regiunea Kansai)",dates:"5 nov → 12 nov"},
+    {ac:"#6E7A52",jp:"京都",nights:"7 nopți",titlu:"Kyoto (bază pentru regiunea Kansai și Chūgoku)",dates:"5 nov → 12 nov",nota:"Vizite în orașul Kyoto și alte vizite de o zi în orașele din regiunile Kansai (Nara, Osaka, Uji, Himeji) și Chūgoku (Hiroshima)."},
     {ac:"#C4452D",jp:"東京",nights:"2 nopți",titlu:"Tokyo (final)",dates:"12 nov → 14 nov",nota:"Pentru ultimele două zile nu ne facem program fix — le păstrăm libere, ca să avem timp de shopping 🛍️ și de savurat orașul în ritmul nostru."}
   ];
   v.innerHTML=`<div class="panel"><h2>Cum ne-am gândit să împărțim zilele 🍁</h2>
@@ -1185,25 +1197,26 @@ function vRez(){
     const m=medie(note);return{p,m,sd:abatere(note,m)};
   }).sort((a,b)=>b.m-a.m);
 
-  /* pe pagina de Rezultate arătăm doar orașele care se notează (Tokyo, Kyoto) */
-  if(!areNotare(S.oras)) S.oras=ORASE_CU_NOTARE[0];
+  /* pe pagina de Rezultate arătăm doar orașele/fișierele care se notează (Tokyo, Kyoto, Excursii) */
+  if(!ORASE_CU_STELUTE.includes(S.oras)) S.oras=ORASE_CU_STELUTE[0];
 
-  /* clasament carduri pentru orașul selectat */
-  const cards=CARDURI.filter(c=>c.oras===S.oras);
+  /* clasament carduri pentru orașul selectat — doar cardurile care se notează
+     (la „Excursii”, gustările de drum nu intră în clasament) */
+  const cards=CARDURI.filter(c=>c.oras===S.oras && cardAreNotare(c));
   const rank=cards.map(c=>{
     const note=oameni.map(o=>S.toti[o]&&S.toti[o].note&&S.toti[o].note[c.id]).filter(x=>x>0);
     const m=medie(note);return{c,m,sd:abatere(note,m),cnt:note.length};
   }).sort((a,b)=>b.m-a.m);
 
   v.innerHTML=`<div class="row" style="margin-bottom:12px"><button id="reload">🔄 Reîncarcă răspunsurile</button></div>`
-  + baraOrase(ORASE_CU_NOTARE) +
-  `<div class="panel"><div class="meta">Clasamentul experiențelor — ${esc(S.oras)} · după nota medie</div>
+  + baraOrase(ORASE_CU_STELUTE) +
+  `<div class="panel"><div class="meta">Clasamentul experiențelor — ${esc(numeOras(S.oras))} · după nota medie</div>
     ${rank.length?rank.map((x,i)=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div>${String(i+1).padStart(2,"0")} · ${esc(x.c.titlu)}
         <span class="small">· ${esc((TOATE_CATEGORIILE.find(k=>k.id===x.c.cat)||{}).nume||"")}</span></div>
       <div class="bar"><i style="width:${x.m*20}%"></i></div>
       <div class="small">${x.cnt?x.cnt+" note":"nenotat încă"}${x.sd>1.25?" · ⚡ păreri împărțite":x.sd<0.6&&x.m?" · ✓ consens":""}</div></div></div>`).join("")
-      :`<p class="note">Nicio notă încă pentru ${esc(S.oras)}.</p>`}</div>`
+      :`<p class="note">Nicio notă încă pentru ${esc(numeOras(S.oras))}.</p>`}</div>`
   + `<div class="panel"><div class="meta">Preferințe generale — media grupului (${oameni.length} persoane)</div>
     ${medii.map(x=>`<div class="rank"><span class="num">${x.m?x.m.toFixed(1):"–"}</span>
       <div style="flex:1"><div style="font-size:14px">${esc(x.p.text)}</div>
