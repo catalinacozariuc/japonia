@@ -839,10 +839,13 @@ async function load(){
         const nume=(obj&&obj.nume)||k.replace("jp:r:","");
         S.toti[nume]=(obj&&obj.date)||obj;}}catch(e){}
   }
-  /* completează cu ce e salvat local (utilizatori de pe același dispozitiv) */
+  /* completează cu ce e salvat local (utilizatori de pe același dispozitiv) —
+     dar numai dacă persoana nu există deja (indiferent de majuscule), ca să nu
+     apară „Victor” și „victor” ca două persoane cu aceleași comentarii */
   try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);
     if(k&&k.startsWith("jp:")&&!k.startsWith("jp:r:")){const nume=k.slice(3);
-      if(!S.toti[nume]){try{S.toti[nume]=JSON.parse(localStorage.getItem(k));}catch(e){}}}}}catch(e){}
+      if(!existaNume(nume)){try{S.toti[nume]=JSON.parse(localStorage.getItem(k));}catch(e){}}}}}catch(e){}
+  comaseazaDuplicate();   // strânge orice dublură de majuscule rămasă din oricare sursă
   S.loading=false;render();
 }
 
@@ -861,6 +864,37 @@ function rezolvaNume(v){
   try{for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);
     if(key&&key.startsWith("jp:")&&!key.startsWith("jp:r:")&&cheieNume(key.slice(3))===k) return key.slice(3);}}catch(e){}
   return v.trim();
+}
+/* există deja o persoană cu acest nume, indiferent de majuscule? */
+const existaNume = n => Object.keys(S.toti).some(k=>cheieNume(k)===cheieNume(n));
+/* combină datele a două intrări ale aceleiași persoane (dublură „Victor”/„victor”) */
+function fuzioneazaDate(a,b){
+  a=norm(a); b=norm(b);
+  const out={prefs:{...a.prefs,...b.prefs},note:{...a.note,...b.note},
+             musai:{...a.musai,...b.musai},coment:{}};
+  const orase=new Set([...Object.keys(a.coment),...Object.keys(b.coment)]);
+  for(const o of orase){
+    const vazut=new Set(); out.coment[o]=[];
+    for(const c of [...(a.coment[o]||[]),...(b.coment[o]||[])])
+      if(c && !vazut.has(c.id)){vazut.add(c.id); out.coment[o].push(c);}
+  }
+  return out;
+}
+/* strânge sub un singur nume canonic orice dubluri de majuscule din S.toti
+   (ex.: „Victor” din Google Sheets + „victor” din copia locală = o singură persoană) */
+function comaseazaDuplicate(){
+  const ales={}, date={};
+  for(const nume of Object.keys(S.toti)){
+    const k=cheieNume(nume);
+    if(!(k in ales)){ ales[k]=nume; date[k]=S.toti[nume]; }
+    else{
+      /* păstrăm varianta cu majusculă (nume propriu), dacă apare */
+      if(/[A-ZĂÂÎȘȚ]/.test(nume) && !/[A-ZĂÂÎȘȚ]/.test(ales[k])) ales[k]=nume;
+      date[k]=fuzioneazaDate(date[k], S.toti[nume]);
+    }
+  }
+  const nou={}; for(const k in ales) nou[ales[k]]=date[k];
+  S.toti=nou;
 }
 
 /* imaginea sau, dacă nu există, fundalul de hârtie cu emoji */
@@ -1046,11 +1080,12 @@ function animaReasezare(id){
 /* ---------- COMENTARII per oraș (fir de discuție, partajat între toți) ---------- */
 /* strânge toate comentariile pentru un oraș, de la toți utilizatorii (din S.toti) */
 function toateComentariile(oras){
-  const out=[];
+  const out=[]; const vazut=new Set();   // vazut = id-uri deja adăugate (evită dublurile)
   const surse={...S.toti,[S.me]:S.date};   // include și ce am eu nesalvat încă
   for(const nume in surse){
     const cl=(surse[nume]&&surse[nume].coment&&surse[nume].coment[oras])||[];
-    cl.forEach(c=>out.push({nume,id:c.id,text:c.text,t:c.t||0}));
+    cl.forEach(c=>{ if(c && !vazut.has(c.id)){ vazut.add(c.id);
+      out.push({nume,id:c.id,text:c.text,t:c.t||0}); } });
   }
   return out.sort((a,b)=>a.t-b.t);
 }
