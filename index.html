@@ -37,7 +37,7 @@
   /* orașele care se notează (Tokyo, Kyoto) — buton mai închis, ca să se distingă */
   button.notabil{background:var(--ceai);color:#fff;border-color:var(--ceai)}
   button.notabil:hover{background:#565f40;border-color:#565f40}
-  button.notabil.on{background:var(--ceai);border-color:var(--ceai);color:#fff}
+  button.notabil.on{background:var(--tus);border-color:var(--tus);color:var(--hartie)}
   button[disabled]{opacity:.4;cursor:default}
   input,textarea,select{font:inherit;font-size:14px;background:var(--hartie2);color:var(--tus);
     border:1px solid var(--linie);border-radius:2px;padding:9px 11px;width:100%}
@@ -283,7 +283,7 @@ const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbza_AKsZh8KuIF5DYiwB
    ========================================================================== */
 
 /* câte un „fișier” per oraș, în ordinea firească a călătoriei */
-const ORASE = ["Tokyo","Kyoto","Hakone","Nara","Osaka","Hiroshima","Uji","Excursii"];
+const ORASE = ["Tokyo","Kyoto","Hakone","Osaka","Nara","Hiroshima","Uji","Excursii"];
 
 /* culoare + kanji decorativ pentru fiecare oraș */
 const ORAS_STIL = {
@@ -299,7 +299,7 @@ const ORAS_STIL = {
 
 /* BIO scurt pentru fiecare oraș — dă tonul, fără titlu, ca o mică introducere în atmosferă */
 const ORAS_BIO = {
-  "Tokyo":"Cel mai mare oraș al lumii nu obosește niciodată: temple vechi de secole la câțiva pași de intersecții pline de neon, cartiere care se schimbă complet de la o stradă la alta și cele mai bune restaurante de pe planetă, de la tarabe de ramen la mese cu stele. Îl luăm în doi timpi — zilele de la început, în priză, și două seri liniștite la final — și tot n-o să ne ajungă. Aici stă și partea de program cultural: concerte, teatru, un balet-premieră fix în zilele noastre.",
+  "Tokyo":"Cel mai mare oraș al lumii nu obosește niciodată: temple vechi de secole la câțiva pași de intersecții pline de neon, cartiere care se schimbă complet de la o stradă la alta și cele mai bune restaurante de pe planetă, de la tarabe de ramen la mese cu stele. Aici stă și partea de program cultural: concerte, teatru, un balet-premieră fix în zilele noastre.",
   "Hakone":"După forfota din Tokyo, Hakone e locul unde încetinim. Un ținut de munte cu izvoare fierbinți, unde ziua se termină cufundat până la gât în apă termală, cu aburul ridicându-se în aerul răcoros de toamnă și, pe vreme bună, Fuji la orizont. Dormim într-un ryokan tradițional, mâncăm o cină lungă în odaie și nu ne grăbim nicăieri.",
   "Kyoto":"Fostă capitală imperială timp de peste o mie de ani, Kyoto e inima veche a Japoniei — orașul cu mii de temple, grădini de mușchi, cartiere de gheișe și ceremonii ale ceaiului care se fac la fel de secole. E și tabăra noastră de bază pentru toată regiunea: de aici pornim, dimineața, spre orașele din jur și ne întoarcem seara în același pat. Ne așezăm aici o săptămână, ca să-l descoperim pe îndelete.",
   "Nara":"Prima capitală permanentă a Japoniei, mai veche chiar decât Kyoto, la o azvârlitură de băț cu trenul. Peste tot, temple monumentale și un Buddha de bronz uriaș — dar vedetele orașului sunt cele peste o mie de căprioare care umblă libere prin parc și au învățat să se încline pentru un biscuit. O excursie de o zi, veselă și plină de verde.",
@@ -487,6 +487,9 @@ let CARDURI = [
  {id:"h_ashi",oras:"Hakone",cat:"atractie",alegere:"poate",titlu:"Lacul Ashi & croaziera „pirat”",emoji:"⛴️",img:"ashi.png",tag:"Pe apă",timp:"1–2 ore",
   desc:"Lacul vulcanic din inima zonei, format tot de o erupție acum câteva mii de ani, străbătut de un vaporaș în formă de corabie de pirați. Pe mal se înalță o poartă torii roșie ieșită din apă, aparținând sanctuarului Hakone, iar pe vreme senină Fuji se ridică drept în fundal.",
   dece:"E o traversare relaxantă, cu multe momente de stat jos și priveliști frumoase. Fuji se ascunde pe vreme rea — priveliștea-vedetă depinde de noroc."},
+ {id:"h_museumart",oras:"Hakone",cat:"atractie",alegere:"da",titlu:"Muzeul de Artă Hakone (Gōra)",emoji:"🍁",img:"hakone_museum_art.webp",tag:"Muzeu & grădină",timp:"1,5–2 ore",
+  desc:"Cel mai vechi muzeu din Hakone, deschis în 1952 în Gōra, cu o colecție de ceramică japoneză care merge de la vasele Jomon de acum vreo două mii cinci sute de ani până la piese din perioada Edo. Adevărata vedetă e însă grădina — Shinsenkyo: un covor de vreo o sută treizeci de specii de mușchi, presărat cu peste două sute de arțari care în noiembrie se aprind în roșu și auriu, atât de frumos încât grădina e declarată „loc de frumusețe scenică” la nivel național. La capătul aleilor, o ceainărie unde bei matcha cu un dulce tradițional, privind pădurea de arțari.",
+  dece:"Toamna e exact momentul lui — puține locuri își arată grădina la fel de spectaculos în noiembrie, iar aici muzeul contează mai puțin decât mușchiul și arțarii. E lângă funicularul din Gōra, dar are un urcuș în pantă — de purtat încălțăminte comodă."},
 
  /* -- Activități -- */
  {id:"h_onsen",oras:"Hakone",cat:"activitate",alegere:"da",titlu:"Onsen la ryokan",emoji:"♨️",img:"onsen.jpg",tag:"Relaxare",timp:"1 oră",
@@ -601,6 +604,9 @@ let CARDURI = [
  {id:"k_yudofu",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Yudofu — tofu fiert lângă Nanzen-ji",emoji:"🍲",img:"yudufu.jpg",tag:"Mâncare",timp:"1–1,5 ore",
   desc:"Specialitatea vegetariană a templelor din Kyoto: bucăți de tofu mătăsos fierte blând într-un bulion ușor de alge kombu, înmuiate apoi în sos de soia și citrice. Se servesc în restaurante tihnite cu grădină din jurul templului Nanzen-ji și vin direct din shojin ryori, bucătăria de post a călugărilor budiști.",
   dece:"E simplu, cald și profund „de Kyoto” — o masă liniștită, într-un cadru care contează la fel de mult ca farfuria. Vegetarienii se simt aici ca acasă."},
+ {id:"k_cocktail",oras:"Kyoto",cat:"culinar",alegere:"da",titlu:"Cocktail bar după cină",emoji:"🍸",img:"kyoto_bar.webp",tag:"Seara",timp:"1–1,5 ore",
+  desc:"Kyoto ascunde câteva dintre cele mai rafinate baruri de cocktailuri din Japonia — locuri mici și tăcute, cu doar câteva scaune la tejghea, unde barmanul cioplește gheața cu mâna, în blocuri limpezi, și prepară fiecare pahar cu o precizie aproape rituală. E arta japoneză a ospitalității (omotenashi) mutată de la ceremonia ceaiului la băuturi, în saloane discrete ascunse pe străduțele din Gion sau Pontocho.",
+  dece:"E cel mai elegant mod de a încheia o seară — liniștit, cu un pahar impecabil, după o zi plină. Localurile bune sunt mici și adesea cu rezervare, iar unele au o mică taxă de masă (otoshi)."},
  /* =====================================================================
     OSAKA
     ===================================================================== */
@@ -892,7 +898,7 @@ function render(){
     `<section class="hero">
       <div class="leaves">${leafHtml}</div>
       <h2>O toamnă în Japonia, împreună</h2>
-      <p class="lede">Paisprezece zile prin <span class="accent">Tokyo, Kyoto și Hakone</span>, chiar când începe culoarea toamnei — ginkgo auriu și primii arțari ruginii. Temple în zori, onsen la asfințit, piețe de dimineață și seri cu felinare — plus o aniversare de sărbătorit pe drum.</p>
+      <p class="lede">Paisprezece zile prin <span class="accent">Tokyo, Kyoto și Hakone</span>, chiar când începe culoarea toamnei — ginkgo auriu și primii arțari ruginii.</p>
       <div class="meta-trip">
         <span class="chip">🍁 <b>31 oct – 14 nov 2026</b></span>
       </div>
@@ -985,7 +991,7 @@ function vExp(){
   const notate=notabile.filter(c=>S.date.note[c.id]>0).length;
   let html=(areCevaDeNotat
       ? `<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
-    <p class="note">Dă fiecărei experiențe de la 1 la 5 stele. Notează-le pe toate, nu doar preferatele.</p></div>`
+    <p class="note">Acolo unde se poate, notează experiențele de la 1 la 5 stele. Pentru restul, am ales deja noi.</p></div>`
       : `<div class="panel"><h2>Experiențele din ${esc(numeOras(S.oras))} 🍁</h2>
     <p class="note">Aici poți vedea cum ne-am gândit să ne petrecem timpul în aceste orașe. Lasă-ne un comentariu mai jos dacă ai sugestii sau ceva ce ți-ai dori neapărat.</p></div>`)
     + baraOrase()
