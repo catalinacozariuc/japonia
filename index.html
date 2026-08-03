@@ -811,20 +811,20 @@ async function verificaSalvare(){
   const nrLocal=Object.keys(S.date.note||{}).length+Object.keys(S.date.prefs||{}).length;
   const d=await citesteDeLaSheet();
   if(d===null){
-    status("⚠ Nu mă pot conecta la Google Sheets. În Apps Script: Deploy → «Oricine» → republică o versiune nouă.",9000);
+    status("⚠ Nu mă pot conecta la Google Sheets.",9000);
     return;
   }
   const eu=d[S.me];
   const nrServer=eu?Object.keys(eu.note||{}).length+Object.keys(eu.prefs||{}).length:0;
   if(eu && nrServer>=nrLocal){ S.toti=d; status("Salvat în Google Sheets ✓"); }
-  else status("⚠ Cererea ajunge, dar Sheet-ul nu se actualizează — verifică funcția doPost din Apps Script.",9000);
+  else status("⚠ Cererea ajunge, dar Sheet-ul nu se actualizează.",9000);
 }
 async function load(){
   const d=await citesteDeLaSheet();
   if(d) S.toti=d;
   else if(URL_SCRIPT){
     /* scriptul e configurat, dar nu răspunde: aproape sigur publicare/acces greșit */
-    setTimeout(()=>status("⚠ Nu mă pot conecta la Google Sheets — momentan se salvează doar pe acest dispozitiv. Verifică publicarea scriptului (acces „Oricine”).",9000),500);
+    setTimeout(()=>status("⚠ Nu mă pot conecta la Google Sheets — momentan se salvează doar pe acest dispozitiv.",9000),500);
   }
   if(!d && ARTIFACT){
     try{const l=await window.storage.list("jp:r:",true);
