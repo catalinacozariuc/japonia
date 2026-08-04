@@ -266,6 +266,69 @@
     font-family:inherit;font-size:14px;color:var(--tus);background:var(--hartie);resize:vertical;line-height:1.5}
   .cmt-nou textarea:focus,.cmt-edit:focus{outline:none;border-color:var(--artar)}
   button.sm{padding:5px 12px;font-size:12px}
+
+  /* ---------- cererea numelui (apare doar la prima notare) ---------- */
+  .modal-fund{position:fixed;inset:0;background:rgba(58,38,22,.42);backdrop-filter:blur(2px);
+    display:flex;align-items:center;justify-content:center;padding:20px;z-index:60;
+    animation:fundIn .22s ease}
+  @keyframes fundIn{from{opacity:0}to{opacity:1}}
+  .modal{background:var(--hartie);border:1px solid var(--linie);border-radius:4px;
+    padding:26px 26px 22px;max-width:400px;width:100%;
+    box-shadow:0 24px 60px rgba(58,38,22,.3);animation:modalIn .26s ease}
+  @keyframes modalIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+  .modal .jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;color:var(--artar);
+    font-size:15px;opacity:.75;margin:0 0 6px}
+  .modal h3{font-family:Georgia,serif;font-weight:400;font-size:21px;margin:0 0 8px;color:var(--tus)}
+  .modal .note{margin:0 0 16px}
+  .modal input{width:100%}
+  .modal .row{margin-top:16px;display:flex;gap:10px;align-items:center}
+  .browse-hint{font-size:12.5px;color:var(--gri);line-height:1.6;margin:0 0 22px}
+  .browse-hint .linkbtn{font-size:12.5px}
+
+  /* ---------- Itinerar redesenat: butoane-oraș, benzi de foto, excursii-cuib ---------- */
+  .itiner .leg .content{padding:0 0 26px}
+  /* butonul-chenar mare pentru destinația principală */
+  .orasbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+    border:1.5px solid var(--linie);border-left:5px solid var(--ac);border-radius:4px;
+    background:var(--hartie2);color:var(--tus);padding:15px 18px;cursor:pointer;
+    transition:background .18s,border-color .18s,transform .16s,box-shadow .18s,color .18s}
+  .orasbtn:hover{background:var(--ac);border-color:var(--ac);transform:translateX(4px);
+    box-shadow:0 12px 26px rgba(80,60,40,.16)}
+  .orasbtn:hover .o-jp,.orasbtn:hover .o-nume,.orasbtn:hover .o-meta,.orasbtn:hover .o-go{color:#fff}
+  .orasbtn:focus-visible{outline:2px solid var(--kaki);outline-offset:3px}
+  .orasbtn .o-jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:32px;line-height:1;
+    color:var(--ac);opacity:.9;flex:none}
+  .orasbtn .o-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+  .orasbtn .o-nume{font-family:Georgia,serif;font-size:22px;line-height:1.15}
+  .orasbtn .o-meta{font-size:12px;letter-spacing:.03em;color:var(--kaki)}
+  .orasbtn .o-go{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gri);
+    flex:none;white-space:nowrap;align-self:center}
+
+  /* banda de fotografii mici, într-o singură linie */
+  .poze{display:flex;gap:6px;margin:11px 0 3px}
+  .poze .p{flex:1 1 0;min-width:0;aspect-ratio:4/3;border-radius:3px;border:1px solid var(--linie);
+    background-size:cover;background-position:center;filter:saturate(.88) contrast(1.03) sepia(.08)}
+
+  /* rezumat scurt sub fiecare oraș */
+  .dest-rez{font-size:13.5px;line-height:1.6;color:#4A453C;margin:9px 2px 2px}
+
+  /* excursii de o zi — „cerculețe” mai mici, cuib în interiorul secțiunii Kyoto */
+  .excursii-bloc{margin:16px 0 2px;padding:14px 0 4px 16px;border-left:2px dashed var(--linie)}
+  .excursii-cap{font-family:Georgia,serif;font-size:14px;color:var(--tus);margin:0 0 13px;letter-spacing:.03em}
+  .subdest{margin-bottom:16px}
+  .subdest:last-child{margin-bottom:2px}
+  .orasbtn.mic{padding:10px 14px;gap:11px;border-left-width:4px}
+  .orasbtn.mic .o-jp{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;
+    justify-content:center;font-size:16px;background:var(--ac);color:#fff;opacity:1}
+  .orasbtn.mic:hover .o-jp{background:#fff;color:var(--ac)}
+  .orasbtn.mic .o-nume{font-size:18px}
+  .poze.poze-mic{margin-top:9px}
+  @media(max-width:560px){
+    .orasbtn .o-go{display:none}
+    .orasbtn .o-jp{font-size:26px}
+    .orasbtn .o-nume{font-size:19px}
+    .orasbtn.mic .o-jp{width:34px;height:34px;font-size:14px}
+  }
 </style>
 <div id="app"><div class="wrap" id="root"></div></div>
 <div class="status" id="status"></div>
@@ -773,7 +836,7 @@ if("scrollRestoration" in history) history.scrollRestoration="manual";
 const ARTIFACT = typeof window.storage!=="undefined";
 /* note = notă 1–5 pe fiecare card · coment = comentarii per oraș {oras:[{id,text,t}]} */
 const norm=d=>({prefs:(d&&d.prefs)||{}, note:(d&&d.note)||{}, musai:(d&&d.musai)||{}, coment:(d&&d.coment)||{}});
-let S={me:"",oras:"Tokyo",tab:"exp",loading:true,
+let S={me:"",oras:"Tokyo",tab:"plan",loading:true,
        date:{prefs:{},note:{},musai:{},coment:{}},toti:{},organizator:false};
 
 function status(t,ms=2200){const el=$("#status");el.textContent=t;el.classList.add("on");
@@ -794,6 +857,7 @@ function citesteDeLaSheet(){
 }
 let _verifTimer=null;
 async function salveaza(){
+  if(!S.me) return;          /* nimeni nu s-a semnat încă — nu avem ce salva */
   S.toti[S.me]=S.date;
   /* întotdeauna păstrăm și o copie locală, ca plasă de siguranță */
   try{localStorage.setItem("jp:"+cheieNume(S.me),JSON.stringify(S.date))}catch(e){}
@@ -861,8 +925,8 @@ const cheieNume=n=>(n||"").trim().toLowerCase();
 function rezolvaNume(v){
   const k=cheieNume(v);
   for(const nume in S.toti){ if(cheieNume(nume)===k) return nume; }
-  try{for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);
-    if(key&&key.startsWith("jp:")&&!key.startsWith("jp:r:")&&cheieNume(key.slice(3))===k) return key.slice(3);}}catch(e){}
+  /* cheia locală e scrisă cu litere mici, deci nu ne spune cum și-a scris omul numele —
+     păstrăm forma tastată acum (datele se regăsesc oricum după cheieNume) */
   return v.trim();
 }
 /* există deja o persoană cu acest nume, indiferent de majuscule? */
@@ -922,14 +986,34 @@ function render(){
   const root=$("#root");
   window.scrollTo(0,0);   // orice randare completă a paginii pornește din vârf
   if(S.loading){root.innerHTML=antet()+`<p class="sub">Se încarcă…</p>`;return;}
+
+  /* Nimeni nu mai e oprit la intrare. Cine ajunge prima oară vede întâi
+     imaginea călătoriei, apoi poate răsfoi tot. Numele se cere abia la
+     prima notă dată (vezi cerNume). */
+  const taburi=[["plan","Itinerar"],["pref","Preferințe"],["exp","Experiențe"],["rez","Rezultate"],["limba","Japoneza"]];
+
+  root.innerHTML=antet()+`<div id="sus"></div>`+
+   `<div class="tabs">${taburi.map(t=>`<button class="tab ${S.tab===t[0]?"active":""}" data-t="${t[0]}">${esc(t[1])}</button>`).join("")}</div>
+   <div id="view"></div>`;
+  randSus();
+  root.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;render()});
+  ({pref:vPref,plan:vPlan,exp:vExp,rez:vRez,limba:vLimba})[S.tab]();
+}
+
+/* antetul de sus, randat separat ca să-l putem reîmprospăta după semnare
+   fără să reconstruim (și să derulăm) toată pagina.
+   · oaspete  — hero + invitație blândă
+   · semnat   — o linie discretă; cifrele apar abia după prima notă */
+function randSus(pastreazaScroll){
+  const el=$("#sus"); if(!el) return;
+  const h0=el.offsetHeight, y=window.scrollY;
   if(!S.me){
     const frunze=["🍁","🍂","🍁","🍂","🍁","🍁","🍂","🍁","🍂","🍁","🍂","🍁"];
     const leafHtml=frunze.map((f,i)=>{
       const left=(i*8.3+3)%100, dur=(9+((i*2.7)%7)).toFixed(1), delay=(-(i*1.6)%12).toFixed(1), sz=(15+((i*3)%9));
       return `<span style="left:${left}%;font-size:${sz}px;animation-duration:${dur}s;animation-delay:${delay}s">${f}</span>`;
     }).join("");
-    root.innerHTML=antet()+
-    `<section class="hero">
+    el.innerHTML=`<section class="hero">
       <div class="leaves">${leafHtml}</div>
       <h2>O toamnă în Japonia, împreună</h2>
       <p class="lede">Paisprezece zile prin <span class="accent">Tokyo, Kyoto și Hakone</span>, chiar când începe culoarea toamnei — ginkgo auriu și primii arțari ruginii.</p>
@@ -937,28 +1021,67 @@ function render(){
         <span class="chip">🍁 <b>31 oct – 14 nov 2026</b></span>
       </div>
     </section>
-
-    <div class="panel intra">
-      <h2 style="margin-bottom:4px">Intră în jurnal</h2>
-      <p class="note" style="margin:0 0 6px">Folosește mereu același nume, ca să-ți salvăm răspunsurile. Pagina rămâne utilă și în timpul călătoriei.</p>
-      <label for="nm">Numele tău</label><input id="nm" placeholder="ex. Ana">
-      <div class="row" style="margin-top:14px"><button class="primary" id="go">Începe</button></div>
-    </div>`;
-    $("#go").onclick=()=>{const v=$("#nm").value.trim();if(!v)return;S.me=rezolvaNume(v);
-      S.date=norm(S.toti[S.me]||JSON.parse(localStorage.getItem("jp:"+cheieNume(S.me))||"null"));render()};
-    $("#nm").onkeydown=e=>{if(e.key==="Enter")$("#go").click()};
-    return;
+    <p class="browse-hint">
+      <button class="linkbtn" id="semneaza">Ai mai fost aici? Intră cu numele tău</button></p>`;
+    el.querySelector("#semneaza").onclick=()=>cerNume();
+  }else{
+    const notabile=CARDURI.filter(cardAreNotare);
+    const notate=notabile.filter(c=>S.date.note[c.id]>0).length;
+    const prefsDate=Object.keys(S.date.prefs).length;
+    const bucati=[esc(S.me)];
+    /* cifrele apar doar după ce omul a început — „0/64” la prima vizită descurajează */
+    if(notate) bucati.push(`${notate}/${notabile.length} experiențe notate`);
+    if(prefsDate) bucati.push(`${prefsDate}/${PREFERINTE.length} preferințe`);
+    el.innerHTML=`<p class="sub">${bucati.join(" · ")}</p>`;
   }
-  const cardeNotabile=CARDURI.filter(cardAreNotare);
-  const totalCarduri=cardeNotabile.length;
-  const notate=cardeNotabile.filter(c=>S.date.note[c.id]>0).length;
-  const taburi=[["exp","Experiențe","★"],["plan","Itinerar"],["pref","Preferințe"],["rez","Rezultate"],["limba","Japoneza"]];
-  root.innerHTML=antet()+
-   `<p class="sub">${esc(S.me)} · ${notate}/${totalCarduri} experiențe notate · ${Object.keys(S.date.prefs).length}/${PREFERINTE.length} preferințe generale</p>
-   <div class="tabs">${taburi.map(t=>`<button class="tab ${t[0]==="exp"?"star":""} ${S.tab===t[0]?"active":""}" data-t="${t[0]}">${t[2]?`<span class="stea">${t[2]}</span>`:""}${t[1]}</button>`).join("")}</div>
-   <div id="view"></div>`;
-  root.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;render()});
-  ({pref:vPref,plan:vPlan,exp:vExp,rez:vRez,limba:vLimba})[S.tab]();
+  if(pastreazaScroll){
+    const d=el.offsetHeight-h0;
+    if(d) window.scrollTo(0,Math.max(0,y+d));
+  }
+}
+
+/* ---------- cererea prenumelui, la prima notă ----------
+   Nu blochează intrarea în site: apare doar în momentul în care cineva
+   chiar vrea să salveze ceva. `dupa` = ce se întâmplă după ce avem numele. */
+function cerNume(dupa){
+  if(document.querySelector(".modal-fund")) return;
+  const f=document.createElement("div");
+  f.className="modal-fund";
+  f.innerHTML=`<div class="modal" role="dialog" aria-modal="true">
+      <p class="jp">お名前は</p>
+      <h3>Cum te cheamă?</h3>
+      <p class="note">Introdu prenumele tău, ca să îți salvăm răspunsurile. La sfârșit, vedem media grupului.</p>
+      <label for="nm">Prenumele tău</label><input id="nm" placeholder="ex. Ana" autocomplete="given-name">
+      <div class="row"><button class="primary" id="go">Continuă</button>
+        <button class="linkbtn" id="renunt">Mai târziu</button></div>
+    </div>`;
+  document.body.appendChild(f);
+  const inp=f.querySelector("#nm");
+  const inchide=()=>f.remove();
+  f.querySelector("#renunt").onclick=inchide;
+  f.onclick=e=>{if(e.target===f)inchide()};
+  document.addEventListener("keydown",function esc(e){
+    if(e.key==="Escape"){inchide();document.removeEventListener("keydown",esc)}});
+  f.querySelector("#go").onclick=()=>{
+    const v=inp.value.trim(); if(!v){inp.focus();return;}
+    S.me=rezolvaNume(v);
+    S.date=norm(S.toti[S.me]||JSON.parse(localStorage.getItem("jp:"+cheieNume(S.me))||"null"));
+    inchide();
+    status("Bine ai venit, "+S.me+" 🍁");
+    if(dupa){
+      randSus(true);          /* hero → linia discretă, fără să sară pagina */
+      dupa();                 /* acțiunea reîmprospătează singură vederea */
+    }else{
+      render();               /* intrare directă: reconstruim tot, cu notele salvate */
+    }
+  };
+  inp.onkeydown=e=>{if(e.key==="Enter")f.querySelector("#go").click()};
+  setTimeout(()=>inp.focus(),60);
+}
+/* rulează o acțiune care are nevoie de nume; dacă nu-l avem, îl cerem întâi */
+function cuNume(actiune){
+  if(S.me){ actiune(); return; }
+  cerNume(actiune);
 }
 const baraOrase=(orase=ORASE)=>`<div class="row" style="margin-bottom:14px">${orase.map(o=>`<button class="${S.oras===o?"on":""} ${ORASE_CU_STELUTE.includes(o)?"notabil":""}" data-o="${o}">${esc(numeOras(o))}</button>`).join("")}</div>`;
 const legOrase=()=>document.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.oras=b.dataset.o;render()});
@@ -975,11 +1098,22 @@ function steleRand(attr,id,val,max){
 function vPref(){
   const v=$("#view");
   v.innerHTML=`<div class="panel"><h2>Cum arată vacanța ta ideală? 🍂</h2>
-  <p class="note">Dă fiecărei afirmații o notă de la 1 stea (deloc) la 10 stele (neapărat). Nu există răspuns greșit — scopul e doar să vedem unde grupul e de acord și unde nu.</p></div>
+  <p class="note">Paisprezece întrebări scurte, cam trei minute. Dă fiecărei afirmații o notă de la 1 (deloc) la 10 (neapărat) — nu există răspuns greșit.</p></div>
   <div class="panel">${PREFERINTE.map(p=>{const val=S.date.prefs[p.id]||0;
-    return `<div class="pref"><div class="q">${esc(p.text)}</div>${steleRand("data-p",p.id,val,10)}</div>`}).join("")}</div>`;
-  v.querySelectorAll(".stars").forEach(g=>g.querySelectorAll(".st").forEach(b=>b.onclick=async()=>{
-    S.date.prefs[g.dataset.p]=+b.dataset.v;vPref();await salveaza();
+    return `<div class="pref"><div class="q">${esc(p.text)}</div>${steleRand("data-p",p.id,val,10)}</div>`}).join("")}</div>
+  <div class="orasnav">
+    <button id="prefSus">↑ Sus</button>
+    <button class="primary" id="prefRez">Continuă spre Experiențe →</button>
+  </div>`;
+  const bSus=v.querySelector("#prefSus"); if(bSus) bSus.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+  const bRez=v.querySelector("#prefRez"); if(bRez) bRez.onclick=()=>{S.oras="Tokyo";S.tab="exp";render()};
+  v.querySelectorAll(".stars").forEach(g=>g.querySelectorAll(".st").forEach(b=>b.onclick=()=>{
+    const id=g.dataset.p, val=+b.dataset.v;
+    cuNume(async()=>{
+      const y=window.scrollY;
+      S.date.prefs[id]=val; vPref(); window.scrollTo(0,y);
+      randSus(); await salveaza();
+    });
   }));
 }
 
@@ -1023,14 +1157,16 @@ function vExp(){
   const areCevaDeNotat=ORASE_CU_STELUTE.includes(S.oras);
   const notabile=lista.filter(cardAreNotare);
   const notate=notabile.filter(c=>S.date.note[c.id]>0).length;
+  const titluExp = S.oras==="Excursii"
+      ? `${esc(numeOras(S.oras))} 🍁`
+      : `Experiențele din ${esc(numeOras(S.oras))} 🍁`;
   let html=(areCevaDeNotat
-      ? `<div class="panel"><h2>Notează fiecare experiență 🍁</h2>
-    <p class="note">Acolo unde se poate, notează experiențele de la 1 la 5 stele. Pentru restul, am ales deja noi.</p></div>`
+      ? `<div class="panel"><h2>${titluExp}</h2>
+    <p class="note">Sunt multe, așa că notează doar ce-ți sare în ochi — de la 1 stea (nu prea) la 5 stele (neapărat). Nu e nevoie să le parcurgi pe toate, iar ce lași nenotat nu strică nimic. Pentru celelalte orașe am ales deja noi.</p></div>`
       : `<div class="panel"><h2>Experiențele din ${esc(numeOras(S.oras))} 🍁</h2>
     <p class="note">Aici poți vedea cum ne-am gândit să ne petrecem timpul în aceste orașe. Lasă-ne un comentariu mai jos dacă ai sugestii sau ceva ce ți-ai dori neapărat.</p></div>`)
     + baraOrase()
-    + (ORAS_BIO[S.oras]?`<p class="orasbio" style="--ac:${stil(S.oras).ac}">${esc(ORAS_BIO[S.oras])}</p>`:"")
-    + (areCevaDeNotat?`<p class="meta">${esc(numeOras(S.oras))} · ${notate}/${notabile.length} notate</p>`:`<p class="meta">${esc(numeOras(S.oras))} · ${lista.length} experiențe</p>`);
+    + (areCevaDeNotat&&notate?`<p class="meta">${esc(numeOras(S.oras))} · ${notate}/${notabile.length} notate</p>`:`<p class="meta">${esc(numeOras(S.oras))} · ${lista.length} experiențe</p>`);
   categoriiPentru(S.oras).forEach(cat=>{
     const cards=ordoneazaCat(lista.filter(c=>c.cat===cat.id));
     if(!cards.length)return;
@@ -1045,19 +1181,22 @@ function vExp(){
   const urmOras=ORASE[idxOras+1];
   html+=`<div class="orasnav">
     <button id="navSus">↑ Sus la orașe</button>
-    <button class="primary" id="navUrm">${urmOras?`Continuă spre ${esc(numeOras(urmOras))} →`:"Gata cu orașele → Preferințe"}</button>
+    <button class="primary" id="navUrm">${urmOras?`Continuă spre ${esc(numeOras(urmOras))} →`:"Gata cu orașele → Rezultate"}</button>
   </div>`;
 
   v.innerHTML=html;
   legOrase();
   legComentarii(S.oras);
   const bSus=v.querySelector("#navSus"); if(bSus) bSus.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
-  const bUrm=v.querySelector("#navUrm"); if(bUrm) bUrm.onclick=()=>{ if(urmOras){S.oras=urmOras;} else {S.tab="pref";} render(); };
-  v.querySelectorAll(".stars").forEach(g=>g.querySelectorAll(".st").forEach(b=>b.onclick=async()=>{
-    const id=g.dataset.note;
-    S.date.note[id]=+b.dataset.v;
-    salveaza();
-    animaReasezare(id);
+  const bUrm=v.querySelector("#navUrm"); if(bUrm) bUrm.onclick=()=>{ if(urmOras){S.oras=urmOras;} else {S.tab="rez";} render(); };
+  v.querySelectorAll(".stars").forEach(g=>g.querySelectorAll(".st").forEach(b=>b.onclick=()=>{
+    const id=g.dataset.note, val=+b.dataset.v;
+    cuNume(()=>{
+      S.date.note[id]=val;
+      salveaza();
+      randSus();
+      animaReasezare(id);
+    });
   }));
 }
 /* rulează animația de estompare + deplasare pe cardul atins, apoi rerandează (reordonând) în timp ce e estompat */
@@ -1081,7 +1220,7 @@ function animaReasezare(id){
 /* strânge toate comentariile pentru un oraș, de la toți utilizatorii (din S.toti) */
 function toateComentariile(oras){
   const out=[]; const vazut=new Set();   // vazut = id-uri deja adăugate (evită dublurile)
-  const surse={...S.toti,[S.me]:S.date};   // include și ce am eu nesalvat încă
+  const surse=S.me?{...S.toti,[S.me]:S.date}:{...S.toti};   // include și ce am eu nesalvat încă
   for(const nume in surse){
     const cl=(surse[nume]&&surse[nume].coment&&surse[nume].coment[oras])||[];
     cl.forEach(c=>{ if(c && !vazut.has(c.id)){ vazut.add(c.id);
@@ -1113,11 +1252,13 @@ function boxaComentarii(oras){
 function legComentarii(oras){
   const wrap=$(".comente"); if(!wrap)return;
   const add=$("#cmt-add"), inp=$("#cmt-in");
-  if(add) add.onclick=async()=>{
+  if(add) add.onclick=()=>{
     const t=inp.value.trim(); if(!t)return;
-    if(!S.date.coment[oras]) S.date.coment[oras]=[];
-    S.date.coment[oras].push({id:"c"+Date.now()+Math.random().toString(36).slice(2,6),text:t,t:Date.now()});
-    await salveaza(); vExp();
+    cuNume(async()=>{
+      if(!S.date.coment[oras]) S.date.coment[oras]=[];
+      S.date.coment[oras].push({id:"c"+Date.now()+Math.random().toString(36).slice(2,6),text:t,t:Date.now()});
+      await salveaza(); randSus(); vExp();
+    });
   };
   wrap.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{
     const id=b.dataset.del;
@@ -1141,34 +1282,93 @@ function legComentarii(oras){
   });
 }
 
-/* ---------- PROPUNERE ITINERARIU ---------- */
+/* ---------- PROPUNERE ITINERARIU ----------
+   Rezumat vertical, de derulat: fiecare oraș e un buton-chenar care duce la
+   experiențele lui, cu o bandă de fotografii dedesubt. Orașele-bază (Tokyo,
+   Hakone, Kyoto) sunt destinațiile mari; excursiile de o zi (Osaka, Nara,
+   Hiroshima, Uji) stau cuib, ca „cerculețe” mai mici, în interiorul Kyoto. */
+const PLAN_DESTINATII = [
+  {oras:"Tokyo", ac:"#C4452D", jp:"東京", nopti:"3 + 2 nopți", date:"31 oct → 3 nov · 12 → 14 nov",
+   poze:["shibuya_crossing.jpeg","omakase.jpg","golden_gai.jpg","ginza.jpg","shibuya_sky.jpg"]},
+
+  {oras:"Hakone", ac:"#4A6274", jp:"箱根", nopti:"2 nopți", date:"3 → 5 nov",
+   poze:["onsen.jpg","kaiseki.avif","hakone_loop.jpg","owakudani.jpg","ashi.png"]},
+
+  {oras:"Kyoto", ac:"#6E7A52", jp:"京都", nopti:"7 nopți", date:"5 → 12 nov",
+   poze:["fushimi.webp","sannenzaka.jpg","arashiyama.jpg","katsura.jpg","pontocho.jpg"],
+   excursii:[
+     {oras:"Osaka",     jp:"大阪", scurt:"Street food & neon",   poze:["dotonbori.jpg","shinsekai.jpg","umeda_sky.jpg"]},
+     {oras:"Nara",      jp:"奈良", scurt:"Căprioare & temple",   poze:["nara_park.jpg","nakatanidou.jpg","kasuga_taisha.jpg"]},
+     {oras:"Hiroshima", jp:"広島", scurt:"Memorial & Miyajima",  poze:["memorial_peace.jpg","miyajima.jpg"]},
+     {oras:"Uji",       jp:"宇治", scurt:"Matcha & Byodo-in",    poze:["byodo_in.jpg","uji_matcha.jpg"]}
+   ]}
+];
+
+const pozaMica = img => `<div class="p" style="background-image:url('${esc(img)}')"></div>`;
+
 function vPlan(){
   const v=$("#view");
-  const legs=[
-    {ac:"#C4452D",jp:"東京",nights:"3 nopți",titlu:"Tokyo",dates:"31 oct → 3 nov"},
-    {ac:"#4A6274",jp:"箱根",nights:"2 nopți",titlu:"Hakone",dates:"3 nov → 5 nov"},
-    {ac:"#6E7A52",jp:"京都",nights:"7 nopți",titlu:"Kyoto (bază pentru regiunea Kansai și Chūgoku)",dates:"5 nov → 12 nov",nota:"Vizite în orașul Kyoto și alte vizite de o zi în orașele din regiunile Kansai (Nara, Osaka, Uji, Himeji) și Chūgoku (Hiroshima)."},
-    {ac:"#C4452D",jp:"東京",nights:"2 nopți",titlu:"Tokyo (final)",dates:"12 nov → 14 nov",nota:"Pentru ultimele două zile nu ne facem program fix — le păstrăm libere, ca să avem timp de shopping 🛍️ și de savurat orașul în ritmul nostru."}
-  ];
-  v.innerHTML=`<div class="panel"><h2>Cum ne-am gândit să împărțim zilele 🍁</h2>
-      <p class="note" style="margin:0 0 8px">Ideea de bază: cât mai puține mutări de bagaje — <b>doar 3 hoteluri</b> (Tokyo, Hakone, Kyoto).</p>
-      <p class="note" style="margin:0">Din Kyoto și Tokyo facem excursii de o zi, întorcându-ne seara în același pat: Nara, Osaka, Uji, Himeji, Kobe, Kamakura, Fuji — și chiar Hiroshima (2 ore cu trenul rapid, cu oprire la Himeji în drum).</p>
+
+  const destMare = d => `
+    <div class="leg" style="--ac:${d.ac}">
+      <div class="rail"><div class="knob" style="background:${d.ac}"></div><div class="line"></div></div>
+      <div class="content">
+        <button class="orasbtn" style="--ac:${d.ac}" data-goto="${esc(d.oras)}"
+                title="Vezi experiențele din ${esc(numeOras(d.oras))}">
+          <span class="o-jp">${d.jp}</span>
+          <span class="o-txt">
+            <span class="o-nume">${esc(numeOras(d.oras))}</span>
+            <span class="o-meta">${esc(d.nopti)} · ${esc(d.date)}</span>
+          </span>
+          <span class="o-go">Experiențe →</span>
+        </button>
+        <div class="poze">${d.poze.map(pozaMica).join("")}</div>
+        <p class="dest-rez">${esc(ORAS_BIO[d.oras]||"")}</p>
+        ${d.excursii?`
+          <div class="excursii-bloc">
+            <div class="excursii-cap">Excursii de o zi din Kyoto 🚆</div>
+            ${d.excursii.map(e=>{const ac=stil(e.oras).ac;return `
+              <div class="subdest">
+                <button class="orasbtn mic" style="--ac:${ac}" data-goto="${esc(e.oras)}"
+                        title="Vezi experiențele din ${esc(numeOras(e.oras))}">
+                  <span class="o-jp">${e.jp}</span>
+                  <span class="o-txt">
+                    <span class="o-nume">${esc(numeOras(e.oras))}</span>
+                    <span class="o-meta">${esc(e.scurt)}</span>
+                  </span>
+                  <span class="o-go">→</span>
+                </button>
+                <div class="poze poze-mic">${e.poze.map(pozaMica).join("")}</div>
+                <p class="dest-rez">${esc(ORAS_BIO[e.oras]||"")}</p>
+              </div>`;}).join("")}
+          </div>`:""}
+      </div>
+    </div>`;
+
+  v.innerHTML=`<div class="panel"><h2>Itinerarul pe scurt 🍁</h2>
+      <p class="note" style="margin:0 0 6px">Paisprezece zile, cu cât mai puține mutări de bagaje — <b>doar 3 hoteluri</b>: Tokyo, Hakone și Kyoto. Din Kyoto facem excursii de o zi și ne întoarcem seara în același pat.</p>
+      <p class="note" style="margin:0">Derulează în jos pentru un rezumat al călătoriei. Apasă pe orice oraș ca să-i vezi experiențele în detaliu. 👇</p>
     </div>
-    <div class="panel"><div class="meta">Traseul pe nopți</div>
-      <div class="trip">${legs.map(l=>`
-        <div class="leg" style="--ac:${l.ac}">
-          <div class="rail"><div class="knob" style="background:${l.ac}"></div><div class="line"></div></div>
-          <div class="content">
-            <div class="nights">${l.nights}</div>
-            <h3>${esc(l.titlu)}</h3>
-            <div class="dates">${esc(l.dates)}</div>
-            ${l.nota?`<div class="planjoke" style="--ac:${l.ac}">${esc(l.nota)}</div>`:`<div class="placeholder">Aici vom adăuga cum petrecem zilele.</div>`}
-          </div>
-        </div>`).join("")}</div>
+    <div class="panel"><div class="meta">Traseul, oraș cu oraș</div>
+      <div class="trip itiner">${PLAN_DESTINATII.map(destMare).join("")}</div>
     </div>
     <div class="panel"><div class="meta">Harta traseului</div>
       <img class="harta" src="gpt_map.png" alt="Harta traseului prin Japonia" loading="lazy">
+    </div>
+    <div class="panel"><h2 style="margin-bottom:6px">Acum e rândul vostru 🍂</h2>
+      <p class="note" style="margin:0 0 12px">După ce răsfoiești experiențele, spune-ne ce fel de vacanță vă doriți la <b>Preferințe</b> — 14 întrebări scurte, cam trei minute. La final vedem media grupului.</p>
+      <div class="orasnav">
+        <button class="primary" id="laExp">Vezi experiențele →</button>
+        <button id="laPref">Treci la Preferințe</button>
+      </div>
     </div>`;
+
+  /* fiecare buton-oraș duce la pagina lui din Experiențe */
+  v.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>{
+    S.oras=b.dataset.goto; S.tab="exp"; render();
+  });
+  const bE=v.querySelector("#laExp"); if(bE) bE.onclick=()=>{S.oras="Tokyo";S.tab="exp";render()};
+  const bP=v.querySelector("#laPref"); if(bP) bP.onclick=()=>{S.tab="pref";render()};
 }
 
 /* ---------- JAPONEZA PE SCURT ---------- */
@@ -1227,7 +1427,7 @@ function vLimba(){
 
 /* ---------- REZULTATE ---------- */
 function vRez(){
-  const oameni=Object.keys(S.toti).length?Object.keys(S.toti):[S.me];
+  const oameni=(Object.keys(S.toti).length?Object.keys(S.toti):[S.me]).filter(Boolean);
   const v=$("#view");
   const medie=arr=>arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0;
   const abatere=(arr,m)=>arr.length>1?Math.sqrt(arr.reduce((s,x)=>s+(x-m)**2,0)/arr.length):0;
