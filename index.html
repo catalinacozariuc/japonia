@@ -364,7 +364,7 @@ const ORAS_STIL = {
 const ORAS_BIO = {
   "Tokyo":"Cel mai mare oraș al lumii nu obosește niciodată: temple vechi de secole la câțiva pași de intersecții pline de neon, cartiere care se schimbă complet de la o stradă la alta și cele mai bune restaurante de pe planetă, de la tarabe de ramen la mese cu stele. Aici stă și partea de program cultural: concerte, teatru, un balet-premieră fix în zilele noastre.",
   "Hakone":"După forfota din Tokyo, Hakone e locul unde încetinim. Un ținut de munte cu izvoare fierbinți, unde ziua se termină cufundat până la gât în apă termală, cu aburul ridicându-se în aerul răcoros de toamnă și, pe vreme bună, Fuji la orizont. Dormim într-un ryokan tradițional, mâncăm o cină lungă în odaie și nu ne grăbim nicăieri.",
-  "Kyoto":"Fostă capitală imperială timp de peste o mie de ani, Kyoto e inima veche a Japoniei — orașul cu mii de temple, grădini de mușchi, cartiere de gheișe și ceremonii ale ceaiului care se fac la fel de secole. E și tabăra noastră de bază pentru toată regiunea: de aici pornim, dimineața, spre orașele din jur și ne întoarcem seara în același pat. Ne așezăm aici o săptămână, ca să-l descoperim pe îndelete.",
+  "Kyoto":"Fostă capitală imperială timp de peste o mie de ani, Kyoto e inima veche a Japoniei — orașul cu mii de temple, grădini de mușchi, cartiere de gheișe și ceremonii ale ceaiului care se fac la fel de secole. E și tabăra noastră de bază pentru toată regiunea Kansai și Chūgoku: de aici pornim, dimineața, spre orașele din jur și ne întoarcem seara în același pat. Ne așezăm aici o săptămână, ca să-l descoperim pe îndelete.",
   "Nara":"Prima capitală permanentă a Japoniei, mai veche chiar decât Kyoto, la o azvârlitură de băț cu trenul. Peste tot, temple monumentale și un Buddha de bronz uriaș — dar vedetele orașului sunt cele peste o mie de căprioare care umblă libere prin parc și au învățat să se încline pentru un biscuit. O excursie de o zi, veselă și plină de verde.",
   "Osaka":"Dacă Kyoto e eleganța, Osaka e pofta de viață. Orașul-bucătărie al Japoniei, gălăgios și prietenos, cu neoane reflectate în canale și un cuvânt propriu pentru felul lui de a mânca: kuidaore, „a mânca până cazi”. Mergem pentru o seară de street food și lumini — takoyaki, okonomiyaki, kushikatsu — și pentru energia lui contagioasă.",
   "Hiroshima":"Un oraș care poartă cea mai grea poveste a secolului XX și a ales să devină un simbol al păcii. Memorialul e o vizită apăsătoare, dar de neuitat. La câțiva pași, cu feribotul, se ajunge la Miyajima și la faimoasa poartă torii roșie care pare că plutește pe mare — un contrast blând, care echilibrează ziua.",
@@ -1214,7 +1214,7 @@ function vExp(){
       : `Experiențele din ${esc(numeOras(S.oras))} 🍁`;
   let html=(areCevaDeNotat
       ? `<div class="panel"><h2>${titluExp}</h2>
-    <p class="note">Sunt multe, așa că notează doar ce-ți sare în ochi — de la 1 stea (nu prea) la 5 stele (neapărat). Nu e nevoie să le parcurgi pe toate, iar ce lași nenotat nu strică nimic. Pentru celelalte orașe am ales deja noi.</p></div>`
+    <p class="note">Vă rugăm mult, dacă e posibil, să notați toate experiențele de la 1 ⭐ (nu prea) la 5 ⭐⭐⭐⭐⭐ (neapărat) pentru Tokyo, Kyoto și pentru posibilele excursii. Pentru orașele mici, le alegem noi.</p></div>`
       : `<div class="panel"><h2>Experiențele din ${esc(numeOras(S.oras))} 🍁</h2>
     <p class="note">Aici poți vedea cum ne-am gândit să ne petrecem timpul în aceste orașe. Lasă-ne un comentariu mai jos dacă ai sugestii sau ceva ce ți-ai dori neapărat.</p></div>`)
     + baraOrase()
@@ -1340,7 +1340,7 @@ function legComentarii(oras){
    Hakone, Kyoto) sunt destinațiile mari; excursiile de o zi (Osaka, Nara,
    Hiroshima, Uji) stau cuib, ca „cerculețe” mai mici, în interiorul Kyoto. */
 const PLAN_DESTINATII = [
-  {oras:"Tokyo", ac:"#C4452D", jp:"東京", nopti:"3 + 2 nopți", date:"31 oct → 3 nov · 12 → 14 nov",
+  {oras:"Tokyo", ac:"#C4452D", jp:"東京", nopti:"3 nopți", date:"31 oct → 3 nov",
    poze:["shibuya_crossing.jpeg","omakase.jpg","golden_gai.jpg","ginza.jpg","shibuya_sky.jpg"]},
 
   {oras:"Hakone", ac:"#4A6274", jp:"箱根", nopti:"2 nopți", date:"3 → 5 nov",
@@ -1353,7 +1353,10 @@ const PLAN_DESTINATII = [
      {oras:"Nara",      jp:"奈良", scurt:"Căprioare & temple",   poze:["nara_park.jpg","nakatanidou.jpg","kasuga_taisha.jpg"]},
      {oras:"Hiroshima", jp:"広島", scurt:"Memorial & Miyajima",  poze:["memorial_peace.jpg","miyajima.jpg"]},
      {oras:"Uji",       jp:"宇治", scurt:"Matcha & Byodo-in",    poze:["byodo_in.jpg","uji_matcha.jpg"]}
-   ]}
+   ]},
+
+  {oras:"Tokyo", ac:"#C4452D", jp:"東京", nopti:"2 nopți", date:"12 → 14 nov",
+   poze:[], bio:"Ultimele două nopți, fără plan fix — timpul e liber pentru shopping și explorare pe cont propriu."}
 ];
 
 const pozaMica = img => `<div class="p" style="background-image:url('${esc(img)}')"></div>`;
@@ -1374,8 +1377,8 @@ function vPlan(){
           </span>
           <span class="o-go">Experiențe →</span>
         </button>
-        <div class="poze">${d.poze.map(pozaMica).join("")}</div>
-        <p class="dest-rez">${esc(ORAS_BIO[d.oras]||"")}</p>
+        ${d.poze&&d.poze.length?`<div class="poze">${d.poze.map(pozaMica).join("")}</div>`:""}
+        <p class="dest-rez">${esc(d.bio||ORAS_BIO[d.oras]||"")}</p>
         ${d.excursii?`
           <div class="excursii-bloc">
             <div class="excursii-cap">Excursii de o zi din Kyoto 🚆</div>
