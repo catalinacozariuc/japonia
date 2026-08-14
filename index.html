@@ -1604,3 +1604,66 @@ function vRez(){
 
 load();
 </script>
+
+<script>
+/* ============================================================
+   Deschidere directă a unei experiențe dintr-un link.
+   Exemplu: .../japonia/#t_senso deschide fișierul Tokyo
+   și derulează la cardul „Senso-ji & Nakamise".
+   ============================================================ */
+(function(){
+
+  function cardDinHash(){
+    const h = decodeURIComponent(location.hash || "").replace("#","").trim();
+    if(!h || typeof CARDURI === "undefined") return null;
+    return CARDURI.find(c => c.id === h) || null;
+  }
+
+  function textul(el){ return (el.textContent || "").trim(); }
+
+  /* încearcă, pe rând, toate felurile în care se poate deschide un oraș */
+  function deschideOrasul(oras){
+    const buton = [...document.querySelectorAll(".orasbtn")]
+      .find(b => textul(b).includes(oras));
+    if(buton){ buton.click(); return true; }
+
+    const tab = [...document.querySelectorAll(".tab, button")]
+      .find(b => textul(b) === oras);
+    if(tab){ tab.click(); return true; }
+
+    return false;
+  }
+
+  function gasesteCardul(titlu){
+    return [...document.querySelectorAll(".card h3")]
+      .find(h => textul(h) === titlu.trim());
+  }
+
+  function evidentiaza(card){
+    card.scrollIntoView({behavior:"smooth", block:"center"});
+    card.style.transition = "box-shadow .3s";
+    card.style.boxShadow = "0 0 0 3px var(--artar), 0 14px 30px rgba(80,60,40,.2)";
+    setTimeout(() => { card.style.boxShadow = ""; }, 3000);
+  }
+
+  function du(){
+    const c = cardDinHash();
+    if(!c) return;
+    let pasi = 0, amDeschis = false;
+
+    (function incearca(){
+      const h3 = gasesteCardul(c.titlu);
+      if(h3){
+        const card = h3.closest(".card");
+        if(card) evidentiaza(card);
+        return;
+      }
+      if(!amDeschis) amDeschis = deschideOrasul(c.oras);
+      if(++pasi < 50) setTimeout(incearca, 150);   /* încearcă ~7 secunde */
+    })();
+  }
+
+  window.addEventListener("hashchange", du);
+  window.addEventListener("load", () => setTimeout(du, 700));
+})();
+</script>
