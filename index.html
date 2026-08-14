@@ -331,6 +331,63 @@
   }
 </style>
 <div id="app"><div class="wrap" id="root"></div></div>
+
+
+<!--
+  ================================================================
+  BUTONUL SPRE PROGRAM — de lipit în index.html
+  ================================================================
+
+  1. Puneți fișierul program.html în același folder cu index.html
+     (adică direct în rădăcina repository-ului japonia).
+
+  2. Lipiți blocul de mai jos în index.html IMEDIAT DUPĂ linia:
+
+        <div id="app"><div class="wrap" id="root"></div></div>
+
+     Butonul stă fixat în colțul din dreapta-jos, e vizibil pe
+     orice filă a aplicației și nu intră în conflict cu nimic din
+     codul existent (toate stilurile au prefixul .prg-).
+
+  3. Atât. Nu trebuie modificat nimic în JavaScript-ul din index.html.
+  ================================================================
+-->
+
+<style>
+.prg-buton{
+  position:fixed; right:18px; bottom:18px; z-index:50;
+  display:flex; align-items:center; gap:10px;
+  background:#C4452D; color:#fff; text-decoration:none;
+  border:1px solid #C4452D; border-radius:3px;
+  padding:11px 16px;
+  font-family:Georgia,serif; font-size:15px; line-height:1;
+  box-shadow:0 10px 26px rgba(80,60,40,.24);
+  transition:background .18s, transform .16s, box-shadow .18s;
+}
+.prg-buton:hover{ background:#a83722; transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(80,60,40,.3); }
+.prg-buton:focus-visible{ outline:2px solid #B07C2A; outline-offset:3px; }
+.prg-buton .prg-jp{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:17px; opacity:.85;
+}
+.prg-buton .prg-mic{
+  font-family:"Helvetica Neue",Inter,system-ui,sans-serif;
+  font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+  opacity:.75; display:block; margin-bottom:3px;
+}
+@media(max-width:520px){
+  .prg-buton{ right:12px; bottom:12px; padding:10px 14px; font-size:14px; }
+}
+@media print{ .prg-buton{ display:none } }
+</style>
+
+<a class="prg-buton" href="program.html">
+  <span class="prg-jp">日課</span>
+  <span><span class="prg-mic">Tokyo · Hakone · Kyoto</span>Programul zilelor</span>
+</a>
+
+
 <div class="status" id="status"></div>
 <script>
 /* ============================================================================
