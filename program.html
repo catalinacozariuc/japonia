@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ro">
+<meta charset="utf-8">
+<title>日課 · Programul zilelor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --hartie:#F5EFE4; --hartie2:#FFFCF6; --tus:#33302B; --gri:#8A8377;
+  --artar:#C4452D; --kaki:#B07C2A; --ceai:#6E7A52; --indigo:#4A6274; --prun:#4A4459;
+  --linie:#E2D8C6; --linie2:#EFE7D9;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--hartie);color:var(--tus);
+  font-family:"Helvetica Neue",Inter,system-ui,sans-serif;
+  padding:26px 18px 90px;
+  background-image:radial-gradient(circle at 90% 0%,rgba(196,69,45,.07),transparent 45%),
+    radial-gradient(circle at 5% 12%,rgba(110,122,82,.07),transparent 40%),
+    radial-gradient(circle at 40% 100%,rgba(176,124,42,.05),transparent 50%);
+  background-attachment:fixed}
+.wrap{max-width:920px;margin:0 auto}
+
+a.inapoi{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gri);text-decoration:none;margin-bottom:18px}
+a.inapoi:hover{color:var(--artar)}
+
+.kanji{font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,serif;font-size:clamp(28px,6vw,42px);
+  color:var(--artar);letter-spacing:.08em;margin:0;line-height:1.1}
+h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(15px,2.4vw,19px);letter-spacing:.2em;
+  text-transform:uppercase;margin:10px 0 0}
+
+/* ---------- etapele călătoriei ---------- */
+.etape{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:26px 0 0}
+.etapa{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;color:var(--tus);
+  background:var(--hartie2);border:1.5px solid var(--linie);border-left:5px solid var(--ac);
+  border-radius:4px;padding:13px 15px;cursor:pointer;
+  transition:background .18s,border-color .18s,transform .16s,box-shadow .18s,color .18s}
+.etapa:hover{background:var(--ac);border-color:var(--ac);transform:translateX(3px);
+  box-shadow:0 10px 22px rgba(80,60,40,.15)}
+.etapa:hover .e-jp,.etapa:hover .e-n,.etapa:hover .e-m{color:#fff}
+.etapa:focus-visible{outline:2px solid var(--kaki);outline-offset:3px}
+.etapa.on{background:var(--ac);border-color:var(--ac)}
+.etapa.on .e-jp,.etapa.on .e-n,.etapa.on .e-m{color:#fff}
+.etapa .e-jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:26px;line-height:1;color:var(--ac)}
+.etapa .e-t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.etapa .e-n{font-family:Georgia,serif;font-size:19px;line-height:1.15}
+.etapa .e-m{font-size:11px;letter-spacing:.05em;color:var(--kaki)}
+@media(max-width:660px){.etape{grid-template-columns:1fr}}
+
+/* ---------- zilele ---------- */
+.zilenav{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 0;position:sticky;top:0;z-index:20;
+  background:var(--hartie);padding:12px 0;border-bottom:1px solid var(--linie)}
+.zilenav button{font:inherit;font-size:12.5px;cursor:pointer;background:var(--hartie2);color:var(--tus);
+  border:1px solid var(--linie);border-radius:2px;padding:8px 13px;
+  transition:background .15s,border-color .15s,color .15s}
+.zilenav button:hover{border-color:var(--artar)}
+.zilenav button:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
+.zilenav button.on{background:var(--tus);color:var(--hartie);border-color:var(--tus)}
+.zilenav .zi-jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;margin-right:6px;opacity:.75}
+.zilenav .sep{width:1px;background:var(--linie);margin:2px 4px}
+
+.zi-cap{border-bottom:1px solid var(--linie);padding:26px 0 12px;margin-bottom:22px}
+.zi-cap h2{font-family:Georgia,serif;font-weight:400;font-size:clamp(22px,4vw,29px);margin:0;color:var(--artar)}
+.zi-cap .zi-zi{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gri);margin-bottom:6px}
+
+/* ---------- banda ---------- */
+.banda{display:grid;grid-template-columns:118px 1fr;gap:20px;padding:0 0 24px}
+.banda .rail{position:relative;padding-top:2px}
+.banda .rail .j{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:25px;color:var(--ac);line-height:1}
+.banda .rail b{display:block;font-family:Georgia,serif;font-weight:400;font-size:16px;margin:6px 0 3px}
+.banda .rail span{display:block;font-size:11px;color:var(--gri)}
+.banda .rail::after{content:"";position:absolute;right:-10px;top:4px;bottom:-24px;width:2px;background:var(--linie)}
+.banda:last-of-type .rail::after{bottom:8px}
+.banda .continut{min-width:0;display:flex;flex-direction:column;gap:10px}
+@media(max-width:620px){
+  .banda{grid-template-columns:1fr;gap:10px;padding-bottom:20px}
+  .banda .rail{display:flex;align-items:baseline;gap:9px;border-left:3px solid var(--ac);padding:1px 0 1px 11px}
+  .banda .rail::after{display:none}
+  .banda .rail .j{font-size:17px}
+  .banda .rail b{margin:0}
+  .banda .rail span{margin-left:auto}
+}
+
+/* ---------- fișe ---------- */
+.fisa{background:var(--hartie2);border:1px solid var(--linie);border-left:4px solid var(--ac);
+  border-radius:3px;padding:13px 16px;position:relative}
+.fisa .ora{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--kaki)}
+.fisa h3{margin:4px 0 0;font-family:Georgia,serif;font-weight:400;font-size:17.5px;line-height:1.3}
+.fisa p{margin:6px 0 0;font-size:13.5px;line-height:1.55;color:#4A453C}
+.fisa .drum{margin-top:7px;font-size:11.5px;color:var(--gri)}
+.fisa .drum::before{content:"↳ ";opacity:.6}
+.sigiliu{position:absolute;top:11px;right:13px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:13px;color:var(--artar);border:1.5px solid var(--artar);border-radius:3px;
+  width:25px;height:25px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.7)}
+.fisa.cu-sigiliu h3{padding-right:32px}
+
+.fisa.deschis{background:transparent;border-style:dashed;border-left-style:solid;border-left-color:var(--linie)}
+.fisa.deschis h3,.fisa.deschis .ora{color:var(--gri)}
+
+.nota{border-left:3px solid var(--kaki);background:rgba(176,124,42,.07);border-radius:2px;
+  padding:10px 13px;font-size:12.5px;line-height:1.55;color:#5C5346}
+.nota b{color:var(--tus);font-weight:600}
+
+/* ---------- placeholder etapă ---------- */
+.gol{border:1px dashed var(--linie);border-radius:4px;background:var(--hartie2);
+  padding:36px 26px;text-align:center;margin-top:26px}
+.gol .g-jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:34px;color:var(--ac);opacity:.55}
+.gol h2{font-family:Georgia,serif;font-weight:400;font-size:22px;margin:12px 0 8px;color:var(--tus)}
+.gol p{font-size:13.5px;line-height:1.65;color:var(--gri);margin:0 auto;max-width:44ch}
+.gol .zile-goale{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.gol .zg{border:1px solid var(--linie);border-radius:2px;padding:7px 14px;font-size:12px;color:var(--gri);
+  background:var(--hartie)}
+
+/* ---------- de rezervat ---------- */
+.check{margin-top:38px;border-top:1px solid var(--linie);padding-top:22px}
+.check h2{font-family:Georgia,serif;font-weight:400;font-size:21px;margin:0 0 14px;color:var(--artar)}
+.check ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.check li{position:relative;padding-left:25px;font-size:13.5px;line-height:1.55;color:#4A453C}
+.check li::before{content:"□";position:absolute;left:0;top:-1px;font-size:15px;color:var(--kaki)}
+.check li b{color:var(--tus)}
+footer{margin-top:30px;padding-top:15px;border-top:1px solid var(--linie);
+  font-size:11.5px;color:var(--gri);line-height:1.7}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{body{background:#fff;padding:0}.zilenav,.etape,a.inapoi{display:none}
+  .zi{display:block!important;page-break-after:always}}
+</style>
+
+<div class="wrap">
+  <a class="inapoi" href="index.html">← Înapoi la experiențe</a>
+
+  <header>
+    <p class="kanji">日課</p>
+    <h1>Programul zilelor</h1>
+  </header>
+
+  <nav class="etape" id="etape" aria-label="Etapa călătoriei"></nav>
+  <div id="continut"></div>
+</div>
+
+<script>
+const BENZI = [
+  {k:"devreme",  jp:"暁",  nume:"Devreme",     ore:"până la 09:00", ac:"#4A6274"},
+  {k:"dimineata",jp:"朝",  nume:"Dimineața",   ore:"09:00 – 12:30", ac:"#6E7A52"},
+  {k:"pranz",    jp:"昼",  nume:"Prânz",       ore:"12:30 – 14:00", ac:"#B07C2A"},
+  {k:"dupa",     jp:"午後", nume:"După-amiaza", ore:"14:00 – 18:00", ac:"#C4452D"},
+  {k:"seara",    jp:"夜",  nume:"Seara",       ore:"de la 18:00",   ac:"#4A4459"}
+];
+
+const ETAPE = [
+  {id:"tokyo", jp:"東京", nume:"Tokyo", meta:"31 oct – 3 nov · 12–13 nov", ac:"#8F2C1A", gata:true},
+  {id:"hakone",jp:"箱根", nume:"Hakone",meta:"în pregătire", ac:"#4A6274", gata:false},
+  {id:"kyoto", jp:"京都", nume:"Kyoto", meta:"în pregătire", ac:"#485236", gata:false}
+];
+
+const ZILE_TOKYO = [
+{
+  id:"o31", jp:"零", scurt:"31 oct", zi:"Sâmbătă · sosire", titlu:"31 octombrie",
+  benzi:{
+    seara:[
+      {t:"fisa",titlu:"Sosire la Narita și drum spre hotel",
+       text:"Ne cazăm în zona Ginza. Nimic programat în seara asta.",
+       drum:"Narita → Gara Tokyo: Narita Express, ~55 min. De la gară la hotel, 5 min."},
+      {t:"fisa",titlu:"Cină lângă hotel",
+       text:"Ceva simplu și aproape — soba, tonkatsu sau un izakaya. Fără rezervare."}
+    ]
+  }
+},
+{
+  id:"n1", jp:"一", scurt:"1 nov", zi:"Duminică", titlu:"1 noiembrie",
+  benzi:{
+    devreme:[
+      {t:"fisa",fix:true,ora:"06:30 – 09:30",titlu:"Asakusa & Senso-ji",
+       text:"Kaminarimon → Nakamise → Senso-ji → Asakusa Shrine → străduțele din spate. La 07:00 curtea e goală; la 10:00 e un fluviu de oameni. Tarabele de pe Nakamise deschid pe la 09:30.",
+       drum:"Ginza → Asakusa: linia Ginza, direct, 17 min."}
+    ],
+    dimineata:[
+      {t:"fisa",fix:true,ora:"09:50 – 11:30",titlu:"Croazieră pe Sumida → Grădina Hamarikyu",
+       text:"Vaporașul face 35 de minute până la Hamarikyu, pe sub treisprezece poduri. Biletul (~1.040 ¥) include intrarea în grădină, iar debarcaderul e chiar înăuntru.",
+       drum:"Hamarikyu → hotel: 15 min pe jos."}
+    ],
+    pranz:[
+      {t:"fisa",fix:true,ora:"11:45 – 13:00",titlu:"Prânz ușor și schimbat ținuta",
+       text:"Masă scurtă lângă hotel, apoi ne schimbăm pentru concert. Ținuta la Suntory Hall e semi-formală / cocktail."}
+    ],
+    dupa:[
+      {t:"fisa",fix:true,ora:"13:15 – 14:45",titlu:"Grădinile de Est ale Palatului Imperial",
+       text:"Zidurile fostului castel Edo, peluzele, fundația turnului principal. Intrăm pe poarta Ōtemon.",
+       drum:"Ginza → Ōtemon: taxi, 10 min."},
+      {t:"fisa",ora:"14:45 – 15:30",titlu:"Drum spre Suntory Hall",
+       text:"Suntem la garderobă până la 15:30. Sala deschide cu 45 de minute înainte.",
+       drum:"Ōtemachi → Akasaka: taxi, ~15 min."}
+    ],
+    seara:[
+      {t:"fisa",fix:true,ora:"16:00 – 18:00",titlu:"Suntory Hall — Gala 40 de ani",
+       text:"Riccardo Muti · Mitsuko Uchida · Wiener Philharmoniker."},
+      {t:"fisa",ora:"18:00 – 18:45",titlu:"Plimbare în Akasaka",
+       text:"Nimic organizat. O jumătate de oră pe jos, eventual un aperitiv."},
+      {t:"fisa",fix:true,ora:"19:00 – 21:00",titlu:"Cină — sushi omakase la tejghea",
+       text:"Sushi-ya mică, cu locuri la counter. Rezervăm în Ginza sau Akasaka."},
+      {t:"nota",text:"Culcare pe la 21:30. Mâine ne trezim la <b>04:30</b>."}
+    ]
+  }
+},
+{
+  id:"n2", jp:"二", scurt:"2 nov", zi:"Luni", titlu:"2 noiembrie",
+  benzi:{
+    devreme:[
+      {t:"fisa",fix:true,ora:"04:30 – 08:00",titlu:"Toyosu — tur ghidat și licitația de ton",
+       text:"Doar turul și licitația. Nu mâncăm aici.",
+       drum:"Ginza → Toyosu: taxi, ~15 min. Plecăm la 04:50, ajungem la 05:00."},
+      {t:"nota",text:"Licitația se vede de pe pasarela de sus fără nicio formalitate. Pentru platforma de jos, la câțiva metri de tonuri, cererea se depune cu aproximativ o lună înainte și locurile se dau prin tragere la sorți."}
+    ],
+    dimineata:[
+      {t:"fisa",fix:true,ora:"08:15 – 10:30",titlu:"Tsukiji Outer Market — micul dejun",
+       text:"Aici mâncăm: tamagoyaki cald pe băț, stridii și scoici pe grătar, uni, ton gras, brochete de wagyu, tempura de creveți și matcha la final.",
+       drum:"Toyosu → Tsukiji: taxi, ~10 min. Tsukiji → hotel: 10 min pe jos."}
+    ],
+    pranz:[
+      {t:"fisa",ora:"11:00 – 12:30",titlu:"Pauză la hotel",
+       text:"Ne odihnim și ne schimbăm. Prânzul îl sărim — am mâncat la piață."}
+    ],
+    dupa:[
+      {t:"fisa",fix:true,ora:"13:00 – 14:30",titlu:"Meiji Jingu",
+       text:"Sanctuarul din pădurea de o sută de mii de copaci plantați manual, cu butoaiele de sake înșirate la intrare. Alei de pietriș și liniște, la câțiva pași de Harajuku.",
+       drum:"Ginza → Omotesando: linia Ginza, direct, ~15 min."},
+      {t:"fisa",ora:"14:45 – 15:20",titlu:"Shibuya",
+       text:"Hachiko, intersecția și Center-gai, chiar sub turnul în care urcăm după.",
+       drum:"Meiji Jingu → Shibuya: 20 min pe jos prin Harajuku, sau o stație cu trenul."},
+      {t:"fisa",fix:true,ora:"15:40 – 17:00",titlu:"Shibuya Sky — apusul",
+       text:"Terasa descoperită de la 230 de metri. Pe 2 noiembrie soarele apune în jur de 16:45. Rezervăm intrarea la 15:40 sau 16:00, ca să prindem și lumina, și apusul, și primele lumini ale orașului."}
+    ],
+    seara:[
+      {t:"fisa",fix:true,ora:"18:30 – 20:15",titlu:"Cină — teppanyaki cu wagyu",
+       text:"Vită premium gătită pe plita încinsă chiar în fața noastră, feliată și asezonată bucată cu bucată, la tejghea. Rezervare obligatorie.",
+       drum:"Shibuya → Shinjuku: JR, 7 min."},
+      {t:"fisa",fix:true,ora:"20:30 – 21:30",titlu:"Shinjuku — Golden Gai și Omoide Yokocho",
+       text:"Plimbare prin aleile de baruri minuscule și pe sub calea ferată, la lumina felinarelor. Un pahar, dacă ne tentează."},
+      {t:"fisa",fix:true,ora:"21:45 – 23:15",titlu:"Karaoke — cameră privată",
+       text:"Camera doar a grupului, băuturi la telefon, plata la oră. Rezervăm din timp.",
+       drum:"Shinjuku → Ginza: linia Marunouchi, ~17 min."}
+    ]
+  }
+},
+{
+  id:"n3", jp:"三", scurt:"3 nov", zi:"Marți · plecare spre Hakone", titlu:"3 noiembrie",
+  benzi:{
+    devreme:[
+      {t:"fisa",ora:"07:30 – 09:00",titlu:"Mic dejun, fără grabă",
+       text:"Fără alarmă devreme."}
+    ],
+    dimineata:[
+      {t:"fisa",fix:true,ora:"09:00 – 09:45",titlu:"Check-out și trimiterea bagajelor la Kyoto",
+       text:"Predăm valizele mari la recepție și le trimitem prin takkyubin — serviciul Ta-Q-Bin al firmei Yamato — direct la hotelul din Kyoto. La Hakone mergem doar cu bagaje mici, pentru două nopți.",
+       drum:"Predarea se face dimineața, ca livrarea să fie a doua zi. Recepția completează formularul, plata se face pe loc."},
+      {t:"fisa",deschis:true,ora:"10:00 – 12:15",titlu:"Activitate de ales",
+       text:"O plimbare prin oraș, aproape de hotel. Alegem mai târziu."},
+      {t:"nota",text:"3 noiembrie e <b>Ziua Culturii</b>, sărbătoare națională: Tsukiji e închis, iar grădinile și muzeele sunt deschise, dar mai aglomerate."}
+    ],
+    pranz:[
+      {t:"fisa",ora:"12:30 – 13:45",titlu:"Prânz",
+       text:"În zona hotelului sau lângă Gara Tokyo."}
+    ],
+    dupa:[
+      {t:"fisa",ora:"13:45 – 15:00",titlu:"Plimbare liberă",
+       text:"Ultimele ore în oraș, fără plan. Luăm bagajele mici de la hotel pe drum."},
+      {t:"fisa",fix:true,ora:"15:15",titlu:"Plecare spre Hakone",
+       text:"Aici se încheie prima ședere la Tokyo. Ajungem în jur de 17:00, cu timp de despachetat înainte de cină.",
+       drum:"Hotel → Gara Tokyo: 5 min. Gara Tokyo → Odawara: shinkansen, 35 min. Odawara → Hakone-Yumoto: 15 min."}
+    ]
+  }
+},
+{
+  id:"n12", jp:"四", scurt:"12 nov", zi:"Joi · întoarcere din Kyoto", titlu:"12 noiembrie",
+  benzi:{
+    dimineata:[
+      {t:"fisa",titlu:"Dimineața la Kyoto",
+       text:"Mic dejun și check-out. Programul dimineții ține de etapa Kyoto."}
+    ],
+    pranz:[
+      {t:"fisa",fix:true,ora:"la prânz",titlu:"Kyoto → Tokyo",
+       text:"Shinkansen, ~2 ore și un sfert. Un ekiben luat din gară rezolvă prânzul.",
+       drum:"Gara Tokyo → hotel Ginza: 5 min."}
+    ],
+    seara:[
+      {t:"fisa",titlu:"Sosire și cazare",
+       text:"A doua ședere, tot în zona Ginza."},
+      {t:"fisa",deschis:true,titlu:"Cină — de stabilit",
+       text:"Alegem după ce fixăm ora trenului."}
+    ]
+  }
+},
+{
+  id:"n13", jp:"五", scurt:"13 nov", zi:"Vineri · zi de cumpărături", titlu:"13 noiembrie",
+  benzi:{
+    dimineata:[
+      {t:"fisa",fix:true,ora:"de la 10:00",titlu:"Ginza — cumpărături",
+       text:"Chuo-dori, Ginza Six, Itoya pentru papetărie, magazinele universale. Marile magazine deschid la 10:00–11:00.",
+       drum:"Totul pe jos de la hotel."}
+    ],
+    pranz:[
+      {t:"fisa",fix:true,ora:"12:30 – 14:00",titlu:"Prânz — unagi",
+       text:"Anghilă glazurată și friptă la cărbune, servită pe orez. Localurile bune sunt mici și se gătește la comandă — rezervăm cu câteva zile înainte."}
+    ],
+    dupa:[
+      {t:"fisa",deschis:true,titlu:"După-amiaza — de stabilit",
+       text:"Cumpărături mai departe sau o singură activitate."}
+    ],
+    seara:[
+      {t:"fisa",deschis:true,titlu:"Seara — de stabilit",
+       text:"Nimic rezervat deocamdată."}
+    ]
+  }
+}
+];
+
+const CHECK_TOKYO = [
+  "<b>Bilete Suntory Hall</b> — gala se dă în două seri; se epuizează imediat ce se pun în vânzare.",
+  "<b>Shibuya Sky, 2 noiembrie, intervalul 15:40 sau 16:00</b> — intervalele de apus se vând cu săptămâni înainte.",
+  "<b>Sushi omakase, 1 noiembrie</b> — tejghea, în Ginza sau Akasaka, cu numărul exact de persoane.",
+  "<b>Toyosu, platforma de jos</b> — cerere cu aproximativ o lună înainte, locurile se dau prin tragere la sorți.",
+  "<b>Teppanyaki, 2 noiembrie</b> — rezervare pentru numărul exact de persoane.",
+  "<b>Karaoke, seara de 2 noiembrie</b> — camerele mari se ocupă repede.",
+  "<b>Unagi, 13 noiembrie</b> — local mic, rezervare cu câteva zile înainte.",
+  "<b>Takkyubin pentru 3 noiembrie</b> — anunțăm hotelul din Ginza și confirmăm adresa hotelului din Kyoto."
+];
+
+/* ---------------- randare ---------------- */
+const el = id => document.getElementById(id);
+
+function fisaHTML(f){
+  return `<article class="fisa${f.fix?" cu-sigiliu":""}${f.deschis?" deschis":""}">
+    ${f.fix?'<div class="sigiliu" title="Stabilit">定</div>':""}
+    ${f.ora?`<div class="ora">${f.ora}</div>`:""}
+    <h3>${f.titlu}</h3>
+    ${f.text?`<p>${f.text}</p>`:""}
+    ${f.drum?`<div class="drum">${f.drum}</div>`:""}
+  </article>`;
+}
+function notaHTML(n){ return `<div class="nota">${n.text}</div>`; }
+
+function ziHTML(z){
+  const benzi = BENZI.map(b=>{
+    const items = z.benzi[b.k];
+    if(!items || !items.length) return "";
+    const c = items.map(i => i.t==="fisa" ? fisaHTML(i) : notaHTML(i)).join("");
+    return `<section class="banda" style="--ac:${b.ac}">
+      <div class="rail"><div class="j">${b.jp}</div><b>${b.nume}</b><span>${b.ore}</span></div>
+      <div class="continut">${c}</div>
+    </section>`;
+  }).join("");
+  return `<article class="zi" id="zi-${z.id}" hidden>
+    <div class="zi-cap"><div class="zi-zi">${z.zi}</div><h2>${z.titlu}</h2></div>
+    ${benzi}
+  </article>`;
+}
+
+function randeazaTokyo(){
+  const tabs = ZILE_TOKYO.map((z,i)=>
+    (z.id==="n12" ? '<div class="sep" aria-hidden="true"></div>' : "") +
+    `<button type="button" data-zi="${z.id}"${i===0?' class="on"':""}>
+      <span class="zi-jp">${z.jp}</span>${z.scurt}</button>`).join("");
+  el("continut").innerHTML = `
+    <nav class="zilenav" id="zilenav" aria-label="Alege ziua">${tabs}</nav>
+    <div id="zile">${ZILE_TOKYO.map(ziHTML).join("")}</div>
+    <section class="check"><h2>De rezervat</h2>
+      <ul>${CHECK_TOKYO.map(c=>`<li>${c}</li>`).join("")}</ul></section>
+    <footer>Orele sunt orientative, cu marjă de 15 minute la fiecare tranziție. Distanțele sunt calculate din zona Ginza / Gara Tokyo.</footer>`;
+  arataZi(ZILE_TOKYO[0].id);
+  el("zilenav").addEventListener("click", e=>{
+    const b = e.target.closest("button[data-zi]");
+    if(!b) return;
+    arataZi(b.dataset.zi);
+    window.scrollTo({top:el("zilenav").offsetTop-6, behavior:"smooth"});
+  });
+}
+function arataZi(id){
+  ZILE_TOKYO.forEach(z => el("zi-"+z.id).hidden = (z.id !== id));
+  document.querySelectorAll("#zilenav button").forEach(b => b.classList.toggle("on", b.dataset.zi === id));
+}
+
+function randeazaGol(et){
+  el("continut").innerHTML = `<section class="gol" style="--ac:${et.ac}">
+    <div class="g-jp">${et.jp}</div>
+    <h2>${et.nume} — programul nu e încă stabilit</h2>
+    <p>Deocamdată sunt fixate doar zilele de la Tokyo. Zilele de aici se împart pe aceleași benzi, după ce alegem experiențele.</p>
+    <div class="zile-goale"><span class="zg">Ziua 1</span><span class="zg">Ziua 2</span><span class="zg">Ziua 3</span></div>
+  </section>`;
+}
+
+el("etape").innerHTML = ETAPE.map((e,i)=>`
+  <button type="button" class="etapa${i===0?" on":""}" data-et="${e.id}" style="--ac:${e.ac}">
+    <span class="e-jp">${e.jp}</span>
+    <span class="e-t"><span class="e-n">${e.nume}</span><span class="e-m">${e.meta}</span></span>
+  </button>`).join("");
+
+el("etape").addEventListener("click", e=>{
+  const b = e.target.closest("button[data-et]");
+  if(!b) return;
+  const et = ETAPE.find(x=>x.id===b.dataset.et);
+  document.querySelectorAll("#etape .etapa").forEach(x=>x.classList.toggle("on", x===b));
+  et.gata ? randeazaTokyo() : randeazaGol(et);
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+
+randeazaTokyo();
+</script>
+</html>
