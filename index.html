@@ -75,10 +75,29 @@
   .hero .lede .accent{color:var(--artar)}
   .hero .haiku{font-family:Georgia,serif;font-style:italic;font-size:15px;line-height:1.7;color:var(--kaki);
     border-left:2px solid rgba(176,124,42,.4);padding-left:16px;margin:20px 0 4px;max-width:44ch}
-  .hero .meta-trip{display:flex;flex-wrap:wrap;gap:8px 10px;margin:22px 0 4px}
+  .meta-trip{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;margin:22px 0 4px}
   .hero .chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:#5C5346;
     background:rgba(255,255,255,.55);border:1px solid var(--linie);border-radius:99px;padding:6px 13px}
   .hero .chip b{font-weight:600;color:var(--tus)}
+  /* butonul spre programul zilelor — stă în antet, nu fixat în colț */
+  .prg-buton{display:inline-flex;align-items:center;gap:10px;max-width:100%;
+    background:#C4452D;color:#fff;text-decoration:none;
+    border:1px solid #C4452D;border-radius:3px;padding:11px 16px;
+    font-family:Georgia,serif;font-size:15px;line-height:1.15;
+    box-shadow:0 10px 26px rgba(80,60,40,.24);
+    transition:background .18s,transform .16s,box-shadow .18s}
+  .prg-buton:hover{background:#a83722;transform:translateY(-2px);
+    box-shadow:0 14px 30px rgba(80,60,40,.3)}
+  .prg-buton:focus-visible{outline:2px solid #B07C2A;outline-offset:3px}
+  .prg-buton .prg-jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:17px;opacity:.85;flex:none}
+  .prg-buton .prg-mic{font-family:"Helvetica Neue",Inter,system-ui,sans-serif;
+    font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+    opacity:.75;display:block;margin-top:4px}
+  @media(max-width:520px){
+    .prg-buton{padding:10px 14px;font-size:14px}
+    .prg-buton .prg-mic{letter-spacing:.1em}
+  }
+  @media print{.prg-buton{display:none}}
   /* frunze care cad, discret */
   .leaves{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
   .leaves span{position:absolute;top:-8%;font-size:18px;opacity:0;animation:cadere linear infinite;
@@ -332,62 +351,6 @@
 </style>
 <div id="app"><div class="wrap" id="root"></div></div>
 
-
-<!--
-  ================================================================
-  BUTONUL SPRE PROGRAM — de lipit în index.html
-  ================================================================
-
-  1. Puneți fișierul program.html în același folder cu index.html
-     (adică direct în rădăcina repository-ului japonia).
-
-  2. Lipiți blocul de mai jos în index.html IMEDIAT DUPĂ linia:
-
-        <div id="app"><div class="wrap" id="root"></div></div>
-
-     Butonul stă fixat în colțul din dreapta-jos, e vizibil pe
-     orice filă a aplicației și nu intră în conflict cu nimic din
-     codul existent (toate stilurile au prefixul .prg-).
-
-  3. Atât. Nu trebuie modificat nimic în JavaScript-ul din index.html.
-  ================================================================
--->
-
-<style>
-.prg-buton{
-  position:fixed; right:18px; bottom:18px; z-index:50;
-  display:flex; align-items:center; gap:10px;
-  background:#C4452D; color:#fff; text-decoration:none;
-  border:1px solid #C4452D; border-radius:3px;
-  padding:11px 16px;
-  font-family:Georgia,serif; font-size:15px; line-height:1;
-  box-shadow:0 10px 26px rgba(80,60,40,.24);
-  transition:background .18s, transform .16s, box-shadow .18s;
-}
-.prg-buton:hover{ background:#a83722; transform:translateY(-2px);
-  box-shadow:0 14px 30px rgba(80,60,40,.3); }
-.prg-buton:focus-visible{ outline:2px solid #B07C2A; outline-offset:3px; }
-.prg-buton .prg-jp{
-  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
-  font-size:17px; opacity:.85;
-}
-.prg-buton .prg-mic{
-  font-family:"Helvetica Neue",Inter,system-ui,sans-serif;
-  font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
-  opacity:.75; display:block; margin-bottom:3px;
-}
-@media(max-width:520px){
-  .prg-buton{ right:12px; bottom:12px; padding:10px 14px; font-size:14px; }
-}
-@media print{ .prg-buton{ display:none } }
-</style>
-
-<a class="prg-buton" href="program.html">
-  <span class="prg-jp">日課</span>
-  <span><span class="prg-mic">Tokyo · Hakone · Kyoto</span>Programul zilelor</span>
-</a>
-
-
 <div class="status" id="status"></div>
 <script>
 /* ============================================================================
@@ -509,6 +472,12 @@ let CARDURI = [
  {id:"t_gyoen",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Rikugien — grădina poeziei",emoji:"🍁",img:"rikugien.jpg",tag:"Grădină",timp:"1–2 ore",
   desc:"O grădină clasică din 1702, al cărei nume trimite la „cele șase principii ale poeziei”: a fost gândită ca să recreeze, în miniatură, optzeci și opt de scene din poeme celebre japoneze și chinezești, ca o plimbare în jurul unui iaz cu dealuri, poduri și ceainării. Toamna, arțarii se aprind în roșu intens, iar în sezonul de vârf grădina e iluminată și seara.",
   dece:"E una dintre cele mai frumoase grădini de toamnă din Tokyo, cu alei plate și bănci — liniște pură în oraș. Are o taxă mică de intrare; în weekendurile din sezonul frunzelor se aglomerează."},
+ {id:"t_hamarikyu",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Hamarikyu — grădina shogunului",emoji:"🌾",img:"hamarikyu.jpg",tag:"Grădină",timp:"1 oră",
+  desc:"Fostă grădină de vânătoare a shogunilor Tokugawa, așezată acolo unde râul Sumida se varsă în golf. Iazul ei e singurul din Tokyo cu apă sărată, care urcă și coboară odată cu mareea, iar în mijlocul lui plutește o ceainărie de lemn unde se bea matcha privind peste apă. În grădină crește și un pin negru de trei sute de ani, sprijinit în zeci de proptele. De jur împrejur se ridică turnurile din Shiodome — cel mai frânt contrast din oraș.",
+  dece:"E capătul firesc al croazierei pe Sumida: debarcaderul e chiar în grădină, iar biletul de vaporaș include intrarea. E la un sfert de oră pe jos de hotel, deci se poate vedea și în trecere, fără să consume o dimineață."},
+ {id:"t_shinjukugyoen",oras:"Tokyo",cat:"zona",alegere:"da",titlu:"Shinjuku Gyoen",emoji:"🍁",img:"shinjuku_gyoen.jpg",tag:"Grădină",timp:"2 ore",
+  desc:"Cea mai mare grădină din centrul Tokyo-ului — cincizeci și opt de hectare, trei kilometri și jumătate de jur împrejur — și, de fapt, trei grădini într-una: una japoneză tradițională în jurul unui iaz cu poduri și ceainărie, una franceză simetrică cu trandafiri, una engleză cu peluze largi și copaci uriași. A fost reședință de daimyo în epoca Edo, apoi grădină imperială, deschisă publicului abia după război. Toamna se aprind arțarii de pe „muntele frunzelor roșii”, în partea de est.",
+  dece:"E alternativa apropiată la Rikugien, care e la vreo patruzeci de minute de hotel și izolat de restul. Gyoen e la un sfert de oră și se combină firesc cu Meiji Jingu și Harajuku. Intrarea e mică, dar culorile de toamnă ajung la vârf abia spre sfârșitul lui noiembrie."},
  {id:"t_harajuku",oras:"Tokyo",cat:"zona",alegere:"poate",titlu:"Harajuku & Omotesando",emoji:"🎀",img:"harajuku.jpg",tag:"Cartier",timp:"jumătate de zi",
   desc:"Două fețe lipite una de alta: strada Takeshita, îngustă și colorată, leagănul modei de stradă a adolescenților japonezi, cu clătite (crêpes) la fiecare pas, și, alături, bulevardul Omotesando — „Champs-Élysées-ul Tokyo-ului” — larg și elegant, mărginit de arhitectură semnată de nume mari.",
   dece:"E cel mai rapid contrast dintre Japonia excentrică și cea rafinată. Takeshita e foarte aglomerată — de luat mai mult ca priveliște decât ca loc de stat."},
@@ -532,6 +501,9 @@ let CARDURI = [
  {id:"t_skytree",oras:"Tokyo",cat:"atractie",alegere:"poate",titlu:"Tokyo Skytree",emoji:"🗼",img:"tokyo_skytree.jpg",tag:"Panoramă",timp:"1–2 ore",
   desc:"Cel mai înalt turn din Japonia și a doua cea mai înaltă construcție din lume — 634 de metri, un număr ales ca un joc de cuvinte: 6-3-4 se citește „mu-sa-shi”, vechiul nume al ținutului Tokyo. Are două niveluri de observație închise, la 350 și la 450 de metri, legate de o rampă în spirală cu porțiuni de podea din sticlă.",
   dece:"E cea mai înaltă priveliște pe care o poți cumpăra în Japonia și singura care merge la fel de bine pe ploaie. Fiind închis cu geamuri, se vede enorm, dar se simte mai puțin viu decât la Shibuya Sky."},
+ {id:"t_tokyotower",oras:"Tokyo",cat:"atractie",alegere:"poate",titlu:"Tokyo Tower",emoji:"🗼",img:"tokyo_tower.jpg",tag:"Priveliște",timp:"1–2 ore",
+  desc:"Turnul roșu-portocaliu ridicat în 1958 după modelul Turnului Eiffel, dar cu treisprezece metri mai înalt și mult mai ușor, construit parțial din oțelul tancurilor recuperate după război. A fost simbolul Japoniei renăscute și, până la Skytree, cea mai înaltă construcție din țară. Are două platforme de observație, la 150 și la 250 de metri, iar seara se luminează în portocaliu cald.",
+  dece:"E mai frumos privit de departe decât de sus — silueta lui apare din o mie de locuri din oraș, inclusiv de la fereastra hotelului. Merită urcat mai ales dacă suntem oricum prin Roppongi; altfel, Shibuya Sky oferă o priveliște mai bună."},
  {id:"t_toyosu",oras:"Tokyo",cat:"atractie",alegere:"da",titlu:"Piața Toyosu & licitația de ton",emoji:"🐟",img:"toyosu.jpg",tag:"Piață",timp:"2 ore, dis-de-dimineață",
   desc:"Piața en-gros de pește a Tokyo-ului, mutată aici în 2018 din vechiul Tsukiji: hale imense unde se cântărește tonul în zori și de unde se poate privi de sus faimoasa licitație, plus restaurante mici cu sushi la micul dejun. Aici pot fi vândute exemplare uriașe de ton, la prețuri record.",
   dece:"E cea mai autentică față a orașului, unde se lucrează, nu se pozează. De luat în calcul: se merge foarte devreme — trebuie să fim acolo pe la 5 dimineața — iar la licitația propriu-zisă se intră doar cu bilete obținute din timp, în avans (rezervare sau loterie, cu locuri limitate)."},
@@ -564,6 +536,9 @@ let CARDURI = [
  {id:"t_robotcafe",oras:"Tokyo",cat:"activitate",alegere:"da",titlu:"DAWN Avatar Robot Cafe",emoji:"🤖",img:"robot_cafe.jpg",tag:"Tehnologie · cafenea",timp:"1–1,5 ore",
   desc:"O cafenea din Nihonbashi unde ești servit de roboți OriHime — dar cu o răsturnare surprinzătoare: nu sunt AI, ci sunt controlați în timp real, de la distanță, de „piloți” care nu pot ieși din casă (oameni cu ALS, atrofie musculară sau alte afecțiuni). Robotul de 1,2 metri îți aduce băutura pe o linie de pe podea, iar pe un ecran de pe piept vezi chipul și numele persoanei care îl conduce; te salută, îți ia comanda și stă la povești cu tine. Conceptul a câștigat în 2021 Marele Premiu Good Design al Japoniei.",
   dece:"E cea mai neașteptată față a Japoniei tehnologice — roboți de ultimă generație puși în slujba unei idei calde, care le dă oamenilor imobilizați o muncă și companie. Modern, emoționant și cu totul altfel decât un templu. Pentru masa servită de roboți e nevoie de rezervare din timp (nu se acceptă în aceeași zi); pentru o cafea la bar se poate intra și fără. Închis joia."},
+ {id:"t_teamlab_borderless",oras:"Tokyo",cat:"activitate",alegere:"poate",titlu:"teamLab Borderless",emoji:"✨",img:"teamlab_borderless.webp",tag:"Artă digitală",timp:"2 ore",
+  desc:"Muzeu de artă digitală fără hărți și fără trasee: peste șaptezeci de instalații proiectate pe zece mii de metri pătrați, care curg dintr-o sală în alta, se ating între ele și reacționează la prezența ta. Flori care înfloresc și se ofilesc după cum te miști, o cameră cu sute de lămpi de sticlă care se aprind în lanț, cascade de lumină care ocolesc oamenii. E în Azabudai Hills, lângă Roppongi.",
+  dece:"Nu seamănă cu nimic altceva din călătorie — e contrastul complet cu templele și grădinile. Biletele au interval orar fix, se iau doar online și se epuizează; muzeul are și zile de închidere neregulate, deci se verifică înainte."},
 
  /* -- Experiențe culinare -- */
  {id:"t_tsukiji",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Tsukiji Outer Market — de mâncat printre tarabe",emoji:"🍣",img:"tsukiji.jpg",tag:"Mâncare",timp:"2 ore",
@@ -578,9 +553,18 @@ let CARDURI = [
  {id:"t_sukiyaki",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Sukiyaki / shabu-shabu cu wagyu",emoji:"🥩",img:"shabu_shabu.jpg",tag:"Masă în grup",timp:"2 ore",
   desc:"Vită premium gătită chiar la masă, în stil sukiyaki (dulce-sărat) sau shabu-shabu (bulion clar): fiecare își plimbă feliile prin oală, împreună. Numele „shabu-shabu” imită chiar sunetul cărnii clătinate prin supa fierbinte.",
   dece:"E masa în care gătești chiar tu, în grup — convivială și numai bună pentru șase. La localurile bune wagyu-ul e scump, dar experiența merită."},
+ {id:"t_teppanyaki",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Teppanyaki cu wagyu",emoji:"🥩",img:"teppanyaki.jpg",tag:"Masă-eveniment",timp:"2 ore",
+  desc:"Vită premium gătită pe plita încinsă (teppan) chiar în fața ta: bucătarul feliază, rumenește și asezonează carnea bucată cu bucată, la tejghea, alături de legume și usturoi prăjit. Stilul teppanyaki s-a născut în Japonia tocmai pentru a pune în valoare, ca un mic spectacol, o astfel de vită.",
+  dece:"E cea mai fragedă carne pe care o gustăm și, în același timp, o masă la care ai ce privi o oră întreagă. Cere rezervare și un buget serios de persoană."},
  {id:"t_unagi",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Unagi — anghilă la grătar",emoji:"🍱",img:"unagi.jpg",tag:"Mâncare",timp:"1–1,5 ore",
   desc:"Anghilă de apă dulce, glazurată și friptă la cărbune până devine crocantă la exterior și untoasă înăuntru, servită pe orez în stil kabayaki, la localuri vechi precum Nodaiwa. În Japonia se mănâncă mai ales vara, în „ziua boului”, ca să prinzi putere pe caniculă.",
   dece:"E o delicatesă aparte, pe care mulți o gustă abia aici. Localurile bune sunt mici și adesea cu rezervare."},
+ {id:"t_izakaya",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Izakaya în Shimbashi",emoji:"🍺",img:"shimbashi.jpg",tag:"Seara",timp:"2 ore",
+  desc:"Shimbashi e cartierul unde funcționarii din Tokyo își încheie ziua: zeci de localuri mici înghesuite sub arcadele căii ferate, cu felinare roșii la intrare, fum de yakitori și mese la care se stă umăr la umăr. Se comandă puțin câte puțin — frigărui, edamame, murături, tofu prăjit — și se bea bere sau sake până noaptea târziu.",
+  dece:"E cea mai simplă și cea mai autentică primă seară: nimic de rezervat, la câteva minute de hotel, deschis mult după ce restaurantele obișnuite s-au închis. Localurile sunt mici și fumatul e încă permis în unele."},
+ {id:"t_bar",oras:"Tokyo",cat:"culinar",alegere:"da",titlu:"Cocktail bar după cină",emoji:"🍸",img:"tokyo_cocktail.png",tag:"Seara",timp:"1–1,5 ore",
+  desc:"Tokyo are cea mai densă concentrare de baruri de cocktailuri premiate din lume, multe dintre ele în Ginza: saloane mici, la etaje discrete, cu câteva scaune la tejghea, unde barmanul cioplește gheața cu mâna în blocuri limpezi și prepară fiecare pahar cu o precizie aproape rituală. Nu se strigă comenzi — se spune ce gust vrei și restul e treaba lui.",
+  dece:"E modul potrivit de a sărbători ultima seară, liniștit și fără grabă. Localurile bune sunt mici, uneori cu rezervare, iar multe au o mică taxă de masă (otoshi)."},
  {id:"t_tempura",oras:"Tokyo",cat:"culinar",alegere:"poate",titlu:"Tempura kaiseki",emoji:"🍤",img:"tempura.jpg",tag:"Masă-eveniment",timp:"1,5 ore",
   desc:"Tempura fină, servită bucată cu bucată direct din tigaie peste tejghea, ca parte a unui meniu de sezon — cu totul altceva decât tempura de la stradă. Curios: tehnica a fost adusă de misionarii portughezi în secolul al XVI-lea, iar numele s-ar trage chiar din zilele lor de post, când mâncau pește prăjit.",
   dece:"E o experiență fină, bucată cu bucată la tejghea. Cere rezervare."},
@@ -718,9 +702,6 @@ let CARDURI = [
   dece:"E fața tehnologică și futuristă a Kyoto-ului, un contrast uluitor cu templele și grădinile — modern și cu adevărat impresionant, exact lângă gară, ușor de prins înainte sau după un shinkansen. Biletele se epuizează des cu săptămâni înainte — de luat din timp."},
 
  /* -- Experiențe culinare -- */
- {id:"k_kyowagyu",oras:"Kyoto",cat:"culinar",alegere:"da",titlu:"Kyo-wagyu la teppanyaki",emoji:"🥩",img:"teppanyaki.jpg",tag:"Masă-eveniment",timp:"2 ore",
-  desc:"Vită premium de Kyoto, gătită pe plita încinsă (teppan) chiar în fața ta: bucătarul feliază, rumenește și asezonează carnea bucată cu bucată, la tejghea. Stilul teppanyaki s-a născut în Japonia tocmai pentru a pune în valoare, ca un mic spectacol, o astfel de vită.",
-  dece:"E o masă-spectacol și cea mai fragedă carne pe care o vom gusta. De reținut: același gen de experiență (cu wagyu de Kobe) îl putem face la fel de bine la Osaka — deci aici e mai degrabă un „bonus”, nu o obligație."},
  {id:"k_yudofu",oras:"Kyoto",cat:"culinar",alegere:"poate",titlu:"Yudofu — tofu fiert lângă Nanzen-ji",emoji:"🍲",img:"yudufu.jpg",tag:"Mâncare",timp:"1–1,5 ore",
   desc:"Specialitatea vegetariană a templelor din Kyoto: bucăți de tofu mătăsos fierte blând într-un bulion ușor de alge kombu, înmuiate apoi în sos de soia și citrice. Se servesc în restaurante tihnite cu grădină din jurul templului Nanzen-ji și vin direct din shojin ryori, bucătăria de post a călugărilor budiști.",
   dece:"E simplu, cald și profund „de Kyoto” — o masă liniștită, într-un cadru care contează la fel de mult ca farfuria. Vegetarienii se simt aici ca acasă."},
@@ -1087,6 +1068,14 @@ function render(){
   ({pref:vPref,plan:vPlan,exp:vExp,rez:vRez,limba:vLimba})[S.tab]();
 }
 
+/* butonul spre programul zilelor — același în antetul de oaspete și în cel semnat */
+function butonProgram(){
+  return `<a class="prg-buton" href="program.html">
+      <span class="prg-jp">日課</span>
+      <span>Programul zilelor<span class="prg-mic">🍁 31 oct – 14 nov 2026</span></span>
+    </a>`;
+}
+
 /* antetul de sus, randat separat ca să-l putem reîmprospăta după semnare
    fără să reconstruim (și să derulăm) toată pagina.
    · oaspete  — hero + invitație blândă
@@ -1104,9 +1093,7 @@ function randSus(pastreazaScroll){
       <div class="leaves">${leafHtml}</div>
       <h2>O toamnă în Japonia, împreună</h2>
       <p class="lede">Paisprezece zile prin <span class="accent">Tokyo, Kyoto și Hakone</span>, chiar când începe culoarea toamnei — ginkgo auriu și primii arțari ruginii.</p>
-      <div class="meta-trip">
-        <span class="chip">🍁 <b>31 oct – 14 nov 2026</b></span>
-      </div>
+      <div class="meta-trip">${butonProgram()}</div>
     </section>
     <p class="browse-hint">
       <button class="linkbtn" id="semneaza">Ai mai fost aici? Intră cu numele tău</button></p>`;
@@ -1119,7 +1106,8 @@ function randSus(pastreazaScroll){
     /* cifrele apar doar după ce omul a început — „0/64” la prima vizită descurajează */
     if(notate) bucati.push(`${notate}/${notabile.length} experiențe notate`);
     if(prefsDate) bucati.push(`${prefsDate}/${PREFERINTE.length} preferințe`);
-    el.innerHTML=`<p class="sub">${bucati.join(" · ")}</p>`;
+    el.innerHTML=`<p class="sub">${bucati.join(" · ")}</p>
+      <div class="meta-trip">${butonProgram()}</div>`;
   }
   if(pastreazaScroll){
     const d=el.offsetHeight-h0;
