@@ -1611,12 +1611,22 @@ load();
 
   /* încearcă, pe rând, toate felurile în care se poate deschide un oraș */
   function deschideOrasul(oras){
-    const buton = [...document.querySelectorAll(".orasbtn")]
-      .find(b => textul(b).includes(oras));
+    /* calea directă — exact ce fac butoanele din pagină. E singura care merge
+       și pentru „Excursii”, care n-are buton propriu în fila Itinerar. */
+    if(typeof S === "object" && S && typeof render === "function"){
+      S.oras = oras; S.tab = "exp"; render();
+      return true;
+    }
+
+    /* rezervă: butoanele care duc la un oraș își poartă numele în atribut */
+    const buton = [...document.querySelectorAll("[data-goto],[data-o]")]
+      .find(b => b.dataset.goto === oras || b.dataset.o === oras);
     if(buton){ buton.click(); return true; }
 
-    const tab = [...document.querySelectorAll(".tab, button")]
-      .find(b => textul(b) === oras);
+    const cheie = oras.toLowerCase();
+    const afisat = (typeof numeOras === "function" ? numeOras(oras) : oras).toLowerCase();
+    const tab = [...document.querySelectorAll(".orasbtn, .tab, button")]
+      .find(b => { const t = textul(b).toLowerCase(); return t.includes(cheie) || t.includes(afisat); });
     if(tab){ tab.click(); return true; }
 
     return false;
