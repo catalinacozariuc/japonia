@@ -158,7 +158,7 @@
 
   .thumb{position:relative;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;
          background-size:cover;background-position:center;overflow:hidden}
-  .thumb.foto{filter:saturate(.82) contrast(1.05) sepia(.14)}
+  .thumb.foto{filter:saturate(.82) contrast(1.05) sepia(.14);background-color:var(--linie2)}
   .thumb.foto::after{content:"";position:absolute;inset:0;
     background:linear-gradient(to top,rgba(58,38,22,.42),rgba(58,38,22,.04) 55%);}
   .thumb.gol{background:
@@ -326,7 +326,8 @@
   /* banda de fotografii mici, într-o singură linie */
   .poze{display:flex;gap:6px;margin:11px 0 3px}
   .poze .p{flex:1 1 0;min-width:0;aspect-ratio:4/3;border-radius:3px;border:1px solid var(--linie);
-    background-size:cover;background-position:center;filter:saturate(.88) contrast(1.03) sepia(.08)}
+    background-size:cover;background-position:center;background-color:var(--linie2);
+    filter:saturate(.88) contrast(1.03) sepia(.08)}
 
   /* rezumat scurt sub fiecare oraș */
   .dest-rez{font-size:13.5px;line-height:1.6;color:#4A453C;margin:9px 2px 2px}
@@ -945,8 +946,24 @@ async function verificaSalvare(){
   else status("⚠ Cererea ajunge, dar Sheet-ul nu se actualizează.",9000);
 }
 async function load(){
+  /* Pagina nu are nevoie de Google Sheets ca să poată fi citită: itinerarul și
+     experiențele sunt în fișier. O arătăm imediat și completăm cu răspunsurile
+     grupului când sosesc — altfel ecranul rămâne gol cât răspunde scriptul
+     (secunde bune la prima cerere, 8 dacă nu răspunde deloc). */
+  S.loading=false; render();
+
   const d=await citesteDeLaSheet();
-  if(d){ S.toti={}; for(const k in d) S.toti[k]=desfaData(d[k]); }
+  if(d){
+    const nou={}; for(const k in d) nou[k]=desfaData(d[k]);
+    /* dacă omul a apucat să se semneze cât timp citeam, nu-i pierdem ce a bifat */
+    if(S.me){
+      let cheia=S.me;
+      for(const k in nou){ if(cheieNume(k)===cheieNume(S.me)){ cheia=k; break; } }
+      S.date=fuzioneazaDate(nou[cheia], S.date);   /* Sheet ∪ ce am acum (al meu câștigă) */
+      nou[cheia]=S.date;
+    }
+    S.toti=nou;
+  }
   else if(URL_SCRIPT){
     /* scriptul e configurat, dar nu răspunde: aproape sigur publicare/acces greșit */
     setTimeout(()=>status("⚠ Nu mă pot conecta la Google Sheets — momentan se salvează doar pe acest dispozitiv.",9000),500);
@@ -965,7 +982,15 @@ async function load(){
     if(k&&k.startsWith("jp:")&&!k.startsWith("jp:r:")){const nume=k.slice(3);
       if(!existaNume(nume)){try{S.toti[nume]=JSON.parse(localStorage.getItem(k));}catch(e){}}}}}catch(e){}
   comaseazaDuplicate();   // strânge orice dublură de majuscule rămasă din oricare sursă
-  S.loading=false;render();
+  if(S.me) S.toti[S.me]=S.date;
+  /* Rerandăm doar dacă ce tocmai am citit chiar se vede: notele proprii, ori
+     comentariile și rezultatele grupului. Ca oaspete, pe Itinerar, nu s-a
+     schimbat nimic — o a doua randare ar cere pozele din nou degeaba. */
+  if(S.me || S.tab==="exp" || S.tab==="rez"){
+    const y=window.scrollY;
+    render();
+    window.scrollTo(0,y);
+  }
 }
 
 const card=id=>CARDURI.find(c=>c.id===id);
@@ -1032,7 +1057,7 @@ function comaseazaDuplicate(){
 /* imaginea sau, dacă nu există, fundalul de hârtie cu emoji */
 function thumb(c){
   const s=stil(c.oras);
-  if(c.img) return `<div class="thumb foto" style="background-image:url('${esc(c.img)}')"></div>`;
+  if(c.img) return `<div class="thumb foto" data-bg="${esc(c.img)}"></div>`;
   return `<div class="thumb gol" style="--ac:${s.ac};--acs:${s.acs}">
             <span class="ic">${esc(c.emoji)}</span><span class="jp">${s.jp}</span></div>`;
 }
@@ -1044,6 +1069,33 @@ function corpCard(c){
     <p class="desc">${esc(c.desc)}</p>
     ${c.dece?`<p class="why"><b>De ce merită</b>${esc(c.dece)}</p>`:""}</div>`;
 }
+
+/* ---------- fotografiile se cer abia când se apropie de ecran ----------
+   Toate pozele sunt fundaluri CSS, iar loading="lazy" nu funcționează pe ele:
+   browserul le cere pe toate deodată, de îndată ce fila e randată (26 la
+   intrarea în pagină, încă 37 la Experiențele din Tokyo). Păstrăm adresa în
+   data-bg și o punem în style abia când elementul ajunge aproape de fereastră. */
+const observatorPoze = ("IntersectionObserver" in window)
+  ? new IntersectionObserver((intrari, obs) => {
+      intrari.forEach(i => {
+        if(!i.isIntersecting) return;
+        const el = i.target;
+        el.style.backgroundImage = `url('${el.dataset.bg}')`;
+        el.removeAttribute("data-bg");
+        obs.unobserve(el);
+      });
+    }, {rootMargin:"400px 0px"})
+  : null;
+
+function urmarestePoze(){
+  document.querySelectorAll("[data-bg]").forEach(el => {
+    if(observatorPoze) observatorPoze.observe(el);
+    else { el.style.backgroundImage = `url('${el.dataset.bg}')`; el.removeAttribute("data-bg"); }
+  });
+}
+/* orice randare (completă sau parțială) trece prin aici, fără să fie nevoie
+   să chemăm ceva la finalul fiecărei vederi */
+new MutationObserver(urmarestePoze).observe(document.getElementById("app"), {childList:true, subtree:true});
 
 /* ---------- randare ---------- */
 function antet(){
@@ -1404,7 +1456,7 @@ const PLAN_DESTINATII = [
    poze:[], bio:"Ultimele două nopți, fără plan fix — timpul e liber pentru shopping și explorare pe cont propriu."}
 ];
 
-const pozaMica = img => `<div class="p" style="background-image:url('${esc(img)}')"></div>`;
+const pozaMica = img => `<div class="p" data-bg="${esc(img)}"></div>`;
 
 function vPlan(){
   const v=$("#view");
