@@ -128,9 +128,86 @@ h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(15px,2.4vw,19px);le
 .gol .zg{border:1px solid var(--linie);border-radius:2px;padding:7px 14px;font-size:12px;color:var(--gri);
   background:var(--hartie)}
 
+/* ---------- săgeata spre ziua anterioară / următoare ---------- */
+.nav-zi{position:fixed;bottom:16px;z-index:30;display:flex;align-items:center;gap:9px;
+  font:inherit;cursor:pointer;text-align:left;color:var(--tus);
+  background:rgba(255,252,246,.94);border:1px solid var(--linie);border-radius:3px;
+  padding:9px 13px;box-shadow:0 6px 18px rgba(80,60,40,.13);
+  transition:border-color .16s,color .16s,transform .16s,box-shadow .16s}
+.nav-zi.prev{left:16px}
+.nav-zi.next{right:16px}
+.nav-zi[hidden]{display:none}
+.nav-zi:hover{border-color:var(--artar);color:var(--artar);box-shadow:0 10px 24px rgba(80,60,40,.2)}
+.nav-zi.prev:hover{transform:translateX(-2px)}
+.nav-zi.next:hover{transform:translateX(2px)}
+.nav-zi:focus-visible{outline:2px solid var(--kaki);outline-offset:3px}
+.nav-zi .sag{font-size:15px;line-height:1;color:var(--artar)}
+.nav-zi .et{display:block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gri);margin-bottom:2px}
+.nav-zi b{display:block;font-family:Georgia,serif;font-weight:400;font-size:14px;line-height:1.1}
+@media(max-width:560px){
+  .nav-zi{bottom:12px;padding:8px 11px}
+  .nav-zi.prev{left:10px} .nav-zi.next{right:10px}
+  .nav-zi .et{display:none}
+}
+@media print{.nav-zi{display:none}}
+
+/* ---------- comentarii per oraș ---------- */
+.comente{margin-top:38px;border-top:1px solid var(--linie);padding-top:22px}
+.comente h2{font-family:Georgia,serif;font-weight:400;font-size:21px;margin:0 0 6px;color:var(--artar)}
+.comente .intro{font-size:13px;line-height:1.6;color:var(--gri);margin:0 0 16px;max-width:62ch}
+.cmt-fir{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.cmt{border:1px solid var(--linie);border-left:3px solid var(--linie);border-radius:3px;
+  padding:10px 13px;background:var(--hartie2)}
+.cmt.al-meu{border-left-color:var(--artar);background:rgba(196,69,45,.03)}
+.cmt-cap{display:flex;align-items:baseline;gap:9px;margin-bottom:3px}
+.cmt-nume{font-family:Georgia,serif;font-size:14px;color:var(--tus)}
+.cmt-data{font-size:11px;color:var(--gri)}
+.cmt-text{font-size:13.5px;line-height:1.55;color:var(--tus);white-space:pre-wrap}
+.cmt-act{margin-top:6px;display:flex;gap:12px}
+.cmt-gol{font-size:13px;color:var(--gri);font-style:italic;margin:0 0 16px}
+.linkbtn{background:none;border:0;padding:0;font:inherit;font-size:12px;color:var(--kaki);
+  cursor:pointer;text-decoration:underline}
+.linkbtn.del{color:var(--artar)}
+.linkbtn:hover{opacity:.75}
+.cmt-nou textarea,.cmt-edit{width:100%;border:1px solid var(--linie);border-radius:3px;
+  padding:9px 11px;font-family:inherit;font-size:13.5px;color:var(--tus);
+  background:var(--hartie2);resize:vertical;line-height:1.5}
+.cmt-nou textarea:focus,.cmt-edit:focus{outline:none;border-color:var(--artar)}
+.cmt-rand{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:9px}
+.btn{font:inherit;font-size:13px;cursor:pointer;background:var(--hartie2);color:var(--tus);
+  border:1px solid var(--linie);border-radius:2px;padding:8px 15px;
+  transition:background .15s,border-color .15s,color .15s}
+.btn:hover{border-color:var(--artar)}
+.btn.primary{background:var(--artar);border-color:var(--artar);color:#fff}
+.btn.primary:hover{background:#a83722}
+.btn.sm{padding:5px 12px;font-size:12px}
+.btn:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
+.cmt-eu{font-size:11.5px;color:var(--gri)}
+
+/* cererea prenumelui */
+.modal-fund{position:fixed;inset:0;background:rgba(58,38,22,.42);display:flex;
+  align-items:center;justify-content:center;padding:20px;z-index:70}
+.modal{background:var(--hartie);border:1px solid var(--linie);border-radius:4px;
+  padding:24px;max-width:380px;width:100%;box-shadow:0 24px 60px rgba(58,38,22,.3)}
+.modal h3{font-family:Georgia,serif;font-weight:400;font-size:20px;margin:0 0 8px;color:var(--tus)}
+.modal p{font-size:13px;line-height:1.6;color:var(--gri);margin:0 0 14px}
+.modal input{width:100%;border:1px solid var(--linie);border-radius:3px;padding:9px 11px;
+  font-family:inherit;font-size:14px;color:var(--tus);background:var(--hartie2)}
+.modal input:focus{outline:none;border-color:var(--artar)}
+
+#status{position:fixed;left:50%;bottom:0;transform:translateX(-50%) translateY(100%);
+  background:var(--tus);color:var(--hartie);font-size:12px;padding:9px 16px;
+  border-radius:3px 3px 0 0;z-index:80;transition:transform .25s;max-width:92vw;text-align:center}
+#status.on{transform:translateX(-50%) translateY(0)}
+
 /* ---------- de rezervat ---------- */
-.check{margin-top:38px;border-top:1px solid var(--linie);padding-top:22px}
+.check{margin-top:34px;border-top:1px solid var(--linie);padding-top:22px}
 .check h2{font-family:Georgia,serif;font-weight:400;font-size:21px;margin:0 0 14px;color:var(--artar)}
+.check-grup{margin-bottom:20px}
+.check-grup:last-child{margin-bottom:0}
+.check-grup .cg-nume{font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gri);margin:0 0 10px}
 .check ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
 .check li{position:relative;padding-left:25px;font-size:13.5px;line-height:1.55;color:#4A453C}
 .check li::before{content:"□";position:absolute;left:0;top:-1px;font-size:15px;color:var(--kaki)}
@@ -154,6 +231,7 @@ footer{margin-top:30px;padding-top:15px;border-top:1px solid var(--linie);
   <nav class="etape" id="etape" aria-label="Etapa călătoriei"></nav>
   <div id="continut"></div>
 </div>
+<div id="status" role="status" aria-live="polite"></div>
 
 <script>
 const BENZI = [
@@ -354,15 +432,242 @@ const ZILE_TOKYO = [
 ];
 
 const CHECK_TOKYO = [
-  "<b>Bilete la Suntory Hall</b> — gala se dă în doar două seri.",
-  "<b>Transferul de la Haneda, 31 octombrie</b> — întâi întrebăm hotelul.",
-  "<b>Shibuya Sky, 2 noiembrie</b> — intrare la 15:45 sau 16:00.",
-  "<b>Sushi omakase, 1 noiembrie</b> — tejghea, Akasaka sau Ginza.",
-  "<b>Teppanyaki și karaoke, 2 noiembrie.</b>",
-  "<b>Toyosu, platforma de jos</b> — dacă o vrem, cerere cu circa o lună înainte, prin ghid.",
-  "<b>Takkyubin, 3 noiembrie</b> — confirmăm adresa hotelului din Kyoto și îi anunțăm să păstreze bagajele.",
-  "<b>Transferul spre Narita, 14 noiembrie</b> — Narita Express sau autocar, pentru zborul de la 10:10."
+  {grup:"Activități", items:[
+    "<b>Bilete la Suntory Hall, 1 noiembrie.</b>",
+    "<b>Tur ghidat la Toyosu, 2 noiembrie</b> — pentru licitația de ton; plecăm de la hotel la 04:45.",
+    "<b>Shibuya Sky, 2 noiembrie</b> — intrare la 15:45 sau 16:00; intervalele de apus se vând cu săptămâni înainte.",
+    "<b>Karaoke, 2 noiembrie</b> — camerele mari se ocupă repede."
+  ]},
+  {grup:"Mese", items:[
+    "<b>Sushi omakase, 1 noiembrie</b> — tejghea, în Akasaka sau Ginza.",
+    "<b>Teppanyaki, 2 noiembrie</b> — în Shibuya sau Shinjuku."
+  ]},
+  {grup:"Logistică", items:[
+    "<b>Transferul de la Haneda, 31 octombrie</b> — întâi întrebăm hotelul.",
+    "<b>Takkyubin, 3 noiembrie</b> — confirmăm adresa hotelului din Kyoto și îi anunțăm să păstreze bagajele.",
+    "<b>Transferul spre Narita, 14 noiembrie</b> — Narita Express sau autocar, pentru zborul de dimineață devreme."
+  ]}
 ];
+
+/* ================== comentarii per oraș ==================
+   Folosim aceeași foaie Google și aceeași formă de date ca index.html, ca să
+   nu avem două surse de adevăr. Comentariile de aici stau sub cheia
+   coment["program:<oraș>"], deci nu se amestecă cu cele despre experiențe. */
+const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbza_AKsZh8KuIF5DYiwB9jdQfaA_4Et7o1gs-32oMwc0jKhYxEGOVe5zxyazxE4DmQBSg/exec";
+
+const esc = t => (t||"").replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const cheieNume = n => (n||"").trim().toLowerCase();
+const cheiaOras = id => "program:" + id;
+const numeEtapa = id => (ETAPE.find(e => e.id === id) || {}).nume || id;
+
+/* aceeași normalizare ca în index.html — păstrăm toate câmpurile */
+const normDate = d => ({prefs:(d&&d.prefs)||{}, note:(d&&d.note)||{},
+                        musai:(d&&d.musai)||{}, coment:(d&&d.coment)||{}});
+function desfaData(x){
+  if(!x || typeof x !== "object") return x;
+  if(x.date && typeof x.date === "object" && !x.prefs && !x.note && !x.coment && !x.musai) return x.date;
+  return x;
+}
+
+const C = {toti:{}, stare:"incarc", me:""};
+try{ C.me = localStorage.getItem("jp:nume") || ""; }catch(e){}
+
+function status(t, ms=2600){
+  const e = el("status"); if(!e) return;
+  e.textContent = t; e.classList.add("on");
+  clearTimeout(status._t); status._t = setTimeout(() => e.classList.remove("on"), ms);
+}
+
+function citesteDeLaSheet(){
+  return new Promise(res => {
+    if(!URL_SCRIPT) return res(null);
+    const cb = "cb" + Date.now() + Math.floor(Math.random()*1000);
+    const sc = document.createElement("script");
+    window[cb] = d => { res(d); delete window[cb]; sc.remove(); };
+    sc.src = URL_SCRIPT + "?callback=" + cb;
+    sc.onerror = () => { res(null); sc.remove(); };
+    document.head.appendChild(sc);
+    setTimeout(() => { if(window[cb]){ res(null); delete window[cb]; } }, 8000);
+  });
+}
+
+async function incarcaComentarii(){
+  const d = await citesteDeLaSheet();
+  if(d){ C.toti = {}; for(const k in d) C.toti[k] = desfaData(d[k]); C.stare = "gata"; }
+  else C.stare = "eroare";
+  reimprospateaza();
+}
+
+/* toate comentariile unui oraș, de la toți, în ordinea scrierii */
+function comentariile(orasId){
+  const cheie = cheiaOras(orasId), out = [], vazut = new Set();
+  for(const nume in C.toti){
+    const lista = (C.toti[nume] && C.toti[nume].coment && C.toti[nume].coment[cheie]) || [];
+    lista.forEach(c => { if(c && !vazut.has(c.id)){ vazut.add(c.id);
+      out.push({nume, id:c.id, text:c.text, t:c.t||0}); } });
+  }
+  return out.sort((a,b) => a.t - b.t);
+}
+
+/* SCRIERE: citim întâi întreaga fișă a persoanei din foaie și abia apoi o
+   retrimitem cu modificarea aplicată. Altfel am șterge notele și preferințele
+   date în index.html, care stau în aceeași înregistrare. Dacă citirea eșuează,
+   nu scriem nimic — mai bine un comentariu nesalvat decât date pierdute. */
+async function scrieComentarii(schimba){
+  if(!C.me) return false;
+  if(!URL_SCRIPT){ status("Foaia Google nu e configurată — comentariul nu se poate salva.", 6000); return false; }
+  status("Se salvează…", 9000);
+  const d = await citesteDeLaSheet();
+  if(!d){ status("Nu mă pot conecta la Google Sheets — comentariul nu s-a salvat. Încearcă din nou.", 9000); return false; }
+
+  C.toti = {}; for(const k in d) C.toti[k] = desfaData(d[k]);
+  C.stare = "gata";
+  /* dacă persoana există deja în foaie, refolosim numele de acolo, ca să nu
+     apară „Ana” și „ana” ca doi oameni */
+  let cheia = C.me;
+  for(const k in C.toti){ if(cheieNume(k) === cheieNume(C.me)){ cheia = k; break; } }
+
+  const ale = normDate(C.toti[cheia]);
+  schimba(ale);
+  C.toti[cheia] = ale;
+
+  try{
+    await fetch(URL_SCRIPT, {method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify({nume:cheia, date:ale})});
+  }catch(e){ status("Fără internet — comentariul nu s-a salvat.", 9000); return false; }
+  status("Salvat ✓");
+  return true;
+}
+
+function unComentariu(c){
+  const alMeu = C.me && cheieNume(c.nume) === cheieNume(C.me);
+  const data = c.t ? new Date(c.t).toLocaleDateString("ro-RO", {day:"numeric", month:"short"}) : "";
+  return `<div class="cmt ${alMeu?"al-meu":""}">
+    <div class="cmt-cap"><span class="cmt-nume">${esc(c.nume)}</span>${data?`<span class="cmt-data">${data}</span>`:""}</div>
+    <div class="cmt-text" data-ct="${c.id}">${esc(c.text)}</div>
+    ${alMeu?`<div class="cmt-act">
+      <button type="button" class="linkbtn" data-edit="${c.id}">editează</button>
+      <button type="button" class="linkbtn del" data-del="${c.id}">șterge</button></div>`:""}
+  </div>`;
+}
+
+function corpComentarii(orasId){
+  let lista;
+  if(C.stare === "incarc") lista = `<p class="cmt-gol">Se încarcă comentariile…</p>`;
+  else if(C.stare === "eroare") lista = `<p class="cmt-gol">Comentariile nu se pot încărca acum.</p>`;
+  else {
+    const l = comentariile(orasId);
+    lista = l.length
+      ? `<div class="cmt-fir">${l.map(unComentariu).join("")}</div>`
+      : `<p class="cmt-gol">Niciun comentariu deocamdată.</p>`;
+  }
+  return lista + `<div class="cmt-nou">
+    <textarea id="cmt-in" rows="3" placeholder="Scrie un comentariu despre programul din ${esc(numeEtapa(orasId))}…"></textarea>
+    <div class="cmt-rand">
+      <button type="button" class="btn primary" id="cmt-add">Adaugă comentariu</button>
+      ${C.me?`<span class="cmt-eu">semnat ca <b>${esc(C.me)}</b> ·
+        <button type="button" class="linkbtn" id="cmt-alt">schimbă</button></span>`:""}
+    </div></div>`;
+}
+
+function sectiuneaComentarii(orasId){
+  return `<section class="comente" id="comente" data-oras="${orasId}">
+    <h2>Comentarii · ${esc(numeEtapa(orasId))}</h2>
+    <p class="intro">Spune-ne ce crezi despre programul de aici. Comentariile sunt vizibile pentru tot grupul.</p>
+    <div id="cmt-corp">${corpComentarii(orasId)}</div>
+  </section>`;
+}
+
+function reimprospateaza(){
+  const sec = el("comente"); if(!sec) return;
+  const orasId = sec.dataset.oras;
+  el("cmt-corp").innerHTML = corpComentarii(orasId);
+  legComentarii(orasId);
+}
+
+function legComentarii(orasId){
+  const sec = el("comente"); if(!sec) return;
+  const cheie = cheiaOras(orasId);
+
+  const add = el("cmt-add");
+  if(add) add.onclick = () => {
+    const inp = el("cmt-in"), t = inp.value.trim();
+    if(!t){ inp.focus(); return; }
+    cuNume(async () => {
+      const ok = await scrieComentarii(ale => {
+        if(!ale.coment[cheie]) ale.coment[cheie] = [];
+        ale.coment[cheie].push({id:"c"+Date.now()+Math.random().toString(36).slice(2,6), text:t, t:Date.now()});
+      });
+      if(ok) reimprospateaza();
+    });
+  };
+
+  const alt = el("cmt-alt");
+  if(alt) alt.onclick = () => cerNume(reimprospateaza, true);
+
+  sec.querySelectorAll("[data-del]").forEach(b => b.onclick = async () => {
+    const id = b.dataset.del;
+    const ok = await scrieComentarii(ale => {
+      ale.coment[cheie] = (ale.coment[cheie]||[]).filter(c => c.id !== id);
+    });
+    if(ok) reimprospateaza();
+  });
+
+  sec.querySelectorAll("[data-edit]").forEach(b => b.onclick = () => {
+    const id = b.dataset.edit;
+    const box = sec.querySelector(`.cmt-text[data-ct="${id}"]`);
+    const vechi = comentariile(orasId).find(c => c.id === id);
+    if(!box || !vechi) return;
+    box.innerHTML = `<textarea class="cmt-edit" rows="3"></textarea>
+      <div class="cmt-rand"><button type="button" class="btn primary sm" data-save="1">Salvează</button>
+      <button type="button" class="btn sm" data-cancel="1">Renunță</button></div>`;
+    box.querySelector("textarea").value = vechi.text;
+    box.querySelector("[data-save]").onclick = async () => {
+      const nou = box.querySelector(".cmt-edit").value.trim();
+      if(nou && nou !== vechi.text){
+        const ok = await scrieComentarii(ale => {
+          const c = (ale.coment[cheie]||[]).find(x => x.id === id);
+          if(c) c.text = nou;
+        });
+        if(!ok) return;
+      }
+      reimprospateaza();
+    };
+    box.querySelector("[data-cancel]").onclick = reimprospateaza;
+  });
+}
+
+/* prenumele — ținut minte pe dispozitiv, ca să nu-l retastezi la fiecare vizită */
+function cerNume(dupa, schimba){
+  const f = document.createElement("div");
+  f.className = "modal-fund";
+  f.innerHTML = `<div class="modal">
+    <h3>${schimba?"Schimbă numele":"Cum te cheamă?"}</h3>
+    <p>Numele apare lângă comentariul tău, ca să știm cine ce a scris.</p>
+    <input id="nm" placeholder="ex. Ana" autocomplete="given-name">
+    <div class="cmt-rand"><button type="button" class="btn primary" id="go">Continuă</button>
+      <button type="button" class="linkbtn" id="renunt">Mai târziu</button></div>
+  </div>`;
+  document.body.appendChild(f);
+  const inp = f.querySelector("#nm");
+  inp.value = C.me;
+  const peTasta = e => { if(e.key === "Escape") inchide(); };
+  function inchide(){ f.remove(); document.removeEventListener("keydown", peTasta); }
+  document.addEventListener("keydown", peTasta);
+  f.querySelector("#renunt").onclick = inchide;
+  f.onclick = e => { if(e.target === f) inchide(); };
+  f.querySelector("#go").onclick = () => {
+    const v = inp.value.trim(); if(!v){ inp.focus(); return; }
+    C.me = v;
+    try{ localStorage.setItem("jp:nume", v); }catch(e){}
+    inchide();
+    if(dupa) dupa();
+  };
+  inp.onkeydown = e => { if(e.key === "Enter") f.querySelector("#go").click(); };
+  setTimeout(() => inp.focus(), 60);
+}
+function cuNume(actiune){ C.me ? actiune() : cerNume(actiune); }
 
 /* ---------------- randare ---------------- */
 const el = id => document.getElementById(id);
@@ -407,20 +712,66 @@ function randeazaTokyo(){
       Ambele la câteva minute de stația Shimbashi — de acolo pornesc toate distanțele.</p>
     <nav class="zilenav" id="zilenav" aria-label="Alege ziua">${tabs}</nav>
     <div id="zile">${ZILE_TOKYO.map(ziHTML).join("")}</div>
+    ${sectiuneaComentarii("tokyo")}
     <section class="check"><h2>De rezervat</h2>
-      <ul>${CHECK_TOKYO.map(c=>`<li>${c}</li>`).join("")}</ul></section>
-    <footer>Orele sunt orientative, cu marjă de 15 minute la fiecare tranziție. Distanțele sunt calculate din stația Shimbashi.</footer>`;
-  arataZi(ZILE_TOKYO[0].id);
+      ${CHECK_TOKYO.map(g=>`<div class="check-grup"><div class="cg-nume">${g.grup}</div>
+        <ul>${g.items.map(c=>`<li>${c}</li>`).join("")}</ul></div>`).join("")}</section>
+    <footer>Orele sunt orientative, cu marjă de 15 minute la fiecare tranziție. Distanțele sunt calculate din stația Shimbashi.</footer>
+    <button type="button" class="nav-zi prev" id="ziPrev" hidden>
+      <span class="sag" aria-hidden="true">‹</span>
+      <span><span class="et">Ziua anterioară</span><b></b></span></button>
+    <button type="button" class="nav-zi next" id="ziNext" hidden>
+      <span><span class="et">Ziua următoare</span><b></b></span>
+      <span class="sag" aria-hidden="true">›</span></button>`;
+  arataZi(ZILE_TOKYO[0].id, false);
+  legComentarii("tokyo");
   el("zilenav").addEventListener("click", e=>{
     const b = e.target.closest("button[data-zi]");
-    if(!b) return;
-    arataZi(b.dataset.zi);
-    window.scrollTo({top:el("zilenav").offsetTop-6, behavior:"smooth"});
+    if(b) arataZi(b.dataset.zi);
   });
+  el("ziPrev").onclick = ()=>sariZi(-1);
+  el("ziNext").onclick = ()=>sariZi(+1);
 }
-function arataZi(id){
+
+/* trece la ziua vecină, în ordinea din ZILE_TOKYO */
+function sariZi(pas){
+  const i = ZILE_TOKYO.findIndex(z => z.id === ziCurenta);
+  const urm = ZILE_TOKYO[i + pas];
+  if(urm) arataZi(urm.id);
+}
+
+let ziCurenta = null;
+
+/* Derulează la începutul zilei alese.
+   NU folosim offsetTop-ul barei de zile: fiind position:sticky, cât timp e lipită
+   de marginea de sus offsetTop-ul ei e chiar poziția curentă de derulare, deci
+   „scroll” acolo însemna să rămânem exact unde eram. Ne ancorăm de blocul zilei,
+   care nu e sticky, și lăsăm loc cât ține bara. */
+function laInceputulZilei(id){
+  const zi = el("zi-"+id), nav = el("zilenav");
+  if(!zi || !nav) return;
+  const sus = zi.getBoundingClientRect().top + window.scrollY - nav.offsetHeight - 8;
+  const tinta = Math.max(0, sus);
+  /* dacă suntem deja deasupra începutului zilei, nu împingem pagina în jos */
+  if(window.scrollY > tinta) window.scrollTo({top:tinta, behavior:"smooth"});
+}
+
+function arataZi(id, deruleaza=true){
+  ziCurenta = id;
   ZILE_TOKYO.forEach(z => el("zi-"+z.id).hidden = (z.id !== id));
   document.querySelectorAll("#zilenav button").forEach(b => b.classList.toggle("on", b.dataset.zi === id));
+
+  const i = ZILE_TOKYO.findIndex(z => z.id === id);
+  [["ziPrev", ZILE_TOKYO[i-1]], ["ziNext", ZILE_TOKYO[i+1]]].forEach(([bid, z])=>{
+    const b = el(bid); if(!b) return;
+    b.hidden = !z;
+    if(z){
+      b.querySelector("b").textContent = z.scurt;
+      b.title = "Programul zilei de " + z.scurt;
+    }
+  });
+
+  if(deruleaza) laInceputulZilei(id);
 }
 
 function randeazaGol(et){
@@ -429,7 +780,9 @@ function randeazaGol(et){
     <h2>${et.nume} — programul nu e încă stabilit</h2>
     <p>Deocamdată sunt fixate doar zilele de la Tokyo. Zilele de aici se împart pe aceleași benzi, după ce alegem experiențele.</p>
     <div class="zile-goale"><span class="zg">Ziua 1</span><span class="zg">Ziua 2</span><span class="zg">Ziua 3</span></div>
-  </section>`;
+  </section>
+  ${sectiuneaComentarii(et.id)}`;
+  legComentarii(et.id);
 }
 
 el("etape").innerHTML = ETAPE.map((e,i)=>`
@@ -448,5 +801,6 @@ el("etape").addEventListener("click", e=>{
 });
 
 randeazaTokyo();
+incarcaComentarii();
 </script>
 </html>
