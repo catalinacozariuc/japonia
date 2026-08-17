@@ -220,8 +220,6 @@ h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(15px,2.4vw,19px);le
 .cart-x:hover{background:var(--artar);border-color:var(--artar);color:#fff}
 .cart-x:focus-visible,.cart .subsol a:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
 .cart .astept{padding:26px 18px;text-align:center;font-size:13px;color:var(--gri)}
-body{overflow-anchor:none}
-body.blocat{position:fixed;left:0;right:0;overflow:hidden}
 
 /* cererea prenumelui */
 .modal-fund{position:fixed;inset:0;background:rgba(58,38,22,.42);display:flex;
@@ -713,26 +711,22 @@ function cartonasHTML(c){
 }
 
 function deschideCartonas(id){
+  /* Dacă lista e deja în memorie — și de obicei e, fiindcă o aducem din timp —
+     construim cartonașul întreg din prima, ca să nu existe o clipă în care
+     fereastra e mică și goală și apoi sare la dimensiunea finală. */
+  const gata = CARDURI ? CARDURI.find(x => x.id === id) : null;
+
   const fund = document.createElement("div");
   fund.className = "cart-fund";
   fund.innerHTML = `<div class="cart" role="dialog" aria-modal="true" aria-label="Detalii experiență">
       <button type="button" class="cart-x" aria-label="Închide">×</button>
-      <div class="cart-continut"><p class="astept">Se încarcă…</p></div>
+      <div class="cart-continut">${gata ? cartonasHTML(gata) : `<p class="astept">Se încarcă…</p>`}</div>
     </div>`;
   document.body.appendChild(fund);
-  /* \u00cencuiem fundalul f\u0103r\u0103 s\u0103-l mi\u0219c\u0103m: body devine fix, decalat exact cu c\u00e2t
-     era derulat, iar la \u00eenchidere \u00eel punem la loc. */
-  const y = window.scrollY;
-  document.body.style.top = -y + "px";
-  document.body.classList.add("blocat");
 
   const inapoi = document.activeElement;
   function inchide(){
     fund.remove();
-    document.body.classList.remove("blocat");
-    document.body.style.top = "";
-    void document.body.offsetHeight;   /* forțăm recalcularea înălțimii înainte de a derula înapoi */
-    window.scrollTo(0, y);
     document.removeEventListener("keydown", peTasta);
     if(inapoi && inapoi.focus) inapoi.focus({preventScroll:true});
   }
@@ -741,6 +735,17 @@ function deschideCartonas(id){
   fund.addEventListener("click", e => { if(e.target === fund) inchide(); });
   fund.querySelector(".cart-x").onclick = inchide;
   setTimeout(() => fund.querySelector(".cart-x").focus({preventScroll:true}), 40);
+
+  /* Fundalul nu se derulează cât e fereastra deschisă, dar pagina de dedesubt
+     nu se atinge deloc: oprim doar rotița și degetul peste văl. Orice i-am fi
+     făcut lui body (position:fixed sau overflow:hidden) i-ar fi schimbat
+     lățimea când dispare bara de derulare, iar tot textul din spate s-ar fi
+     re-așezat pentru o clipă — exact „fulgerul” de dinainte. */
+  const opreste = e => { if(!e.target.closest(".cart")) e.preventDefault(); };
+  fund.addEventListener("wheel", opreste, {passive:false});
+  fund.addEventListener("touchmove", opreste, {passive:false});
+
+  if(gata) return true;
 
   incarcaCardurile().then(lista => {
     if(!fund.isConnected) return;
@@ -755,6 +760,7 @@ function deschideCartonas(id){
   });
   return true;
 }
+
 
 /* Legăturile rămân legături adevărate: merg în filă nouă, se pot copia și
    funcționează și fără JavaScript. Doar clicul simplu îl prindem noi. */
@@ -930,5 +936,9 @@ el("etape").addEventListener("click", e=>{
 
 randeazaTokyo();
 incarcaComentarii();
+/* lista de cartonașe se aduce când browserul n-are altceva de făcut, ca și
+   prima apăsare pe o experiență să deschidă fereastra instantaneu */
+if("requestIdleCallback" in window) requestIdleCallback(() => incarcaCardurile().catch(()=>{}));
+else setTimeout(() => incarcaCardurile().catch(()=>{}), 1500);
 </script>
 </html>
