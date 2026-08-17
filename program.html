@@ -185,6 +185,44 @@ h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(15px,2.4vw,19px);le
 .btn:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
 .cmt-eu{font-size:11.5px;color:var(--gri)}
 
+/* ---------- cartonașul deschis peste program ---------- */
+.cart-fund{position:fixed;inset:0;background:rgba(58,38,22,.44);z-index:75;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  animation:cartIn .18s ease}
+@keyframes cartIn{from{opacity:0}to{opacity:1}}
+.cart{background:var(--hartie2);border:1px solid var(--linie);border-radius:4px;
+  width:100%;max-width:440px;max-height:88vh;overflow:auto;position:relative;
+  box-shadow:0 24px 60px rgba(58,38,22,.32);animation:cartSus .22s ease}
+@keyframes cartSus{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.cart .poza{aspect-ratio:16/10;background-size:cover;background-position:center;
+  background-color:var(--linie2);border-bottom:1px solid var(--linie);
+  filter:saturate(.82) contrast(1.05) sepia(.14)}
+.cart .poza.gol{display:flex;align-items:center;justify-content:center;font-size:44px;filter:none}
+.cart .corp{padding:16px 18px 18px}
+.cart .kicker{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--kaki);
+  display:flex;align-items:center;gap:7px}
+.cart .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--artar);flex:none}
+.cart h3{margin:7px 0 0;font-family:Georgia,serif;font-weight:400;font-size:20px;line-height:1.25;color:var(--tus)}
+.cart .desc{margin:9px 0 0;font-size:13.5px;line-height:1.6;color:#4A453C}
+.cart .why{margin:12px 0 0;font-size:13px;line-height:1.55;color:#5C5346;
+  border-left:2px solid rgba(176,124,42,.45);padding-left:12px}
+.cart .why b{display:block;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--kaki);margin-bottom:4px;font-weight:600}
+.cart .subsol{margin-top:16px;padding-top:13px;border-top:1px solid var(--linie);
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.cart .subsol a{font-size:12px;color:var(--artar);text-decoration:none;
+  border-bottom:1px solid rgba(196,69,45,.35)}
+.cart .subsol a:hover{border-bottom-color:var(--artar)}
+.cart-x{position:absolute;top:9px;right:9px;width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  background:rgba(255,252,246,.9);border:1px solid var(--linie);color:var(--tus);
+  font:inherit;font-size:17px;line-height:1;padding:0}
+.cart-x:hover{background:var(--artar);border-color:var(--artar);color:#fff}
+.cart-x:focus-visible,.cart .subsol a:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
+.cart .astept{padding:26px 18px;text-align:center;font-size:13px;color:var(--gri)}
+body{overflow-anchor:none}
+body.blocat{position:fixed;left:0;right:0;overflow:hidden}
+
 /* cererea prenumelui */
 .modal-fund{position:fixed;inset:0;background:rgba(58,38,22,.42);display:flex;
   align-items:center;justify-content:center;padding:20px;z-index:70}
@@ -637,6 +675,96 @@ function legComentarii(orasId){
     box.querySelector("[data-cancel]").onclick = reimprospateaza;
   });
 }
+
+/* ============ cartonașul, deschis peste program ============
+   Datele stau în index.html și rămân acolo: le citim de-acolo o singură dată,
+   la prima apăsare, ca să nu ținem o a doua copie a lor aici. */
+let CARDURI = null, cardurileSeIncarca = null;
+
+function incarcaCardurile(){
+  if(CARDURI) return Promise.resolve(CARDURI);
+  if(cardurileSeIncarca) return cardurileSeIncarca;
+  cardurileSeIncarca = fetch("index.html")
+    .then(r => r.ok ? r.text() : Promise.reject(new Error("index.html: " + r.status)))
+    .then(t => {
+      const m = t.match(/let CARDURI\s*=\s*(\[[\s\S]*?\n\];)/);
+      if(!m) throw new Error("nu găsesc lista de cartonașe");
+      CARDURI = new Function("return " + m[1].replace(/;\s*$/, ""))();
+      return CARDURI;
+    });
+  return cardurileSeIncarca;
+}
+
+/* „Excursii” apare peste tot sub numele lui lung */
+const numeOras = o => o === "Excursii" ? "Alte excursii posibile" : o;
+
+function cartonasHTML(c){
+  const poza = c.img
+    ? `<div class="poza" style="background-image:url('${esc(c.img)}')"></div>`
+    : `<div class="poza gol">${esc(c.emoji||"\u{1F341}")}</div>`;
+  return `${poza}
+    <div class="corp">
+      <div class="kicker"><span class="dot"></span>${esc(numeOras(c.oras))}${c.tag?" · "+esc(c.tag):""}${c.timp?" · "+esc(c.timp):""}</div>
+      <h3>${esc(c.titlu)}</h3>
+      <p class="desc">${esc(c.desc)}</p>
+      ${c.dece?`<p class="why"><b>De ce merită</b>${esc(c.dece)}</p>`:""}
+      <div class="subsol"><a href="index.html#${esc(c.id)}">Deschide în pagina de experiențe, ca să o notezi →</a></div>
+    </div>`;
+}
+
+function deschideCartonas(id){
+  const fund = document.createElement("div");
+  fund.className = "cart-fund";
+  fund.innerHTML = `<div class="cart" role="dialog" aria-modal="true" aria-label="Detalii experiență">
+      <button type="button" class="cart-x" aria-label="Închide">×</button>
+      <div class="cart-continut"><p class="astept">Se încarcă…</p></div>
+    </div>`;
+  document.body.appendChild(fund);
+  /* \u00cencuiem fundalul f\u0103r\u0103 s\u0103-l mi\u0219c\u0103m: body devine fix, decalat exact cu c\u00e2t
+     era derulat, iar la \u00eenchidere \u00eel punem la loc. */
+  const y = window.scrollY;
+  document.body.style.top = -y + "px";
+  document.body.classList.add("blocat");
+
+  const inapoi = document.activeElement;
+  function inchide(){
+    fund.remove();
+    document.body.classList.remove("blocat");
+    document.body.style.top = "";
+    void document.body.offsetHeight;   /* forțăm recalcularea înălțimii înainte de a derula înapoi */
+    window.scrollTo(0, y);
+    document.removeEventListener("keydown", peTasta);
+    if(inapoi && inapoi.focus) inapoi.focus({preventScroll:true});
+  }
+  function peTasta(e){ if(e.key === "Escape") inchide(); }
+  document.addEventListener("keydown", peTasta);
+  fund.addEventListener("click", e => { if(e.target === fund) inchide(); });
+  fund.querySelector(".cart-x").onclick = inchide;
+  setTimeout(() => fund.querySelector(".cart-x").focus({preventScroll:true}), 40);
+
+  incarcaCardurile().then(lista => {
+    if(!fund.isConnected) return;
+    const c = lista.find(x => x.id === id);
+    fund.querySelector(".cart-continut").innerHTML = c
+      ? cartonasHTML(c)
+      : `<p class="astept">Nu găsesc acest cartonaș.</p>`;
+  }).catch(() => {
+    /* dacă nu putem citi lista, lăsăm legătura să-și facă treaba ca înainte */
+    inchide();
+    location.href = "index.html#" + id;
+  });
+  return true;
+}
+
+/* Legăturile rămân legături adevărate: merg în filă nouă, se pot copia și
+   funcționează și fără JavaScript. Doar clicul simplu îl prindem noi. */
+document.addEventListener("click", e => {
+  const a = e.target.closest('.fisa .leg a[href*="index.html#"]');
+  if(!a) return;
+  if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+  e.preventDefault();
+  deschideCartonas(a.getAttribute("href").split("#")[1]);
+});
 
 /* prenumele — ținut minte pe dispozitiv, ca să nu-l retastezi la fiecare vizită */
 function cerNume(dupa, schimba){
