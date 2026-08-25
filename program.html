@@ -62,6 +62,16 @@ h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(15px,2.4vw,19px);le
 .zi-cap{border-bottom:1px solid var(--linie);padding:26px 0 12px;margin-bottom:22px}
 .zi-cap h2{font-family:Georgia,serif;font-weight:400;font-size:clamp(22px,4vw,29px);margin:0;color:var(--artar)}
 .zi-cap .zi-zi{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gri);margin-bottom:6px}
+.zi-cap .zi-intro{margin:9px 0 0;font-size:13.5px;line-height:1.6;color:#5C5346;font-style:italic;max-width:68ch}
+
+/* legenda semnelor, ca în document */
+.legenda{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 0;font-size:11.5px;color:var(--gri)}
+.legenda span{display:inline-flex;align-items:center;gap:5px}
+.legenda i{font-style:normal;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:12px;
+  width:19px;height:19px;display:inline-flex;align-items:center;justify-content:center;
+  border:1.5px solid var(--artar);border-radius:3px;color:var(--artar);background:rgba(255,255,255,.7)}
+.legenda i.bilet{border-color:var(--ceai);color:var(--ceai)}
+.legenda i.decis{border-style:dashed;border-color:var(--linie);color:var(--gri)}
 
 /* ---------- banda ---------- */
 .banda{display:grid;grid-template-columns:118px 1fr;gap:20px;padding:0 0 24px}
@@ -120,6 +130,10 @@ h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(15px,2.4vw,19px);le
   font-size:13px;color:var(--artar);border:1.5px solid var(--artar);border-radius:3px;
   width:25px;height:25px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.7)}
 .fisa.cu-sigiliu h3{padding-right:32px}
+
+/* al doilea sigiliu: 券 pentru ce e deja rezervat sau cu bilet cumpărat,
+   față de 定 care înseamnă doar „stabilit” */
+.sigiliu.bilet{color:var(--ceai);border-color:var(--ceai)}
 
 .fisa.deschis{background:transparent;border-style:dashed;border-left-style:solid;border-left-color:var(--linie)}
 .fisa.deschis h3,.fisa.deschis .ora{color:var(--gri)}
@@ -285,6 +299,12 @@ footer{margin-top:30px;padding-top:15px;border-top:1px solid var(--linie);
   <header>
     <p class="kanji">日課</p>
     <h1>Programul zilelor</h1>
+    <div class="legenda">
+      <span><i>定</i> stabilit</span>
+      <span><i class="bilet">券</i> rezervat / bilete cumpărate</span>
+      <span><i class="decis">○</i> de decis împreună</span>
+      <span>chenarele roșii sunt mesele</span>
+    </div>
   </header>
 
   <nav class="etape" id="etape" aria-label="Etapa călătoriei"></nav>
@@ -320,38 +340,37 @@ const ZILE = {
 /* ==================== TOKYO · 31 octombrie – 3 noiembrie ==================== */
 tokyo:[
 {
-  id:"o31", jp:"零", scurt:"31 oct", zi:"Sâmbătă · sosire", titlu:"31 octombrie",
+  id:"o31", jp:"零", scurt:"31 oct", zi:"Sâmbătă · sosire la Tokyo", titlu:"31 octombrie",
   benzi:{
     seara:[
       {t:"fisa",fix:true,ora:"19:45",titlu:"Aterizare la Haneda",
-       text:"Control de pașapoarte, bagaje, vamă — calculăm o oră până ieșim din aeroport."},
-      {t:"fisa",fix:true,ora:"după aterizare",titlu:"Transfer spre hotel",
-       text:"Van privat, 30–40 de minute. Probabil hotelul ne poate organiza transferul — întrebăm întâi acolo.",
-       drum:"De confirmat cu hotelul, înainte de plecare."},
-      {t:"fisa",fix:true,ora:"pe la 21:30",titlu:"Check-in",
-       text:"Mitsui Garden Hotel Ginza Premier, la câteva minute de stația Shimbashi."},
-      {t:"fisa",masa:true,ora:"de la 22:00",titlu:"Cină — izakaya în apropiere",
+       text:"Pașapoarte, bagaje, vamă — calculăm o oră până ieșim din aeroport."},
+      {t:"fisa",fix:true,ora:"pe la 21:30",titlu:"Transfer și check-in",
+       text:"Van privat până la hotel, 30–40 de minute. Mitsui Garden Hotel Ginza Premier, la câteva minute de stația Shimbashi.",
+       drum:"De confirmat: transferul, cu hotelul, înainte de plecare."},
+      {t:"fisa",masa:true,ora:"de la 22:00",titlu:"Cină — izakaya în Shimbashi",
        exp:[["t_izakaya","Izakaya în Shimbashi"],["t_yakitori","Yakitori"]],
-       text:"Restaurantul hotelului ia ultima comandă la 21:00, deci nu ajungem. Shimbashi, la patru minute pe jos, e cartierul de izakaya al Tokyo-ului: localuri mici sub calea ferată, deschise până noaptea târziu."}
+       text:"Restaurantul hotelului închide la 21:00, deci nu ajungem. Shimbashi e la patru minute pe jos și e cartierul de izakaya al Tokyo-ului: localuri mici sub calea ferată, deschise până noaptea târziu."}
     ]
   }
 },
 {
-  id:"n1", jp:"一", scurt:"1 nov", zi:"Duminică · Tokyo-ul vechi dimineața, baletul după-amiaza", titlu:"1 noiembrie",
+  id:"n1", jp:"一", scurt:"1 nov", zi:"Duminică · Tokyo", titlu:"1 noiembrie",
+  intro:"Orașul vechi dimineața, baletul după-amiaza.",
   benzi:{
     devreme:[
-      {t:"fisa",masa:true,ora:"de la 06:30",titlu:"Mic dejun — restaurantul hotelului, etajul 16",
+      {t:"fisa",masa:true,ora:"de la 06:30",titlu:"Mic dejun — hotel, etajul 16",
        text:"Mic dejun japonez și occidental, cu priveliște peste Hamarikyu și golf."},
       {t:"fisa",fix:true,ora:"pe la 07:20",titlu:"Asakusa și Senso-ji",
        exp:[["t_senso","Senso-ji & Nakamise"],["t_asakusa","Asakusa & Yanaka"]],
-       text:"Kaminarimon, aleea Nakamise, Senso-ji, Asakusa Shrine și străduțele din spate. Plecăm devreme dinadins: la ora asta curtea e goală, pe la zece devine un fluviu de oameni. Stăm cam două ore.",
-       drum:"Shimbashi → Asakusa: linia Ginza, direct, 20 de minute."}
+       text:"Kaminarimon, aleea Nakamise, Senso-ji și străduțele din spate. La ora asta curtea e goală; pe la zece devine un fluviu de oameni. Stăm circa două ore.",
+       drum:"Linia Ginza din Shimbashi, direct, 20 de minute."}
     ],
     dimineata:[
       {t:"fisa",fix:true,ora:"spre 09:45",titlu:"Croazieră pe râul Sumida",
        exp:[["t_sumida","Croazieră pe râul Sumida"]],
-       text:"Treizeci și cinci de minute din Asakusa până la Hamarikyu, pe sub treisprezece poduri. E și drumul de întoarcere spre hotel. Biletul costă circa 1.040 ¥ de persoană, cu intrarea în Hamarikyu inclusă.",
-       drum:"Vaporașele pleacă cam din oră în oră — verificăm orarul zilei."},
+       text:"Treizeci și cinci de minute din Asakusa până la Hamarikyu, pe sub treisprezece poduri. E și drumul de întoarcere spre hotel.",
+       drum:"Bilet: circa 1.040 ¥, cu intrarea în Hamarikyu inclusă. Vaporașele pleacă din oră în oră."},
       {t:"fisa",fix:true,ora:"după croazieră",titlu:"Hamarikyu, pe scurt",
        exp:[["t_hamarikyu","Hamarikyu"]],
        text:"Debarcaderul e chiar în grădină. O tură pe lângă iazul cu apă sărată și pinul de trei sute de ani, apoi zece minute pe jos până la hotel."}
@@ -359,64 +378,59 @@ tokyo:[
     pranz:[
       {t:"fisa",masa:true,ora:"pe la 11:15",titlu:"Prânz — ramen la tejghea",
        exp:[["t_ramen","Ramen la tejghea"]],
-       text:"Am mâncat foarte devreme, iar seara e sushi — rece și crud. O supă consistentă la mijloc echilibrează ziua. Îl mâncăm înainte de întoarcerea la hotel: localurile de ramen miros intens, așa că avem apoi ocazia să facem duș."},
+       text:"Seara e sushi — rece și crud — deci acum ceva cald. După ramen ne întoarcem la hotel și facem duș: localurile de ramen miros intens."},
       {t:"fisa",fix:true,ora:"până la 13:00",titlu:"Hotel — duș și schimbat ținuta",
-       text:"La New National Theatre ținuta e lejer-elegantă; nu se cere nimic formal, dar publicul japonez vine îngrijit. Plecăm de la hotel pe la 13:00."}
+       text:"La Opera Palace ținuta e lejer-elegantă; nu se cere nimic formal, dar publicul japonez vine îngrijit. Plecăm de la hotel pe la 13:00."}
     ],
     dupa:[
-      {t:"fisa",fix:true,ora:"14:00",titlu:"City Lights — balet după Chaplin",
+      {t:"fisa",bilet:true,ora:"14:00",titlu:"City Lights — balet după Chaplin",
        exp:[["t_chaplin","City Lights — balet după Chaplin"]],
-       text:"Premieră mondială la Opera Palace: filmul lui Chaplin din 1931 transformat în balet de Alastair Marriott, pe partitura scrisă chiar de Chaplin, orchestrată acum de Timothy Brock. Cântă Tokyo Philharmonic. E ultima reprezentație din serie. Ajungem la teatru pe la 13:30, cu douăzeci-treizeci de minute înainte de început; sala e legată direct de stație printr-un pasaj, deci nu ieșim în stradă. Biletele sunt cumpărate. Durata: circa 2 ore și 20 de minute, cu pauză. Întârziații nu sunt primiți în sală decât la pauză.",
-       drum:"Shimbashi → Shinjuku: JR Yamanote, circa 15 minute; apoi Keio New Line, o stație până la Hatsudai."}
+       text:"Premieră mondială la Opera Palace: filmul lui Chaplin din 1931 transformat în balet de Alastair Marriott, pe partitura scrisă chiar de Chaplin. Biletele sunt cumpărate. Durata: circa 2 ore și 20 de minute, cu pauză. Întârziații nu sunt primiți în sală decât la pauză.",
+       drum:"Shimbashi → Shinjuku: JR Yamanote, 15 minute; apoi o stație până la Hatsudai."}
     ],
     seara:[
-      {t:"fisa",fix:true,ora:"de la 16:20",titlu:"Plimbare de seară prin Shinjuku",
-       text:"Ieșim din teatru pe la 16:20, când tocmai se aprind luminile. Traversăm Shinjuku pe jos, fără traseu și fără bilete, până la ora cinei — iar dacă avem chef, ne oprim undeva pentru un pahar sau urcăm pe un observator."},
+      {t:"fisa",fix:true,ora:"de la 16:20",titlu:"Plimbare prin Shinjuku",
+       text:"Ieșim din teatru pe la 16:20, când se aprind luminile. Fără traseu și fără bilete, până la ora cinei."},
       {t:"fisa",masa:true,ora:"18:30",titlu:"Cină — sushi omakase la tejghea",
        exp:[["t_omakase","Sushi omakase la tejghea"]],
-       text:"Bucătarul decide meniul, iar felurile vin unul câte unul, peste tejgheaua de lemn. Rezervăm în Shinjuku, ca să nu ne mutăm după balet, sau în Ginza, lângă hotel. Local mic, cu locuri la counter."}
+       text:"Bucătarul decide meniul, iar felurile vin unul câte unul, peste tejgheaua de lemn. În Shinjuku, ca să nu ne mutăm după balet, sau în Ginza, lângă hotel."}
     ]
   }
 },
 {
-  id:"n2", jp:"二", scurt:"2 nov", zi:"Luni · piața dimineața, verdeață la prânz, orașul la apus", titlu:"2 noiembrie",
+  id:"n2", jp:"二", scurt:"2 nov", zi:"Luni · Tokyo", titlu:"2 noiembrie",
+  intro:"Piața dimineața, verdeață la prânz, orașul la apus.",
   benzi:{
     devreme:[
-      {t:"fisa",fix:true,ora:"07:30",titlu:"Plecare spre Tsukiji",
-       text:"Piața e la zece minute pe jos de hotel, deci nu ne trezim la ore imposibile. Tarabele sunt în plină activitate dimineața devreme."},
-      {t:"fisa",masa:true,ora:"de la 08:00",titlu:"Brunch — Tsukiji Outer Market",
-       exp:[["t_tsukiji","Tsukiji Outer Market"],["t_unagi","Unagi"],["t_yakitori","Yakitori"]],
-       text:"Masa principală a dimineții — sărim prânzul. Scopul e să încercăm cât mai multe preparate tradiționale, nu doar crudități. Mâncăm în picioare, de la tarabă la tarabă, cât avem chef: tamagoyaki cald pe băț, stridii și scoici pe grătar, uni proaspăt, ton gras, frigărui de wagyu și de pui la cărbune, tempura de creveți, menchi-katsu și korokke, unagi pe băț, iar la final matcha."}
+      {t:"fisa",fix:true,ora:"de la 07:30",titlu:"Plecare spre Tsukiji",
+       text:"Piața e la zece minute pe jos de hotel, deci nu ne trezim la ore imposibile. Tarabele sunt în plină activitate dimineața devreme."}
     ],
     dimineata:[
-      {t:"fisa",fix:true,ora:"spre prânz",titlu:"Plimbare prin verdeață: Shinjuku Gyoen, Meiji Jingu, Harajuku",
+      {t:"fisa",masa:true,ora:"de la 09:30",titlu:"Brunch — Tsukiji Outer Market",
+       exp:[["t_tsukiji","Tsukiji Outer Market"],["t_unagi","Unagi"],["t_yakitori","Yakitori"]],
+       text:"Masa principală a dimineții — sărim prânzul și mâncăm în picioare, de la tarabă la tarabă: tamagoyaki cald pe băț, stridii și scoici pe grătar, uni proaspăt, ton gras, frigărui de wagyu și de pui la cărbune, tempura de creveți, unagi pe băț, iar la final matcha."},
+      {t:"fisa",fix:true,ora:"spre prânz",titlu:"Verdeață: Shinjuku Gyoen, Meiji Jingu, Harajuku",
        exp:[["t_shinjukugyoen","Shinjuku Gyoen"],["t_meiji","Meiji Jingu"],["t_harajuku","Harajuku & Omotesando"]],
-       text:"Partea liniștită a zilei, toată pe jos și fără nimic de bifat. Începem cu Shinjuku Gyoen și grădina lui japoneză — 58 de hectare, cu iaz, poduri de lemn și primele culori de toamnă. Continuăm prin pădurea de la Meiji Jingu, pe aleea largă de pietriș, până la sanctuar. Ieșim direct în Harajuku, unde ne oprim la o cafenea pentru un desert și un ceai. De aici, Shibuya e la o stație. Bilet: Shinjuku Gyoen 500 ¥; Meiji Jingu, intrarea liberă.",
-       drum:"N-avem oră de plecare — ne uităm la ceas doar cât să prindem intrarea la Shibuya Sky."}
+       text:"Partea liniștită a zilei, toată pe jos. Grădina japoneză din Gyoen — iaz, poduri de lemn și primele culori de toamnă — apoi pădurea de la Meiji Jingu, pe aleea largă de pietriș, și ieșire în Harajuku pentru o cafea și un desert. De acolo, Shibuya e la o stație.",
+       drum:"Bilet: Shinjuku Gyoen 500 ¥; Meiji Jingu liber. N-avem oră de plecare — ne uităm la ceas doar cât să prindem intrarea la Shibuya Sky."}
     ],
     dupa:[
       {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Shibuya",
        exp:[["t_shibuya","Shibuya — intersecția și Center-gai"]],
-       text:"Hachiko, intersecția, Center-gai și Miyashita Park. Cât stăm depinde de cum ne simțim — magazinele din Shibuya Scramble Square sunt chiar la baza turnului în care urcăm după."},
+       text:"Hachiko, intersecția, Center-gai și magazinele din Scramble Square, chiar la baza turnului în care urcăm după."},
       {t:"fisa",fix:true,ora:"16:00",titlu:"Shibuya Sky — apusul",
        exp:[["t_shibuyasky","Shibuya Sky la apus"]],
-       text:"Terasa descoperită de la 230 de metri. Soarele apune în jur de 16:45, deci intrarea de la 16:00 ne prinde și orașul pe lumină, și apusul, și primele lumini. Intervalul e fix, cu bilet luat din timp — e singura oră de care ne ținem azi."}
+       text:"Terasă descoperită la 230 de metri. Soarele apune pe la 16:45, deci prindem și orașul pe lumină, și apusul, și primele lumini.",
+       drum:"Interval fix, cu bilet luat din timp — e singura oră de care ne ținem azi."}
     ],
     seara:[
       {t:"fisa",masa:true,ora:"18:30",titlu:"Cină — teppanyaki cu wagyu",
        exp:[["t_teppanyaki","Teppanyaki cu wagyu"]],
-       text:"Vită premium gătită pe plita încinsă în fața noastră: bucătarul feliază, rumenește și asezonează carnea bucată cu bucată, la tejghea. În Shibuya, ca să nu ne mutăm, sau în Shinjuku, la șapte minute cu JR, unde oricum petrecem restul serii. Rezervare obligatorie."},
+       text:"Vită premium gătită pe plita încinsă în fața noastră, bucată cu bucată, la tejghea. În Shibuya sau în Shinjuku, unde oricum petrecem restul serii. Rezervare obligatorie."},
       {t:"fisa",fix:true,ora:"după cină",titlu:"Shinjuku — Golden Gai și Omoide Yokocho",
-       exp:[["t_golden","Shinjuku — Golden Gai & Kabukicho"]],
-       text:"Poate rămâne doar o plimbare prin cartierul vechi de baruri și pe sub calea ferată, la lumina felinarelor, sau ne așezăm undeva pentru un pahar — decidem pe loc.",
-       drum:"Barurile au câteva locuri la tejghea, deci un grup de șase se împarte."},
-      {t:"fisa",deschis:true,ora:"Varianta A",titlu:"Karaoke în cameră privată",
-       exp:[["t_karaoke","Karaoke în cameră privată"]],
-       text:"O cameră doar a grupului, băuturi comandate la telefon, zeci de mii de melodii, multe și în engleză. Dacă vrem asta, rezervăm din timp — camerele mari se ocupă repede."},
-      {t:"fisa",deschis:true,ora:"Varianta B",titlu:"Un cocktail bar",
-       exp:[["t_bar","Cocktail bar după cină"]],
-       text:"Varianta liniștită: un bar bun în Shinjuku sau înapoi în Ginza, lângă hotel. Fără rezervare și fără program."},
-      {t:"nota",text:"Suntem deja în Shinjuku, deci oricare variantă e la câțiva pași. <b>Decidem după cină</b>, în funcție de cât mai avem energie."}
+       exp:[["t_golden","Golden Gai & Kabukicho"],["t_karaoke","Karaoke în cameră privată"],["t_bar","Cocktail bar după cină"]],
+       text:"Cartierul vechi de baruri și aleea de sub calea ferată, la lumina felinarelor. Ne oprim undeva sau doar ne plimbăm — decidem pe loc.",
+       drum:"Barurile au câteva locuri la tejghea, deci un grup de șase se împarte."}
     ]
   }
 },
@@ -424,22 +438,21 @@ tokyo:[
   id:"n3", jp:"三", scurt:"3 nov", zi:"Marți · ultima dimineață la Tokyo", titlu:"3 noiembrie · Tokyo → Hakone",
   benzi:{
     devreme:[
-      {t:"fisa",masa:true,ora:"de la 08:00",titlu:"Mic dejun — decidem pe loc",
+      {t:"fisa",masa:true,ora:"de la 08:00",titlu:"Mic dejun — de confirmat",
        text:"La hotel sau într-o cafenea din apropiere, dacă avem chef de ceva nou."}
     ],
     dimineata:[
       {t:"fisa",fix:true,ora:"dimineața",titlu:"Check-out și trimiterea bagajelor mari la Kyoto",
-       text:"Predăm valizele mari la recepție și le trimitem prin takkyubin (Ta-Q-Bin, Yamato) direct la hotelul din Kyoto. La Hakone mergem doar cu bagaje mici. Costă 1.650–2.530 ¥ de valiză.",
-       drum:"Livrarea e a doua zi, deci bagajele ajung la Kyoto înaintea noastră — anunțăm hotelul de acolo să le păstreze."},
+       text:"Predăm valizele mari la recepție și le trimitem prin takkyubin (Ta-Q-Bin, Yamato) direct la hotelul din Kyoto. La Hakone mergem doar cu bagaje mici. Cost: 1.650–2.530 ¥ de valiză.",
+       drum:"Livrarea e a doua zi — anunțăm hotelul din Kyoto să le păstreze."},
       {t:"fisa",fix:true,ora:"09:00 – 16:00",titlu:"Grădinile de Est ale Palatului Imperial",
        exp:[["t_palat","Palatul Imperial & Grădinile de Est"]],
-       text:"Singurul lucru pe care îl facem azi la Tokyo, și e alegerea potrivită: zidurile fostului castel Edo, peluzele largi și fundația turnului principal, pe alei late și plate. Stăm cât vrem — poarta Ōtemon e la zece minute pe jos de Gara Tokyo, așa că ieșim din grădini direct spre tren. Intrarea e liberă.",
-       drum:"Grădinile sunt închise lunea și vinerea, dar deschise de sărbători — 3 noiembrie e Ziua Culturii, deci e singura zi din sejur în care putem intra."}
+       text:"Singurul lucru pe care îl facem azi la Tokyo: zidurile fostului castel Edo, peluzele largi și fundația turnului principal, pe alei late și plate. Intrarea e liberă, iar poarta Ōtemon e la zece minute de Gara Tokyo.",
+       drum:"Sunt închise lunea și vinerea, dar deschise de sărbători — 3 noiembrie e Ziua Culturii, deci e singura noastră șansă."}
     ],
     pranz:[
-      {t:"fisa",masa:true,ora:"pe la 12:00",titlu:"Prânz — ekiben de la Gara Tokyo",
-       exp:[["x_ekiben","Ekiben — bento de gară"]],
-       text:"Luăm bagajele mici de la hotel, ajungem în gară și cumpărăm cutiile de la raionul de ekiben — cel din Gara Tokyo e printre cele mai bune din țară. Mâncăm în tren, în primele minute de shinkansen."}
+      {t:"fisa",masa:true,ora:"pe la 12:00",titlu:"Prânz — lângă hotel sau în Gara Tokyo",
+       text:"Drumul până la Odawara e scurt, deci mâncăm înainte de tren, nu în el."}
     ],
     dupa:[
       {t:"fisa",fix:true,ora:"13:10",titlu:"Shinkansen spre Odawara",
@@ -458,97 +471,75 @@ hakone:[
   benzi:{
     dimineata:[
       {t:"fisa",ora:"dimineața",titlu:"Dimineața e la Tokyo",
-       text:"Check-out, Grădinile Palatului Imperial și prânzul cu ekiben la Gara Tokyo — toate în etapa Tokyo."}
+       text:"Check-out, Grădinile Palatului Imperial și prânzul — toate în etapa Tokyo."}
     ],
     dupa:[
       {t:"fisa",fix:true,ora:"13:10 – 13:50",titlu:"Shinkansen spre Odawara",
        text:"Treizeci și cinci de minute din Gara Tokyo. Hotelul e la Togendai, pe malul de nord al lacului Ashi.",
-       drum:"Shuttle-ul hotelului pleacă la 14:15 din Odawara, rezervat în prealabil — ne lasă în fața hotelului pe la 15:15. Dacă îl pierdem: autobuzul Hakone Tozan, linia T, circa o oră."},
-      {t:"fisa",fix:true,ora:"pe la 15:15",titlu:"Check-in",
+       drum:"Shuttle-ul hotelului pleacă la 14:15 din Odawara, rezervat în prealabil. Dacă îl pierdem: autobuzul Hakone Tozan, linia T, circa o oră."},
+      {t:"fisa",fix:true,ora:"pe la 15:15",titlu:"Check-in la ryokan",
        exp:[["h_onsen","Onsen la ryokan"]],
-       text:"Acum alegem ora cinei: 17:30 dacă suntem obosiți și flămânzi, 20:00 dacă mai vrem ceva înainte de masă."}
+       text:"Alegem acum ora cinei: 17:30 dacă suntem obosiți și flămânzi, 20:00 dacă mai vrem ceva înainte de masă."}
     ],
     seara:[
-      {t:"fisa",deschis:true,ora:"Varianta A",titlu:"Terasa de apă și cafeneaua cu ofuro",
-       text:"Terasa dinspre lac, cu o cafenea care are baie de picioare. Apusul e la 16:41 și e cea mai bună priveliște a hotelului."},
-      {t:"fisa",deschis:true,ora:"Varianta B",titlu:"O plimbare scurtă în jurul hotelului",
-       text:"Malul lacului până la debarcader și înapoi. Douăzeci de minute, plat."},
-      {t:"fisa",deschis:true,ora:"Varianta C",titlu:"Onsen înainte de cină",
+      {t:"fisa",deschis:true,ora:"cum ne simțim",titlu:"Nimic obligatoriu",
        exp:[["h_onsen","Onsen la ryokan"]],
-       text:"Băile se deschid la 15:00. Între 16:00 și 17:30 sunt cele mai pline din zi."},
+       text:"Terasa dinspre lac cu baia de picioare, o plimbare de douăzeci de minute până la debarcader, sau onsen înainte de cină. Apusul e la 16:41 și e cea mai bună priveliște a hotelului."},
       {t:"fisa",masa:true,ora:"17:30 sau 20:00",titlu:"Cină la hotel",
        exp:[["h_kaiseki_ryokan","Cină kaiseki la ryokan"]],
        text:"Meniu japonez și occidental cu bucătărie deschisă, în sala care dă spre lac. Ora o alegem la check-in."},
-      {t:"fisa",deschis:true,ora:"după cină",titlu:"Relaxare la onsen",
+      {t:"fisa",deschis:true,ora:"după cină",titlu:"Onsen",
        exp:[["h_onsen","Onsen la ryokan"]],
-       text:"Fără oră fixă: mergem când ne vine bine. Băile sunt deschise până la miezul nopții, dar mâine avem o zi întreagă — nu e nevoie să le închidem noi."}
+       text:"Băile sunt deschise până la miezul nopții. Mergem când ne vine bine."}
     ]
   }
 },
 {
-  id:"h4", jp:"四", scurt:"4 nov", zi:"Miercuri · bucla: muntele dimineața, lacul după-amiază", titlu:"4 noiembrie",
+  id:"h4", jp:"四", scurt:"4 nov", zi:"Miercuri · Hakone", titlu:"4 noiembrie",
+  intro:"Bucla: muntele dimineața, lacul după-amiaza.",
   benzi:{
     devreme:[
       {t:"fisa",deschis:true,ora:"de la 05:00",titlu:"Onsen de dimineață, pentru cine se trezește",
        exp:[["h_onsen","Onsen la ryokan"]],
-       text:"Băile se redeschid la 05:00 și sunt cele mai goale din zi; sunt și celelalte decât aseară. Cine preferă să doarmă are baia privată din cameră."},
+       text:"Băile se redeschid la 05:00 și sunt cele mai goale din zi; sunt și celelalte decât aseară. Cine preferă să rămână în cameră are baia privată în aer liber, la balcon."},
       {t:"fisa",masa:true,ora:"pe la 08:30",titlu:"Mic dejun la hotel",
-       text:"Mâncăm bine acum: azi prânzul e ușor și luat pe drum. Ultima comandă la 09:00."}
+       text:"Ultima comandă la 09:00. Mâncăm bine — prânzul e ușor și luat pe drum."}
     ],
     dimineata:[
-      {t:"fisa",fix:true,ora:"09:30",titlu:"Pe jos până la Togendai",
-       exp:[["h_loop","Traseul circular Hakone Loop"]],
-       text:"Pornim odihniți. Nouă minute de-a lungul malului, până la stația de telecabină. De aici începe bucla clasică a văii — telecabină, funicular, trenulețul de munte, autobuz și vaporul înapoi — cinci mijloace de transport diferite, fără să ne întoarcem vreodată pe unde am venit. Freepass-ul le acoperă pe toate."},
-      {t:"fisa",fix:true,ora:"dimineața",titlu:"Telecabina Togendai → Owakudani",
-       text:"Patru kilometri peste crater, cu gondole care pleacă din minut în minut. Între Ubako și Owakudani se vede Fuji.",
-       drum:"Se suspendă la vânt puternic — verificăm dimineața, la micul dejun."},
-      {t:"fisa",fix:true,ora:"circa o oră",titlu:"Owakudani, valea vulcanică",
-       exp:[["h_owakudani","Owakudani — valea vulcanică"],["h_kurotamago","Kuro-tamago (ouă negre)"],["h_icecream","Kuro-sofuto"]],
-       text:"Fumarolele, potecile de sus și priveliștea spre Fuji. Aici mâncăm ouăle negre și înghețata neagră.",
-       drum:"Pe la unsprezece se aglomerează. Dacă vedem coadă la ouă, nu insistăm."},
-      {t:"fisa",fix:true,ora:"după Owakudani",titlu:"Telecabina până la Sounzan, apoi funicularul",
-       text:"Coborâm de partea cealaltă a craterului, apoi funicularul taie panta spre Gora. Coborâm la Koen-Kami."},
+      {t:"fisa",fix:true,ora:"09:30",titlu:"Hakone Loop",
+       exp:[["h_loop","Traseul circular „Hakone Loop”"],["h_owakudani","Owakudani — valea vulcanică"],["h_kurotamago","Kuro-tamago (ouă negre)"],["h_icecream","Kuro-sofuto"]],
+       text:"Bucla clasică a văii, cu cinci mijloace de transport diferite și fără să ne întoarcem vreodată pe unde am venit. Freepass-ul le acoperă pe toate. Începe la nouă minute pe jos de hotel, la stația de telecabină Togendai.<br><br>— <b>Telecabina Togendai → Owakudani</b> — patru kilometri peste crater; între Ubako și Owakudani se vede Fuji.<br>— <b>Owakudani</b> — fumarolele, potecile de sus, ouăle negre și înghețata neagră. Circa o oră; pe la unsprezece se aglomerează.<br>— <b>Telecabina până la Sounzan, apoi funicularul spre Gora</b> — coborâm la Koen-Kami pentru muzeu.<br>— <b>Trenul de munte Tozan</b> — linia care coboară în zigzag spre Miyanoshita, schimbând sensul de trei ori.",
+       drum:"Telecabina se suspendă la vânt puternic — verificăm dimineața, la micul dejun."},
       {t:"fisa",fix:true,ora:"spre prânz",titlu:"Muzeul de Artă Hakone",
        exp:[["h_museumart","Muzeul de Artă Hakone (Gōra)"]],
-       text:"Cel mai vechi muzeu din Hakone: ceramică japoneză de la vasele Jomon până în epoca Edo. Dar motivul adevărat e grădina Shinsenkyo, cu mușchi și vreo 200 de arțari, exact la culoare acum. Intrarea: 900 ¥.",
-       drum:"Trei minute pe jos de la Koen-Kami."},
-      {t:"fisa",fix:true,ora:"înainte de prânz",titlu:"Coborâre spre Miyanoshita",
-       text:"Funicularul până la Gora, apoi trenul de munte Tozan — linia care coboară în zigzag, schimbând sensul de trei ori."}
+       text:"Cel mai vechi muzeu din Hakone, dar motivul adevărat e grădina Shinsenkyo, cu mușchi și vreo 200 de arțari — exact la culoare acum. Intrarea: 900 ¥.",
+       drum:"La trei minute pe jos de Koen-Kami."}
     ],
     pranz:[
       {t:"fisa",masa:true,ora:"pe la 13:20",titlu:"Prânz — ceva ușor la Miyanoshita",
        exp:[["h_soba","Jinenjo soba (soba de munte)"]],
-       text:"Am mâncat bine dimineața, iar diseară e masa de la hotel: o porție de soba de munte, un curry sau o supă — atât. Miyanoshita e vechiul sat de stațiune al văii, cu localuri deschise la prânz și cu Fujiya Hotel, din 1878."}
+       text:"Soba de munte, un curry sau o supă — atât; diseară e masa de la hotel. Miyanoshita e vechiul sat de stațiune al văii, cu Fujiya Hotel din 1878."}
     ],
     dupa:[
-      {t:"fisa",fix:true,ora:"circa 35 de minute",titlu:"Autobuz spre Hakone-machi",
-       text:"Linia H coboară spre capătul de sud al lacului."},
-      {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Hakone Sekisho, vama de pe Tokaido",
-       text:"Punctul de control prin care trecea, între 1619 și 1868, tot ce circula între Kyoto și Edo. Reconstruit integral în 2007, cu porți, corpuri de gardă și turn de veghe. Intrarea: 500 ¥."},
-      {t:"fisa",deschis:true,ora:"20–30 de minute",titlu:"Vechiul Tokaido și parcul Onshi-Hakone",
+      {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Vechiul Tokaido și vama de la Hakone-machi",
        exp:[["h_tokaido","Drumeție pe vechiul drum Tokaido"]],
-       text:"Un kilometru din vechiul drum, mărginit de cedri de peste trei sute cincizeci de ani, cu priveliștea întregului lac de pe promontoriul parcului.",
-       drum:"Dacă suntem obosiți: autobuzul până la Moto-Hakone, sau vaporul direct spre hotel de la Hakone-machi."},
-      {t:"fisa",deschis:true,ora:"o jumătate de oră",titlu:"Amazake Chaya, oprirea de pe drum",
-       exp:[["h_amazake","Amazake Chaya"]],
-       text:"Fix la mijlocul porțiunii de drum vechi: o cabană cu acoperiș de stuf, ținută de aceeași familie de treisprezece generații, de vreo patru sute de ani. Înăuntru e pământ pe jos și o vatră care fumegă. Se bea amazake — o băutură caldă, dulce și groasă din orez fermentat, fără alcool — cu mochi alături. E aceeași oprire pe care o făceau drumeții în epoca Edo, cu același lucru în ceașcă.",
-       drum:"Fără rezervare, se oprește din mers."},
-      {t:"fisa",deschis:true,ora:"spre apus",titlu:"Sanctuarul Hakone și torii-ul din apă",
-       text:"Heiwa-no-Torii stă cu picioarele în lac, la zece minute de debarcader. La ora asta lumina e joasă și coada pentru fotografie s-a subțiat."}
+       text:"Autobuzul liniei H coboară spre capătul de sud al lacului în treizeci și cinci de minute. Acolo: Hakone Sekisho, punctul de control prin care trecea, între 1619 și 1868, tot ce circula între Kyoto și Edo (500 ¥), și un kilometru din vechiul drum, mărginit de cedri de peste trei sute de ani."},
+      {t:"fisa",deschis:true,ora:"dacă avem chef",titlu:"Amazake Chaya și sanctuarul Hakone",
+       exp:[["h_amazake","Amazake Chaya — ceainăria de pe vechiul Tokaido"]],
+       text:"Fix la mijlocul drumului vechi, o cabană cu acoperiș de stuf ținută de aceeași familie de treisprezece generații, unde se bea amazake cald lângă vatră. Apoi Heiwa-no-Torii, poarta cu picioarele în lac, la zece minute de debarcader.",
+       drum:"Dacă suntem obosiți: autobuzul până la Moto-Hakone, sau vaporul direct de la Hakone-machi."},
+      {t:"fisa",fix:true,ora:"16:00",titlu:"Vapor spre Togendai, la apus",
+       exp:[["h_ashi","Lacul Ashi & croaziera „pirat”"]],
+       text:"Traversăm lacul înapoi cu unul dintre vapoarele „de pirați”, pe lumina apusului.",
+       drum:"Luăm dinadins cursa de la 16:00, nu ultima a zilei. Dacă o pierdem, mai e una spre 16:50, altfel autobuzul liniei W."}
     ],
     seara:[
-      {t:"fisa",fix:true,ora:"16:00",titlu:"Vapor spre Togendai, la apus",
-       exp:[["h_ashi","Lacul Ashi & croaziera pirat"]],
-       text:"Traversăm lacul înapoi cu unul dintre vapoarele de pirați, pe lumina apusului.",
-       drum:"Luăm dinadins cursa de la 16:00, nu ultima a zilei — verificăm ora exactă dimineața, la debarcader. Dacă o pierdem: mai e o cursă până spre 16:50, iar altfel autobuzul liniei W, circa douăzeci de minute."},
       {t:"fisa",fix:true,ora:"18:00 – 19:00",titlu:"Onsen, cât ceilalți mănâncă",
        exp:[["h_onsen","Onsen la ryokan"]],
-       text:"Trucul zilei: cu cina la 20:00, băile sunt aproape goale între șase și șapte, fiindcă toată lumea e la masă."},
+       text:"Cu cina la 20:00, băile sunt aproape goale între șase și șapte, fiindcă toată lumea e la masă."},
       {t:"fisa",masa:true,ora:"20:00",titlu:"Cină la hotel",
        exp:[["h_kaiseki_ryokan","Cină kaiseki la ryokan"]],
-       text:"Meniul se schimbă după cele douăzeci și patru de anotimpuri ale calendarului japonez, deci nu e același meniu ca aseară."},
-      {t:"fisa",deschis:true,ora:"după cină",titlu:"Un pahar în lounge, dacă mai avem energie",
-       text:"Mâine nu ne trezim devreme, deci seara se poate încheia oricând."}
+       text:"Meniul se schimbă după anotimp, deci nu e același ca aseară."}
     ]
   }
 },
@@ -556,22 +547,17 @@ hakone:[
   id:"h5", jp:"五", scurt:"5 nov", zi:"Joi · ultima dimineață la Hakone", titlu:"5 noiembrie · Hakone → Kyoto",
   benzi:{
     devreme:[
-      {t:"fisa",deschis:true,ora:"de la 05:00",titlu:"Ultima baie, pentru cine vrea",
+      {t:"fisa",deschis:true,ora:"de la 05:00",titlu:"Onsen înainte de plecare, pentru cine se trezește",
        exp:[["h_onsen","Onsen la ryokan"]],
-       text:"Aceeași liniște ca ieri dimineață. Cine preferă să doarmă are baia din cameră."},
+       text:"Băile se redeschid la 05:00 și sunt cele mai goale din zi. Cine preferă să rămână în cameră are baia privată în aer liber, la balcon."},
       {t:"fisa",masa:true,ora:"de la 08:00",titlu:"Mic dejun la hotel",
-       text:"Ultima masă inclusă. Mâncăm consistent — până la Kyoto avem doar un bentō de gară."}
+       text:"Ultima masă inclusă. Până la Kyoto avem doar un bentō de gară."}
     ],
     dimineata:[
-      {t:"fisa",fix:true,ora:"dimineața",titlu:"Check-out",
-       text:"Plecăm doar cu bagajele mici și le luăm cu noi de la început: după check-out nu ne mai întoarcem la hotel."},
-      {t:"fisa",deschis:true,ora:"Varianta A",titlu:"Muzeul Okada, pe drumul spre Odawara",
-       exp:[["h_okada","Muzeul Okada"]],
-       text:"Cea mai bogată colecție de artă din Hakone, cu o baie de picioare cu apă termală în grădină. E la Kowakidani, pe traseul autobuzului spre Odawara, deci e o oprire, nu un ocol. O oră și jumătate acolo, apoi mai departe spre gară."},
-      {t:"fisa",deschis:true,ora:"Varianta B",titlu:"Plimbare pe malul lacului",
-       text:"Dacă e vreme frumoasă, o dimineață fără nimic de bifat: malul dinspre Togendai, cu Fuji în față dacă e senin, apoi o cafea."},
-      {t:"fisa",fix:true,ora:"circa o oră",titlu:"Coborâre spre Odawara",
-       text:"Cu autobuzul liniei T. Suntem în gară cu o jumătate de oră înainte de tren."}
+      {t:"fisa",deschis:true,ora:"dimineața",titlu:"Ultima dimineață la Hakone",
+       exp:[["h_okada","Muzeul Okada"],["h_ashi","Lacul Ashi"]],
+       text:"Facem check-out cu bagajele la noi — nu ne mai întoarcem la hotel — și decidem pe loc, după vreme: Muzeul Okada, care e o oprire pe traseul autobuzului spre Odawara și nu un ocol, sau o plimbare pe malul lacului dinspre Togendai, cu Fuji în față dacă e senin.",
+       drum:"Autobuzul liniei T până la Odawara, circa o oră. Suntem în gară cu o jumătate de oră înainte de tren."}
     ],
     pranz:[
       {t:"fisa",masa:true,ora:"în tren",titlu:"Prânz — ekiben din gara Odawara",
@@ -598,263 +584,266 @@ kyoto:[
     ],
     dupa:[
       {t:"fisa",fix:true,ora:"14:00 – 16:00",titlu:"Odawara → Kyoto",
-       text:"Shinkansen Hikari, în jur de două ore."}
+       text:"Shinkansen Hikari de la Odawara, ora 14:00, în jur de două ore."}
     ],
     seara:[
       {t:"fisa",fix:true,ora:"pe la 16:00",titlu:"Sosire și check-in",
-       text:"Hotelul e la câteva minute pe jos de gară. Valizele mari, trimise din Tokyo pe 3 noiembrie, ne așteaptă deja acolo — confirmăm la recepție că au ajuns toate. Hotelul are izvor natural, saună și bazin în aer liber, deschise până noaptea târziu; cel mai gol e dimineața devreme și după ora zece seara."},
-      {t:"fisa",deschis:true,ora:"Varianta A",titlu:"Cină lângă hotel și relaxare",
-       text:"Zona gării are localuri de ramen, izakaya și un etaj întreg de restaurante. Mâncăm aproape, apoi baie termală și culcare devreme — mâine ne trezim la primele ore."},
-      {t:"fisa",deschis:true,ora:"Varianta B",titlu:"Prima plimbare prin Kyoto-ul de seară",
+       text:"Hotelul e la câteva minute pe jos de gară. Valizele mari, trimise pe 3 noiembrie, ne așteaptă acolo — confirmăm la recepție că au ajuns toate. Hotelul are izvor natural, saună și bazin în aer liber, deschise până noaptea târziu."},
+      {t:"fisa",fix:true,ora:"prima seară",titlu:"Gion, Shirakawa și Pontocho",
        exp:[["k_gion","Gion & Hanamikoji la lăsarea serii"],["k_pontocho","Pontocho — aleea felinarelor"]],
-       text:"Gion și Hanamikoji, canalul Shirakawa cu sălciile și podețele lui, malul râului Kamo și aleea Pontocho — toate se leagă pe jos, una după alta. Cina o luăm în Pontocho, unde găsim ceva pe loc, fără rezervare."},
-      {t:"fisa",masa:true,deschis:true,ora:"de decis pe loc",titlu:"Cină — lângă hotel sau în Pontocho",
-       text:"Am mers toată ziua, deci nu ne întindem și nu rezervăm nimic."}
+       text:"Gion și Hanamikoji, apoi canalul Shirakawa cu sălciile și podețele lui, malul râului Kamo și aleea Pontocho. Toate se leagă pe jos, una după alta.",
+       drum:"Pe jos, o jumătate de oră pe malul râului, sau cu trenul ori autobuzul, un sfert de oră. Pe aleile private din Gion fotografiatul e interzis prin lege."},
+      {t:"fisa",masa:true,ora:"de confirmat",titlu:"Cină — în Pontocho",
+       text:"Localurile sunt mici; găsim ceva pe loc, fără rezervare. Am mers toată ziua, deci nu ne întindem."}
     ]
   }
 },
 {
-  id:"k6", jp:"六", scurt:"6 nov", zi:"Vineri · Higashiyama în zori, gheișele la prânz, sake după-amiaza", titlu:"6 noiembrie",
+  id:"k6", jp:"六", scurt:"6 nov", zi:"Vineri · Kyoto", titlu:"6 noiembrie",
+  intro:"Kyoto-ul autentic, într-o singură zi: orașul vechi de lemn dimineața, cartierul gheișelor la prânz și satul cramelor de sake după-amiaza.",
   benzi:{
     devreme:[
-      {t:"fisa",fix:true,ora:"pe la 06:30",titlu:"Kiyomizu-dera",
+      {t:"fisa",fix:true,ora:"pe la 07:30",titlu:"Kiyomizu-dera",
        exp:[["k_kiyomizu","Kiyomizu-dera în zori"]],
-       text:"Templul deschide la 06:00 și terasa de lemn suspendată deasupra dealului e aproape goală; după ora nouă devine un fluviu de oameni. Jos, la izvorul Otowa, se bea din trei firicele de apă — sănătate, iubire, succes. E singura trezire foarte devreme din tot sejurul la Kyoto, și merită.",
-       drum:"Autobuzul 206 din fața gării, circa 20 de minute, apoi urcușul pe jos. De luat ceva de la konbini pentru drum — masa adevărată vine peste două ore."},
+       text:"Templul deschide la 06:00 și terasa suspendată e aproape goală; după nouă devine un fluviu de oameni. Jos, la izvorul Otowa, se bea din trei firicele de apă — sănătate, iubire, succes. Merită trezitul devreme.",
+       drum:"Autobuzul 206 din fața gării, circa 20 de minute, apoi urcușul pe jos."},
       {t:"fisa",fix:true,ora:"după răsărit",titlu:"Ninenzaka și Sannenzaka, goale",
        exp:[["k_sannenzaka","Sannenzaka & Ninenzaka"]],
-       text:"Coborâm la pas ulițele pietruite cu case de lemn, fără nimeni în cadru. E singura oră din zi în care arată așa. Atenție la trepte — legenda spune că cine cade își atrage ghinion pe doi, respectiv trei ani."}
+       text:"Coborâm la pas ulițele pietruite cu case de lemn. E singura oră din zi în care arată așa. Atenție la trepte — legenda spune că cine cade își atrage ghinion pe doi, respectiv trei ani."}
     ],
     dimineata:[
-      {t:"fisa",masa:true,ora:"pe la 09:00",titlu:"Brunch — în Higashiyama",
-       text:"Masa adevărată a dimineții, după două ore și jumătate de mers. Cafenelele din zona Kodai-ji deschid pe la 08:00 și multe servesc și mic dejun japonez. Mâncăm bine acum: până la sake e drum lung."},
-      {t:"fisa",fix:true,ora:"circa o oră",titlu:"Sanjusangen-do",
+      {t:"fisa",masa:true,ora:"pe la 10:00",titlu:"Brunch — în Higashiyama",
+       text:"Masa adevărată a dimineții. Mâncăm bine acum: până la sake e drum lung."},
+      {t:"fisa",fix:true,ora:"pe la 11:00",titlu:"Kennin-ji",
+       exp:[["k_kenninji","Kennin-ji — dragonii de pe tavan"]],
+       text:"Coborâm din Higashiyama spre Gion, zece minute pe jos, și intrăm în cel mai vechi templu zen din Kyoto, ridicat în 1202 de călugărul care a adus ceaiul în Japonia. Pe tavanul sălii de predici, o pereche de dragoni pictată pe o sută șaptezeci de metri pătrați de hârtie.",
+       drum:"Program: de la 10:00, ultima intrare pe la 16:30."},
+      {t:"fisa",fix:true,ora:"pe la 12:00",titlu:"Sanjusangen-do",
        exp:[["k_sanjusangendo","Sanjusangen-do — cei 1.001 de zei"]],
-       text:"La zece minute de Higashiyama și tot atâtea de hotel: o sală de lemn lungă de peste o sută de metri, cu 1.001 de statui aurite ale zeiței Kannon, fiecare cu o mie de brațe, aliniate în semiîntuneric. E complet acoperită, deci merge pe orice vreme.",
-       drum:"Înăuntru nu se fotografiază — se umblă în șosete, pe podeaua de lemn."}
+       text:"La 15 minute pe jos: o sală de lemn lungă de peste o sută de metri, cu 1.001 de statui aurite ale zeiței Kannon, fiecare cu o mie de brațe, aliniate în semiîntuneric. Complet acoperită, deci merge pe orice vreme.",
+       drum:"Înăuntru nu se fotografiază; se umblă în șosete, pe podeaua de lemn."}
+    ],
+    pranz:[
+      {t:"fisa",fix:true,ora:"pe la 13:00",titlu:"Înapoi spre Gion",
+       text:"Cu autobuzul, aproximativ 10 minute."}
     ],
     dupa:[
       {t:"fisa",fix:true,ora:"13:30",titlu:"Gion Odori, la Gion Kaikan",
        exp:[["k_gionodori","Gion Odori — dansul de toamnă al gheișelor"]],
-       text:"Dansul de toamnă al cartierului Gion Higashi — singurul spectacol public de gheișe din toamnă, ținut doar între 1 și 10 noiembrie, deci pică fix în fereastra noastră. Șaizeci de minute, cu final în care urcă pe scenă toate geiko și maiko. Sala e mică și publicul e în mare parte local. Biletele se pun în vânzare din septembrie; merită cel cu ceai și dulce, servit înainte.",
-       drum:"E una dintre puținele ore fixe ale sejurului."},
+       text:"Dansul de toamnă al cartierului Gion Higashi — singurul spectacol public de gheișe din toamnă, ținut doar între 1 și 10 noiembrie, deci pică fix în fereastra noastră. Șaizeci de minute, cu final în care urcă pe scenă toate geiko și maiko. Sala e mică și publicul e în mare parte local.",
+       drum:"Reprezentația de la 13:30; biletele se pun în vânzare din septembrie. Merită cel cu ceai și dulce, servit înainte."},
       {t:"fisa",fix:true,ora:"15:00",titlu:"Fushimi, satul cramelor de sake",
-       exp:[["k_satsake","Satul sake din Fushimi & muzeul Gekkeikan Okura"],["k_sake","Degustare de sake în Fushimi"]],
-       text:"După spectacol coborâm spre sud, în cartierul în care se face sake de patru sute de ani, pe apa de izvor numită apa zeiței. E o zonă joasă, cu canale, sălcii și hambare albe de lemn — nu seamănă cu nimic altceva din Kyoto. Vizităm muzeul cramei Gekkeikan Okura, amenajat într-o pivniță din 1909, unde se vede tot drumul de la orez la sticlă cu uneltele vechi, și gustăm pe loc; apoi intrăm într-o izakaya de cartier și mâncăm cât avem chef.",
-       drum:"Din Gion cu trenul Keihan spre sud, un sfert de oră, direct. Muzeul se vizitează fără rezervare, cu degustare inclusă în bilet; doar turul ghidat al unei crame se programează dinainte."},
-      {t:"fisa",masa:true,ora:"pe la 16:00",titlu:"Gustare — degustare de sake și mici gustări la izakaya",
-       exp:[["k_sake","Degustare de sake în Fushimi"]],
-       text:"Masa de mijloc a zilei e chiar degustarea: câteva sortimente comparate unul după altul — sec și limpede, dulceag, nefiltrat — plus gustările care se mănâncă alături, la tejghea. Nimic rezervat, nimic bătut în cuie."}
+       exp:[["k_satsake","Satul sake din Fushimi"],["k_sake","Degustare de sake"]],
+       text:"Cartierul în care se face sake de patru sute de ani, pe apa de izvor numită apa zeiței, cu canale, sălcii și hambare albe de lemn — nu seamănă cu nimic altceva din Kyoto. Vizităm muzeul cramei Gekkeikan Okura, amenajat într-o pivniță din 1909, și gustăm pe loc; apoi intrăm într-o izakaya de cartier.",
+       drum:"Din Gion cu trenul Keihan spre sud, un sfert de oră, direct. Muzeul se vizitează fără rezervare, cu degustare inclusă în bilet."},
+      {t:"fisa",masa:true,ora:"pe la 16:00",titlu:"Gustare — degustare și gustări la izakaya",
+       exp:[["k_sake","Degustare de sake"]],
+       text:"Masa de mijloc a zilei e chiar degustarea: câteva sortimente comparate unul după altul — sec și limpede, dulceag, nefiltrat — plus ce se mănâncă alături, la tejghea."}
     ],
     seara:[
-      {t:"fisa",fix:true,ora:"spre 17:00",titlu:"Întoarcerea spre Gion",
-       text:"Urcăm înapoi spre nord tot cu Keihan, un sfert de oră, iar stația e la câțiva pași de Gion. Soarele apune la 16:52, deci ajungem exact când se aprind felinarele."},
-      {t:"fisa",fix:true,ora:"o jumătate de oră",titlu:"Gion la lăsarea serii",
+      {t:"fisa",fix:true,ora:"spre 17:00",titlu:"Gion la lăsarea serii",
        exp:[["k_gion","Gion & Hanamikoji la lăsarea serii"]],
-       text:"Hanamikoji, canalul Shirakawa cu sălciile și podețele lui — cea mai frumoasă jumătate de oră din Kyoto, și gratis.",
-       drum:"Pe aleile private fotografiatul e interzis prin lege, cu amendă. Femeile în kimono de pe stradă sunt aproape mereu turiste."},
+       text:"Ne întoarcem cu Keihan, un sfert de oră. Soarele apune la 16:52, deci ajungem exact când se aprind felinarele și ies primele geiko spre întâlnirile de seară."},
       {t:"fisa",masa:true,ora:"18:30 – 19:00",titlu:"Cină — Pontocho, apoi la hotel",
-       exp:[["k_pontocho","Pontocho — aleea felinarelor pe râul Kamo"]],
-       text:"Aleea de felinare de pe malul râului Kamo, la zece minute pe jos din Gion. Localurile sunt mici — dacă vrem un loc anume, rezervăm; altfel căutăm pe loc, ca în prima seară. După cină ne întoarcem la hotel: mâine plecăm la 06:30."}
+       exp:[["k_pontocho","Pontocho — aleea felinarelor"]],
+       text:"Aleea de felinare de pe malul râului Kamo, la zece minute pe jos din Gion. Dacă vrem un local anume, rezervăm; altfel căutăm pe loc. Mâine plecăm la 07:00."}
     ]
   }
 },
 {
-  id:"k7", jp:"七", scurt:"7 nov", zi:"Sâmbătă · Nara dimineața, Osaka seara", titlu:"7 noiembrie",
+  id:"k7", jp:"七", scurt:"7 nov", zi:"Sâmbătă · Nara și Osaka", titlu:"7 noiembrie",
+  intro:"Zi lungă și intensă, cu două orașe și două stări opuse: dimineață liniștită, prin parc, printre căprioare și temple vechi — iar seara gălăgia din Osaka, sâmbătă, cu neoane și mâncare de stradă.",
   benzi:{
     devreme:[
-      {t:"fisa",fix:true,ora:"06:30",titlu:"Drum spre Nara",
-       text:"Plecăm devreme dinadins: e sâmbătă, iar parcul din Nara la opt dimineața și la unsprezece sunt două locuri diferite. De la gara din Nara până în parc se merge pe jos.",
-       drum:"Linia JR Nara din Gara Kyoto, circa 45 de minute, sau Kintetsu, ceva mai rapid și mai aproape de parc."},
-      {t:"fisa",fix:true,ora:"pe la 07:30",titlu:"Todai-ji și Marele Buddha",
-       exp:[["n_todaiji","Todai-ji & Marele Buddha"],["n_nandaimon","Poarta Nandaimon & gardienii Nio"]],
+      {t:"fisa",fix:true,ora:"07:00",titlu:"Drum spre Nara",
+       text:"Plecăm din Kyoto pe la șapte dinadins: e sâmbătă, iar parcul la opt și la unsprezece sunt două locuri diferite.",
+       drum:"Linia JR Nara din Gara Kyoto, circa 45 de minute, sau Kintetsu, mai aproape de parc."},
+      {t:"fisa",fix:true,ora:"pe la 08:00",titlu:"Todai-ji și Marele Buddha",
+       exp:[["n_todaiji","Todai-ji & Marele Buddha"],["n_nandaimon","Poarta Nandaimon"]],
        text:"Prin poarta Nandaimon, păzită de cei doi gardieni Nio sculptați în lemn acum opt sute de ani, până la cea mai mare clădire de lemn din lume și la Buddha de bronz de cincisprezece metri dinăuntru.",
-       drum:"În noiembrie sala Marelui Buddha deschide la 08:00 — până atunci avem curtea, poarta și primele căprioare, la lumina de dimineață."}
+       drum:"În noiembrie sala deschide la 08:00 — ajungem odată cu deschiderea, când sunt în curte doar căprioarele."}
     ],
     dimineata:[
       {t:"fisa",fix:true,ora:"spre 09:00",titlu:"Kofuku-ji, parcul și căprioarele",
-       exp:[["n_kofukuji","Kofuku-ji & pagoda cu cinci niveluri"],["n_deer","Hrănitul căprioarelor"],["n_narapark","Parcul Nara"]],
-       text:"Pagoda cu cinci niveluri, a doua ca înălțime din Japonia, chiar la intrarea în parc — și căprioarele, vreo mie două sute în total, considerate din vechime mesageri ai zeilor. Aici stăm cât vrem.",
-       drum:"Biscuiții shika-senbei se cumpără de la tarabele oficiale; căprioarele se înclină pentru ei. Nimic altceva nu se dă de mâncare."},
+       exp:[["n_kofukuji","Kofuku-ji & pagoda"],["n_deer","Hrănitul căprioarelor"],["n_narapark","Parcul Nara"]],
+       text:"Pagoda cu cinci niveluri, a doua ca înălțime din Japonia, și căprioarele — vreo mie două sute, considerate din vechime mesageri ai zeilor. Aici stăm cât vrem.",
+       drum:"Biscuiții shika-senbei se cumpără doar de la tarabele oficiale."},
       {t:"fisa",fix:true,ora:"pe la 11:00",titlu:"Kasuga Taisha",
        exp:[["n_kasuga","Kasuga Taisha"]],
-       text:"Sanctuarul cu trei mii de felinare — de piatră pe alei, de bronz sub streșini — într-o pădure de cedri. E capătul de est al parcului, deci se ajunge pe jos, printre căprioare."}
+       text:"Sanctuarul cu trei mii de felinare — de piatră pe alei, de bronz sub streșini — într-o pădure de cedri, la capătul de est al parcului."}
     ],
     pranz:[
       {t:"fisa",masa:true,ora:"pe la 13:00",titlu:"Prânz — Naramachi",
-       exp:[["n_naramachi","Naramachi"],["n_mochi","Mochi pisat la Nakatanidou"],["n_kakinoha","Kakinoha-zushi"]],
-       text:"Cartierul vechi de negustori, cu case de lemn înguste. Mâncăm acolo, apoi o cafea și un desert — mochi pisat la Nakatanidou, dacă prindem o demonstrație, sau kakinoha-zushi, sushi împachetat în frunză de curmal."}
+       exp:[["n_naramachi","Naramachi"],["n_mochi","Mochi pisat"],["n_kakinoha","Kakinoha-zushi"]],
+       text:"Cartierul vechi de negustori, cu case de lemn înguste. După masă, mochi pisat la Nakatanidou dacă prindem o demonstrație."}
     ],
     dupa:[
       {t:"fisa",fix:true,ora:"14:00",titlu:"Drum spre Osaka",
-       text:"Mergem direct din Nara, fără să ne întoarcem la Kyoto. Osaka se vede oricum cel mai bine spre seară.",
-       drum:"Kintetsu Nara → Osaka Namba, circa 40 de minute, direct."},
-      {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Shinsekai și Tsutenkaku",
+       text:"Plecăm direct din Nara, fără să ne întoarcem la Kyoto — Osaka se vede oricum cel mai bine spre seară.",
+       drum:"Kintetsu Nara → Osaka Namba, circa 40 de minute."},
+      {t:"fisa",fix:true,ora:"pe la 15:00",titlu:"Shinsekai și Tsutenkaku",
        exp:[["o_shinsekai","Shinsekai & Tsutenkaku"]],
-       text:"Lumea Nouă — cartier construit în 1912 după modelul Parisului și al unui parc de distracții newyorkez, apoi oprit în timp. În vârful turnului stă Billiken, zeițelul norocului cu tălpile lustruite de atâtea mângâieri. Saloane de pachinko, firme uriașe, aer de Japonie a anilor 60."},
+       text:"„Lumea Nouă” — cartier construit în 1912 și oprit în timp, cu saloane de pachinko și firme uriașe. În vârful turnului stă Billiken, zeițelul norocului cu tălpile lustruite de atâtea mângâieri."},
       {t:"fisa",fix:true,ora:"la aprinsul neoanelor",titlu:"Dotonbori și croaziera Tombori",
-       exp:[["o_dotonbori","Dotonbori seara"],["o_tombori","Croazieră Tombori pe canal"]],
+       exp:[["o_dotonbori","Dotonbori seara"],["o_tombori","Croazieră Tombori"]],
        text:"Ajungem când se aprind neoanele și se reflectă în canal. Croaziera de douăzeci de minute e cel mai bun unghi spre firme, inclusiv spre alergătorul Glico, aprins din 1935."}
     ],
     seara:[
-      {t:"fisa",masa:true,ora:"seara",titlu:"Cină — bucătărie osakană, într-un local ales de noi",
+      {t:"fisa",masa:true,ora:"de confirmat",titlu:"Cină — bucătărie osakană",
        exp:[["o_okonomiyaki","Okonomiyaki"],["o_kushikatsu","Kushikatsu"],["o_takoyaki","Takoyaki"]],
-       text:"Fără ghid și fără tur: alegem singuri un restaurant bun cu specific local și stăm pe îndelete. Osaka se mănâncă: okonomiyaki făcut pe plita din fața noastră, kushikatsu prăjit pe frigărui — cu regula lor faimoasă, sosul se atinge o singură dată — și takoyaki de la o tarabă, pe drum. Localul îl alegem din timp și rezervăm, fiind sâmbătă seara."},
+       text:"Okonomiyaki făcut pe plita din fața noastră, kushikatsu prăjit pe frigărui — cu regula lor faimoasă, sosul se atinge o singură dată — și takoyaki de la o tarabă. Localul îl alegem din timp și rezervăm, fiind sâmbătă seara."},
       {t:"fisa",fix:true,ora:"târziu",titlu:"Întoarcere la Kyoto",
-       text:"Trenurile merg până târziu, iar drumul e scurt. Mâine nu ne trezim devreme — dimpotrivă."}
+       text:"Trenurile merg până târziu, iar drumul e scurt."}
     ]
   }
 },
 {
-  id:"k8", jp:"八", scurt:"8 nov", zi:"Duminică · ziua lentă, fără grabă", titlu:"8 noiembrie",
+  id:"k8", jp:"八", scurt:"8 nov", zi:"Duminică · vestul orașului", titlu:"8 noiembrie",
+  intro:"Zi de natură și mișcare în vestul orașului. Fiind duminică, tot ce e aglomerat facem devreme: bambusul la șapte, maimuțele înainte de prânz. După-amiaza ieșim din vale — cu trenulețul și apoi cu barca.",
   benzi:{
     devreme:[
-      {t:"fisa",masa:true,ora:"pe la 09:00",titlu:"Mic dejun la hotel",
-       text:"Se servește până la zece. E singura dimineață din etapa Kyoto fără nicio grabă — și fără alarmă."}
+      {t:"fisa",fix:true,ora:"pe la 07:15",titlu:"Arashiyama, crângul de bambus",
+       exp:[["k_arashiyama","Arashiyama — crângul de bambus & Tenryu-ji"]],
+       text:"Vreo jumătate de oră de la hotel: trenul pe linia JR Sagano ține 11 minute cu cursa rapidă și vreo 17 cu cea normală, plus mersul pe jos la ambele capete. Bambusul e singurul loc din Kyoto care se schimbă complet între șapte și nouă: lumina cade verzuie și filtrată, iar foșnetul lui e trecut oficial pe lista peisajelor sonore ale Japoniei."},
+      {t:"fisa",fix:true,ora:"08:20",titlu:"Nonomiya și cărările din Sagano",
+       text:"Micul sanctuar cu poarta de lemn necojit și ulicioarele din spatele lui. Jumătatea de oră care ne duce până la deschiderea vilei."}
     ],
     dimineata:[
-      {t:"fisa",fix:true,ora:"pe la 10:30",titlu:"Plecare spre Saiho-ji, Templul de Mușchi",
-       exp:[["k_moss","Saiho-ji — Templul de Mușchi"]],
-       text:"În partea de sud-vest a orașului, la vreo jumătate de oră. Din 1977 se intră doar cu rezervare, tocmai ca să nu se calce mușchiul — de asta e liniște acolo chiar și duminica, spre deosebire de tot restul orașului. Rezervarea e obligatorie, online pe site-ul templului, cu până la două luni înainte; circa 4.000 ¥ de persoană, cu tot cu kitul de scris.",
-       drum:"Intrarea se dă pe intervale — se cere din timp cel de dimineață. Nu se intră sub 13 ani."},
-      {t:"fisa",fix:true,ora:"circa o oră și jumătate",titlu:"Copiatul de sutre și grădina",
-       exp:[["k_sutre","Caligrafie de sutre (shakyo)"]],
-       text:"Vizita începe înăuntru, nu în grădină: ne așezăm la măsuțe joase și trasăm cu pensula caracterele Sutrei Inimii, peste un model — nu e nevoie să știi nimic dinainte. Călugării cântă, iar în sală nu se vorbește. Abia după aceea ieșim în grădina din jurul iazului, cu peste o sută douăzeci de specii de mușchi, pe o potecă circulară.",
-       drum:"Se stă jos, pe scăunele mici, o jumătate de oră bună — ne îmbrăcăm comod."}
+      {t:"fisa",fix:true,ora:"09:00",titlu:"Okochi Sanso, la deschidere",
+       exp:[["k_arashiyama_calm","Okochi Sanso"],["k_yusaitei","Yusai-tei — fereastra rotundă"]],
+       text:"Vila și grădina unui actor de filme mute din anii '20, pe coasta muntelui Ogura, chiar deasupra bambusului. De sus se vede tot orașul și defileul prin care coborâm după-amiaza. Biletul include o matcha cu un dulce, băută la final.<br><br><b>Alternativă:</b> Yusai-tei — casa-galerie de pe malul râului, cu ferestre rotunde și mese-oglindă în care se răsfrâng arțarii. Deschide abia la 10:00, e închisă joia, costă 2.000–3.000 ¥ și toamna cere rezervare online.",
+       drum:"Program: 09:00–17:00, circa 1.000 ¥. E la două minute de capătul de nord al bambusului."},
+      {t:"fisa",fix:true,ora:"10:15",titlu:"Parcul maimuțelor Iwatayama",
+       exp:[["k_monkey","Parcul maimuțelor Iwatayama"]],
+       text:"Coborâm un sfert de oră spre râu, apoi urcăm douăzeci de minute pe o potecă cu vreo sută douăzeci de trepte. Sus trăiesc în libertate vreo sută douăzeci de macaci, iar de pe platou se vede tot orașul.",
+       drum:"Program: 09:00–16:00 în noiembrie, sub 1.000 ¥, numerar. Orele de hrănire sunt 10:30, 12:30 și 14:30 — ajungem sus fix la prima. Coborâm pe la 11:45."}
     ],
     pranz:[
-      {t:"fisa",masa:true,ora:"pe la 13:00",titlu:"Prânz — liniștit, prin apropiere",
-       text:"Zona dinspre Katsura și Matsuo are localuri mici, fără cozi. Mâncăm pe îndelete — nu ne grăbește nimeni."}
+      {t:"fisa",masa:true,ora:"12:00",titlu:"Prânz — lângă râu, la Arashiyama",
+       text:"Mâncăm acum, nu după: barca ține două ore și nu are nimic la bord. La 13:00 trebuie să fim la gara trenulețului, la zece minute pe jos."}
     ],
     dupa:[
-      {t:"fisa",deschis:true,ora:"Varianta A",titlu:"Mai departe la Miyama, cu mașina",
-       exp:[["x_miyama","Miyama — sat cu acoperișuri de stuf"]],
-       text:"Satul cu acoperișuri de stuf din munții de la nord, vreo patruzeci de case vechi de sute de ani, într-o vale fără turiști. E frumos și e Japonia rurală adevărată. De știut însă cum arată ziua: de la Saiho-ji sunt vreo două ore de mers, deci ajungem pe la patru, iar lumina se stinge la 16:50 — vedem satul într-o oră de lumină și ne întoarcem pe întuneric, spre șapte-opt seara. E o zi bună, dar nu mai e o zi lentă.",
-       drum:"Mașina se închiriază din timp, iar în Japonia e nevoie de permis internațional în formatul Convenției de la Geneva 1949. Alternativa e un van cu șofer, care iese cam pe același preț la șase persoane."},
-      {t:"fisa",deschis:true,ora:"Varianta B",titlu:"Înapoi în oraș, fără plan",
-       text:"Ne întoarcem pe la două, cu o cafenea pe drum sau o oprire scurtă la Arashiyama, care e la zece minute de Saiho-ji. Apoi baie termală pe lumină, un somn, și seara liberă. Ziua rămâne exact ce ne-am propus să fie."},
-      {t:"nota",text:"E <b>singura decizie a zilei</b> și schimbă complet cum arată."}
+      {t:"fisa",fix:true,ora:"pe la 13:00",titlu:"Trenulețul Sagano Romantic până la Kameoka",
+       exp:[["k_sagano","Trenulețul Sagano Romantic"]],
+       text:"Șapte kilometri pe vechea linie San-in, douăzeci și cinci de minute prin defileu, cu vagoane de lemn și unul complet deschis. Urcăm prin valea prin care coborâm apoi pe apă.",
+       drum:"Locuri nominale, puse online cu o lună înainte; în noiembrie se epuizează repede. Ora exactă o fixăm la rezervare, potrivită cu barca de la 14:00."},
+      {t:"fisa",fix:true,ora:"14:00",titlu:"Coborârea cu barca pe Hozugawa",
+       exp:[["k_hozugawa","Hozugawa — coborâre cu barca prin defileu"]],
+       text:"Șaisprezece kilometri pe apă, două ore, într-o barcă de lemn mânuită de trei barcagii cu prăjini de bambus. Ieșim în Arashiyama pe la patru, când lumina se înmoaie. Plecări din oră în oră, 09:00–15:00; luăm dinadins cursa de 14:00, fiindcă soarele apune la 16:52.",
+       drum:"De la Torokko Kameoka până la debarcader, cincisprezece minute cu autobuzul, circa 500 ¥. Rezervarea e obligatorie în noiembrie. Se suspendă la ape mari sau furtună — verificăm pe hozugawakudari.jp în dimineața respectivă. Nu e încălzire la bord: haină, căciulă, mănuși."}
     ],
     seara:[
-      {t:"fisa",fix:true,ora:"seara devreme",titlu:"Onsen, pe îndelete",
-       text:"Băile hotelului sunt aproape goale duminică seara devreme. E scopul zilei, de fapt."},
-      {t:"fisa",masa:true,deschis:true,ora:"de decis pe loc",titlu:"Cină — aproape de hotel",
-       text:"Ceva simplu în zona gării. Mâine ne trezim la 05:30 pentru Hiroshima, deci nu facem din seara asta un eveniment."}
+      {t:"fisa",fix:true,ora:"pe la 17:00",titlu:"Baie termală",
+       text:"De la debarcader până la gara Saga-Arashiyama sunt vreo zece minute pe jos, apoi trenul — cu totul, o jumătate de oră. Suntem la hotel pe la cinci."},
+      {t:"fisa",masa:true,ora:"de confirmat",titlu:"Cină — aproape de hotel",
+       text:"Ceva simplu în zona gării. Mâine dimineață urcăm pe munte."}
     ]
   }
 },
 {
-  id:"k9", jp:"九", scurt:"9 nov", zi:"Luni · Hiroshima și Miyajima, ziua lungă", titlu:"9 noiembrie",
+  id:"k9", jp:"九", scurt:"9 nov", zi:"Luni · Kyoto", titlu:"9 noiembrie",
+  intro:"Doar două lucruri în toată ziua, ca să fie una mai liniștită: o drumeție în zori la Fushimi Inari, când muntele e gol, și grădina de mușchi de la Saiho-ji după-amiaza. Între ele, timp liber.",
+  benzi:{
+    devreme:[
+      {t:"fisa",fix:true,ora:"07:00 – 09:45",titlu:"Fushimi Inari, drumeția în zori",
+       exp:[["k_fushimi","Fushimi Inari — tunelul celor 10.000 de porți"]],
+       text:"Două stații cu trenul de la hotel, cinci minute. Nu există bilet și nici oră de deschidere. Cele zece mii de porți torii, ridicate una câte una de negustori de-a lungul a trei sute de ani, urcă în tunel pe tot muntele; aproape toată lumea se întoarce la Yotsutsuji, la jumătatea drumului, dar bucla completă până în vârf cere trei ore.",
+       drum:"Cine vrea se oprește la Yotsutsuji și așteaptă jos, la ceainăriile de la poale."}
+    ],
+    dimineata:[
+      {t:"fisa",masa:true,ora:"pe la 09:45",titlu:"Mic dejun — la alegere",
+       text:"La ceainăriile de la poalele muntelui: inari-zushi și kitsune udon. Sau înapoi la hotel, unde se servește până la 10:00."},
+      {t:"fisa",deschis:true,ora:"dacă mai avem energie",titlu:"Tofuku-ji și Komyo-in",
+       exp:[["k_tofukuji","Tofuku-ji — podul peste marea de arțari"],["k_komyoin","Komyo-in — grădina razelor de lumină"]],
+       text:"Sunt chiar lângă Inari — o stație spre nord pe aceeași linie, sau o potecă de vreo douăzeci de minute care coboară din spatele muntelui. Tofuku-ji are podul de lemn suspendat peste o vale cu două mii de arțari și o grădină de piatră în damier; Komyo-in, sub-templul de alături, are o grădină uscată cu șaptezeci și cinci de pietre înfipte în nisip greblat și, de obicei, nimeni înăuntru.",
+       drum:"Culorile la Tofuku-ji sunt la vârf abia spre sfârșitul lui noiembrie, deci pe 9 e încă liniște acolo."}
+    ],
+    pranz:[
+      {t:"fisa",masa:true,ora:"de confirmat",titlu:"Prânz — pe traseu",
+       text:"Nimic fixat: mâncăm unde nimerim, între Inari și plecarea spre Saiho-ji."}
+    ],
+    dupa:[
+      {t:"fisa",fix:true,ora:"14:00",titlu:"Saiho-ji, Templul de Mușchi",
+       exp:[["k_moss","Saiho-ji — Templul de Mușchi"],["k_sutre","Caligrafie de sutre (shakyo)"]],
+       text:"Vizita începe înăuntru, nu în grădină: ne așezăm la măsuțe joase și trasăm cu pensula caracterele Sutrei Inimii, peste un model. Abia după aceea ieșim în grădina din jurul iazului, cu peste o sută douăzeci de specii de mușchi. Cu totul, o oră și jumătate.",
+       drum:"Plecăm pe la 13:15 — douăzeci de minute cu taxiul din fața gării, sau o oră cu autobuzul 73. Rezervare obligatorie, online, cu până la două luni înainte; circa 4.000 ¥ de persoană, cu kitul de scris. Nu se intră sub 13 ani și cine întârzie nu e primit."},
+      {t:"nota",text:"<b>De verificat:</b> intervalele de intrare publicate până acum sunt doar de dimineață, între 09:30 și 11:30. Cerem un interval de după-amiază; dacă nu se poate, inversăm ziua — templul dimineața, Inari rămâne pe 12."}
+    ],
+    seara:[
+      {t:"fisa",fix:true,ora:"seara",titlu:"Odihnă la onsen",
+       text:"E în program, nu e opțional: mâine ne trezim devreme."},
+      {t:"fisa",masa:true,ora:"de confirmat",titlu:"Cină — aproape de hotel",
+       text:"Ceva simplu în zona gării. Mâine ne trezim la 05:30 pentru Hiroshima."}
+    ]
+  }
+},
+{
+  id:"k10", jp:"十", scurt:"10 nov", zi:"Marți · Hiroshima și Miyajima", titlu:"10 noiembrie",
+  intro:"Zi lungă mai ales din cauza drumului: câte o oră și 45 de minute de shinkansen dus și întors, plus feribotul. Timpul din tren e al nostru — dormim, mâncăm un ekiben sau citim. Nu e nimic de rezervat în afară de biletele de tren și de intrarea la muzeu.",
   benzi:{
     devreme:[
       {t:"fisa",fix:true,ora:"05:30",titlu:"Trezire și drum spre gară",
        text:"Restaurantul hotelului nu e deschis atât de devreme — luăm micul dejun de la konbini sau din gară. Cinci minute pe jos până la peron."},
       {t:"fisa",fix:true,ora:"06:20",titlu:"Shinkansen Kyoto → Hiroshima",
-       text:"Circa o oră și trei sferturi, direct. E cea mai lungă zi a călătoriei — plecăm pe întuneric și ne întoarcem pe la zece seara — dar e și singura ocazie, iar Hiroshima merită întreagă. Biletele se cumpără din timp, cu locuri rezervate pentru toți șase."},
+       text:"Circa o oră și trei sferturi, direct. Biletele se cumpără din timp, cu locuri rezervate pentru toți șase."},
       {t:"fisa",fix:true,ora:"după sosire",titlu:"Mai departe spre Miyajima",
-       text:"Linia JR Sanyo până la Miyajimaguchi, apoi feribotul, zece minute peste strâmtoare. Insula ne întâmpină cu căprioare libere chiar în port.",
-       drum:"Hiroshima → Miyajimaguchi, 25 de minute; feribotul pleacă la fiecare 10–15 minute."}
+       text:"Insula ne întâmpină cu căprioare libere chiar în port.",
+       drum:"JR Sanyo până la Miyajimaguchi, 25 de minute, apoi feribotul, zece minute."}
     ],
     dimineata:[
       {t:"fisa",fix:true,ora:"dimineața",titlu:"Itsukushima și poarta plutitoare",
        exp:[["hi_miyajima","Miyajima & poarta torii plutitoare"]],
-       text:"Sanctuarul construit pe piloni deasupra mării și marea poartă torii roșie, care la maree înaltă pare că plutește. Mergem întâi acolo, apoi pe strada Omotesando și, dacă e vreme bună și avem chef, cu telecabina spre muntele Misen.",
-       drum:"Verificăm tabelul mareelor înainte de plecare. Poarta plutește doar la apă mare; la apă mică se merge pe nisip până sub ea. Dacă mareea înaltă e după-amiaza, inversăm ziua: întâi muzeul la Hiroshima, insula după prânz."}
+       text:"Sanctuarul pe piloni deasupra mării și marea poartă torii roșie. Apoi strada Omotesando și, dacă avem chef, telecabina spre muntele Misen.",
+       drum:"Esențial: verificăm tabelul mareelor înainte de plecare. Poarta „plutește” doar la apă mare. Dacă mareea înaltă e după-amiaza, inversăm ziua: întâi muzeul, insula după prânz."}
     ],
     pranz:[
-      {t:"fisa",masa:true,ora:"pe la 12:00",titlu:"Prânz — stridii la grătar și anago-meshi, pe Omotesando",
+      {t:"fisa",masa:true,ora:"pe la 12:00",titlu:"Prânz — stridii și anago-meshi, pe Omotesando",
        text:"Miyajima trăiește din stridii și din anghila de mare servită pe orez. Se mănâncă în picioare, de la tarabă, și se termină cu momiji-manju — prăjiturica în formă de frunză de arțar, făcută pe loc."}
     ],
     dupa:[
-      {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Întoarcere în oraș",
-       text:"Feribot, tren, apoi tramvaiul 2 sau 6 până la Genbaku-Domu-mae. Trecerea de la insulă la oraș e bruscă — și e bine să fie așa."},
-      {t:"fisa",fix:true,ora:"pe lumină",titlu:"Cupola bombei și Parcul Memorial",
-       text:"Singura clădire rămasă în picioare sub epicentru, azi în patrimoniul UNESCO, apoi cenotaful, Flacăra Păcii și monumentul copiilor, legat de povestea fetiței care a împăturit mii de cocori de hârtie. Mergem prin parc pe lumină, înainte de muzeu."},
+      {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Cupola bombei și Parcul Memorial",
+       text:"Singura clădire rămasă în picioare sub epicentru, azi în patrimoniul UNESCO, apoi cenotaful, Flacăra Păcii și monumentul copiilor. Mergem prin parc pe lumină, înainte de muzeu.",
+       drum:"Feribot, tren, apoi tramvaiul 2 sau 6 până la Genbaku-Domu-mae."},
       {t:"fisa",fix:true,ora:"circa două ore",titlu:"Muzeul Memorial al Păcii",
        exp:[["hi_museum","Muzeul Memorial al Păcii"]],
-       text:"Pe îndelete. E o experiență grea și nu se vizitează în grabă; tocmai de aceea am lăsat-o la final, fără nimic după ea. În noiembrie e deschis până la 19:00, ultima intrare la 18:30.",
-       drum:"Biletele se iau online din timp; la fața locului se poate sta la coadă."}
+       text:"Pe îndelete. E o experiență grea și de aceea am lăsat-o la final, fără nimic după ea.",
+       drum:"Deschis până la 19:00 în noiembrie, ultima intrare la 18:30. Biletele se iau online din timp."}
     ],
     seara:[
       {t:"fisa",masa:true,ora:"pe la 18:30",titlu:"Cină — okonomiyaki hiroshimez",
-       text:"Alt fel de okonomiyaki decât cel din Osaka: straturi, nu amestec, cu tăiței și un ou deasupra, făcut pe plita din fața noastră. Okonomi-mura are zeci de tejghele pe mai multe etaje."},
+       text:"Alt fel decât cel din Osaka: straturi, nu amestec, cu tăiței și un ou deasupra. Okonomi-mura are zeci de tejghele pe mai multe etaje."},
       {t:"fisa",fix:true,ora:"pe la 22:00",titlu:"Shinkansen înapoi la Kyoto",
-       text:"Ne întoarcem în jur de zece seara — o baie scurtă și la culcare."}
+       text:"Ajungem în jur de zece seara. Mâine plecăm abia la 08:30."}
     ]
   }
 },
 {
-  id:"k10", jp:"十", scurt:"10 nov", zi:"Marți · Fushimi Inari dimineața, Uji după-amiaza", titlu:"10 noiembrie",
-  benzi:{
-    dimineata:[
-      {t:"fisa",fix:true,ora:"08:00 – 11:00",titlu:"Fushimi Inari, urcușul întreg",
-       exp:[["k_fushimi","Fushimi Inari — tunelul celor 10.000 de porți"]],
-       text:"O drumeție de dimineață prin muntele cu porți — îi dăm trei ore, cât cere de fapt. Cele zece mii de porți torii, ridicate una câte una de negustori japonezi de-a lungul a trei sute de ani, urcă în tunel pe tot muntele. Aproape toată lumea se întoarce la belvederea Yotsutsuji, la jumătatea drumului; noi mergem mai departe, pe bucla completă până în vârf, unde nu mai e aproape nimeni și rămân doar altarele mici de piatră printre cedri. Coborâm pe partea cealaltă. Nu există bilet — e deschis non-stop și gratis.",
-       drum:"Două stații cu trenul din gara de lângă hotel, cinci minute. Urcușul are trepte multe și e cald chiar și în noiembrie; cine vrea se oprește la Yotsutsuji și ne așteaptă jos, la ceainăriile de la poalele muntelui."},
-      {t:"fisa",fix:true,ora:"pe la 11:30",titlu:"Drum spre Uji",
-       text:"Tot pe linia JR Nara, încă douăzeci de minute spre sud, fără să ne întoarcem în oraș. Uji e un orășel pe râu, cu totul altfel decât Kyoto — se umblă pe jos peste tot."}
-    ],
-    pranz:[
-      {t:"fisa",masa:true,ora:"pe la 12:30",titlu:"Prânz — chasoba la Uji",
-       text:"Tăiței de hrișcă frământați cu matcha, verzi și ușor amărui — se mănâncă doar aici. La final, înghețată de ceai verde."}
-    ],
-    dupa:[
-      {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Byodo-in",
-       exp:[["uj_byodoin","Templul Byodo-in"]],
-       text:"Sala Phoenix, ridicată în 1053 și oglindită într-un iaz, gândită ca o întruchipare a Paradisului budist pe pământ. O vedem zilnic fără să știm: e pe moneda de 10 yeni, iar phoenixul de pe acoperiș, pe bancnota de 10.000.",
-       drum:"Grădina e deschisă până la 17:30; intrarea în Sala Phoenix se ia separat, cu interval orar și locuri limitate — se cere chiar la sosire."},
-      {t:"fisa",fix:true,ora:"circa 40 de minute",titlu:"Ferma și moara de matcha",
-       exp:[["uj_matcha","Ferma & moara de matcha"]],
-       text:"Partea pentru care venim: Uji e capitala istorică a matcha-ului și aici se vede de ce. Punem mâna pe râșnița de granit și măcinăm singuri frunzele de tencha — o oră de învârtit pentru câteva grame de pulbere — apoi ne batem propriul bol și degustăm, comparând soiurile. Alegem locul din timp și rezervăm: e singurul lucru de azi care cere o programare.",
-       drum:"Atelierul Fukujuen Ujicha Kobo, chiar pe malul râului, e cel mai simplu — moară de piatră și ceremonie, vreo patruzeci de minute, circa 1.650 ¥ de persoană. Dacă vrem plantația adevărată, cu câmpuri și fabrică, se merge la un producător din zonă, cu rezervare cu cel puțin o săptămână înainte."},
-      {t:"fisa",fix:true,ora:"până la apus",titlu:"Malul râului, la lumina de la sfârșit",
-       text:"Podul vechi, insulele din mijlocul apei și Ujigami Jinja, cel mai vechi sanctuar din Japonia păstrat în forma originală — aici se petrec și ultimele capitole din Povestea lui Genji. Soarele apune la 16:50, deci asta e ultima oprire."}
-    ],
-    seara:[
-      {t:"fisa",masa:true,deschis:true,ora:"de decis pe loc",titlu:"Cină — la Uji sau înapoi la Kyoto",
-       text:"Trenul spre casă e scurt, deci putem mânca în oricare din cele două. Ceva simplu — mâine e ziua cea mare."}
-    ]
-  }
-},
-{
-  id:"k11", jp:"十一", scurt:"11 nov", zi:"Miercuri · ziua de naștere și ultima zi întreagă", titlu:"11 noiembrie",
+  id:"k11", jp:"十一", scurt:"11 nov", zi:"Miercuri · Wazuka, ziua de naștere", titlu:"11 noiembrie",
+  intro:"O zi frumoasă la țară, departe de oraș: dealuri de ceai tunse în dâre verzi, o fermă adevărată și o degustare cu explicații. Turul e planificat în prima jumătate a zilei, ca să evităm mulțimea și să ne întoarcem devreme — după-amiaza e liberă, iar seara e masa cea mai frumoasă a călătoriei.",
   benzi:{
     devreme:[
-      {t:"fisa",fix:true,ora:"pe la 07:00",titlu:"Arashiyama, crângul de bambus",
-       exp:[["k_arashiyama","Arashiyama — crângul de bambus & Tenryu-ji"]],
-       text:"Cincisprezece minute cu trenul din gara de lângă hotel. Plecăm devreme fiindcă bambusul e singurul loc din Kyoto care se schimbă complet între șapte și nouă dimineața: lumina cade verzuie și filtrată, iar foșnetul vântului prin el e trecut oficial pe lista celor 100 de peisaje sonore ale Japoniei. Se traversează în zece minute — restul timpului îl petrecem pur și simplu stând. Apoi podul Togetsukyo, cu muntele în spate."}
+      {t:"fisa",masa:true,ora:"de la 07:15",titlu:"Mic dejun — restaurantul hotelului",
+       text:"Mâncăm devreme: microbuzul pleacă la 08:30, de la ieșirea Hachijoguchi a gării."}
     ],
     dimineata:[
-      {t:"fisa",deschis:true,ora:"Varianta A",titlu:"Tenryu-ji",
-       text:"Grădina zen veche de șapte sute de ani, rămasă aproape neschimbată, cu iazul-oglindă și munții din spate împrumutați în compoziție. Poarta din spate dă direct în bambus."},
-      {t:"fisa",deschis:true,ora:"Varianta B",titlu:"Vila Okochi Sanso",
-       exp:[["k_arashiyama_calm","Arashiyama tăcut — vila Okochi Sanso"]],
-       text:"Vila și grădina unui actor de filme mute din anii 20, care și-a petrecut treizeci de ani modelând-o pe coasta dealului. Biletul include o matcha cu un dulce, băută cu tot orașul la picioare. E cel mai frumos loc din Arashiyama și cel mai gol."},
-      {t:"nota",text:"Totul e la câteva minute pe jos unul de altul și nimic nu cere bilet luat dinainte. Alegem cât vrem."}
-    ],
-    pranz:[
-      {t:"fisa",masa:true,ora:"la Arashiyama",titlu:"Prânz — lângă râu",
-       text:"Ceva simplu și frumos — soba, yudofu sau un prânz obanzai cu vedere spre apă. Seara e masa mare, deci nu exagerăm la amiază."}
+      {t:"fisa",fix:true,ora:"08:30",titlu:"Ferma de ceai de la Wazuka",
+       exp:[["k_wazuka","Wazuka — zi la o fermă de ceai"],["k_ceai","Ceremonia ceaiului"]],
+       text:"Urcăm în plantațiile de pe versanți, vedem fabrica de prelucrare și degustăm mai multe ceaiuri, cu explicații despre apă, temperatură și timp de infuzie. Wazuka e o vale cu patru mii de oameni care dă cea mai mare parte din ceaiul vândut sub numele „Uji”.",
+       drum:"Microbuzul fermei, 08:30, direct de la ieșirea Hachijoguchi a Gării Kyoto, la câteva minute de hotel; circa o oră și jumătate. E doar pentru dus — înapoi mergem singuri, cu autobuzul până la gara Kamo și apoi trenul, în jur de 13–14."},
+      {t:"nota",text:"<b>De confirmat cu ferma:</b> ce tur facem și la ce oră. Microbuzul se rezervă pe obubutea.com, numai după ce suntem înscriși la tur. Am scris e-mail la info@obubutea.com, așteptăm răspunsul."}
     ],
     dupa:[
-      {t:"fisa",deschis:true,ora:"Varianta A",titlu:"Vila Imperială Katsura",
-       exp:[["k_katsura","Vila Imperială Katsura"]],
-       text:"Considerată vârful arhitecturii japoneze de grădină: o reședință imperială din secolul al XVII-lea, vizitabilă doar cu tur ghidat, în grupuri mici. E la opt minute de Arashiyama cu trenul Hankyu, deci se leagă direct de dimineață. Se rezervă online, cu până la trei luni înainte, și se epuizează repede toamna. Închisă lunea."},
-      {t:"fisa",deschis:true,ora:"Varianta B",titlu:"Coborârea cu barca pe Hozugawa",
-       exp:[["k_hozugawa","Hozugawa — coborâre cu barca prin defileu"]],
-       text:"Urcăm cu trenulețul Sagano Romantic până la Kameoka și coborâm două ore pe râu, cu barcagii care mânuiesc prăjina prin repezișuri, printr-un defileu care toamna se aprinde — și ieșim exact în Arashiyama. E cea mai spectaculoasă variantă, dar ține toată după-amiaza și cere rezervare."},
-      {t:"fisa",deschis:true,ora:"Varianta C",titlu:"Înapoi la hotel",
-       text:"Ne întoarcem pe la două, dormim, facem baie termală și ne îmbrăcăm fără grabă. E singura după-amiază liberă din tot sejurul și e chiar înaintea singurei seri care contează."},
-      {t:"nota",text:"Varianta C e cea mai cuminte — <b>seara e lungă</b>."}
+      {t:"fisa",fix:true,ora:"15:00",titlu:"Baie termală și odihnă",
+       text:"Ne întoarcem devreme dinadins: seara e lungă și e cea mai frumoasă masă a călătoriei."}
     ],
     seara:[
-      {t:"fisa",masa:true,ora:"seara",titlu:"Cina de sărbătoare",
+      {t:"fisa",masa:true,ora:"19:00",titlu:"Cina de sărbătoare",
        exp:[["k_kaiseki","Cină kaiseki — masa de sărbătoare"]],
-       text:"Masa cea mai frumoasă a călătoriei, într-un restaurant bun — de preferat cu o cameră privată doar pentru noi șase, ca să nu ne grăbească nimeni. Kyoto e orașul în care merită să fie kaiseki: un meniu lung de sezon, servit farfurie cu farfurie, gândit pentru echilibru de gust, culoare și textură. E singura masă din tot sejurul pe care o rezervăm cu adevărat din timp.",
+       text:"Kaiseki, într-un restaurant bun, de preferat cu o cameră privată pentru noi șase. Un meniu lung de sezon, servit farfurie cu farfurie, gândit pentru echilibru de gust, culoare și textură. E singura masă din sejur pe care o rezervăm cu adevărat din timp.",
        drum:"Dacă vrem un moment de aniversare, cerem localului dinainte un desert de sezon — în Japonia nu se aduce tort, dar un wagashi cu o notă scrisă se face cu plăcere."},
       {t:"fisa",deschis:true,ora:"după cină",titlu:"Un pahar de final",
        exp:[["k_cocktail","Cocktail bar după cină"]],
-       text:"Ultima seară la Kyoto. Barurile din Gion și Pontocho sunt mici, tăcute și dintre cele mai bune din Japonia."}
+       text:"Ultima seară la Kyoto. Barurile din Gion și Pontocho sunt mici și dintre cele mai bune din Japonia."}
     ]
   }
 },
@@ -862,20 +851,22 @@ kyoto:[
   id:"k12", jp:"十二", scurt:"12 nov", zi:"Joi · ultima dimineață la Kyoto", titlu:"12 noiembrie · Kyoto → Tokyo",
   benzi:{
     devreme:[
-      {t:"fisa",masa:true,ora:"de la 08:00",titlu:"Mic dejun la hotel",
+      {t:"fisa",masa:true,ora:"de la 08:00",titlu:"Mic dejun — restaurantul hotelului",
        text:"Ultima masă la Kyoto. Se servește până la 10:00."}
     ],
     dimineata:[
-      {t:"fisa",deschis:true,ora:"circa două ore",titlu:"Activitate de ales",
-       exp:[["k_teamlab","teamLab Biovortex"]],
-       text:"Avem vreo două ore până la tren și tot ce ne-a mai rămas e la câteva minute de hotel. Decidem la micul dejun, în funcție de cum ne simțim și de ora la care vrem să fim la Tokyo. Dacă alegem teamLab Biovortex, intervalul orar e fix și biletele se iau online, din timp."},
-      {t:"fisa",fix:true,ora:"până la 11:00",titlu:"Check-out",
-       text:"Recepția ține bagajele dacă mai umblăm prin zonă. Dacă preferăm să nu cărăm valizele mari în shinkansen, le trimitem prin takkyubin la hotelul din Tokyo — dar atunci le predăm cu o zi înainte, pe 11."}
+      {t:"fisa",fix:true,ora:"pe la 09:30",titlu:"Check-out",
+       text:"Lăsăm valizele la recepție și le luăm la întoarcere — le cărăm cu noi în tren, e mai comod decât să le trimitem înainte."},
+      {t:"fisa",deschis:true,ora:"circa două ore și jumătate",titlu:"Ultima dimineață la Kyoto",
+       exp:[["k_ginkakuji","Ginkaku-ji — Pavilionul de Argint"],["k_philosopher","Drumul Filosofului"],["k_kinkakuji","Kinkaku-ji — Pavilionul de Aur"]],
+       text:"Avem vreo două ore și jumătate până la tren. Alegem una dintre variante, sau niciuna — o cafea prin zona gării e la fel de bună.<br><br>— <b>Ginkaku-ji și Drumul Filosofului</b> — Pavilionul de Argint, cu conul de nisip greblat zilnic și poteca de mușchi care urcă la un belvedere peste tot orașul, apoi aleea de pe lângă canal, cât avem chef. Autobuzul 5 sau 17 din fața gării, circa 35 de minute.<br>— <b>Kinkaku-ji</b> — Pavilionul de Aur, un sens unic de vreo patruzeci de minute. Autobuzul 205, circa 40 de minute."}
     ],
     pranz:[
       {t:"fisa",masa:true,ora:"în tren",titlu:"Prânz — ekiben din gară",
        exp:[["x_ekiben","Ekiben — bento de gară"]],
        text:"Shinkansen Kyoto → Tokyo, două ore și un sfert. O cutie bentō luată din gară rezolvă prânzul."},
+      {t:"fisa",fix:true,ora:"pe la 13:00",titlu:"Kyoto → Tokyo",
+       text:"Ajungem pe la trei și jumătate, cu timp de cazare și cumpărături înainte de cină."},
       {t:"nota",text:"Seara de 12 noiembrie e la <b>etapa Tokyo, 12–14 noiembrie</b>."}
     ]
   }
@@ -889,19 +880,19 @@ tokyo2:[
   benzi:{
     dimineata:[
       {t:"fisa",ora:"dimineața",titlu:"Dimineața e la Kyoto",
-       text:"Micul dejun, activitatea de ales și check-out-ul — toate în etapa Kyoto."}
+       text:"Micul dejun, check-out-ul și ultima dimineață — toate în etapa Kyoto."}
     ],
     pranz:[
       {t:"fisa",masa:true,ora:"în tren",titlu:"Prânz — ekiben din gară",
        exp:[["x_ekiben","Ekiben — bento de gară"]],
-       text:"Shinkansen Kyoto → Tokyo, două ore și un sfert."}
+       text:"Shinkansen Kyoto → Tokyo, plecare pe la 13:00, două ore și un sfert."}
     ],
     seara:[
-      {t:"fisa",fix:true,ora:"seara",titlu:"Sosire și cazare, poate și cumpărături",
-       text:"A doua ședere, la Royal Park Hotel Iconic Tokyo Shiodome — un minut de stația Shiodome, trei de Shimbashi printr-un pasaj subteran."},
-      {t:"fisa",masa:true,deschis:true,ora:"de stabilit",titlu:"Cină — shabu-shabu sau sukiyaki",
+      {t:"fisa",fix:true,ora:"pe la 15:30",titlu:"Sosire și cazare",
+       text:"Royal Park Hotel Iconic Tokyo Shiodome — un minut de stația Shiodome, trei de Shimbashi printr-un pasaj subteran. Avem timp de cazare și cumpărături înainte de cină."},
+      {t:"fisa",masa:true,ora:"de confirmat",titlu:"Cină — shabu-shabu sau sukiyaki",
        exp:[["t_sukiyaki","Sukiyaki / shabu-shabu cu wagyu"]],
-       text:"O fixăm după ce știm ora trenului din Kyoto. Oala caldă gătită la masă e singurul fel pe care nu l-am făcut încă."}
+       text:"Oala caldă gătită la masă e singurul fel pe care nu l-am făcut încă."}
     ]
   }
 },
@@ -911,42 +902,42 @@ tokyo2:[
     dimineata:[
       {t:"fisa",fix:true,ora:"de la 10:00",titlu:"Ginza, cumpărături",
        exp:[["t_ginza","Ginza — bulevardul de argint"]],
-       text:"Chuo-dori, Ginza Six, Itoya, magazinele universale și subsolurile lor de mâncare. Totul pe jos de la hotel. Marile magazine deschid între 10:00 și 11:00. E ultima dimineață de cumpărat, deci tot ce mai avem pe listă se rezolvă acum."}
+       text:"Chuo-dori, Ginza Six, Itoya și subsolurile de mâncare ale marilor magazine. Totul pe jos de la hotel. Deschid între 10:00 și 11:00. E ultima dimineață de cumpărat, deci tot ce mai avem pe listă se rezolvă acum."}
     ],
     pranz:[
-      {t:"fisa",masa:true,deschis:true,ora:"pe la 13:30",titlu:"Prânz — unagi, ramen sau tonkatsu",
+      {t:"fisa",masa:true,ora:"pe la 13:30",titlu:"Prânz — unagi, ramen sau tonkatsu",
        exp:[["t_unagi","Unagi"],["t_ramen","Ramen"],["t_tonkatsu","Tonkatsu"]],
        text:"Unagi cere rezervare cu câteva zile înainte, la un local mic. Dacă preferăm ceva simplu în ultima zi, ramen și tonkatsu se găsesc peste tot în Ginza."}
     ],
     dupa:[
       {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Hotel — împachetat și odihnă",
-       text:"Facem bagajele acum, cu tot ce am cumpărat, ca mâine la 06:00 să nu mai rămână nimic de rezolvat. Apoi ne odihnim și ne schimbăm pentru concert."}
+       text:"Facem bagajele acum, cu tot ce am cumpărat, ca mâine la 06:00 să nu mai rămână nimic. Apoi ne odihnim și ne schimbăm pentru concert."}
     ],
     seara:[
       {t:"fisa",masa:true,ora:"16:45",titlu:"Cină devreme, în Akasaka",
-       text:"Concertul începe la 19:00, deci masa trebuie terminată până la 18:15 — mai devreme decât ne-am obișnuit. Căutăm în Akasaka, la câteva minute de sală, un local care primește clienți de la 17:00; multe deschid abia atunci."},
+       text:"Concertul începe la 19:00, deci masa se termină până la 18:15 — mai devreme decât ne-am obișnuit. Căutăm un local care primește de la 17:00; multe deschid abia atunci."},
       {t:"fisa",fix:true,ora:"18:30",titlu:"Suntory Hall, intrarea în sală",
        text:"Ajungem cu o jumătate de oră înainte de concert.",
-       drum:"Shimbashi → Tameike-Sannō cu linia Ginza, apoi opt minute pe jos."},
-      {t:"fisa",fix:true,ora:"19:00",titlu:"Japan Philharmonic: Má vlast de Smetana",
+       drum:"Shimbashi → Tameike-Sannō, linia Ginza, apoi opt minute pe jos."},
+      {t:"fisa",bilet:true,ora:"19:00",titlu:"Japan Philharmonic: „Má vlast” de Smetana",
        exp:[["t_gala","Suntory Hall"]],
-       text:"Ciclul complet de șase poeme simfonice, între ele și Vltava, sub bagheta lui Ken-ichiro Kobayashi. Cam 75 de minute de muzică, cu o pauză la mijloc. Biletele sunt cumpărate, deci seara e fixată. Prețuri: de la 2.500 ¥ (Ys) la 10.000 ¥ (S).",
+       text:"Ciclul complet de șase poeme simfonice, între ele și Vltava, sub bagheta lui Ken-ichiro Kobayashi. Circa 75 de minute, cu o pauză. Biletele sunt cumpărate.",
        drum:"Suntory Hall e sala pe care oricum voiam s-o vedem — asta e singura ocazie din sejur."},
       {t:"fisa",deschis:true,ora:"după concert",titlu:"Un pahar de final",
        exp:[["t_bar","Cocktail bar după cină"]],
-       text:"Sărbătorim ultima seară. Ginza are câteva dintre cele mai bune baruri de cocktailuri din oraș, iar hotelul are unul propriu, la etajul 24 — cel mai comod, dacă ieșim târziu de la concert. Nu o lungim: mâine ne trezim la 06:00."}
+       text:"Ginza are câteva dintre cele mai bune baruri din oraș, iar hotelul are unul propriu la etajul 24 — cel mai comod, dacă ieșim târziu de la concert. Nu o lungim: mâine ne trezim la 06:00."}
     ]
   }
 },
 {
-  id:"t14", jp:"十四", scurt:"14 nov", zi:"Sâmbătă · plecare", titlu:"14 noiembrie",
+  id:"t14", jp:"十四", scurt:"14 nov", zi:"Sâmbătă · plecare · Narita 10:10", titlu:"14 noiembrie",
   benzi:{
     devreme:[
       {t:"fisa",fix:true,ora:"06:00",titlu:"Trezire și check-out",
-       text:"Restaurantul hotelului deschide abia la 07:00, deci luăm ceva de la konbini-ul din clădire sau mâncăm la aeroport. Bagajele sunt făcute de aseară."},
+       text:"Restaurantul deschide abia la 07:00 — luăm ceva de la konbini sau mâncăm la aeroport. Bagajele sunt făcute de aseară."},
       {t:"fisa",fix:true,ora:"06:30",titlu:"Transfer spre Narita",
        text:"Cu bagajele mari. La aeroport cu cel puțin două ore înainte de decolare.",
-       drum:"Shimbashi → Gara Tokyo: JR, 3 minute; apoi Narita Express, circa o oră. Alternativ, autocarul Limousine pleacă din zona Shiodome direct la Narita, în 90–100 de minute, mai comod cu valizele."}
+       drum:"Shimbashi → Gara Tokyo, 3 minute, apoi Narita Express, circa o oră. Alternativ, autocarul Limousine din Shiodome, 90–100 de minute, mai comod cu valizele."}
     ],
     dimineata:[
       {t:"fisa",fix:true,ora:"10:10",titlu:"Decolare"}
@@ -963,77 +954,68 @@ tokyo:[
     "<b>Shibuya Sky, 2 noiembrie</b> — intrarea de la 16:00; intervalele de apus se vând cu săptămâni înainte."
   ]},
   {grup:"Mese", items:[
-    "<b>Sushi omakase, 1 noiembrie</b> — tejghea, Shinjuku sau Ginza; după balet.",
+    "<b>Sushi omakase, 1 noiembrie</b> — tejghea, Shinjuku sau Ginza.",
     "<b>Teppanyaki, 2 noiembrie</b> — Shibuya sau Shinjuku; rezervare obligatorie."
-  ]},
-  {grup:"Numai dacă alegem varianta", items:[
-    "<b>Karaoke, 2 noiembrie</b> — dacă alegem varianta A pentru finalul serii; camerele mari se ocupă repede."
   ]},
   {grup:"Logistică", items:[
     "<b>Bilete la baletul City Lights, 1 noiembrie</b> — cumpărate. ✔",
     "<b>Transferul de la Haneda, 31 octombrie</b> — întâi întrebăm hotelul.",
-    "<b>Takkyubin, 3 noiembrie</b> — confirmăm adresa hotelului din Kyoto și îi anunțăm să păstreze bagajele."
+    "<b>Takkyubin Tokyo → Kyoto, 3 noiembrie</b> — confirmăm adresa hotelului din Kyoto și îi anunțăm să păstreze bagajele."
   ]},
   {grup:"Decizii deschise", dec:true, items:[
     "<b>31 octombrie</b> — ce izakaya, deschis după ora 22.",
-    "<b>2 noiembrie, finalul serii</b> — karaoke sau un cocktail bar."
+    "<b>2 noiembrie, finalul serii</b> — Golden Gai, karaoke sau un cocktail bar."
   ]}
 ],
 hakone:[
   {grup:"Logistică", items:[
     "<b>Shuttle-ul hotelului din Odawara, 3 noiembrie</b> — cursa de 14:15, cu rezervare în prealabil.",
     "<b>Hakone Freepass, 3 zile</b> — circa 6.400 ¥ de persoană, cumpărat la Odawara.",
-    "<b>Biletele Odawara → Kyoto</b> — shinkansen Hikari de la 14:00 pe 5 noiembrie."
+    "<b>Biletele Odawara → Kyoto, 5 noiembrie</b> — shinkansen Hikari de la 14:00."
   ]},
   {grup:"Mese", items:[
-    "<b>Orele de cină la Hakone</b> — se împart la check-in, iar 17:30 se ocupă prima. Pe 3 noiembrie decidem la fața locului; pe 4 noiembrie cerem tura de 20:00."
+    "<b>Orele de cină la Hakone</b> — se împart la check-in. Pe 3 noiembrie decidem la fața locului; pe 4 noiembrie cerem tura de 20:00."
   ]},
   {grup:"Decizii deschise", dec:true, items:[
     "<b>3 noiembrie, ora cinei</b> — tura de 17:30 sau cea de 20:00; decidem la check-in.",
-    "<b>4 noiembrie, după-amiaza</b> — dacă facem drumul Tokaido pe jos sau ne întoarcem mai devreme cu vaporul.",
+    "<b>4 noiembrie, după-amiaza</b> — dacă mergem pe jos până la Amazake Chaya sau ne întoarcem mai devreme.",
     "<b>5 noiembrie, dimineața</b> — Muzeul Okada, plimbare pe lângă lac, sau plecare fără oprire."
   ]}
 ],
 kyoto:[
   {grup:"Cele urgente", items:[
-    "<b>Saiho-ji, 8 noiembrie</b> — Templul de Mușchi se vizitează numai cu rezervare, online, cu până la două luni înainte. Circa 4.000 ¥ de persoană; cerem intervalul de dimineață.",
-    "<b>Gion Odori, 6 noiembrie</b> — biletele se pun în vânzare în septembrie, iar spectacolul se ține doar zece zile pe an. Luăm biletul cu ceai.",
-    "<b>Cina de sărbătoare, 11 noiembrie</b> — restaurant bun, de preferat cu cameră privată pentru șase. La casele mari din Kyoto se rezervă cu una-două luni înainte.",
-    "<b>Atelierul de matcha la Uji, 10 noiembrie</b> — de ales locul și de rezervat. Fukujuen Ujicha Kobo, pe malul râului, e cel mai simplu; o vizită la plantație cere rezervare cu cel puțin o săptămână înainte.",
-    "<b>Biletele de tren pentru Hiroshima, 9 noiembrie</b> — dus-întors, cu locuri rezervate; plecare pe la 06:20."
-  ]},
-  {grup:"Numai dacă alegem varianta", items:[
-    "<b>Mașina pentru 8 noiembrie</b> — numai dacă mergem mai departe la Miyama. Permis internațional în formatul Geneva 1949, sau un van cu șofer.",
-    "<b>Vila Imperială Katsura, 11 noiembrie</b> — tur ghidat, rezervare online cu până la trei luni înainte. Închisă lunea.",
-    "<b>Coborârea pe Hozugawa, 11 noiembrie</b> — sezonieră, cu rezervare.",
-    "<b>teamLab Biovortex</b> — dacă îl vrem în ultima dimineață: interval orar fix, bilete online, se epuizează cu săptămâni înainte."
+    "<b>Trenulețul Sagano și barca pe Hozugawa, 8 noiembrie</b> — merg împreună și sunt cea mai fragilă rezervare a săptămânii. Barca la 14:00, trenulețul cu o oră înainte. Biletele de trenuleț se pun online cu o lună înainte, cu loc nominal.",
+    "<b>Turul și microbuzul Obubu, 11 noiembrie</b> — confirmăm întâi cu ferma ce tur facem și la ce oră; microbuzul se rezervă doar după aceea și doar pentru dus.",
+    "<b>Cina de sărbătoare, 11 noiembrie</b> — kaiseki, de preferat cu cameră privată pentru șase, ora 19:00. La casele mari se rezervă cu una-două luni înainte.",
+    "<b>Gion Odori, 6 noiembrie</b> — doar între 1 și 10 noiembrie. Reprezentația de la 13:30, cu bilet cu ceai. Biletele se pun în vânzare în septembrie.",
+    "<b>Saiho-ji, 9 noiembrie</b> — numai cu rezervare, online, cu până la două luni înainte, circa 4.000 ¥ de persoană. De cerut intervalul de 14:00 — până acum s-au publicat doar intervale de dimineață."
   ]},
   {grup:"Mese și logistică", items:[
     "<b>Restaurantul din Osaka, 7 noiembrie</b> — e sâmbătă seara, deci rezervăm; în rest, la Kyoto mâncăm unde nimerim.",
-    "<b>Bilet online la Muzeul Memorial al Păcii, 9 noiembrie</b> — se evită coada de la fața locului.",
-    "<b>Biletele Kyoto → Tokyo, 12 noiembrie</b> — de luat odată cu restul biletelor de tren."
+    "<b>Biletele de tren pentru Hiroshima, 10 noiembrie</b> — dus-întors, cu locuri rezervate; plecare pe la 06:20.",
+    "<b>Bilet online la Muzeul Memorial al Păcii, 10 noiembrie</b> — se evită coada de la fața locului.",
+    "<b>Biletele Kyoto → Tokyo, 12 noiembrie</b> — după-amiază, în jur de 13:00, cu locuri rezervate pentru toți șase."
   ]},
   {grup:"Decizii deschise", dec:true, items:[
-    "<b>5 noiembrie, prima seară</b> — cină lângă hotel sau plimbarea prin Gion, Shirakawa și Pontocho.",
     "<b>6 noiembrie, seara</b> — dacă rezervăm un local anume în Pontocho sau căutăm pe loc.",
-    "<b>8 noiembrie, după-amiaza</b> — dacă mergem mai departe la Miyama, cu mașina, sau ne întoarcem în oraș.",
-    "<b>10 noiembrie</b> — ce fel de matcha vrem: atelierul de pe malul râului sau plantația adevărată.",
-    "<b>11 noiembrie, după-amiaza</b> — Katsura, Hozugawa sau odihnă înainte de cină.",
-    "<b>11 noiembrie, unde mâncăm</b> — de asta atârnă singura rezervare importantă din etapa Kyoto.",
-    "<b>12 noiembrie, dimineața</b> — ce facem în ultimele două ore și, odată cu asta, ora trenului spre Tokyo."
+    "<b>8 noiembrie, dimineața</b> — Okochi Sanso sau Yusai-tei, dacă apucăm să rezervăm.",
+    "<b>9 noiembrie, spre prânz</b> — dacă mai avem energie pentru Tofuku-ji și Komyo-in.",
+    "<b>9 noiembrie, ora de la Saiho-ji</b> — dacă nu obținem intervalul de după-amiază, inversăm ziua.",
+    "<b>12 noiembrie, dimineața</b> — Ginkaku-ji cu Drumul Filosofului, Kinkaku-ji, sau doar o cafea lângă gară."
   ]}
 ],
 tokyo2:[
   {grup:"Logistică", items:[
-    "<b>Bilete la Suntory Hall, 13 noiembrie</b> — cumpărate. ✔ Cu ele fixată, ultima seară nu mai e o întrebare: cina se ia devreme, în Akasaka.",
+    "<b>Bilete la Suntory Hall, 13 noiembrie</b> — cumpărate. ✔ Cu ele fixate, ultima seară nu mai e o întrebare: cina se ia devreme, în Akasaka.",
     "<b>Transferul spre Narita, 14 noiembrie</b> — Narita Express sau autocar, pentru zborul de la 10:10."
   ]},
   {grup:"Mese", items:[
-    "<b>Cina din 12 noiembrie</b> — shabu-shabu sau sukiyaki; o fixăm după ce știm ora trenului din Kyoto.",
-    "<b>Cina devreme, 13 noiembrie</b> — local în Akasaka care servește de la 17:00, dacă mergem la concert."
+    "<b>Unagi, 13 noiembrie</b> — cere rezervare cu câteva zile înainte.",
+    "<b>Cina devreme, 13 noiembrie</b> — local în Akasaka care servește de la 17:00.",
+    "<b>Cina din 12 noiembrie</b> — shabu-shabu sau sukiyaki; o fixăm după ce ajungem."
   ]},
   {grup:"Decizii deschise", dec:true, items:[
-    "<b>12 noiembrie, cina la Tokyo</b> — depinde de ora trenului din Kyoto.",
+    "<b>12 noiembrie, cina la Tokyo</b> — unde mâncăm shabu-shabu sau sukiyaki.",
     "<b>13 noiembrie, unde luăm cina devreme</b> — un local în Akasaka care primește de la 17:00; concertul e la 19:00."
   ]}
 ]
@@ -1041,33 +1023,34 @@ tokyo2:[
 
 const NOTE_ETAPA = {
 tokyo:[
-  "<b>Linia Ginza</b> — rezolvă aproape tot din Shimbashi, la trei minute prin pasajul subteran: Asakusa, Shibuya, Omotesando, Akihabara, fără schimbare. Ginza, Tsukiji, Kabukiza și Hamarikyu sunt la 10–15 minute pe jos.",
+  "<b>Linia Ginza</b> — rezolvă aproape tot din Shimbashi: Asakusa, Shibuya, Omotesando, Akihabara, fără schimbare. Ginza, Tsukiji și Hamarikyu sunt la 10–15 minute pe jos.",
   "<b>Micul dejun</b> — la Mitsui Garden, de la 06:30.",
-  "<b>Zile de închidere</b> — Grădinile Palatului: lunea și vinerea, dar deschise de sărbători, deci 3 noiembrie e zi bună. Tsukiji: duminica și de sărbători.",
-  "<b>Apusul</b> — pe 1 și 2 noiembrie soarele apune în jur de 16:45. Tot ce e în aer liber e mai frumos până atunci.",
-  "<b>New National Theatre</b> e la Hatsudai, lângă Shinjuku — nu e aproape de hotel, deci calculăm o jumătate de oră de drum în plus."
+  "<b>Zile de închidere</b> — Grădinile Palatului: lunea și vinerea, dar deschise de sărbători, deci 3 noiembrie e zi bună. Tsukiji: duminica.",
+  "<b>Apusul</b> — pe 1 și 2 noiembrie, în jur de 16:45. Tot ce e în aer liber e mai frumos până atunci.",
+  "<b>Opera Palace</b> e la Hatsudai, lângă Shinjuku — nu e aproape de hotel, deci calculăm o jumătate de oră de drum în plus."
 ],
 hakone:[
-  "<b>Băile</b> — deschise 15:00–24:00 și 05:00–10:00. Cele două săli mari se schimbă între femei și bărbați dimineața și seara, deci într-o noapte le vedem pe amândouă. Cele mai aglomerate ore sunt 16:00–17:30. Camerele au și baie privată în aer liber.",
-  "<b>Mesele</b> — mic dejun 07:00–09:30, ultima comandă la 09:00; cină 17:30–21:30, ultima comandă la 21:00. Orele se repartizează la check-in.",
-  "<b>Telecabina</b> — 09:00–16:45 (Owakudani până la 17:00). Se oprește la vânt puternic sau activitate vulcanică; starea se anunță zilnic online.",
-  "<b>Vaporul</b> — pleacă cam din treizeci în patruzeci de minute, între 09:30 și 17:00. Noi luăm cursa de la 16:00.",
+  "<b>Băile</b> — 15:00–24:00 și 05:00–10:00. Sălile se schimbă între femei și bărbați dimineața și seara, deci într-o noapte le vedem pe amândouă. Cele mai aglomerate ore sunt 16:00–17:30. Camerele au și baie privată în aer liber.",
+  "<b>Mesele</b> — mic dejun 07:00–09:30, ultima comandă la 09:00; cină 17:30–21:30. Orele se repartizează la check-in.",
+  "<b>Telecabina</b> — 09:00–16:45. Se oprește la vânt puternic sau activitate vulcanică; starea se anunță zilnic online.",
+  "<b>Vaporul</b> — pleacă din treizeci în patruzeci de minute, 09:30–17:00. Noi luăm cursa de la 16:00.",
   "<b>Apusul</b> — pe 4 noiembrie soarele apune la 16:41.",
   "<b>Owakudani</b> — miroase puternic a sulf și înnegrește argintul. Cine poartă bijuterii de argint le lasă la hotel.",
-  "<b>Bagajele</b> — la Hakone mergem doar cu bagaje mici; valizele mari sunt trimise din Tokyo direct la Kyoto pe 3 noiembrie."
+  "<b>Bagajele</b> — la Hakone mergem doar cu bagaje mici; valizele mari pleacă din Tokyo direct la Kyoto pe 3 noiembrie."
 ],
 kyoto:[
-  "<b>Hotelul</b> — la câteva minute pe jos de Gara Kyoto, deci linia JR Nara (Fushimi Inari, Uji, Nara) și shinkansenul (Osaka, Hiroshima) pornesc practic de sub fereastră. Pentru Higashiyama, Fushimi și Arashiyama mergem cu autobuzul sau cu trenul, 15–35 de minute.",
-  "<b>Cum e construită săptămâna</b> — 7 și 8 noiembrie pică în weekend, când templele mari și Arashiyama sunt insuportabile; de aceea sâmbăta plecăm devreme din oraș, duminica e ziua lentă, iar zilele mari sunt în timpul săptămânii.",
-  "<b>Dimineți devreme</b> — trei din șapte: Kiyomizu pe 6, Nara pe 7, Hiroshima pe 9. Restul încep omenește, iar duminica deloc.",
+  "<b>Hotelul</b> — la câteva minute de Gara Kyoto, deci linia JR Nara și shinkansenul pornesc de sub fereastră, iar microbuzul de Wazuka pleacă de la Hachijoguchi. Pentru Higashiyama, nord și Arashiyama: 15–45 de minute cu autobuzul sau trenul.",
+  "<b>Cum e construită săptămâna</b> — 7 și 8 noiembrie pică în weekend, când templele mari și Arashiyama sunt insuportabile — de aceea sâmbătă ieșim din oraș, iar duminică suntem în bambus la șapte.",
+  "<b>Dimineți devreme</b> — cinci: Kiyomizu pe 6, Nara pe 7, bambusul pe 8, Fushimi Inari pe 9, Hiroshima pe 10.",
   "<b>Apusul</b> — în jur de 16:50 toată săptămâna; după 17:00 e deja noapte.",
-  "<b>Culorile de toamnă</b> — la mijlocul lui noiembrie orașul abia începe; vârful vine spre sfârșitul lunii, la Tofuku-ji și pe Drumul Filosofului. La munte sunt deja aprinse.",
-  "<b>Băile hotelului</b> — cel mai gol e dimineața devreme și după ora zece seara. Tatuajele nu sunt acceptate la băile comune.",
-  "<b>Cele două rezervări care nu se pot recupera</b> — Saiho-ji și Gion Odori. Amândouă au locuri limitate și date fixe; restul se poate aranja și pe drum."
+  "<b>Culorile de toamnă</b> — la mijlocul lui noiembrie orașul abia începe; vârful vine spre sfârșitul lunii. La munte sunt deja aprinse.",
+  "<b>Băile hotelului</b> — cel mai gol e dimineața devreme și după ora zece seara. Tatuajele nu sunt acceptate.",
+  "<b>Rezervările care nu se pot recupera</b> — Gion Odori pe 6, trenulețul și barca pe 8, Saiho-ji pe 9, turul Obubu pe 11."
 ],
 tokyo2:[
   "<b>Hotelul</b> — Royal Park Hotel Iconic Tokyo Shiodome, la un minut de stația Shiodome și trei de Shimbashi, printr-un pasaj subteran. Micul dejun de la 07:00.",
   "<b>Suntory Hall</b> e în Akasaka — nu e aproape de hotel, deci calculăm o jumătate de oră de drum în plus.",
+  "<b>Bagajele</b> — de la Kyoto la Tokyo le luăm cu noi în tren, nu le trimitem înainte.",
   "<b>Plățile</b> — localurile mici, tarabele și barurile acceptă adesea doar numerar.",
   "<b>Ultima dimineață</b> — zborul e la 10:10 de la Narita, deci plecăm din hotel la 06:30, cu bagajele făcute de aseară."
 ]
@@ -1400,8 +1383,11 @@ const el = id => document.getElementById(id);
    cine vrea doar să vadă ce facem în ziua aia nu e nevoit să le citească. */
 function fisaHTML(f){
   const areDetalii = !!(f.text || f.drum);
-  return `<article class="fisa${f.fix?" cu-sigiliu":""}${f.deschis?" deschis":""}${f.masa?" masa":""}">
-    ${f.fix?'<div class="sigiliu" title="Stabilit">定</div>':""}
+  const sigiliu = f.bilet
+    ? '<div class="sigiliu bilet" title="Rezervat · bilete cumpărate">券</div>'
+    : f.fix ? '<div class="sigiliu" title="Stabilit">定</div>' : "";
+  return `<article class="fisa${(f.fix||f.bilet)?" cu-sigiliu":""}${f.deschis?" deschis":""}${f.masa?" masa":""}">
+    ${sigiliu}
     ${f.ora?`<div class="ora">${f.ora}</div>`:""}
     <h3>${f.titlu}</h3>
     ${f.exp?`<div class="leg">${f.exp.map(e=>
@@ -1428,7 +1414,8 @@ function ziHTML(z){
     </section>`;
   }).join("");
   return `<article class="zi" id="zi-${z.id}" hidden>
-    <div class="zi-cap"><div class="zi-zi">${z.zi}</div><h2>${z.titlu}</h2></div>
+    <div class="zi-cap"><div class="zi-zi">${z.zi}</div><h2>${z.titlu}</h2>
+      ${z.intro?`<p class="zi-intro">${z.intro}</p>`:""}</div>
     ${benzi}
   </article>`;
 }
