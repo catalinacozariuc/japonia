@@ -405,7 +405,7 @@ const ETAPE = [
 
 const CAZARE = {
   tokyo:"Cazare: 31 octombrie – 3 noiembrie la <b>Mitsui Garden Hotel Ginza Premier</b>, la patru minute de stația Shimbashi — de acolo pornesc toate distanțele.",
-  hakone:"Cazare: 3 – 5 noiembrie la <b>Hakone Ashinoko Hanaori</b>, la Togendai, pe malul de nord al lacului Ashi. Mergem doar cu bagaje mici; valizele mari pleacă din Tokyo direct la Kyoto.",
+  hakone:"Cazare: 3 – 5 noiembrie la <b>Hakone Ashinoko Hanaori</b>, la Togendai, pe malul de nord al lacului Ashi.",
   kyoto:"Cazare: 5 – 12 noiembrie la <b>Onyado Nono Kyoto Shichijo</b>, cu izvoare termale naturale, la câteva minute pe jos de Gara Kyoto.",
   tokyo2:"Cazare: 12 – 14 noiembrie la <b>Royal Park Hotel Iconic Tokyo Shiodome</b> — un minut de stația Shiodome, trei de Shimbashi printr-un pasaj subteran."
 };
@@ -419,7 +419,7 @@ const CAZARE = {
 const REZERVARI = [
 /* ---------------- Tokyo, 31 oct – 3 nov ---------------- */
 {id:"r_transfer", et:"tokyo", zi:"31 oct", ora:"seara", titlu:"Transfer privat Haneda → hotel",
- det:"Van pentru șase, cu bagaje mari, la aterizarea de 19:45. Întâi întrebăm hotelul dacă îl aranjează el."},
+ det:"Van pentru șase, la aterizarea de 19:45. Întâi întrebăm hotelul dacă îl aranjează el."},
 {id:"d_izakaya31", et:"tokyo", tip:"dec", zi:"31 oct", ora:"de la 22:00", titlu:"Unde mâncăm în prima seară",
  det:"Nu se rezervă nimic, dar alegem din timp două-trei izakaya din Shimbashi deschise după ora 22:00."},
 {id:"r_balet", et:"tokyo", zi:"1 nov", ora:"14:00", titlu:"Balet „City Lights”, Opera Palace", stare:"gata",
@@ -432,8 +432,6 @@ const REZERVARI = [
  det:"În Shibuya sau Shinjuku, unde oricum petrecem seara. Rezervare obligatorie."},
 {id:"d_seara2", et:"tokyo", tip:"dec", zi:"2 nov", ora:"după cină", titlu:"Finalul serii în Shinjuku",
  det:"Golden Gai, karaoke sau un cocktail bar — decidem pe loc, dar e bine să știm ce ne tentează."},
-{id:"r_takkyubin", et:"tokyo", zi:"3 nov", ora:"dimineața", titlu:"Bagajele mari, Tokyo → Kyoto (takkyubin)",
- det:"Se predau la recepție pe 3 noiembrie, 1.650–2.530 ¥ de valiză, livrare a doua zi. Confirmăm adresa hotelului din Kyoto și îl anunțăm să le păstreze."},
 
 /* ---------------- Hakone, 3 – 5 nov ---------------- */
 {id:"r_shuttle", et:"hakone", zi:"3 nov", ora:"14:15", titlu:"Shuttle-ul hotelului, din Odawara",
@@ -463,11 +461,11 @@ const REZERVARI = [
 {id:"d_okochi", et:"kyoto", tip:"dec", zi:"8 nov", ora:"09:00", titlu:"Okochi Sanso sau Yusai-tei",
  det:"Vila actorului, deschisă de la 09:00 și fără rezervare, sau casa-galerie cu ferestre rotunde — care deschide abia la 10:00, e închisă joia și toamna cere rezervare online."},
 {id:"r_saihoji", et:"kyoto", zi:"9 nov", ora:"09:30", titlu:"Saiho-ji, Templul de Mușchi", stare:"gata",
- det:"Rezervare confirmată pentru 09:30, cu shakyo inclus; durează o oră și jumătate. Cine întârzie nu e primit, fără excepție. Se intră pe rând, în grupuri foarte mici."},
+ det:"Rezervările sunt confirmate pentru 09:30. Templul acceptă câte două persoane pe rezervare, deci avem trei rezervări de câte doi — tot grupul intră la aceeași oră. 4.000 ¥ de persoană, de la 13 ani în sus."},
 {id:"d_katsura", et:"kyoto", tip:"dec", zi:"9 sau 12 nov", ora:"—", titlu:"Mergem la Vila Imperială Katsura?",
  det:"Ar fi continuarea firească a dimineții de la Saiho-ji, dar <b>vila e închisă lunea</b>, iar 9 noiembrie e luni. Rămân două variante: o mutăm în dimineața de 12 noiembrie, cu tur la 10:00 și rezervare la Agenția Casei Imperiale, sau renunțăm și rămânem în zonă, la Jizo-in și Matsunoo Taisha."},
-{id:"d_tofukuji9", et:"kyoto", tip:"dec", zi:"9 nov", ora:"după-amiaza", titlu:"Tofuku-ji și Komyo-in, dacă ieșim devreme",
- det:"Sunt o stație înainte de Inari, pe aceeași linie. Intră în zi doar dacă terminăm prânzul până pe la 13:45 — ultima intrare la Tofuku-ji e 15:30."},
+{id:"d_tofukuji9", et:"kyoto", tip:"dec", zi:"9 nov", ora:"opțional", titlu:"Tofuku-ji și Komyo-in, în drum spre Inari",
+ det:"Sunt o stație înainte de Inari, pe aceeași linie. Ultima intrare la Tofuku-ji e 15:30; Komyo-in stă deschis până la apus."},
 {id:"r_hiroshima_tren", et:"kyoto", zi:"10 nov", ora:"06:20", titlu:"Shinkansen Kyoto ↔ Hiroshima",
  det:"Dus-întors, cu locuri rezervate pentru toți șase. Plecare 06:20, întoarcere pe la 22:00."},
 {id:"r_muzeu_pace", et:"kyoto", zi:"10 nov", ora:"după-amiaza", titlu:"Bilet la Muzeul Memorial al Păcii",
@@ -479,7 +477,7 @@ const REZERVARI = [
 {id:"d_ultima_dim", et:"kyoto", tip:"dec", zi:"12 nov", ora:"dimineața", titlu:"Ultima dimineață la Kyoto",
  det:"Ginkaku-ji cu Drumul Filosofului, Kinkaku-ji, Katsura (dacă o rezervăm) sau doar o cafea lângă gară. Avem cam două ore și jumătate până la tren."},
 {id:"r_kyoto_tokyo", et:"kyoto", zi:"12 nov", ora:"circa 13:00", titlu:"Shinkansen Kyoto → Tokyo",
- det:"Două ore și un sfert, cu locuri rezervate pentru toți șase. Bagajele le luăm cu noi în tren."},
+ det:"Două ore și un sfert, cu locuri rezervate pentru toți șase."},
 
 /* ---------------- Tokyo, 12 – 14 nov ---------------- */
 {id:"r_shabu", et:"tokyo2", zi:"12 nov", ora:"seara", titlu:"Cină — shabu-shabu sau sukiyaki",
@@ -491,7 +489,7 @@ const REZERVARI = [
 {id:"r_suntory", et:"tokyo2", zi:"13 nov", ora:"19:00", titlu:"Suntory Hall — „Má vlast”, Japan Philharmonic", stare:"gata",
  det:"Bilete cumpărate. Circa 75 de minute, cu pauză; intrarea în sală de la 18:30."},
 {id:"r_narita", et:"tokyo2", zi:"14 nov", ora:"06:30", titlu:"Transfer spre Narita",
- det:"Narita Express din Gara Tokyo (circa o oră) sau autocarul Limousine din Shiodome (90–100 de minute, mai comod cu valizele). Zborul e la 10:10."}
+ det:"Narita Express din Gara Tokyo, circa o oră, sau autocarul Limousine din Shiodome, 90–100 de minute. Zborul e la 10:10."}
 ];
 
 const ZILE = {
@@ -503,7 +501,7 @@ tokyo:[
   benzi:{
     seara:[
       {t:"fisa",fix:true,ora:"19:45",titlu:"Aterizare la Haneda",
-       text:"Pașapoarte, bagaje, vamă — calculăm o oră până ieșim din aeroport."},
+       text:"Pașapoarte și vamă — calculăm o oră până ieșim din aeroport."},
       {t:"fisa",rez:"r_transfer",ora:"pe la 21:30",titlu:"Transfer și check-in",
        text:"Van privat până la hotel, 30–40 de minute. Mitsui Garden Hotel Ginza Premier, la câteva minute de stația Shimbashi.",
        drum:"De confirmat: transferul, cu hotelul, înainte de plecare."},
@@ -601,9 +599,8 @@ tokyo:[
        text:"La hotel sau într-o cafenea din apropiere, dacă avem chef de ceva nou."}
     ],
     dimineata:[
-      {t:"fisa",rez:"r_takkyubin",ora:"dimineața",titlu:"Check-out și trimiterea bagajelor mari la Kyoto",
-       text:"Predăm valizele mari la recepție și le trimitem prin takkyubin (Ta-Q-Bin, Yamato) direct la hotelul din Kyoto. La Hakone mergem doar cu bagaje mici. Cost: 1.650–2.530 ¥ de valiză.",
-       drum:"Livrarea e a doua zi — anunțăm hotelul din Kyoto să le păstreze."},
+      {t:"fisa",fix:true,ora:"dimineața",titlu:"Check-out",
+       text:"Plecăm din hotel cu tot ce avem."},
       {t:"fisa",fix:true,ora:"09:00 – 16:00",titlu:"Grădinile de Est ale Palatului Imperial",
        exp:[["t_palat","Palatul Imperial & Grădinile de Est"]],
        text:"Singurul lucru pe care îl facem azi la Tokyo: zidurile fostului castel Edo, peluzele largi și fundația turnului principal, pe alei late și plate. Intrarea e liberă, iar poarta Ōtemon e la zece minute de Gara Tokyo.",
@@ -715,7 +712,7 @@ hakone:[
     dimineata:[
       {t:"fisa",deschis:true,rez:"d_okada",ora:"dimineața",titlu:"Ultima dimineață la Hakone",
        exp:[["h_okada","Muzeul Okada"],["h_ashi","Lacul Ashi"]],
-       text:"Facem check-out cu bagajele la noi — nu ne mai întoarcem la hotel — și decidem pe loc, după vreme: Muzeul Okada, care e o oprire pe traseul autobuzului spre Odawara și nu un ocol, sau o plimbare pe malul lacului dinspre Togendai, cu Fuji în față dacă e senin.",
+       text:"Facem check-out — nu ne mai întoarcem la hotel — și decidem pe loc, după vreme: Muzeul Okada, care e o oprire pe traseul autobuzului spre Odawara și nu un ocol, sau o plimbare pe malul lacului dinspre Togendai, cu Fuji în față dacă e senin.",
        drum:"Autobuzul liniei T până la Odawara, circa o oră. Suntem în gară cu o jumătate de oră înainte de tren."}
     ],
     pranz:[
@@ -747,7 +744,7 @@ kyoto:[
     ],
     seara:[
       {t:"fisa",fix:true,ora:"pe la 16:00",titlu:"Sosire și check-in",
-       text:"Hotelul e la câteva minute pe jos de gară. Valizele mari, trimise pe 3 noiembrie, ne așteaptă acolo — confirmăm la recepție că au ajuns toate. Hotelul are izvor natural, saună și bazin în aer liber, deschise până noaptea târziu."},
+       text:"Hotelul e la câteva minute pe jos de gară. Are izvor natural, saună și bazin în aer liber, deschise până noaptea târziu."},
       {t:"fisa",fix:true,ora:"prima seară",titlu:"Gion, Shirakawa și Pontocho",
        exp:[["k_gion","Gion & Hanamikoji la lăsarea serii"],["k_pontocho","Pontocho — aleea felinarelor"]],
        text:"Gion și Hanamikoji, apoi canalul Shirakawa cu sălciile și podețele lui, malul râului Kamo și aleea Pontocho. Toate se leagă pe jos, una după alta.",
@@ -901,7 +898,7 @@ kyoto:[
 },
 {
   id:"k9", jp:"九", scurt:"9 nov", zi:"Luni · Kyoto", titlu:"9 noiembrie",
-  intro:"Singura zi a săptămânii fără trezit devreme. Dimineața are o singură oră fixă, dar una care nu se negociază: 09:30 la Templul de Mușchi, cu copiat de sutre. După-amiaza urcăm la Fushimi Inari spre apus, când muntele rămâne aproape gol.",
+  intro:"Singura zi a săptămânii fără trezit devreme. O singură oră fixă: 09:30 la Templul de Mușchi. După prânz urcăm la Fushimi Inari, ca să avem lumină pe drum.",
   benzi:{
     devreme:[
       {t:"fisa",masa:true,ora:"de la 07:30",titlu:"Mic dejun la hotel, fără grabă",
@@ -909,30 +906,27 @@ kyoto:[
     ],
     dimineata:[
       {t:"fisa",fix:true,ora:"08:30",titlu:"Drum spre Saiho-ji",
-       text:"Douăzeci-treizeci de minute cu taxiul din fața gării, două mașini pentru șase; cu autobuzul 73 ar fi aproape o oră. Vrem să fim la poartă pe la 09:10.",
-       drum:"Cine întârzie nu e primit, fără excepție — de asta plecăm cu o rezervă de timp."},
-      {t:"fisa",rez:"r_saihoji",ora:"09:30 – 11:00",titlu:"Saiho-ji, Templul de Mușchi",
+       text:"Douăzeci-treizeci de minute cu taxiul din fața gării, două mașini pentru șase; cu autobuzul 73 ar fi aproape o oră. Vrem să fim la poartă pe la 09:10."},
+      {t:"fisa",rez:"r_saihoji",ora:"09:30",titlu:"Saiho-ji, Templul de Mușchi",
        exp:[["k_moss","Saiho-ji — Templul de Mușchi"],["k_sutre","Caligrafie de sutre (shakyo)"]],
-       text:"Rezervarea e confirmată pentru 09:30 și ține o oră și jumătate. Vizita începe înăuntru, nu în grădină: ne așezăm la măsuțe joase și trasăm cu pensula caracterele Sutrei Inimii, peste un model — atât cât vrem, nu e un examen. Abia după aceea ieșim în grădina din jurul iazului, cu peste o sută douăzeci de specii de mușchi, și o străbatem în ritmul nostru.<br><br><b>Cum se intră:</b> templul primește oamenii pe rând, în grupuri foarte mici — de obicei câte doi — și nu acceptă grupuri mai mari de cinci. Intrăm discret, perechi-perechi, și ne regăsim înăuntru; nu ne adunăm ciorchine la poartă. Se vorbește în șoaptă sau deloc, iar liniștea face parte din vizită la fel de mult ca mușchiul.",
-       drum:"Circa 4.000 ¥ de persoană, cu kitul de scris inclus. Nu se intră sub 13 ani."},
-      {t:"fisa",deschis:true,rez:"d_katsura",ora:"după 11:00 (opțional)",titlu:"Ce facem după — Katsura sau zona din jur",
+       text:"Vizita începe înăuntru, nu în grădină: kito și shakyo — un călugăr conduce chemarea cântată a sutrelor, apoi le copiem cu pensula la măsuțe joase, peste un model trasat. Nu e nevoie de experiență și nu e un examen; durează în jur de o oră. Abia după aceea ieșim în grădina din jurul iazului, cu vreo sută douăzeci de specii de mușchi, și o străbatem în ritmul nostru.<br><br><b>De reținut:</b> templul cere să nu se vină în grupuri de cinci sau mai mulți, iar rezervările se fac de câte două persoane — noi avem trei rezervări de câte doi, toate la 09:30. E un loc de reculegere: se vorbește puțin, nu se mănâncă, iar în interior nu se fotografiază.",
+       drum:"4.000 ¥ de persoană, de la 13 ani în sus. Se stă pe podea."},
+      {t:"fisa",deschis:true,rez:"d_katsura",ora:"după vizită (opțional)",titlu:"Katsura sau zona din jur",
        exp:[["k_katsura","Vila Imperială Katsura"]],
-       text:"Continuarea firească ar fi Vila Imperială Katsura, la un sfert de oră de Saiho-ji — dar <b>vila e închisă lunea</b>, iar 9 noiembrie e luni. Deci ori o mutăm în dimineața de 12 noiembrie (tur la 10:00, cu rezervare la Agenția Casei Imperiale), ori rămânem pe loc: la doi pași sunt Jizo-in, „templul de bambus”, mic și aproape gol, și sanctuarul Matsunoo Taisha, amândouă deschise în fiecare zi și fără rezervare.",
-       drum:"Decizia e trecută în lista de rezervări — apasă semnul din colț."}
+       text:"Continuarea firească ar fi Vila Imperială Katsura, la un sfert de oră — dar <b>vila e închisă lunea</b>, iar 9 noiembrie e luni. Ori o mutăm pe 12 noiembrie dimineața, ori rămânem pe loc: la doi pași sunt Jizo-in, „templul de bambus”, și sanctuarul Matsunoo Taisha, deschise zilnic și fără rezervare."}
     ],
     pranz:[
-      {t:"fisa",masa:true,ora:"pe la 12:15",titlu:"Prânz — Arashiyama sau lângă Matsuo",
-       text:"Din Saiho-ji, Arashiyama e la un sfert de oră cu autobuzul și are de toate; prin Matsuo localurile sunt puține și se închid devreme. Mâncăm pe îndelete — după-amiaza n-are nicio oră fixă."}
+      {t:"fisa",masa:true,ora:"pe la 12:30",titlu:"Prânz",
+       text:"Fără grabă — după-amiaza n-are nicio oră fixă."}
     ],
     dupa:[
-      {t:"fisa",deschis:true,rez:"d_tofukuji9",ora:"14:30, dacă ieșim devreme",titlu:"Tofuku-ji și Komyo-in",
-       exp:[["k_tofukuji","Tofuku-ji — podul peste marea de arțari"],["k_komyoin","Komyo-in — grădina razelor de lumină"]],
-       text:"Sunt exact pe drum: o stație înainte de Inari, pe linia JR Nara. Podul de lemn suspendat peste valea cu două mii de arțari și, alături, grădina cu șaptezeci și cinci de pietre înfipte în nisip greblat, unde de obicei nu e nimeni. Intră în zi doar dacă terminăm prânzul până pe la 13:45 — ultima intrare la Tofuku-ji e 15:30.",
-       drum:"Culorile sunt la vârf abia spre sfârșitul lui noiembrie, deci pe 9 e încă liniște acolo."},
-      {t:"fisa",fix:true,ora:"pe la 15:00",titlu:"Fushimi Inari, urcușul spre apus",
+      {t:"fisa",fix:true,ora:"pe la 13:30",titlu:"Fushimi Inari",
        exp:[["k_fushimi","Fushimi Inari — tunelul celor 10.000 de porți"]],
-       text:"Singurul obiectiv mare pe care îl putem lua exact invers decât toată lumea: nu are nici bilet, nici oră de închidere, iar spre seară, după ce pleacă autocarele, muntele se golește. Urcăm prin tunelul celor zece mii de porți — ridicate una câte una de negustori, de-a lungul a trei sute de ani — până la Yotsutsuji, la jumătatea muntelui, vreo patruzeci și cinci de minute, de unde se vede tot Kyoto-ul pe lumina apusului, la 16:52. Coborâm apoi prin porțile luminate, în albastrul serii.",
-       drum:"Din Arashiyama: JR până în Gara Kyoto și încă două stații pe linia JR Nara — cam trei sferturi de oră cu totul (de la hotel ar fi doar cinci minute). Cine vrea bucla completă până în vârf, două-trei ore, pleacă de jos cel târziu la 14:30. O haină și lanterna telefonului la coborâre."}
+       text:"Urcăm devreme în după-amiază ca să avem lumină tot drumul: soarele apune la 16:52. Prin tunelul celor zece mii de porți vermilion până la Yotsutsuji, la jumătatea muntelui — vreo patruzeci și cinci de minute de urcuș, de unde se vede tot orașul. Bucla completă până în vârf cere două-trei ore.",
+       drum:"Sanctuarul e deschis non-stop și intrarea e liberă. Două stații de Gara Kyoto pe linia JR Nara. O haină și lanterna telefonului la coborâre."},
+      {t:"fisa",deschis:true,rez:"d_tofukuji9",ora:"opțional",titlu:"Tofuku-ji și Komyo-in",
+       exp:[["k_tofukuji","Tofuku-ji — podul peste marea de arțari"],["k_komyoin","Komyo-in — grădina razelor de lumină"]],
+       text:"Sunt o stație înainte de Inari, pe aceeași linie, deci se prind în drum. Ultima intrare la Tofuku-ji e 15:30; Komyo-in stă deschis până la apus."}
     ],
     seara:[
       {t:"fisa",fix:true,ora:"pe la 18:00",titlu:"Baie termală la hotel",
@@ -1020,7 +1014,7 @@ kyoto:[
     ],
     dimineata:[
       {t:"fisa",fix:true,ora:"pe la 09:30",titlu:"Check-out",
-       text:"Lăsăm valizele la recepție și le luăm la întoarcere — le cărăm cu noi în tren, e mai comod decât să le trimitem înainte."},
+       text:"Lăsăm lucrurile la recepție și le luăm la întoarcere, înainte de tren."},
       {t:"fisa",deschis:true,rez:"d_ultima_dim",ora:"circa două ore și jumătate",titlu:"Ultima dimineață la Kyoto",
        exp:[["k_ginkakuji","Ginkaku-ji — Pavilionul de Argint"],["k_philosopher","Drumul Filosofului"],["k_kinkakuji","Kinkaku-ji — Pavilionul de Aur"],["k_katsura","Vila Imperială Katsura"]],
        text:"Avem vreo două ore și jumătate până la tren. Alegem una dintre variante, sau niciuna — o cafea prin zona gării e la fel de bună.<br><br>— <b>Ginkaku-ji și Drumul Filosofului</b> — Pavilionul de Argint, cu conul de nisip greblat zilnic și poteca de mușchi care urcă la un belvedere peste tot orașul, apoi aleea de pe lângă canal, cât avem chef. Autobuzul 5 sau 17 din fața gării, circa 35 de minute.<br>— <b>Kinkaku-ji</b> — Pavilionul de Aur, un sens unic de vreo patruzeci de minute. Autobuzul 205, circa 40 de minute.<br>— <b>Katsura</b> — dacă hotărâm să o recuperăm, e singura dimineață în care se poate: tur la 10:00, o oră, cu rezervare la Agenția Casei Imperiale. E și varianta cea mai strânsă — ne întoarcem pe la 12:00, fix bine pentru tren."}
@@ -1075,7 +1069,7 @@ tokyo2:[
     ],
     dupa:[
       {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Hotel — împachetat și odihnă",
-       text:"Facem bagajele acum, cu tot ce am cumpărat, ca mâine la 06:00 să nu mai rămână nimic. Apoi ne odihnim și ne schimbăm pentru concert."}
+       text:"Ne odihnim și ne schimbăm pentru concert."}
     ],
     seara:[
       {t:"fisa",masa:true,rez:"r_akasaka",ora:"16:45",titlu:"Cină devreme, în Akasaka",
@@ -1098,10 +1092,10 @@ tokyo2:[
   benzi:{
     devreme:[
       {t:"fisa",fix:true,ora:"06:00",titlu:"Trezire și check-out",
-       text:"Restaurantul deschide abia la 07:00 — luăm ceva de la konbini sau mâncăm la aeroport. Bagajele sunt făcute de aseară."},
+       text:"Restaurantul deschide abia la 07:00 — luăm ceva de la konbini sau mâncăm la aeroport."},
       {t:"fisa",rez:"r_narita",ora:"06:30",titlu:"Transfer spre Narita",
-       text:"Cu bagajele mari. La aeroport cu cel puțin două ore înainte de decolare.",
-       drum:"Shimbashi → Gara Tokyo, 3 minute, apoi Narita Express, circa o oră. Alternativ, autocarul Limousine din Shiodome, 90–100 de minute, mai comod cu valizele."}
+       text:"La aeroport cu cel puțin două ore înainte de decolare.",
+       drum:"Shimbashi → Gara Tokyo, 3 minute, apoi Narita Express, circa o oră. Alternativ, autocarul Limousine din Shiodome, 90–100 de minute."}
     ],
     dimineata:[
       {t:"fisa",fix:true,ora:"10:10",titlu:"Decolare"}
@@ -1127,23 +1121,21 @@ hakone:[
   "<b>Vaporul</b> — pleacă din treizeci în patruzeci de minute, 09:30–17:00. Noi luăm cursa de la 16:00.",
   "<b>Apusul</b> — pe 4 noiembrie soarele apune la 16:41.",
   "<b>Owakudani</b> — miroase puternic a sulf și înnegrește argintul. Cine poartă bijuterii de argint le lasă la hotel.",
-  "<b>Bagajele</b> — la Hakone mergem doar cu bagaje mici; valizele mari pleacă din Tokyo direct la Kyoto pe 3 noiembrie."
 ],
 kyoto:[
   "<b>Hotelul</b> — la câteva minute de Gara Kyoto, deci linia JR Nara și shinkansenul pornesc de sub fereastră, iar microbuzul de Wazuka pleacă de la Hachijoguchi. Pentru Higashiyama, nord și Arashiyama: 15–45 de minute cu autobuzul sau trenul.",
   "<b>Cum e construită săptămâna</b> — 7 și 8 noiembrie pică în weekend, când templele mari și Arashiyama sunt insuportabile — de aceea sâmbătă ieșim din oraș, iar duminică suntem în bambus la șapte.",
   "<b>Dimineți devreme</b> — patru: Kiyomizu pe 6, Nara pe 7, bambusul pe 8 și Hiroshima pe 10. Pe 9 noiembrie dormim: prima oră fixă e 09:30, la Saiho-ji.",
-  "<b>Apusul</b> — în jur de 16:50 toată săptămâna; după 17:00 e deja noapte. De aceea Fushimi Inari e pus pe 9, după-amiaza: urcăm pe lumină și coborâm printre porțile aprinse.",
+  "<b>Apusul</b> — în jur de 16:50 toată săptămâna; după 17:00 e deja noapte. De aceea pe 9 urcăm la Fushimi Inari imediat după prânz, ca să avem lumină pe tot urcușul.",
   "<b>Culorile de toamnă</b> — la mijlocul lui noiembrie orașul abia începe; vârful vine spre sfârșitul lunii. La munte sunt deja aprinse.",
   "<b>Băile hotelului</b> — cel mai gol e dimineața devreme și după ora zece seara. Tatuajele nu sunt acceptate.",
-  "<b>Rezervările care nu se pot recupera</b> — Gion Odori pe 6, trenulețul și barca pe 8, Saiho-ji pe 9 (la fix 09:30, fără toleranță la întârziere) și turul Obubu pe 11."
+  "<b>Rezervările care nu se pot recupera</b> — Gion Odori pe 6, trenulețul și barca pe 8, Saiho-ji pe 9 (la 09:30) și turul Obubu pe 11."
 ],
 tokyo2:[
   "<b>Hotelul</b> — Royal Park Hotel Iconic Tokyo Shiodome, la un minut de stația Shiodome și trei de Shimbashi, printr-un pasaj subteran. Micul dejun de la 07:00.",
   "<b>Suntory Hall</b> e în Akasaka — nu e aproape de hotel, deci calculăm o jumătate de oră de drum în plus.",
-  "<b>Bagajele</b> — de la Kyoto la Tokyo le luăm cu noi în tren, nu le trimitem înainte.",
   "<b>Plățile</b> — localurile mici, tarabele și barurile acceptă adesea doar numerar.",
-  "<b>Ultima dimineață</b> — zborul e la 10:10 de la Narita, deci plecăm din hotel la 06:30, cu bagajele făcute de aseară."
+  "<b>Ultima dimineață</b> — zborul e la 10:10 de la Narita, deci plecăm din hotel la 06:30."
 ]
 };
 
