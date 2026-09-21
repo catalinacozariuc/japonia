@@ -144,6 +144,13 @@ h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(15px,2.4vw,19px);le
   transition:background .15s,border-color .15s,color .15s}
 .fisa .leg a:hover{background:var(--artar);border-color:var(--artar);color:#fff}
 .fisa .leg a:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
+/* legătura spre site-ul oficial — verde-ceai, ca să se deosebească de cartonașe */
+.fisa .leg a.site,.rez-site{color:var(--ceai);border-color:rgba(110,122,82,.4)}
+.fisa .leg a.site:hover,.rez-site:hover{background:var(--ceai);border-color:var(--ceai);color:#fff}
+.rez-site{display:inline-block;margin-top:7px;font-size:11.5px;line-height:1.15;text-decoration:none;
+  background:rgba(255,255,255,.6);border:1px solid rgba(110,122,82,.4);border-radius:99px;padding:5px 11px;
+  transition:background .15s,border-color .15s,color .15s}
+.rez-site:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
 .sigiliu{position:absolute;top:11px;right:13px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
   font-size:13px;color:var(--artar);border:1.5px solid var(--artar);border-radius:3px;
   width:25px;height:25px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.7)}
@@ -416,6 +423,19 @@ const CAZARE = {
    stare = starea de pornire; oricine o poate schimba din pagină, iar
    schimbarea se salvează în aceeași foaie Google și o vede tot grupul.
    ====================================================================== */
+/* site-urile oficiale, legate de rezervarea sau evenimentul respectiv */
+const SITE = {
+  r_omakase:    ["https://ebisu-sushi-hatsume.com/en","site oficial"],
+  r_balet:      ["https://www.nntt.jac.go.jp/english/productions/ballet-dance/citylights.html","site oficial"],
+  r_gionodori:  ["https://www.gionhigashi.com/gion.html","site oficial"],
+  r_sagano:     ["https://www.sagano-kanko.co.jp/en/","site oficial"],
+  r_hozugawa:   ["https://hozugawaboatride.com/","site oficial"],
+  r_saihoji:    ["https://saihoji-kokedera.com/en/","site oficial"],
+  r_obubu:      ["https://obubutea.com/guided-tea-tour/","site oficial"],
+  r_kaiseki:    ["https://guide.michelin.com/gb/en/kyoto-region/kyoto/restaurant/shimogamo-saryo","Ghidul Michelin"],
+  r_suntory:    ["https://www.suntory.com/culture-sports/suntoryhall/schedule/detail/20261113_M_3.html","site oficial"]
+};
+
 const REZERVARI = [
 /* ---------------- Tokyo, 31 oct – 3 nov ---------------- */
 {id:"r_transfer", et:"tokyo", zi:"31 oct", ora:"seara", titlu:"Transfer privat Haneda → hotel",
@@ -992,7 +1012,7 @@ kyoto:[
     seara:[
       {t:"fisa",masa:true,rez:"r_kaiseki",ora:"18:30",titlu:"Cina de sărbătoare — Shimogamo Saryo Honten",
        exp:[["k_kaiseki","Cină kaiseki — masa de sărbătoare"]],
-       text:"Kaiseki la Shimogamo Saryo (下鴨茶寮 本店), casă deschisă în 1856 la marginea sanctuarului Shimogamo, între pădurea străveche Tadasu-no-Mori și râul Takano. Bucătărie de Kyoto după principiul „ingrediente locale, gătite în felul locului”, servită cu vedere spre o grădină japoneză îngrijită. A primit o stea Michelin în 2021 și în 2024."}
+       text:"Kaiseki la Shimogamo Saryo (下鴨茶寮 本店), deschis în 1856 la marginea sanctuarului Shimogamo, între pădurea străveche Tadasu-no-Mori și râul Takano. A început ca o ceainărie cu roată de apă pe aleea spre sanctuar — de aici și numele, „ceainăria din Shimogamo”.<br><br>După Ghidul Michelin: obiectele lucrate tradițional și grădina sunt superbe, iar sala de mese și saloanele private de la etaj au vedere spre râul Takano și, dincolo de el, spre munții Hiei. Bucătarul urmează principiul <i>dosan-doho</i> — ingrediente locale, gătite în felul locului: bucătărie tradițională de Kyoto.<br><br>A primit o stea Michelin în 2021 și în 2024."}
     ]
   }
 },
@@ -1065,8 +1085,8 @@ tokyo2:[
     seara:[
       {t:"fisa",masa:true,rez:"r_akasaka",ora:"16:45",titlu:"Cină devreme, în Akasaka",
        text:"Concertul începe la 19:00, deci masa se termină până la 18:15 — mai devreme decât ne-am obișnuit. Căutăm un local care primește de la 17:00; multe deschid abia atunci."},
-      {t:"fisa",fix:true,ora:"18:30",titlu:"Suntory Hall, intrarea în sală",
-       text:"Ajungem cu o jumătate de oră înainte de concert.",
+      {t:"fisa",fix:true,ora:"18:30",titlu:"Suntory Hall, discuția de dinainte",
+       text:"De la 18:30 e o discuție de prezentare înainte de concert.",
        drum:"Shimbashi → Tameike-Sannō, linia Ginza, apoi opt minute pe jos."},
       {t:"fisa",rez:"r_suntory",ora:"19:00",titlu:"Japan Philharmonic: „Má vlast” de Smetana",
        exp:[["t_gala","Suntory Hall — concert simfonic"]],
@@ -1373,6 +1393,7 @@ function unRezHTML(r){
         r.urgent && s !== "gata" ? `<span class="rez-urg">urgent</span>` : ""}</div>
       <div class="rez-titlu">${r.titlu}</div>
       ${r.det ? `<p class="rez-det">${r.det}</p>` : ""}
+      ${SITE[r.id] ? `<a class="rez-site" href="${SITE[r.id][0]}" target="_blank" rel="noopener">${SITE[r.id][1]} ↗</a>` : ""}
       ${cine ? `<div class="rez-semn">marcat de ${cine}</div>` : ""}
     </div>
   </div>`;
@@ -1643,6 +1664,7 @@ const el = id => document.getElementById(id);
    Fișele legate de o rezervare poartă în colț semnul ei, care e și buton. */
 function fisaHTML(f){
   const areDetalii = !!(f.text || f.drum);
+  const site = f.site || (f.rez && SITE[f.rez]);
   let sigiliu = "";
   if(f.rez){
     const r = REZERVARI.find(x => x.id === f.rez);
@@ -1657,8 +1679,9 @@ function fisaHTML(f){
     ${sigiliu}
     ${f.ora?`<div class="ora">${f.ora}</div>`:""}
     <h3>${f.titlu}</h3>
-    ${f.exp?`<div class="leg">${f.exp.map(e=>
-      `<a href="index.html#${e[0]}" title="Vezi cartonașul experienței">${e[1]}</a>`).join("")}</div>`:""}
+    ${(f.exp||site)?`<div class="leg">${(f.exp||[]).map(e=>
+      `<a href="index.html#${e[0]}" title="Vezi cartonașul experienței">${e[1]}</a>`).join("")}${
+      site?`<a class="site" href="${site[0]}" target="_blank" rel="noopener">${site[1]} ↗</a>`:""}</div>`:""}
     ${areDetalii?`<details class="mai">
       <summary><span class="sg" aria-hidden="true">▸</span><span class="et">detalii</span></summary>
       <div class="mai-corp">
@@ -1707,8 +1730,8 @@ function randeazaEtapa(etId, ziDeschisa){
     <p class="cazare">${CAZARE[etId] || ""}</p>
     <nav class="zilenav" id="zilenav" aria-label="Alege ziua">${tabs}</nav>
     <div id="zile">${zile.map(ziHTML).join("")}</div>
-    ${sectiuneaRezervari(etId)}
     ${sectiuneaComentarii(etId)}
+    ${sectiuneaRezervari(etId)}
     ${note.length?`<section class="check"><h2>Note practice</h2>
       <ul>${note.map(n=>`<li>${n}</li>`).join("")}</ul></section>`:""}
     <footer>Orele sunt orientative peste tot, în afară de cele câteva lucruri cu bilet sau rezervare.
