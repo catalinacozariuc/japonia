@@ -187,6 +187,11 @@
   .desc{font-size:13.5px;line-height:1.58;margin:0;color:#4A453C}
   .why{font-size:12.5px;line-height:1.55;color:#6B6558;border-left:2px solid var(--ac);padding-left:10px;margin:2px 0 0}
   .why b{display:block;font:400 9.5px/1.6 inherit;letter-spacing:.15em;text-transform:uppercase;color:var(--gri)}
+  .site-of{align-self:flex-start;margin-top:4px;font-size:11.5px;line-height:1.15;text-decoration:none;color:var(--ceai);
+    background:rgba(255,255,255,.6);border:1px solid rgba(110,122,82,.4);border-radius:99px;padding:5px 11px;
+    transition:background .15s,border-color .15s,color .15s}
+  .site-of:hover{background:var(--ceai);border-color:var(--ceai);color:#fff}
+  .site-of:focus-visible{outline:2px solid var(--kaki);outline-offset:2px}
 
   .stamp{position:absolute;top:10px;right:10px;width:56px;height:56px;border:2.5px solid var(--artar);
     border-radius:50%;color:var(--artar);font-family:Georgia,serif;font-size:13px;display:flex;align-items:center;
@@ -1089,8 +1094,22 @@ function corpCard(c){
     <div class="kicker"><span class="dot"></span>${esc(numeOras(c.oras))}${c.tag?" · "+esc(c.tag):""}${c.timp?" · "+esc(c.timp):""}</div>
     <h3>${esc(c.titlu)}</h3>
     <p class="desc">${esc(c.desc)}</p>
-    ${c.dece?`<p class="why"><b>De ce merită</b>${esc(c.dece)}</p>`:""}</div>`;
+    ${c.dece?`<p class="why"><b>De ce merită</b>${esc(c.dece)}</p>`:""}
+    ${SITE_CARD[c.id]?`<a class="site-of" href="${SITE_CARD[c.id][0]}" target="_blank" rel="noopener">${SITE_CARD[c.id][1]} ↗</a>`:""}</div>`;
 }
+
+/* site-urile oficiale ale experiențelor rezervate sau cu dată fixă */
+const SITE_CARD = {
+  t_omakase:   ["https://ebisu-sushi-hatsume.com/en","site oficial"],
+  t_chaplin:   ["https://www.nntt.jac.go.jp/english/productions/ballet-dance/citylights.html","site oficial"],
+  t_gala:      ["https://www.suntory.com/culture-sports/suntoryhall/schedule/detail/20261113_M_3.html","site oficial"],
+  k_gionodori: ["https://www.gionhigashi.com/gion.html","site oficial"],
+  k_sagano:    ["https://www.sagano-kanko.co.jp/en/","site oficial"],
+  k_hozugawa:  ["https://hozugawaboatride.com/","site oficial"],
+  k_moss:      ["https://saihoji-kokedera.com/en/","site oficial"],
+  k_wazuka:    ["https://obubutea.com/guided-tea-tour/","site oficial"],
+  k_kaiseki:   ["https://guide.michelin.com/gb/en/kyoto-region/kyoto/restaurant/shimogamo-saryo","Ghidul Michelin"]
+};
 
 /* ---------- fotografiile se cer abia când se apropie de ecran ----------
    Toate pozele sunt fundaluri CSS, iar loading="lazy" nu funcționează pe ele:
