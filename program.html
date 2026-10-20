@@ -447,7 +447,7 @@ const ETAPE = [
 
 const CAZARE = {
   tokyo:"Cazare: 31 octombrie – 3 noiembrie la <b>Mitsui Garden Hotel Ginza Premier</b>, la patru minute de stația Shimbashi — de acolo pornesc toate distanțele.",
-  hakone:"Cazare: 3 – 5 noiembrie la <b>Hakone Ashinoko Hanaori</b>, la Togendai, pe malul de nord al lacului Ashi.",
+  hakone:"Cazare: 3 – 5 noiembrie la <b>Hakone Ashinoko Hanaori</b>, la Togendai, pe malul de nord al lacului Ashi. La Hakone scopul e relaxarea: onsen, cu micul dejun și cina incluse la hotel. Băile sunt deschise 15:00 – 24:00 și 05:00 – 10:00, iar fiecare merge când vrea. Dacă avem chef, facem drumeții și plimbări prin munți.",
   kyoto:"Cazare: 5 – 12 noiembrie la <b>Onyado Nono Kyoto Shichijo</b>, cu izvoare termale naturale, la câteva minute pe jos de Gara Kyoto.",
   tokyo2:"Cazare: 12 – 14 noiembrie la <b>Royal Park Hotel Iconic Tokyo Shiodome</b> — un minut de stația Shiodome, trei de Shimbashi printr-un pasaj subteran."
 };
@@ -492,6 +492,8 @@ const REZERVARI = [
  det:"Rezervat la 19:45. La 15 minute pe jos de teamLab Borderless."},
 
 /* ---------------- Hakone, 3 – 5 nov ---------------- */
+{id:"r_shink_odawara", et:"hakone", zi:"3 nov", ora:"13:10", titlu:"Shinkansen Tokyo → Odawara",
+ det:"Circa 35 de minute, din Gara Tokyo. 3 noiembrie e zi liberă în Japonia, deci luăm locuri rezervate pentru toți șase."},
 {id:"r_freepass", et:"hakone", zi:"3 nov", ora:"13:50", titlu:"Hakone Freepass, 3 zile",
  det:"Circa 6.400 ¥ de persoană, cumpărat la Odawara. Acoperă tot traseul circular de pe 4 noiembrie."},
 {id:"r_shuttle", et:"hakone", zi:"3 nov", ora:"14:15", titlu:"Shuttle Odawara → hotel",
@@ -520,8 +522,6 @@ const REZERVARI = [
  det:"Parcul și zidurile sunt gratuite și sunt partea cea mai frumoasă. Turnul e o reconstrucție din 1931, muzeu cu lift, aglomerat în weekend: dacă intrăm, cu bilet online (1.200 ¥). Barca aurită Gozabune, 20 de minute pe șanțul interior, are bilete doar la ghișeu și locuri limitate."},
 {id:"r_osaka", et:"kyoto", zi:"8 nov", ora:"pe la 18:30", titlu:"Cină în Osaka, Namba–Dotonbori",
  det:"Duminică seara, pentru șase: rezervăm din timp, cu anulare gratuită. Unele localuri mici închid duminica — verificăm ziua de închidere înainte."},
-{id:"r_taxi9", et:"kyoto", zi:"9 nov", ora:"08:30", titlu:"Taxi hotel → Saiho-ji",
- det:"Două mașini pentru șase, 20–30 de minute. Le cerem recepției în seara dinainte."},
 {id:"r_saihoji", et:"kyoto", zi:"9 nov", ora:"09:30", titlu:"Saiho-ji, Templul de Mușchi", stare:"gata",
  det:"Rezervările sunt confirmate pentru 09:30. Templul acceptă câte două persoane pe rezervare, deci avem trei rezervări de câte doi — tot grupul intră la aceeași oră. 4.000 ¥ de persoană, de la 13 ani în sus."},
 {id:"r_susabiyu", et:"kyoto", zi:"9 nov", ora:"18:30", titlu:"Cină — Sushi Dokoro Susabiyu",
@@ -715,7 +715,7 @@ const ZILE = [
        drum:"3 noiembrie e zi liberă în Japonia, deci la ramen se poate sta la coadă."}
     ],
     dupa:[
-      {t:"fisa",fix:true,ora:"13:10 – 13:50",titlu:"Shinkansen Tokyo → Odawara",
+      {t:"fisa",rez:"r_shink_odawara",ora:"13:10 – 13:50",titlu:"Shinkansen Tokyo → Odawara",
        text:"Treizeci și cinci de minute, din Gara Tokyo."},
       {t:"fisa",rez:"r_freepass",ora:"13:50",titlu:"Hakone Freepass",
        loc:"gara Odawara",
@@ -731,11 +731,7 @@ const ZILE = [
       {t:"fisa",masa:true,ora:"17:30 sau 20:00",titlu:"Cină",
        loc:"la hotel",
        exp:[["h_kaiseki_ryokan","Cină kaiseki"]],
-       text:"Meniu japonez și occidental, cu bucătărie deschisă, în sala care dă spre lac."},
-      {t:"fisa",deschis:true,ora:"după cină",titlu:"Onsen",
-       loc:"la hotel",
-       exp:[["h_onsen","Onsen"]],
-       text:"Onsen înseamnă baie termală: apă fierbinte din izvoare vulcanice, bogată în minerale. Băile sunt deschise până la miezul nopții."}
+       text:"Meniu japonez și occidental, cu bucătărie deschisă, în sala care dă spre lac."}
     ]
   }
 },
@@ -747,10 +743,6 @@ const ZILE = [
   intro:"Turul circular al văii: muntele dimineața, lacul după-amiaza.",
   benzi:{
     devreme:[
-      {t:"fisa",deschis:true,ora:"de la 05:00",titlu:"Onsen de dimineață",
-       loc:"la hotel",
-       exp:[["h_onsen","Onsen"]],
-       text:"Băile se redeschid la 05:00. Dimineața femeile și bărbații schimbă sălile între ei, deci vedem cealaltă baie decât aseară. Camerele au și baie privată în aer liber, la balcon."},
       {t:"fisa",masa:true,ora:"pe la 08:30",titlu:"Mic dejun",
        loc:"la hotel",
        text:"Ultima comandă la 09:00."}
@@ -787,10 +779,6 @@ const ZILE = [
        drum:"Dacă o pierdem, mai e una spre 16:50, altfel autobuzul liniei W."}
     ],
     seara:[
-      {t:"fisa",fix:true,ora:"18:00 – 19:00",titlu:"Onsen, cât ceilalți iau cina",
-       loc:"la hotel",
-       exp:[["h_onsen","Onsen"]],
-       text:"Cu cina noastră la 20:00, între 18:00 și 19:00 majoritatea oaspeților sunt la masă."},
       {t:"fisa",masa:true,ora:"20:00",titlu:"Cină",
        loc:"la hotel",
        exp:[["h_kaiseki_ryokan","Cină kaiseki"]],
@@ -1009,14 +997,10 @@ const ZILE = [
        loc:"la hotel"}
     ],
     dimineata:[
-      {t:"fisa",rez:"r_taxi9",ora:"08:30",titlu:"Taxi hotel → Saiho-ji",
-       text:"Două mașini pentru șase, 20–30 de minute. Vrem să fim la poartă pe la 09:10."},
       {t:"fisa",rez:"r_saihoji",ora:"09:30 – 11:00",titlu:"Saiho-ji, Templul de Mușchi",
        exp:[["k_moss","Saiho-ji — Templul de Mușchi"],["k_sutre","Caligrafie de sutre (shakyo)"]],
        text:"Vizita începe înăuntru: un călugăr conduce chemarea cântată a sutrelor, apoi le copiem cu pensula la măsuțe joase, peste un model trasat (shakyo). Nu e nevoie de experiență; durează în jur de o oră. După aceea ieșim în grădina din jurul iazului, cu vreo sută douăzeci de specii de mușchi.<br><br>Rezervările se fac de câte două persoane, deci avem trei rezervări de câte doi, toate la 09:30. E un loc de reculegere: se vorbește încet, nu se mănâncă, iar în interior nu se fotografiază.",
-       drum:"4.000 ¥ de persoană, de la 13 ani în sus. Se stă pe podea — cine are probleme cu genunchii poate cere un scăunel."},
-      {t:"fisa",fix:true,ora:"pe la 11:15",titlu:"Taxi Saiho-ji → hotel",
-       text:"20–30 de minute."}
+       drum:"4.000 ¥ de persoană, de la 13 ani în sus. Se stă pe podea — cine are probleme cu genunchii poate cere un scăunel."}
     ],
     pranz:[
       {t:"fisa",masa:true,ora:"pe la 12:00",titlu:"Prânz",
