@@ -403,7 +403,7 @@ footer{margin-top:30px;padding-top:15px;border-top:1px solid var(--linie);
   <header>
     <p class="kanji">日課</p>
     <h1>Programul zilelor</h1>
-    <p class="actualizat">Actualizat ultima dată: <span id="actualizat">19 octombrie 2026</span></p>
+    <p class="actualizat">Actualizat ultima dată: <span id="actualizat">6 noiembrie 2026</span></p>
     <div class="legenda">
       <span><i class="semn st-gata"><span class="sm-jp">券</span><span class="et">Rezervat</span></i> bilete sau rezervare făcute</span>
       <span><i class="semn st-de"><span class="sm-jp">未</span><span class="et">De rezervat</span></i> încă de rezervat</span>
@@ -467,6 +467,9 @@ const SITE = {
   r_torisei:    ["http://www.torisei.com/","site oficial"],
   r_sagano:     ["https://www.sagano-kanko.co.jp/en/","site oficial"],
   r_hozugawa:   ["https://hozugawaboatride.com/","site oficial"],
+  r_bills:      ["https://billsjapan.com/en/osaka-station","site oficial"],
+  r_tombori:    ["https://www.ipponmatsu.co.jp/cruise/tombori.html","site oficial"],
+  r_aquanet:    ["https://www.aqua-net-h.co.jp/en/heritage/","site oficial"],
   r_saihoji:    ["https://saihoji-kokedera.com/en/","site oficial"],
   r_obubu:      ["https://obubutea.com/guided-tea-tour/","site oficial"],
   r_kaiseki:    ["https://guide.michelin.com/gb/en/kyoto-region/kyoto/restaurant/shimogamo-saryo","Ghidul Michelin"],
@@ -510,20 +513,26 @@ const REZERVARI = [
  det:"Bilete cumpărate. Reprezentația de la 13:30, cu ceai și dulce servite înainte."},
 {id:"r_torisei", et:"kyoto", zi:"6 nov", ora:"19:00", titlu:"Cină — Torisei Honten, Fushimi", stare:"gata",
  det:"Rezervat la 19:00. La câțiva pași de degustarea de sake."},
-{id:"r_hiroshima_tren", et:"kyoto", zi:"7 nov", ora:"08:30", titlu:"Shinkansen Kyoto → Hiroshima și Hiroshima → Kyoto", urgent:true,
- det:"Dus-întors, cu locuri rezervate pentru toți șase. Dus pe la 08:30, întors pe la 20:00. E sâmbătă, iar trenurile de weekend se umplu primele."},
-{id:"d_pranz7", et:"kyoto", tip:"dec", zi:"7 nov", ora:"pe la 13:00", titlu:"Unde luăm prânzul pe Miyajima",
- det:"Stridii la Kakiya sau la Yakigaki no Hayashi, pe Omotesando, ori anago-meshi (țipar de mare pe orez). Localurile nu iau rezervări; la ora prânzului se stă la coadă."},
-{id:"r_muzeu_pace", et:"kyoto", zi:"7 nov", ora:"17:30", titlu:"Muzeul Păcii — bilet web pentru seară", urgent:true,
- det:"Între 17:30 și 19:00 se intră doar cu bilet web. Biletele de seară se pot termina, mai ales sâmbăta. Ultima intrare 18:30."},
-{id:"r_cina_hiroshima", et:"kyoto", zi:"7 nov", ora:"pe la 19:00", titlu:"Cină în Hiroshima, lângă gară",
- det:"Sâmbătă seara, pentru șase: rezervăm din timp. Localul trebuie să fie aproape de gară, ca să prindem shinkansenul de întoarcere de pe la 20:00."},
-{id:"d_castel", et:"kyoto", tip:"dec", zi:"8 nov", ora:"pe la 14:45", titlu:"Castelul Osaka — intrăm în turn sau doar parcul?",
- det:"Parcul și zidurile sunt gratuite și sunt partea cea mai frumoasă. Turnul e o reconstrucție din 1931, muzeu cu lift, aglomerat în weekend: dacă intrăm, cu bilet online (1.200 ¥). Barca aurită Gozabune, 20 de minute pe șanțul interior, are bilete doar la ghișeu și locuri limitate."},
-{id:"r_osaka", et:"kyoto", zi:"8 nov", ora:"pe la 18:30", titlu:"Cină în Osaka, Namba–Dotonbori",
- det:"Duminică seara, pentru șase: rezervăm din timp, cu anulare gratuită. Unele localuri mici închid duminica — verificăm ziua de închidere înainte."},
+{id:"r_bills", et:"kyoto", zi:"7 nov", ora:"09:15", titlu:"Mic dejun — bills Osaka, LUCUA 1100",
+ det:"Masă pentru șase la 09:15. Micul dejun se servește 08:30 – 11:00, iar sâmbăta dimineața e coadă. Se rezervă cu până la două luni înainte, online sau la telefon."},
+{id:"d_castel", et:"kyoto", tip:"dec", zi:"7 nov", ora:"pe la 10:45", titlu:"Castelul Osaka — intrăm în turn sau doar parcul?",
+ det:"Parcul și zidurile sunt gratuite și sunt partea cea mai frumoasă. Turnul e o reconstrucție din 1931, muzeu cu lift, aglomerat în weekend: dacă intrăm, cu bilet online (1.200 ¥). Sâmbăta sunt deschise și turnurile de pază Tamon-yagura și Sengan-yagura, din programul de toamnă de weekend. Barca aurită Gozabune, 20 de minute pe șanțul interior, are bilete doar la ghișeu și locuri limitate."},
+{id:"r_tombori", et:"kyoto", zi:"7 nov", ora:"18:00", titlu:"Croaziera Tombori pe canalul Dotonbori",
+ det:"2.000 ¥ de persoană, 20 de minute, plecări din jumătate în jumătate de oră între 11:00 și 21:00. Sâmbătă seara se umple: luăm bilete online pentru cursa de 18:00, ca să urcăm toți șase pe același vaporaș."},
+{id:"r_osaka", et:"kyoto", zi:"7 nov", ora:"pe la 18:45", titlu:"Cină în Osaka, Namba–Dotonbori",
+ det:"Sâmbătă seara, pentru șase: rezervăm din timp, cu anulare gratuită. Masa trebuie să se termine pe la 20:30, ca să prindem trenul spre Kyoto."},
+{id:"r_hiroshima_tren", et:"kyoto", zi:"8 nov", ora:"07:30", titlu:"Shinkansen Kyoto → Hiroshima și Hiroshima → Kyoto", urgent:true,
+ det:"Dus-întors, cu locuri rezervate pentru toți șase. Dus pe la 07:30, întors pe la 19:00. E duminică, iar trenurile de weekend se umplu primele."},
+{id:"d_pranz7", et:"kyoto", tip:"dec", zi:"8 nov", ora:"pe la 12:00", titlu:"Unde luăm prânzul pe Miyajima",
+ det:"Stridii la Kakiya sau la Yakigaki no Hayashi, pe Omotesando, ori anago-meshi (țipar de mare pe orez). Localurile nu iau rezervări; mâncăm la 12:00, înainte de coadă, ca să prindem vaporașul de 13:10."},
+{id:"r_aquanet", et:"kyoto", zi:"8 nov", ora:"13:10", titlu:"Vaporașul Aqua Net Miyajima → Parcul Păcii", urgent:true,
+ det:"Biletul-pachet, 2.500 ¥ de persoană, acoperă și feribotul de dimineață Miyajimaguchi → Miyajima, cu aceeași companie. Se rezervă online cel târziu cu o zi înainte, adică până sâmbătă; în ziua plecării se cumpără doar de la ghișeu, cât mai sunt locuri. Plata cu numerar sau card, nu cu cardul IC."},
+{id:"r_cina_hiroshima", et:"kyoto", zi:"8 nov", ora:"pe la 17:45", titlu:"Cină în Hiroshima, lângă gară",
+ det:"Duminică seara, pentru șase: rezervăm din timp. Localul trebuie să fie aproape de gară, ca să prindem shinkansenul de întoarcere de pe la 19:00."},
 {id:"r_saihoji", et:"kyoto", zi:"9 nov", ora:"09:30", titlu:"Saiho-ji, Templul de Mușchi", stare:"gata",
  det:"Rezervările sunt confirmate pentru 09:30. Templul acceptă câte două persoane pe rezervare, deci avem trei rezervări de câte doi — tot grupul intră la aceeași oră. 4.000 ¥ de persoană, de la 13 ani în sus."},
+{id:"r_nara_tren", et:"kyoto", zi:"9 nov", ora:"pe la 12:15", titlu:"Kintetsu Limited Express Kyoto → Nara și Nara → Kyoto",
+ det:"Locuri rezervate pentru toți șase: dus pe la 12:15, întors pe la 17:35. 1.280 ¥ de persoană pe sens — biletul de 760 ¥ plus suplimentul de 520 ¥; cardul IC acoperă doar biletul, suplimentul se ia separat. E luni, deci se găsesc și la ghișeu, în ziua respectivă, dar le putem lua online din timp."},
 {id:"r_susabiyu", et:"kyoto", zi:"9 nov", ora:"18:30", titlu:"Cină — Sushi Dokoro Susabiyu",
  det:"De rezervat, pentru șase, la 18:30. Lângă stația de metrou Shijo, la două stații de Gara Kyoto."},
 {id:"r_sagano", et:"kyoto", zi:"10 nov", ora:"pe la 13:00", titlu:"Trenul panoramic Sagano", stare:"gata",
@@ -900,101 +909,127 @@ const ZILE = [
 },
 {
   id:"k7", et:["kyoto"], sapt:"Sâ", num:"7", luna:"nov", jp:"七",
-  scurt:"7 nov", zi:"Sâmbătă · Hiroshima și Miyajima", titlu:"7 noiembrie",
-  intro:"Excursie de o zi: insula Miyajima până după prânz, apoi Parcul și Muzeul Păcii din Hiroshima. Câte o oră și 45 de minute de shinkansen la dus și la întors.",
+  scurt:"7 nov", zi:"Sâmbătă · Fushimi Inari și Osaka", titlu:"7 noiembrie",
+  intro:"Porțile roșii de la Fushimi Inari în zori, apoi direct la Osaka: micul dejun lângă gară, castelul, prânzul în Shinsekai, apusul de pe Umeda Sky și Dotonbori seara, cu vaporașul pe canal.",
   benzi:{
     devreme:[
-      {t:"fisa",masa:true,ora:"07:00",titlu:"Mic dejun",
+      {t:"fisa",fix:true,ora:"06:00",titlu:"Gustare",
        loc:"la hotel",
-       text:"Plecăm spre gară la 08:00 — cinci minute pe jos până la peron."}
+       text:"Ceva ușor, cât să pornim — micul dejun îl luăm în Osaka."},
+      {t:"fisa",fix:true,ora:"06:15",titlu:"Tren Kyoto → Inari",
+       text:"Linia JR Nara din Gara Kyoto, două stații, cinci minute. Ieșirea din stația Inari dă direct în poarta sanctuarului."},
+      {t:"fisa",btn:true,fix:true,ora:"06:30 – 08:15",titlu:"Sanctuarul Fushimi Inari",
+       exp:[["k_fushimi","Fushimi Inari — tunelul celor 10.000 de porți"]],
+       text:"Sanctuarul zeului orezului și al negoțului, cu tunelul de porți vermilion care urcă muntele — peste zece mii, fiecare donată de câte o firmă. La ora asta tunelul e aproape gol. Urcăm până la Yotsutsuji, răscrucea de unde se vede tot Kyoto-ul, circa 45 de minute, și coborâm pe același drum.",
+       drum:"Deschis non-stop, intrare liberă. Urcușul are multe trepte — încălțăminte comodă. Bucla până în vârf ar mai cere încă o oră."},
+      {t:"fisa",fix:true,ora:"pe la 08:20",titlu:"Tren Inari → Osaka",
+       text:"Linia JR Nara înapoi la Gara Kyoto, cinci minute, apoi JR Special Rapid până la Osaka, circa 30 de minute. Ajungem pe la 09:10."}
     ],
     dimineata:[
-      {t:"fisa",rez:"r_hiroshima_tren",ora:"pe la 08:30",titlu:"Shinkansen Kyoto → Hiroshima",
-       text:"Circa o oră și trei sferturi, direct, cu locuri rezervate. Ajungem pe la 10:15."},
-      {t:"fisa",fix:true,ora:"pe la 10:30",titlu:"Tren și feribot Hiroshima → Miyajima",
-       text:"Trenul JR Sanyo până la Miyajimaguchi, 25 de minute, apoi feribotul, zece minute. Pe insulă ne întâmpină căprioarele, libere chiar în port."},
-      {t:"fisa",btn:true,fix:true,ora:"pe la 11:15",titlu:"Insula Miyajima: sanctuarul Itsukushima și poarta torii",
-       exp:[["hi_miyajima","Miyajima & poarta torii plutitoare"]],
-       text:"Sanctuarul construit pe piloni deasupra mării și marea poartă torii roșie, care la apă mare pare că plutește. Apoi strada Omotesando, cu magazine și tarabe.",
-       drum:"Verificăm tabelul mareelor pentru 7 noiembrie: poarta „plutește” doar la apă mare; la apă mică se poate merge pe jos până la ea."}
+      {t:"fisa",masa:true,rez:"r_bills",ora:"09:15 – 10:15",titlu:"Mic dejun",
+       loc:"bills Osaka, LUCUA 1100, etajul 7",
+       text:"Restaurantul australianului Bill Granger, cunoscut pentru ouăle scrambled și clătitele cu ricotta. Meniul de Osaka are și câteva feluri făcute doar aici, inspirate de takoyaki.",
+       drum:"LUCUA 1100 e legat direct de Gara Osaka, deci nu ieșim în stradă."},
+      {t:"fisa",fix:true,ora:"pe la 10:20",titlu:"Tren Osaka → Osakajokoen",
+       text:"Linia JR Loop, circa zece minute. Din stație intrăm direct în parcul castelului."},
+      {t:"fisa",btn:true,rez:"d_castel",ora:"10:45 – 12:30",titlu:"Castelul Osaka și parcul",
+       exp:[["o_castel","Castelul Osaka & parcul"]],
+       text:"Castelul ridicat în 1583 de Toyotomi Hideyoshi, generalul care a unificat Japonia. Parcul e uriaș și gratuit, iar zidurile de piatră și șanțurile cu apă sunt partea cea mai frumoasă. Turnul e o reconstrucție din 1931, cu muzeu și lift. Barca aurită Gozabune face douăzeci de minute pe șanțul interior, sub cele mai înalte ziduri de piatră din Japonia.",
+       drum:"Turnul: 1.200 ¥, bilet online; sâmbăta coada la lift e mare. În weekendurile de toamnă se deschid și turnurile de pază Tamon-yagura și Sengan-yagura. Gozabune: bilete doar la ghișeu, locuri limitate."}
     ],
     pranz:[
-      {t:"fisa",masa:true,rez:"d_pranz7",ora:"pe la 13:00",titlu:"Prânz",
-       loc:"Miyajima — localul de ales",
-       text:"Miyajima e cunoscută pentru stridii și pentru anago-meshi — țipar de mare la grătar, pe orez. Câteva variante:<br><br>— <b>Kakiya</b>, pe Omotesando — bar de stridii, crude, la grătar sau prăjite.<br>— <b>Yakigaki no Hayashi</b>, pe Omotesando — stridii la grătar, făcute pe loc, și orez cu stridii.<br>— <b>Anagomeshi Ueno</b>, lângă gara Miyajimaguchi, pe continent — cel mai cunoscut loc pentru anago-meshi, deschis din 1901; se poate lua și la pachet.<br><br>La final, momiji-manju — prăjiturica în formă de frunză de arțar, făcută pe loc.",
-       drum:"Nu se iau rezervări și la ora prânzului se stă la coadă. Noiembrie e începutul sezonului de stridii."}
+      {t:"fisa",fix:true,ora:"pe la 12:30",titlu:"Taxi Castelul Osaka → Shinsekai",
+       text:"Două taxiuri pentru șase, circa 20 de minute. E singurul drum cu taxiul din zi — ne scutește de un tren cu schimbare la mijlocul zilei."},
+      {t:"fisa",masa:true,ora:"pe la 13:00",titlu:"Prânz",
+       loc:"Shinsekai",
+       exp:[["o_shinsekai","Shinsekai & Tsutenkaku"],["o_kushikatsu","Kushikatsu"]],
+       text:"Shinsekai — „Lumea Nouă” — e un cartier din 1912 rămas neschimbat, sub turnul Tsutenkaku, cu firme uriașe și Billiken, zeul norocului. Specialitatea lui e <b>kushikatsu</b>: frigărui de carne, pește și legume, trecute prin pesmet și prăjite, care se mănâncă la tejghea. Se înmoaie într-un sos comun de pe masă, de aceea regula casei e ca fiecare frigăruie să fie înmuiată o singură dată.",
+       drum:"După masă, o plimbare fără grabă pe sub turnul Tsutenkaku și pe străduțele din jur, până pe la 15:30. Urcarea în turn, la Billiken, e opțională."}
     ],
     dupa:[
-      {t:"fisa",fix:true,ora:"pe la 14:30",titlu:"Feribot și tren Miyajima → Hiroshima",
-       text:"Feribotul, trenul până la Hiroshima, apoi tramvaiul 2 sau 6 până la Genbaku-Domu-mae."},
-      {t:"fisa",btn:true,fix:true,ora:"15:30 – 17:15",titlu:"Parcul Memorial al Păcii și Cupola Bombei Atomice",
-       text:"Singura clădire rămasă în picioare sub epicentru, azi în patrimoniul UNESCO, apoi cenotaful, Flacăra Păcii și monumentul copiilor. Mergem prin parc pe lumină, înainte de muzeu."},
-      {t:"fisa",rez:"r_muzeu_pace",ora:"17:30 – 18:45",titlu:"Muzeul Memorial al Păcii",
-       exp:[["hi_museum","Muzeul Memorial al Păcii"]],
-       text:"Intrăm cu bilet web la 17:30. E o vizită grea și de aceea am lăsat-o la final.",
-       drum:"Deschis până la 19:00, ultima intrare 18:30; între 17:30 și 19:00 se intră doar cu bilet web. Pentru o vizită mai scurtă, muzeul are un traseu de circa 30 de minute prin clădirea principală."}
+      {t:"fisa",btn:true,fix:true,ora:"16:00 – 17:15",titlu:"Umeda Sky Building — grădina plutitoare",
+       exp:[["o_umeda","Umeda Sky Building"]],
+       site:["https://www.skybldg.co.jp/en/","site oficial"],
+       text:"Două turnuri unite la ultimul etaj de o terasă circulară în aer liber, la 173 de metri, la care se urcă pe o scară rulantă de sticlă suspendată între clădiri. Soarele apune pe la 17:00: prindem orașul pe lumină, apusul și primele lumini.",
+       drum:"Din Shinsekai, metroul Midosuji de la Dobutsuen-mae până la Umeda, circa 15 minute, apoi zece minute pe jos. Bilet 2.000 ¥, la ghișeul de la etajul 39, fără rezervare. Scara rulantă expusă poate da vertij."}
     ],
     seara:[
-      {t:"fisa",masa:true,rez:"r_cina_hiroshima",ora:"pe la 19:00",titlu:"Cină",
-       loc:"lângă gara Hiroshima",
-       exp:[["o_okonomiyaki","Okonomiyaki"]],
-       text:"Specialitatea orașului e okonomiyaki în stil Hiroshima — o clătită sărată gătită pe plită, în straturi: aluat, varză, tăiței, carne și un ou deasupra. Diferă de cea din Osaka, unde totul se amestecă în aluat. Mâncăm lângă gară, ca să ajungem ușor la tren.",
-       drum:"De rezervat din timp: e sâmbătă seara și suntem șase."},
-      {t:"fisa",rez:"r_hiroshima_tren",ora:"pe la 20:00",titlu:"Shinkansen Hiroshima → Kyoto",
-       text:"Suntem la hotel pe la 21:45."}
+      {t:"fisa",btn:true,fix:true,ora:"pe la 17:45",titlu:"Dotonbori seara",
+       exp:[["o_dotonbori","Dotonbori seara"]],
+       text:"Canalul cu firme luminoase uriașe, printre ele alergătorul Glico, simbolul orașului. Când ajungem, luminile sunt deja aprinse.",
+       drum:"Din Umeda, metroul Midosuji până la Namba, circa zece minute."},
+      {t:"fisa",rez:"r_tombori",ora:"18:00 – 18:20",titlu:"Croaziera Tombori pe canal",
+       exp:[["o_tombori","Croazieră Tombori pe canal"]],
+       text:"Douăzeci de minute cu vaporașul pe sub cele nouă poduri ale canalului, cu un ghid care spune poveștile firmelor. De pe apă, Dotonbori se vede fără înghesuiala de pe stradă.",
+       drum:"Pontonul Tazaemonbashi, lângă intrarea dinspre râu a magazinului Don Quijote, cel cu roata galbenă."},
+      {t:"fisa",masa:true,rez:"r_osaka",ora:"pe la 18:45",titlu:"Cină",
+       loc:"Namba–Dotonbori",
+       exp:[["o_okonomiyaki","Okonomiyaki"],["o_takoyaki","Takoyaki"]],
+       text:"Osaka e orașul mâncării de stradă: okonomiyaki — clătita sărată făcută pe plita din fața noastră, cu totul amestecat în aluat — și takoyaki, găluște cu caracatiță, de la tarabă."},
+      {t:"fisa",fix:true,ora:"pe la 20:30",titlu:"Tren Osaka → Kyoto",
+       text:"Metroul Midosuji din Namba până la Umeda, apoi JR Special Rapid din Osaka până la Gara Kyoto. Suntem la hotel pe la 21:30."}
     ]
   }
 },
 {
   id:"k8", et:["kyoto"], sapt:"Du", num:"8", luna:"nov", jp:"八",
-  scurt:"8 nov", zi:"Duminică · Osaka", titlu:"8 noiembrie",
-  intro:"Duminică dimineața ne odihnim la hotel, cu mic dejun și baie termală. Spre Osaka plecăm pe la 12:30 – 13:00: Shinsekai, castelul, Dotonbori la căderea serii și cina.",
+  scurt:"8 nov", zi:"Duminică · Miyajima și Hiroshima", titlu:"8 noiembrie",
+  intro:"Excursie de o zi: insula Miyajima dimineața, cât poarta torii „plutește” pe apă mare, apoi cu vaporașul direct la Parcul și Muzeul Păcii din Hiroshima. Câte o oră și 40 de minute de shinkansen la dus și la întors.",
   benzi:{
     devreme:[
-      {t:"fisa",masa:true,ora:"până la 10:00",titlu:"Mic dejun",
-       loc:"la hotel"}
+      {t:"fisa",masa:true,ora:"06:30",titlu:"Mic dejun",
+       loc:"la hotel",
+       text:"Plecăm spre gară la 07:15 — cinci minute pe jos până la peron.",
+       drum:"Dacă restaurantul nu e încă deschis, luăm un ekiben — cutia de mâncare pentru tren — din Gara Kyoto."},
+      {t:"fisa",rez:"r_hiroshima_tren",ora:"pe la 07:30",titlu:"Shinkansen Kyoto → Hiroshima",
+       text:"Circa o oră și 40 de minute, direct, cu locuri rezervate. Ajungem pe la 09:10."}
     ],
     dimineata:[
-      {t:"fisa",fix:true,ora:"dimineața",titlu:"Onsen",
-       loc:"la hotel",
-       text:"Izvor termal natural, saună și bazin în aer liber."}
+      {t:"fisa",fix:true,ora:"pe la 09:25",titlu:"Tren și feribot Hiroshima → Miyajima",
+       text:"Trenul JR Sanyo până la Miyajimaguchi, 25 de minute, apoi feribotul Aqua Net, zece minute — e inclus în biletul-pachet al vaporașului de după-amiază. Pe insulă ne întâmpină căprioarele, libere chiar în port."},
+      {t:"fisa",btn:true,fix:true,ora:"10:15 – 12:00",titlu:"Insula Miyajima: sanctuarul Itsukushima și poarta torii",
+       exp:[["hi_miyajima","Miyajima & poarta torii plutitoare"]],
+       text:"Mergem întâi la sanctuar. Pe 8 noiembrie apa e mare la 08:54, deci până pe la 11:00 poarta torii roșie încă „plutește”, iar sanctuarul construit pe piloni pare așezat pe mare. Apoi strada Omotesando, cu magazine și tarabe.",
+       drum:"Apa mică vine la 14:50, când noi suntem deja în Hiroshima. Orele sunt după tabelul mareelor; la sanctuar, apa urcă și coboară cu câteva minute mai devreme."}
     ],
     pranz:[
-      {t:"fisa",fix:true,ora:"12:30 – 13:00",titlu:"Tren Kyoto → Osaka",
-       text:"JR Special Rapid din Gara Kyoto până la Osaka, circa 30 de minute, apoi linia JR Loop până la Shin-Imamiya. Cam o oră în total."},
-      {t:"fisa",masa:true,ora:"pe la 13:45",titlu:"Prânz",
-       loc:"Shinsekai",
-       exp:[["o_shinsekai","Shinsekai & Tsutenkaku"],["o_kushikatsu","Kushikatsu"]],
-       text:"Shinsekai — „Lumea Nouă” — e un cartier din 1912 rămas neschimbat, sub turnul Tsutenkaku, cu firme uriașe și Billiken, zeul norocului. Specialitatea lui e <b>kushikatsu</b>: frigărui de carne, pește și legume, trecute prin pesmet și prăjite, care se mănâncă la tejghea. Se înmoaie într-un sos comun de pe masă, de aceea regula casei e ca fiecare frigăruie să fie înmuiată o singură dată."}
+      {t:"fisa",masa:true,rez:"d_pranz7",ora:"pe la 12:00",titlu:"Prânz",
+       loc:"Miyajima — localul de ales",
+       text:"Miyajima e cunoscută pentru stridii și pentru anago-meshi — țipar de mare la grătar, pe orez. Două variante pe Omotesando:<br><br>— <b>Kakiya</b> — bar de stridii, crude, la grătar sau prăjite.<br>— <b>Yakigaki no Hayashi</b> — stridii la grătar, făcute pe loc, și orez cu stridii.<br><br>La final, momiji-manju — prăjiturica în formă de frunză de arțar, făcută pe loc.",
+       drum:"Nu se iau rezervări. Mâncăm la 12:00, înainte de coada mare, ca să prindem vaporașul de 13:10. Noiembrie e începutul sezonului de stridii."}
     ],
     dupa:[
-      {t:"fisa",btn:true,rez:"d_castel",ora:"14:45 – 16:15",titlu:"Castelul Osaka și parcul",
-       exp:[["o_castel","Castelul Osaka & parcul"]],
-       text:"Castelul ridicat în 1583 de Toyotomi Hideyoshi, generalul care a unificat Japonia. Parcul e uriaș și gratuit, iar zidurile de piatră și șanțurile cu apă sunt partea cea mai frumoasă. Turnul e o reconstrucție din 1931, cu muzeu și lift. Barca aurită Gozabune face douăzeci de minute pe șanțul interior, sub cele mai înalte ziduri de piatră din Japonia.",
-       drum:"Din Shinsekai, linia JR Loop până la Osakajokoen, circa 20 de minute. Turnul: 1.200 ¥, bilet online. Gozabune: bilete doar la ghișeu, locuri limitate."},
-      {t:"fisa",btn:true,fix:true,ora:"pe la 16:45",titlu:"Dotonbori seara",
-       exp:[["o_dotonbori","Dotonbori seara"],["o_tombori","Croazieră Tombori"]],
-       text:"Canalul cu firme luminoase uriașe, printre ele alergătorul Glico, simbolul orașului. Soarele apune pe la 16:50, deci ajungem când se aprind luminile. Croaziera Tombori, douăzeci de minute pe canal, arată firmele de pe apă.",
-       drum:"Din parcul castelului, cu metroul până la Namba, circa 20 de minute."}
+      {t:"fisa",rez:"r_aquanet",ora:"13:10 – 13:55",titlu:"Vaporaș Miyajima → Parcul Păcii",
+       text:"Vaporașul rapid Aqua Net leagă direct cele două locuri din patrimoniul UNESCO: traversează golful, intră pe râu prin oraș și ne lasă pe pontonul de lângă Cupola Bombei Atomice. Fără tren și fără tramvai.",
+       drum:"Pontonul de pe Miyajima e lângă terminalul feriboturilor. Mareea poate schimba traseul pe râu, dar nu și ora de sosire."},
+      {t:"fisa",btn:true,fix:true,ora:"14:00 – 15:15",titlu:"Parcul Memorial al Păcii și Cupola Bombei Atomice",
+       text:"Singura clădire rămasă în picioare sub epicentru, azi în patrimoniul UNESCO, apoi cenotaful, Flacăra Păcii și monumentul copiilor. Mergem prin parc pe lumină, înainte de muzeu.",
+       drum:"Pontonul e la câțiva pași de Cupolă."},
+      {t:"fisa",btn:true,fix:true,ora:"15:15 – 17:15",titlu:"Muzeul Memorial al Păcii",
+       exp:[["hi_museum","Muzeul Memorial al Păcii"]],
+       text:"E o vizită grea și de aceea am lăsat-o la final.",
+       drum:"Intrăm înainte de 17:30, deci biletul se ia la intrare, fără rezervare; după 17:30 se intră doar cu bilet web. Pentru o vizită mai scurtă, muzeul are un traseu de circa 30 de minute prin clădirea principală."}
     ],
     seara:[
-      {t:"fisa",masa:true,rez:"r_osaka",ora:"pe la 18:30",titlu:"Cină",
-       loc:"Namba–Dotonbori",
-       exp:[["o_okonomiyaki","Okonomiyaki"],["o_takoyaki","Takoyaki"]],
-       text:"Osaka e orașul mâncării de stradă: okonomiyaki — clătita sărată făcută pe plita din fața noastră — și takoyaki, găluște cu caracatiță, de la tarabă."},
-      {t:"fisa",fix:true,ora:"pe la 20:30",titlu:"Tren Osaka → Kyoto",
-       text:"Sub o oră până la hotel."}
+      {t:"fisa",masa:true,rez:"r_cina_hiroshima",ora:"pe la 17:45",titlu:"Cină",
+       loc:"lângă gara Hiroshima",
+       exp:[["o_okonomiyaki","Okonomiyaki"]],
+       text:"Specialitatea orașului e okonomiyaki în stil Hiroshima — o clătită sărată gătită pe plită, în straturi: aluat, varză, tăiței, carne și un ou deasupra. Diferă de cea din Osaka, de aseară, unde totul se amestecă în aluat. Mâncăm lângă gară, ca să ajungem ușor la tren.",
+       drum:"Din parc, tramvaiul 2 sau 6 de la Genbaku-Domu-mae până la gară, circa un sfert de oră. De rezervat din timp: e duminică seara și suntem șase."},
+      {t:"fisa",rez:"r_hiroshima_tren",ora:"pe la 19:00",titlu:"Shinkansen Hiroshima → Kyoto",
+       text:"Suntem la hotel pe la 20:50."}
     ]
   }
 },
 {
   id:"k9", et:["kyoto"], sapt:"Lu", num:"9", luna:"nov", jp:"九",
-  scurt:"9 nov", zi:"Luni · Saiho-ji și după-amiază liberă", titlu:"9 noiembrie",
-  intro:"Dimineața, Templul de Mușchi. După-amiaza e liberă. Seara, cina de sushi.",
+  scurt:"9 nov", zi:"Luni · Saiho-ji și Nara", titlu:"9 noiembrie",
+  intro:"Dimineața, Templul de Mușchi. După-amiaza, Nara: mochi pisat pe loc, Kofuku-ji, parcul cu căprioare și Marele Buddha de la Todai-ji. Seara, cina de sushi.",
   benzi:{
     devreme:[
       {t:"fisa",masa:true,ora:"de la 07:30",titlu:"Mic dejun",
-       loc:"la hotel"}
+       loc:"la hotel",
+       text:"Mâncăm bine: azi nu avem prânz, până la cină ne ține doar mochi-ul din Nara."}
     ],
     dimineata:[
       {t:"fisa",rez:"r_saihoji",ora:"09:30 – 11:00",titlu:"Saiho-ji, Templul de Mușchi",
@@ -1003,19 +1038,35 @@ const ZILE = [
        drum:"4.000 ¥ de persoană, de la 13 ani în sus. Se stă pe podea — cine are probleme cu genunchii poate cere un scăunel."}
     ],
     pranz:[
-      {t:"fisa",masa:true,ora:"pe la 12:00",titlu:"Prânz",
-       loc:"lângă Gara Kyoto"}
+      {t:"fisa",rez:"r_nara_tren",ora:"pe la 12:15",titlu:"Tren Kyoto → Nara",
+       text:"Kintetsu Limited Express de pe peronul Kintetsu din Gara Kyoto până la Kintetsu-Nara, circa 35 de minute, cu locuri rezervate. Gara din Nara e chiar la marginea parcului.",
+       drum:"Din Saiho-ji, autobuzul 73 de la stația Kokedera Suzumushidera până la Gara Kyoto, circa o oră."}
     ],
     dupa:[
-      {t:"fisa",fix:true,ora:"după-amiaza",titlu:"Timp liber",
-       loc:"la hotel",
-       text:"Odihnă și onsen la hotel."},
-      {t:"fisa",btn:true,deschis:true,ora:"după-amiaza",titlu:"Fushimi Inari sau Nara",
-       exp:[["k_fushimi","Fushimi Inari"],["n_todaiji","Todai-ji & Marele Buddha"],["n_narapark","Parcul Nara"],["n_deer","Hrănitul căprioarelor"]],
-       text:"Pentru cine are chef de ieșit. <b>Fushimi Inari</b> — tunelul porților roșii, la două stații de gară. <b>Nara</b> — templul Todai-ji și parcul cu căprioare, la 45 de minute cu trenul.",
-       drum:"Una dintre ele, nu amândouă. La Nara, templul închide spre ora cinci."}
+      {t:"fisa",btn:true,fix:true,ora:"pe la 13:00",titlu:"Mochi pisat la Nakatanidou",
+       exp:[["n_mochi","Mochi pisat la Nakatanidou"],["n_kakinoha","Kakinoha-zushi"],["n_narazuke","Narazuke"]],
+       text:"Doi bărbați pisează mochi-ul cu ciocane de lemn, la o viteză amețitoare, strigând ritmat — iar la final ni-l vând cald, cu pastă dulce de fasole — gustarea noastră în loc de prânz. Pe aceeași stradă se găsesc și kakinoha-zushi, sushi presat învelit în frunză de curmal, și narazuke, legume ținute luni de zile în drojdie de sake.",
+       drum:"Pe strada Sanjo, la capătul arcadei Higashimuki, cinci minute pe jos de gară. Pisatul se face din când în când, nu la oră fixă — dacă îl prindem, e un bonus."},
+      {t:"fisa",btn:true,fix:true,ora:"13:15 – 13:45",titlu:"Templul Kofuku-ji",
+       exp:[["n_kofukuji","Kofuku-ji & pagoda cu cinci niveluri"]],
+       text:"Primul templu de la intrarea în parc, întemeiat în 710 de clanul Fujiwara, cel mai puternic al vremii, cu căprioarele umblând libere printre clădiri. Pagoda cu cinci niveluri, a doua ca înălțime din Japonia, e acum acoperită: trece prin prima mare renovare din ultimii 120 de ani, până prin 2034.",
+       drum:"Curtea e liberă; sălile aurii și muzeul tezaurului se plătesc separat, dacă vrem să intrăm."},
+      {t:"fisa",btn:true,fix:true,ora:"13:45 – 14:45",titlu:"Parcul Nara și căprioarele",
+       exp:[["n_narapark","Parcul Nara"],["n_deer","Hrănitul căprioarelor"]],
+       text:"Parcul prin care umblă libere peste o mie de căprioare, socotite de secole mesagerii zeilor. Au învățat să se încline pentru un biscuit — shika senbei, vândut la tarabe peste tot. Traversăm parcul pe jos, spre Todai-ji.",
+       drum:"Sunt animale sălbatice: împing și trag de haine când văd biscuiții. Îi dăm repede, apoi arătăm mâinile goale."},
+      {t:"fisa",btn:true,fix:true,ora:"14:45 – 16:00",titlu:"Poarta Nandaimon și templul Todai-ji",
+       exp:[["n_nandaimon","Poarta Nandaimon & gardienii Nio"],["n_todaiji","Todai-ji & Marele Buddha"]],
+       text:"Intrăm pe Nandaimon, cea mai mare poartă de templu din Japonia, străjuită de doi gardieni de lemn înalți de peste opt metri, cioplați în 1203. Dincolo, sala Marelui Buddha — una dintre cele mai mari clădiri de lemn din lume — cu un Buddha de bronz înalt de cincisprezece metri, turnat în 752. În spatele lui, stâlpul cu o gaură cât nara lui Buddha: cine se strecoară prin ea își câștigă, spune tradiția, luminarea.",
+       drum:"Sala Marelui Buddha: 800 ¥, doar numerar. În noiembrie e deschisă 08:00 – 17:00, deci intrăm cel târziu pe la 16:15."}
     ],
     seara:[
+      {t:"fisa",btn:true,deschis:true,ora:"16:00 – 17:15",titlu:"Spre apus: Kasuga Taisha și Ukimido",
+       exp:[["n_kasuga","Kasuga Taisha"],["n_ukimido","Ukimido — pavilionul de pe iaz"]],
+       text:"Pentru cine mai are chef de mers: aleea sanctuarului Kasuga Taisha, mărginită de mii de felinare de piatră, prin pădurea de cedri, apoi, la coborâre, foișorul Ukimido de pe iazul Sagiike, care se oglindește în apă la apus.",
+       drum:"Aleea e liberă; curtea interioară închide la 16:00, deci o vedem doar din afară. De la Ukimido până la gară sunt circa 20 de minute pe jos. Cine nu vine merge direct din Todai-ji la gară, tot vreo 20 de minute, prin parc."},
+      {t:"fisa",rez:"r_nara_tren",ora:"pe la 17:35",titlu:"Tren Nara → Kyoto",
+       text:"Kintetsu Limited Express până la Gara Kyoto, circa 35 de minute, apoi metroul Karasuma două stații, până la Shijo — direct la cină."},
       {t:"fisa",masa:true,rez:"r_susabiyu",ora:"18:30",titlu:"Cină",
        loc:"Sushi Dokoro Susabiyu",
        text:"Sushi într-o casă tradițională de lemn renovată, lângă Shijo-Karasuma; de la tejgheaua de la parter se vede o grădină interioară. Pe lângă sushi clasic, specialitatea casei e sushi cu wagyu.",
@@ -1232,12 +1283,12 @@ hakone:[
 ],
 kyoto:[
   "<b>Hotelul</b> — la câteva minute de Gara Kyoto, deci linia JR Nara și shinkansenul pornesc de lângă noi. Pentru Higashiyama, nord și Arashiyama: 15–45 de minute cu autobuzul sau trenul.",
-  "<b>Cum e construită săptămâna</b> — vineri Kyoto și Fushimi, sâmbătă Hiroshima, duminică Osaka, luni Saiho-ji și după-amiază liberă, marți Arashiyama cu trenul și barca, miercuri ziua de naștere, joi plecarea spre Tokyo.",
-  "<b>Dimineți devreme</b> — pe 6 și pe 7 (mic dejun la 07:00) și pe 10, pentru bambus (plecare pe la 07:15).",
-  "<b>Apusul</b> — în jur de 16:50 toată săptămâna; după 17:00 e deja noapte.",
+  "<b>Cum e construită săptămâna</b> — vineri Kyoto și Fushimi, sâmbătă Fushimi Inari și Osaka, duminică Hiroshima și Miyajima, luni Saiho-ji și Nara, marți Arashiyama cu trenul și barca, miercuri ziua de naștere, joi plecarea spre Tokyo.",
+  "<b>Dimineți devreme</b> — pe 6 (mic dejun la 07:00), pe 7 (Fushimi Inari de la 06:30, doar cu o gustare la hotel; micul dejun e în Osaka), pe 8 (mic dejun la 06:30, shinkansen pe la 07:30) și pe 10, pentru bambus (plecare pe la 07:15).",
+  "<b>Apusul</b> — în jur de 17:00 la începutul săptămânii, cu câteva minute mai devreme spre final; după 17:15 e deja noapte.",
   "<b>Culorile de toamnă</b> — la mijlocul lui noiembrie orașul abia începe; vârful vine spre sfârșitul lunii. La munte sunt deja aprinse.",
   "<b>Băile hotelului</b> — izvor natural, saună și bazin în aer liber. Tatuajele nu sunt acceptate.",
-  "<b>Rezervările care nu se pot recupera</b> — Gion Odori și cina de la Torisei pe 6, Hiroshima pe 7, Saiho-ji pe 9 (la 09:30), trenul Sagano și barca pe 10, turul Obubu și cina de la Shimogamo Saryo pe 11."
+  "<b>Rezervările care nu se pot recupera</b> — Gion Odori și cina de la Torisei pe 6, Hiroshima pe 8 (shinkansenul și vaporașul Aqua Net), Saiho-ji pe 9 (la 09:30), trenul Sagano și barca pe 10, turul Obubu și cina de la Shimogamo Saryo pe 11."
 ],
 tokyo2:[
   "<b>Hotelul</b> — Royal Park Hotel Iconic Tokyo Shiodome, la un minut de stația Shiodome și trei de Shimbashi, printr-un pasaj subteran. Micul dejun de la 07:00.",
@@ -2199,7 +2250,7 @@ el("laPdf").onclick = descarcaPdf;
 /* data ultimei actualizări: o dă serverul (GitHub Pages), deci se schimbă singură
    la fiecare publicare. Dacă serverul n-o trimite, browserul pune ora de acum —
    atunci se folosește data scrisă de mână aici. */
-const ACTUALIZAT_MANUAL = "19 octombrie 2026";
+const ACTUALIZAT_MANUAL = "6 noiembrie 2026";
 (function(){
   const d = new Date(document.lastModified);
   const auto = !isNaN(d) && Math.abs(Date.now() - d.getTime()) > 60000;
